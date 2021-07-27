@@ -1,0 +1,72 @@
+apiVersion: qingcloud.com/v1
+kind: Pgcluster
+metadata:
+  annotations:
+    current-primary: hippo
+  labels:
+    autofail: "true"
+    qingcloud-pgbadger: "false"
+    qingcloud-pgha-scope: hippo
+    deployment-name: hippo
+    name: hippo
+    pg-cluster: hippo
+    pgo-version: 4.7.1
+    pgouser: admin
+  name: hippo
+  namespace: pgo
+spec:
+  BackrestStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: ""
+    size: 1G
+    storageclass: ""
+    storagetype: dynamic
+    supplementalgroups: ""
+  PrimaryStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: hippo
+    size: 1G
+    storageclass: ""
+    storagetype: dynamic
+    supplementalgroups: ""
+  ReplicaStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: ""
+    size: 1G
+    storageclass: ""
+    storagetype: dynamic
+    supplementalgroups: ""
+  annotations:
+    global: {}
+    backrest: {}
+    pgBouncer: {}
+    postgres: {}
+  ccpimage: qingcloud-postgres-ha
+  ccpimageprefix: docker.io/radondb
+  ccpimagetag: centos8-13.3-4.7.1
+  clustername: hippo
+  customconfig: ""
+  database: hippo
+  exporterport: "9187"
+  limits: {}
+  name: hippo
+  namespace: pgo
+  pgBouncer:
+    resources: {}
+  pgDataSource:
+    restoreFrom: ""
+    restoreOpts: ""
+  pgbadgerport: "10000"
+  pgoimageprefix: docker.io/radondb
+  podAntiAffinity:
+    default: preferred
+    pgBackRest: preferred
+    pgBouncer: preferred
+  policies: ""
+  port: "5432"
+  user: hippo
+  userlabels:
+    pgo-version: 4.7.1

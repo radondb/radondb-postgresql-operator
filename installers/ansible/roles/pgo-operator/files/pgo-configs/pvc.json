@@ -1,0 +1,27 @@
+{
+    "kind": "PersistentVolumeClaim",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "{{.Name}}",
+        "labels": {
+            {{ if .CustomLabels }}
+            {{ .CustomLabels }}
+            {{ end }}
+            "vendor": "qingcloud",
+            "pg-cluster": "{{.ClusterName}}"
+        }
+    },
+    "spec": {
+
+    {{.MatchLabels}}
+
+        "accessModes": [
+            "{{.AccessMode}}"
+        ],
+        "resources": {
+            "requests": {
+                "storage": "{{.Size}}"
+            }
+        }
+    }
+}

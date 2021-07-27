@@ -1,0 +1,108 @@
+{
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "Role",
+    "metadata": {
+        "name": "pgo-target-role",
+        "namespace": "{{.TargetNamespace}}",
+        "labels": {
+          "vendor": "qingcloud"
+        }
+    },
+    "rules": [
+        {
+            "apiGroups": [
+                ""
+            ],
+            "resources": [
+                "configmaps",
+                "endpoints",
+                "pods",
+                "pods/exec",
+                "secrets",
+                "services",
+                "persistentvolumeclaims"
+            ],
+            "verbs":[
+                "get",
+                "list",
+                "watch",
+                "create",
+                "patch",
+                "update",
+                "delete",
+                "deletecollection"
+            ]
+        },
+        {
+            "apiGroups": [
+                ""
+            ],
+            "resources": [
+                "pods/log"
+            ],
+            "verbs":[
+                "get",
+                "list",
+                "watch"
+            ]
+        },
+        {
+            "apiGroups": [
+                "apps"
+            ],
+            "resources": [
+                "deployments",
+                "replicasets"
+            ],
+            "verbs":[
+                "get",
+                "list",
+                "watch",
+                "create",
+                "patch",
+                "update",
+                "delete",
+                "deletecollection"
+            ]
+        },
+        {
+            "apiGroups": [
+                "batch"
+            ],
+            "resources": [
+                "jobs"
+            ],
+            "verbs":[
+                "get",
+                "list",
+                "watch",
+                "create",
+                "patch",
+                "update",
+                "delete",
+                "deletecollection"
+            ]
+        },
+        {
+            "apiGroups": [
+                "qingcloud.com"
+            ],
+            "resources": [
+                "pgclusters",
+                "pgpolicies",
+                "pgtasks",
+                "pgreplicas"
+            ],
+            "verbs":[
+                "get",
+                "list",
+                "watch",
+                "create",
+                "patch",
+                "update",
+                "delete",
+                "deletecollection"
+            ]
+        }
+    ]
+}

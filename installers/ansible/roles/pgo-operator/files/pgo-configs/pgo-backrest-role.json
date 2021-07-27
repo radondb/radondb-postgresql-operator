@@ -1,0 +1,36 @@
+{
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "Role",
+    "metadata": {
+        "name": "pgo-backrest-role",
+        "namespace": "{{.TargetNamespace}}",
+        "labels": {
+          "vendor": "qingcloud"
+        }
+    },
+    "rules": [
+        {
+            "apiGroups": [
+                ""
+            ],
+            "resources": [
+                "pods"
+            ],
+            "verbs": [
+                "get",
+                "list"
+            ]
+        },
+        {
+            "apiGroups": [
+                ""
+            ],
+            "resources": [
+                "pods/exec"
+            ],
+            "verbs": [
+                "create"
+            ]
+        }
+    ]
+}

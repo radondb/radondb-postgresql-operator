@@ -1,0 +1,87 @@
+Cluster:
+  CCPImagePrefix:  docker.io/radondb
+  Metrics:  false
+  Badger:  false
+  CCPImageTag:  centos8-13.3-4.7.1
+  Port:  5432
+  PGBadgerPort: 10000
+  ExporterPort: 9187
+  User:  testuser
+  Database:  ""
+  PasswordAgeDays:  0
+  PasswordLength:  24
+  Replicas:  0
+  ServiceType:  ClusterIP
+  BackrestPort:  2022
+  BackrestGCSBucket:
+  BackrestGCSEndpoint:
+  BackrestGCSKeyType:
+  BackrestS3Bucket:
+  BackrestS3Endpoint:
+  BackrestS3Region:
+  BackrestS3URIStyle: ""
+  BackrestS3VerifyTLS: true
+  DisableAutofail:  false
+  PodAntiAffinity: preferred
+  PodAntiAffinityPgBackRest: ""
+  PodAntiAffinityPgBouncer: ""
+  SyncReplication: false
+  DefaultInstanceMemory: "128Mi"
+  DefaultBackrestMemory:
+  DefaultPgBouncerMemory:
+  DefaultExporterMemory:
+PrimaryStorage: default
+WALStorage:
+BackupStorage: default
+ReplicaStorage: default
+BackrestStorage: default
+PGAdminStorage: default
+Storage:
+  default:
+    AccessMode:  ReadWriteOnce
+    Size:  1G
+    StorageType:  dynamic
+  hostpathstorage:
+    AccessMode:  ReadWriteMany
+    Size:  1G
+    StorageType:  create
+  nfsstorage:
+    AccessMode:  ReadWriteMany
+    Size:  1G
+    StorageType:  create
+    SupplementalGroups:  65534
+  nfsstoragered:
+    AccessMode:  ReadWriteMany
+    Size:  1G
+    MatchLabels: qingcloudzone=red
+    StorageType:  create
+    SupplementalGroups:  65534
+  storageos:
+    AccessMode:  ReadWriteOnce
+    Size:  5Gi
+    StorageType:  dynamic
+    StorageClass:  fast
+  primarysite:
+    AccessMode:  ReadWriteOnce
+    Size:  4G
+    StorageType:  dynamic
+    StorageClass:  primarysite
+  alternatesite:
+    AccessMode:  ReadWriteOnce
+    Size:  4G
+    StorageType:  dynamic
+    StorageClass:  alternatesite
+  gce:
+    AccessMode:  ReadWriteOnce
+    Size:  300M
+    StorageType:  dynamic
+    StorageClass:  standard
+  rook:
+    AccessMode:  ReadWriteOnce
+    Size:  1G
+    StorageType:  dynamic
+    StorageClass:  rook-ceph-block
+Pgo:
+  Audit:  false
+  PGOImagePrefix:  docker.io/radondb
+  PGOImageTag:  centos8-4.7.1

@@ -1,0 +1,3 @@
+[submodule "hugo/themes/qingcloud-hugo-theme"]
+	path = docs/themes/qingcloud-hugo-theme
+	url = https://github.com/qingcloud/qingcloud-hugo-theme

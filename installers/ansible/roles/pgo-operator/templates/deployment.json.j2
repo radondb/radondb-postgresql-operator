@@ -1,0 +1,287 @@
+{
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+        "name": "postgres-operator",
+        "labels": {
+            "vendor": "qingcloud"
+        }
+    },
+    "spec": {
+        "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "name": "postgres-operator",
+                "vendor": "qingcloud"
+            }
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "name": "postgres-operator",
+                    "vendor": "qingcloud"
+                }
+            },
+            "spec": {
+                "serviceAccountName": "postgres-operator",
+                "securityContext": {
+                  "runAsNonRoot": true
+                },
+                "containers": [
+                    {
+                        "name": "apiserver",
+                        "image": "{% if pgo_apiserver_image | default('') != '' %}{{ pgo_apiserver_image }}
+                                {%- else %}{{ pgo_image_prefix }}/pgo-apiserver:{{ pgo_image_tag }}
+                                {%- endif %}",
+                        "imagePullPolicy": "IfNotPresent",
+                        "securityContext": {
+                          "allowPrivilegeEscalation": false,
+                          "privileged": false,
+                          "readOnlyRootFilesystem": true
+                        },
+                        "ports": [
+                            { "containerPort": {{ pgo_apiserver_port }}, "name": "api" }
+                        ],
+                        "readinessProbe": {
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": {{ pgo_apiserver_port }},
+                                "scheme": {% if pgo_disable_tls == "true" %}"HTTP"{%- else %}"HTTPS"{%- endif %}
+                            },
+                            "initialDelaySeconds": 15,
+                            "periodSeconds": 5
+                        },
+                        "livenessProbe": {
+                            "httpGet": {
+                                "path": "/healthz",
+                                "port": {{ pgo_apiserver_port }},
+                                "scheme": {% if pgo_disable_tls == "true" %}"HTTP"{%- else %}"HTTPS"{%- endif %}
+                            },
+                            "initialDelaySeconds": 15,
+                            "periodSeconds": 5
+                        },
+                        "env": [
+                            {
+                                "name": "QINGCLOUD_DEBUG",
+                                "value": "{{ qingcloud_debug }}"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "{{ pgo_apiserver_port }}"
+                            },
+                            {
+                                "name": "NAMESPACE",
+                                "value": "{{ namespace }}"
+                            },
+                            {
+                                "name": "PGO_INSTALLATION_NAME",
+                                "value": "{{ pgo_installation_name }}"
+                            },
+                            {
+                                "name": "PGO_OPERATOR_NAMESPACE",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "fieldPath": "metadata.namespace"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "TLS_CA_TRUST",
+                                "value": "{{ pgo_tls_ca_store }}"
+                            },
+                            {
+                                "name": "TLS_NO_VERIFY",
+                                "value": "{{ pgo_tls_no_verify }}"
+                            },
+                            {
+                                "name": "DISABLE_TLS",
+                                "value": "{{ pgo_disable_tls }}"
+                            },
+                            {
+                                "name": "NOAUTH_ROUTES",
+                                "value": "{{ pgo_noauth_routes }}"
+                            },
+                            {
+                                "name": "ADD_OS_TRUSTSTORE",
+                                "value": "{{ pgo_add_os_ca_store }}"
+                            },
+                            {
+                                "name": "DISABLE_EVENTING",
+                                "value": "{{ pgo_disable_eventing }}"
+                            },
+                            {
+                                "name": "EVENT_ADDR",
+                                "value": "localhost:4150"
+                            }
+                        ],
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/tmp",
+                                "name": "tmp"
+                            }
+                        ]
+                    }, {
+                        "name": "operator",
+                        "image": "{% if pgo_image | default('') != '' %}{{ pgo_image }}
+                                {%- else %}{{ pgo_image_prefix }}/postgres-operator:{{ pgo_image_tag }}
+                                {%- endif %}",
+                        "imagePullPolicy": "IfNotPresent",
+                        "securityContext": {
+                          "allowPrivilegeEscalation": false,
+                          "privileged": false,
+                          "readOnlyRootFilesystem": true
+                        },
+                        "readinessProbe": {
+                            "exec": {
+                                "command": [
+                                    "ls",
+                                    "/tmp"
+                                ]
+                            },
+                            "initialDelaySeconds": 4,
+                            "periodSeconds": 5
+                        },
+                        "env": [
+                            {
+                                "name": "QINGCLOUD_DEBUG",
+                                "value": "{{ qingcloud_debug }}"
+                            },
+                            {
+                                "name": "NAMESPACE",
+                                "value": "{{ namespace }}"
+                            },
+                            {
+                                "name": "PGO_INSTALLATION_NAME",
+                                "value": "{{ pgo_installation_name }}"
+                            },
+                            {
+                                "name": "PGO_OPERATOR_NAMESPACE",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "fieldPath": "metadata.namespace"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "MY_POD_NAME",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "fieldPath": "metadata.name"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "DISABLE_EVENTING",
+                                "value": "{{ pgo_disable_eventing }}"
+                            },
+                            {
+                                "name": "EVENT_ADDR",
+                                "value": "localhost:4150"
+                            }
+                        ],
+                        "volumeMounts": []
+                    }, {
+                        "name": "scheduler",
+                        "image": "{% if pgo_scheduler_image | default('') != '' %}{{ pgo_scheduler_image }}
+                                {%- else %}{{ pgo_image_prefix }}/pgo-scheduler:{{ pgo_image_tag }}
+                                {%- endif %}",
+                        "securityContext": {
+                          "allowPrivilegeEscalation": false,
+                          "privileged": false,
+                          "readOnlyRootFilesystem": true
+                        },
+                        "livenessProbe": {
+                            "exec": {
+                                "command": [
+                                   "bash",
+                                    "-c",
+                                    "test -n \"$(find /tmp/scheduler.hb -newermt '61 sec ago')\""
+                                ]
+                            },
+                            "failureThreshold": 2,
+                            "initialDelaySeconds": 60,
+                            "periodSeconds": 60
+                        },
+                        "env": [
+                            {
+                                "name": "QINGCLOUD_DEBUG",
+                                "value": "{{ qingcloud_debug }}"
+                            },
+                            {
+                                "name": "PGO_OPERATOR_NAMESPACE",
+                                "valueFrom": {
+                                    "fieldRef": {
+                                        "fieldPath": "metadata.namespace"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "NAMESPACE",
+                                "value": "{{ namespace }}"
+                            },
+                            {
+                                "name": "PGO_INSTALLATION_NAME",
+                                "value": "{{ pgo_installation_name }}"
+                            },
+                            {
+                                "name": "TIMEOUT",
+                                "value": "{{ scheduler_timeout }}"
+                            },
+                            {
+                                "name": "EVENT_ADDR",
+                                "value": "localhost:4150"
+                            }
+                        ],
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/tmp",
+                                "name": "tmp"
+                            }
+                        ],
+                        "imagePullPolicy": "IfNotPresent"
+                    }, {
+                        "name": "event",
+                        "image": "{% if pgo_event_image | default('') != '' %}{{ pgo_event_image }}
+                                {%- else %}{{ pgo_image_prefix }}/pgo-event:{{ pgo_image_tag }}
+                                {%- endif %}",
+                        "securityContext": {
+                          "allowPrivilegeEscalation": false,
+                          "privileged": false,
+                          "readOnlyRootFilesystem": true
+                        },
+                        "livenessProbe": {
+                            "httpGet": {
+                                "path": "/ping",
+                                "port": 4151
+                            },
+                            "initialDelaySeconds": 15,
+                            "periodSeconds": 5
+                        },
+                        "env": [
+                            {
+                                "name": "TIMEOUT",
+                                "value": "3600"
+                            }
+                        ],
+                        "volumeMounts": [
+                            {
+                                "mountPath": "/tmp",
+                                "name": "tmp"
+                            }
+                        ],
+                        "imagePullPolicy": "IfNotPresent"
+                    }
+                ],
+                "volumes": [
+                    {
+                        "name": "tmp",
+                        "emptyDir": {
+                            "medium": "Memory",
+                            "sizeLimit": "16Mi"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+.DS_Store
+/vendor/
+tools
+licenses/*
+!licenses/LICENSE.txt
