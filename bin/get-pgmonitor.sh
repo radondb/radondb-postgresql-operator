@@ -14,7 +14,7 @@
 # limitations under the License.
 
 echo "Getting pgMonitor..."
-PGMONITOR_COMMIT='v4.5-RC3'
+# PGMONITOR_COMMIT='v4.5-RC3'
 
 # pgMonitor Setup
 if [[ -d ${PGOROOT?}/tools/pgmonitor ]]
@@ -22,6 +22,6 @@ then
     rm -rf ${PGOROOT?}/tools/pgmonitor
 fi
 
-git clone https://github.com/crunchydata/pgmonitor.git ${PGOROOT?}/tools/pgmonitor
-cd ${PGOROOT?}/tools/pgmonitor
-git checkout ${PGMONITOR_COMMIT?}
+git clone https://github.com/zhl003/pgmonitor.git ${PGOROOT?}/tools/pgmonitor
+# cd ${PGOROOT?}/tools/pgmonitor
+# git checkout ${PGMONITOR_COMMIT?}
