@@ -6,13 +6,13 @@
 
 ## 什么是 RadonDB PostgreSQL
 
-[RadonDB PostgreSQL](https://github.com/CrunchyData/postgres-operator) 是基于 `PostgreSQL` 的开源、高可用、云原生集群解决方案。
-
+[RadonDB PostgreSQL](https://github.com/radondb/radondb-postgresql-operator) 是基于 `PostgreSQL` 的开源、高可用、云原生集群解决方案。
+基于[postgres-operator](https://github.com/CrunchyData/postgres-operator/)开发
 RadonDB PostgreSQL 支持在 `Kubernetes` 和 `KubeSphere` 平台部署。
 
 ## 架构图
 
-![架构图](docs/images/operator.svg)
+![架构图](docs/images/operator.png)
 
 ## 核心功能
 
@@ -44,10 +44,10 @@ RadonDB PostgreSQL 支持在 `Kubernetes` 和 `KubeSphere` 平台部署。
 
 PostgreSQL Operator Monitoring]使用如下组件
 
-- [pgMonitor](https://github.com/CrunchyData/pgmonitor)
-- [Prometheus](https://github.com/prometheus/prometheus)
-- [Grafana](https://github.com/grafana/grafana)
-- [Alertmanager](https://github.com/prometheus/alertmanager)
+* [pgMonitor](https://github.com/CrunchyData/pgmonitor)
+* [Prometheus](https://github.com/prometheus/prometheus)
+* [Grafana](https://github.com/grafana/grafana)
+* [Alertmanager](https://github.com/prometheus/alertmanager)
 
 ## 快速入门
 
@@ -80,8 +80,6 @@ source ~/.bashrc
 ```shell
 pgo create cluster hippo
 ```
-
-
 
 ## 协议
 
