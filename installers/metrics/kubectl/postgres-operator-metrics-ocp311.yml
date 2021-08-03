@@ -37,7 +37,6 @@ data:
     # =====================
     # Configuration Options
     # More info for these options can be found in the docs
-    # https://access.qingcloud.com/documentation/postgres-operator/latest/installation/metrics/metrics-configuration/
     # =====================
     alertmanager_custom_config: ""
     alertmanager_custom_rules_config: ""

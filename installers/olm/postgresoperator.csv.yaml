@@ -41,11 +41,9 @@ spec:
   links:
     - name: Qingcloud Data
       url: https://www.qingcloud.com/
-    - name: Documentation
-      url: 'https://access.qingcloud.com/documentation/postgres-operator/'
   maintainers:
     - name: Qingcloud Data
-      email: info@qingcloud.com
+      email: hualongzhong@yunify.com
 
   minKubeVersion: 1.11.0
   maturity: stable
