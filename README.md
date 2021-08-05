@@ -1,61 +1,81 @@
 # ![LOGO](docs/images/logo_radondb.png)
 
-> [English](README.md) | 中文
+> English | [中文](README_zh.md)
 
 ----
 
-## 什么是 RadonDB PostgreSQL
+## What is RadonDB PostgreSQL Operator
 
-[RadonDB PostgreSQL](https://github.com/radondb/radondb-postgresql-operator) 是基于 `PostgreSQL` 的开源、高可用、云原生集群解决方案。
-基于[postgres-operator](https://github.com/CrunchyData/postgres-operator/)开发
-RadonDB PostgreSQL 支持在 `Kubernetes` 和 `KubeSphere` 平台部署。
+[RadonDB PostgreSQL Operator](https://github.com/radondb/radondb-postgresql-operator) is an open-source, cloud-native, highly availability cluster solutions based on [PostgreSQL](https://www.postgresql.org/) and [PGO](https://github.com/CrunchyData/postgres-operator/).
 
-## 架构图
+RadonDB PostgreSQL Operator supports [Kubernetes](https://kubernetes.io) or [KubeSphere 3.1.x](https://kubesphere.com.cn) platforms.
 
-![架构图](docs/images/operator.png)
+## Architecture
 
-## 核心功能
+![Architecture](docs/images/operator.png)
 
-* 轻松创建、扩展及删除PostgreSQL集群
-* 高可用
-  * 基于分布式共识的高可用解决方案，支持故障自动转移
-  * 支持跨Kubernetes集群部署备用集群
+## Main Features
 
-* 灾难恢复
-  * 备份和恢复基于开源的[pgBackRest][]，支持全量、增量和差异增量备份，支持增量恢复，可自定义备份保留时长
+* PostgreSQL Cluster Management
+  
+  * Create, Scale, Delete PostgreSQL clusters with smooth cluster management.
+  * Create new clusters from the existing clusters or backups with efficient data cloning.
 
-* 监控
+* High Availability
 
-  使用开源的[pgMonitor][]监控集群的运行情况
+  * Support for automated failover that backed by the distributed consensus based high-availability solution.
+  * Support for standby PostgreSQL clusters that work both within and across multiple Kubernetes clusters.
 
-* 支持同步/异步复制
-* 支持从现有集群克隆创建新的集群
-* 使用`pgBouncer`连接池
-* 计划备份
-  * 支持自定义备份时间策略
-  * 支持全量、增量、差异增量备份
-  * 支持备份到本地存储或任何支持S3协议的对象存储，如`QingStor` 对象存储
+* Connection Pooling
+  
+  Advanced connection pooling support using [pgBouncer](https://access.crunchydata.com/documentation/postgres-operator/v5/tutorial/connection-pooling/).
 
-除上述功能之外，地理空间增强的PostgreSQL + PostGIS容器还增加了如下组件：
+* Advanced Replication
+  
+  Support for asynchronous or synchronous replication for workloads that are sensitive to losing transactions.
+
+* Disaster Recovery
+
+  Support for backups and restores that leverage the open source [pgBackRest](https://www.pgbackrest.org/) utility.
+
+* Monitoring
+
+  Track the health of the PostgreSQL clusters using the open source [pgMonitor](https://github.com/CrunchyData/pgmonitor) library.
+
+* Backups
+
+  * Backup to local storage. You can also store backups in any object storage system that supports the S3 protocol, such as QingStor.
+  * Support for full, incremental, and differential backups as well as efficient delta restores.，
+  * Support for user-defined backup time.
+
+## Included Components
+
+RadonDB PostgreSQL Operator include the following components:
+
+* [PostgreSQL](https://www.postgresql.org/)
+* [pgBouncer](http://pgbouncer.github.io/)
+* [pgMonitor](https://github.com/CrunchyData/pgmonitor)
+* [pgBackRest](https://www.pgbackrest.org/)
+
+In addition to the above, the geospatially enhanced PostgreSQL + PostGIS container adds the following components:
 
 * [PostGIS](http://postgis.net/)
-
 * [pgRouting](https://pgrouting.org/)
 
-PostgreSQL Operator Monitoring]使用如下组件
+PostgreSQL Operator Monitoring include the following components:
 
 * [pgMonitor](https://github.com/CrunchyData/pgmonitor)
 * [Prometheus](https://github.com/prometheus/prometheus)
 * [Grafana](https://github.com/grafana/grafana)
 * [Alertmanager](https://github.com/prometheus/alertmanager)
 
-## 快速入门
+## Installation
 
-### 部署operator
+### Step 1: Deploy PostgreSQL Operator
 
 `kubectl apply -f https://raw.githubusercontent.com/radondb/radondb-postgresql-operator/main/installers/kubectl/postgres-operator.yml`
 
-### 安装pgo客户端
+### Step 2: Install PGO client
 
 `curl https://raw.githubusercontent.com/radondb/radondb-postgresql-operator/main/installers/kubectl/client-setup.sh`
 
@@ -75,19 +95,19 @@ EOF
 source ~/.bashrc
 ```
 
-### 部署PG集群
+### Step 3: Deploy RadonDB PostgreSQL cluster
 
 ```shell
 pgo create cluster hippo
 ```
 
-## 协议
+## License
 
-RadonDB PostgreSQL 基于 Apache 2.0 协议，详见 [LICENSE](./LICENSE)。
+RadonDB PostgreSQL is released under the Apache 2.0, see [LICENSE](./LICENSE).
 
 <p align="center">
 <br/><br/>
-如有任何关于 RadonDB PostgreSQL 的问题或建议，请在 GitHub 提交 Issue 反馈。
+Please submit any RadonDB PostgreSQL bugs, issues, and feature requests to GitHub Issue.
 <br/>
 </a>
 </p>
