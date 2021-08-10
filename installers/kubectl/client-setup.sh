@@ -15,7 +15,7 @@
 PGO_OPERATOR_NAMESPACE="${PGO_OPERATOR_NAMESPACE:-pgo}"
 PGO_USER_ADMIN="${PGO_USER_ADMIN:-pgouser-admin}"
 PGO_CLIENT_VERSION="${PGO_CLIENT_VERSION:-v4.7.1}"
-PGO_CLIENT_URL="https://github.com/QingcloudData/postgres-operator/releases/download/${PGO_CLIENT_VERSION}"
+PGO_CLIENT_URL="https://github.com/radondb/radondb-postgresql-operator/releases/download/${PGO_CLIENT_VERSION}"
 
 PGO_CMD="${PGO_CMD-kubectl}"
 
