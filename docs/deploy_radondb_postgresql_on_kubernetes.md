@@ -13,7 +13,7 @@
 
 ## 安装
 
-**### 步骤一: 部署 PostgreSQL Operator**
+### 步骤一: 部署 PostgreSQL Operator
 
 PostgreSQL Operator支持多命名空间部署，以下示例会将`operator`及相关自定义资源部署到`pgo`的命名空间下:
 
@@ -44,16 +44,17 @@ replicaset.apps/postgres-operator-cb9bf568   1         1         1       13d
  helm install demo .
 ```
 
-
-
 ### 步骤二: 部署 `pgo`客户端
 
 `pgo`客户端是已经编译好的`postgres-operator`客户端，该工具提供了与 `CRD`交互的命令行`CLI`，方便您和CRD进行交互，如：
 
-* 创建 PostgreSQL 集群
-* 更新 PostgreSQL 集群资源分配
-* 向 PostgreSQL 集群添加其他实用程序
-* 备份/恢复集群
+- 创建 PostgreSQL 集群
+
+- 更新 PostgreSQL 集群资源分配
+
+- 向 PostgreSQL 集群添加其他实用程序
+
+- 备份/恢复集群
 
 当然您也可以选择直接操作CRD资源。
 
@@ -86,9 +87,7 @@ source ~/.bashrc
 nohup kubectl port-forward --namespace pgo svc/postgres-operator 8443:8443  &>/dev/null &
 ```
 
-
-
-**### 步骤三: 部署集群**
+### 步骤三: 部署集群
 
 详细的部署参数可以参考命令行帮助：
 
@@ -97,8 +96,6 @@ pgo --help
 #更细项的帮助
 pgo create cluster --help
 ```
-
-
 
 ```shell
 pgo create cluster qingcloud \
@@ -137,7 +134,7 @@ kubectl get po -n pgo --watch
 
 直到所有`POD`状态翻转为`Running`
 
-### 连接到PostgreSQL 集群
+#### 连接到PostgreSQL 集群
 
 您可以使用以下`pgo show user -n pgo qingcloud`命令获取有关集群中用户的信息：
 
@@ -153,7 +150,7 @@ qingcloud primaryuser    =B8x*Haf*dCq+V4hkGSfh/.} never   ok
 qingcloud testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok 
 ```
 
-### `psql`连接方式
+##### `psql`连接方式
 
 查看服务：
 
@@ -169,12 +166,12 @@ qingcloud-replica                ClusterIP   10.96.67.45     <none>        10000
 
 使用`qingcloud`这个服务连接到数据库：
 
-```
+```shell
 kubectl -n pgo port-forward svc/qingcloud 5432:5432
 PGPASSWORD='yTFeeH1|^DX<Bx4[?:B_/Q;M' psql -h localhost -p 5432 -U testuser qingcloud
 ```
 
-### ` pgAdmin`连接
+##### `pgAdmin`连接
 
 `pgAdmin`是一个图形工具，可用于从 Web 浏览器管理和 PostgreSQL 数据库
 
@@ -190,7 +187,7 @@ qingcloud-pgadmin   ClusterIP   10.96.239.152   <none>        5050/TCP   2m41s
 
 修改初始用户密码：
 
-` pgo update user -n pgo qingcloud --username=testuser --password=Qingcloud`
+`pgo update user -n pgo qingcloud --username=testuser --password=Qingcloud`
 
 创建端口转发并连接:
 
@@ -200,7 +197,7 @@ kubectl -n pgo port-forward svc/qingcloud-pgadmin 5050:5050
 
 将您的浏览器导航到[http://localhost:5050](http://localhost:5050/)并使用您的数据库用户名 ( `testuser`) 和密码(Qingcloud)连接
 
-**### 步骤三: 部署Prometheus服务端**
+### 步骤三: 部署Prometheus服务端
 
 [RadonDB PostgreSQL Operator](https://github.com/radondb/radondb-postgresql-operator) 支持您方便的部署`Prometheus Server`,请参考以下步骤：
 
