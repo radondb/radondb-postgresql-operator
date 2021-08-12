@@ -10,6 +10,11 @@
 
 RadonDB PostgreSQL Operator supports [Kubernetes](https://kubernetes.io) or [KubeSphere 3.1.x](https://kubesphere.com.cn) platforms.
 
+## Quick Start
+
+- [Deploy RadonDB PostgreSQL on Kubernetes](docs/deploy_radondb_postgresql_on_kubernetes.md)
+- [Monitoring](docs/monitor_prometheus.md)
+
 ## Architecture
 
 ![Architecture](docs/images/operator.png)
@@ -68,38 +73,6 @@ PostgreSQL Operator Monitoring include the following components:
 * [Prometheus](https://github.com/prometheus/prometheus)
 * [Grafana](https://github.com/grafana/grafana)
 * [Alertmanager](https://github.com/prometheus/alertmanager)
-
-## Installation
-
-### Step 1: Deploy PostgreSQL Operator
-
-`kubectl apply -f https://raw.githubusercontent.com/radondb/radondb-postgresql-operator/main/installers/kubectl/postgres-operator.yml`
-
-### Step 2: Install PGO client
-
-`curl https://raw.githubusercontent.com/radondb/radondb-postgresql-operator/main/installers/kubectl/client-setup.sh`
-
-`chmod +x client-setup.sh`
-
-`./client-setup.sh`
-
-```shell
-cat <<EOF >> ~/.bashrc
-export PGOUSER="${HOME?}/.pgo/pgo/pgouser"
-export PGO_CA_CERT="${HOME?}/.pgo/pgo/client.crt"
-export PGO_CLIENT_CERT="${HOME?}/.pgo/pgo/client.crt"
-export PGO_CLIENT_KEY="${HOME?}/.pgo/pgo/client.key"
-export PGO_APISERVER_URL='https://127.0.0.1:8443'
-export PGO_NAMESPACE=pgo
-EOF
-source ~/.bashrc
-```
-
-### Step 3: Deploy RadonDB PostgreSQL cluster
-
-```shell
-pgo create cluster hippo
-```
 
 ## License
 
