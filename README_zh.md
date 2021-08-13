@@ -10,6 +10,11 @@
 
 RadonDB PostgreSQL Operator 支持在 [Kubernetes](https://kubernetes.io) 和 [KubeSphere 3.1.x](https://kubesphere.com.cn) 平台部署。
 
+## 快速入门
+
+- [在 Kubernetes 上部署 RadonDB PostgreSQL 集群](docs/deploy_radondb_postgresql_on_kubernetes.md)
+- [监控管理](docs/monitor_prometheus.md)
+
 ## 架构图
 
 ![架构图](docs/images/operator.png)
@@ -68,46 +73,6 @@ PostgreSQL Operator Monitoring 使用以下组件:
 * [Prometheus](https://github.com/prometheus/prometheus)
 * [Grafana](https://github.com/grafana/grafana)
 * [Alertmanager](https://github.com/prometheus/alertmanager)
-
-## 快速入门
-
-### 步骤一: 部署 PostgreSQL Operator
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/radondb/radondb-postgresql-operator/main/installers/kubectl/postgres-operator.yml
-```
-
-### 步骤二: 安装 PGO 客户端
-
-```shell
-curl https://raw.githubusercontent.com/radondb/radondb-postgresql-operator/main/installers/kubectl/client-setup.sh
-```
-
-```shell
-chmod +x client-setup.sh
-```
-
-```shell
-./client-setup.sh
-```
-
-```shell
-cat <<EOF >> ~/.bashrc
-export PGOUSER="${HOME?}/.pgo/pgo/pgouser"
-export PGO_CA_CERT="${HOME?}/.pgo/pgo/client.crt"
-export PGO_CLIENT_CERT="${HOME?}/.pgo/pgo/client.crt"
-export PGO_CLIENT_KEY="${HOME?}/.pgo/pgo/client.key"
-export PGO_APISERVER_URL='https://127.0.0.1:8443'
-export PGO_NAMESPACE=pgo
-EOF
-source ~/.bashrc
-```
-
-### 步骤三: 部署集群
-
-```shell
-pgo create cluster hippo
-```
 
 ## 协议
 
