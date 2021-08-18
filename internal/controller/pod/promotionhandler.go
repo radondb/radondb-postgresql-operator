@@ -1,7 +1,7 @@
 package pod
 
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -22,12 +22,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/controller"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator/backrest"
-	clusteroperator "github.com/qingcloud/postgres-operator/internal/operator/cluster"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/controller"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator/backrest"
+	clusteroperator "github.com/radondb/postgres-operator/internal/operator/cluster"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	apiv1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

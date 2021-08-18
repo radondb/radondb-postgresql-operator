@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,7 +20,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	v1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -51,15 +51,15 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=qingcloud.com, Version=v1
+	// Group=radondb.com, Version=v1
 	case v1.SchemeGroupVersion.WithResource("pgclusters"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Qingcloud().V1().Pgclusters().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Radondb().V1().Pgclusters().Informer()}, nil
 	case v1.SchemeGroupVersion.WithResource("pgpolicies"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Qingcloud().V1().Pgpolicies().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Radondb().V1().Pgpolicies().Informer()}, nil
 	case v1.SchemeGroupVersion.WithResource("pgreplicas"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Qingcloud().V1().Pgreplicas().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Radondb().V1().Pgreplicas().Informer()}, nil
 	case v1.SchemeGroupVersion.WithResource("pgtasks"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Qingcloud().V1().Pgtasks().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Radondb().V1().Pgtasks().Informer()}, nil
 
 	}
 

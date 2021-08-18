@@ -1,7 +1,7 @@
 package cmd
 
 /*
- Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -28,11 +28,11 @@ import (
 	"github.com/spf13/cobra"
 	v1 "k8s.io/api/core/v1"
 
-	"github.com/qingcloud/postgres-operator/cmd/pgo/api"
-	"github.com/qingcloud/postgres-operator/cmd/pgo/util"
-	pgoutil "github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/cmd/pgo/api"
+	"github.com/radondb/postgres-operator/cmd/pgo/util"
+	pgoutil "github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 )
 
 // below are the tablespace parameters and the expected values of each
@@ -739,7 +739,7 @@ func updateCluster(args []string, ns string) {
 	r.BackrestMemoryRequest = BackrestMemoryRequest
 	r.BackrestMemoryLimit = BackrestMemoryLimit
 	r.BackrestPVCSize = BackrestPVCSize
-	// set the Qingcloud Postgres Exporter resource requests
+	// set the RadonDB Postgres Exporter resource requests
 	r.ExporterCPURequest = ExporterCPURequest
 	r.ExporterCPULimit = ExporterCPULimit
 	r.ExporterMemoryRequest = ExporterMemoryRequest

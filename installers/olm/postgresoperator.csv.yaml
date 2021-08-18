@@ -5,7 +5,7 @@ metadata:
   name: 'postgresoperator.v${PGO_VERSION}'
   annotations:
     certified: 'false'
-    support: qingcloud.com
+    support: radondb.com
 
     # The following affect how the package is indexed at OperatorHub.io:
     # https://operatorhub.io/?category=Database
@@ -17,32 +17,32 @@ metadata:
     # https://operatorhub.io/operator/postgresql
     createdAt: 2019-12-31 19:40Z
     containerImage: '${PGO_IMAGE_PREFIX}/postgres-operator:${PGO_IMAGE_TAG}'
-    repository: https://github.com/QingcloudData/postgres-operator
+    repository: https://github.com/radondb/postgres-operator
 
     alm-examples: |- # postgresoperator.crd.examples.yaml
 
 spec:
   # The following affect how the package is indexed at OperatorHub.io:
   # https://operatorhub.io/
-  displayName: Qingcloud PostgreSQL for Kubernetes
-  provider: { name: Qingcloud Data }
+  displayName: RadonDB PostgreSQL for Kubernetes
+  provider: { name: RadonDB }
   keywords:
     - postgres
     - postgresql
     - database
     - sql
     - operator
-    - qingcloud data
+    - radondb data
 
   # The following appear on the details page at OperatorHub.io:
   # https://operatorhub.io/operator/postgresql
   description: |- # description.*.md
   version: '${PGO_VERSION}'
   links:
-    - name: Qingcloud Data
-      url: https://www.qingcloud.com/
+    - name: RadonDB
+      url: https://www.radondb.com/
   maintainers:
-    - name: Qingcloud Data
+    - name: RadonDB
       email: hualongzhong@yunify.com
 
   minKubeVersion: 1.11.0
@@ -153,7 +153,7 @@ spec:
                 - delete
                 - deletecollection
             - apiGroups:
-                - qingcloud.com
+                - radondb.com
               resources:
                 - pgclusters
                 - pgpolicies
@@ -197,12 +197,12 @@ spec:
             selector:
               matchLabels:
                 name: postgres-operator
-                vendor: qingcloud
+                vendor: radondb
             template:
               metadata:
                 labels:
                   name: postgres-operator
-                  vendor: qingcloud
+                  vendor: radondb
               spec:
                 serviceAccountName: postgres-operator
                 securityContext:
@@ -236,7 +236,7 @@ spec:
                       - { name: PGO_INSTALLATION_NAME, valueFrom: { fieldRef: { fieldPath: "metadata.namespace" } } }
                       - { name: PGO_OPERATOR_NAMESPACE, valueFrom: { fieldRef: { fieldPath: "metadata.namespace" } } }
 
-                      - { name: QINGCLOUD_DEBUG, value: 'false' }
+                      - { name: RADONDB_DEBUG, value: 'false' }
                       - { name: EVENT_ADDR, value: 'localhost:4150' }
                       - { name: PORT, value: '8443' }
                     volumeMounts:
@@ -255,7 +255,7 @@ spec:
                       - { name: PGO_INSTALLATION_NAME, valueFrom: { fieldRef: { fieldPath: "metadata.namespace" } } }
                       - { name: PGO_OPERATOR_NAMESPACE, valueFrom: { fieldRef: { fieldPath: "metadata.namespace" } } }
 
-                      - { name: QINGCLOUD_DEBUG, value: 'false' }
+                      - { name: RADONDB_DEBUG, value: 'false' }
                       - { name: EVENT_ADDR, value: 'localhost:4150' }
 
                   - name: scheduler
@@ -280,7 +280,7 @@ spec:
                       - { name: PGO_INSTALLATION_NAME, valueFrom: { fieldRef: { fieldPath: "metadata.namespace" } } }
                       - { name: PGO_OPERATOR_NAMESPACE, valueFrom: { fieldRef: { fieldPath: "metadata.namespace" } } }
 
-                      - { name: QINGCLOUD_DEBUG, value: 'false' }
+                      - { name: RADONDB_DEBUG, value: 'false' }
                       - { name: EVENT_ADDR, value: 'localhost:4150' }
                       - { name: TIMEOUT, value: '3600' }
                     volumeMounts:

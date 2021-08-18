@@ -1,7 +1,7 @@
 package v1
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -39,7 +39,7 @@ const StorageDynamic = "dynamic"
 const (
 	// PGUserAdmin is a DEPRECATED user and is only included to filter this out
 	// as a system user in older systems
-	PGUserAdmin = "qingcloudadm"
+	PGUserAdmin = "radondbadm"
 	// PGUserMonitor is the monitoring user that can access metric data
 	PGUserMonitor = "ccp_monitoring"
 	// PGUserPgBouncer is the user that's used for managing pgBouncer, which a

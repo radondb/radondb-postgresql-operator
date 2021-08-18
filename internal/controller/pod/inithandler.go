@@ -1,7 +1,7 @@
 package pod
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,15 +20,15 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/controller"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	backrestoperator "github.com/qingcloud/postgres-operator/internal/operator/backrest"
-	clusteroperator "github.com/qingcloud/postgres-operator/internal/operator/cluster"
-	taskoperator "github.com/qingcloud/postgres-operator/internal/operator/task"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/controller"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	backrestoperator "github.com/radondb/postgres-operator/internal/operator/backrest"
+	clusteroperator "github.com/radondb/postgres-operator/internal/operator/cluster"
+	taskoperator "github.com/radondb/postgres-operator/internal/operator/task"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	apiv1 "k8s.io/api/core/v1"
@@ -145,7 +145,7 @@ func (c *Controller) handleBootstrapInit(newPod *apiv1.Pod, cluster *crv1.Pgclus
 			Remove("metadata", "annotations", config.LABEL_BACKREST_RESTORE).Bytes()
 		if err == nil {
 			log.Debugf("patching cluster %s: %s", cluster.GetName(), patch)
-			_, err = c.Client.QingcloudV1().Pgclusters(namespace).
+			_, err = c.Client.RadondbV1().Pgclusters(namespace).
 				Patch(ctx, cluster.GetName(), types.JSONPatchType, patch, metav1.PatchOptions{})
 		}
 		if err != nil {
@@ -208,7 +208,7 @@ func (c *Controller) handleStandbyInit(cluster *crv1.Pgcluster) error {
 		(cluster.Spec.BackrestStorageTypes[0] == crv1.BackrestStorageTypeS3 ||
 			cluster.Spec.BackrestStorageTypes[0] == crv1.BackrestStorageTypeGCS)) {
 		// first try to delete any existing stanza create task and/or job
-		if err := c.Client.QingcloudV1().Pgtasks(namespace).
+		if err := c.Client.RadondbV1().Pgtasks(namespace).
 			Delete(ctx, fmt.Sprintf("%s-%s", clusterName, crv1.PgtaskBackrestStanzaCreate),
 				metav1.DeleteOptions{}); err != nil && !kerrors.IsNotFound(err) {
 			return err
@@ -259,7 +259,7 @@ func (c *Controller) labelPostgresPodAndDeployment(newpod *apiv1.Pod) {
 	depName := newpod.ObjectMeta.Labels[config.LABEL_DEPLOYMENT_NAME]
 	ns := newpod.Namespace
 
-	_, err := c.Client.QingcloudV1().Pgreplicas(ns).Get(ctx, depName, metav1.GetOptions{})
+	_, err := c.Client.RadondbV1().Pgreplicas(ns).Get(ctx, depName, metav1.GetOptions{})
 	replica := err == nil
 	log.Debugf("checkPostgresPods --- dep %s replica %t", depName, replica)
 

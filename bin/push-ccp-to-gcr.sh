@@ -13,18 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-GCR_IMAGE_PREFIX=gcr.io/qingcloud-dev-test
+GCR_IMAGE_PREFIX=gcr.io/radondb-dev-test
 
-CCP_IMAGE_PREFIX=qingcloud
+CCP_IMAGE_PREFIX=radondb
 CCP_IMAGE_TAG=centos8-13.3-4.7.1
 
 IMAGES=(
-qingcloud-prometheus
-qingcloud-grafana
-qingcloud-pgbadger
-qingcloud-backup
-qingcloud-postgres
-qingcloud-pgbouncer
+radondb-prometheus
+radondb-grafana
+radondb-pgbadger
+radondb-backup
+radondb-postgres
+radondb-pgbouncer
 )
 
 for image in "${IMAGES[@]}"

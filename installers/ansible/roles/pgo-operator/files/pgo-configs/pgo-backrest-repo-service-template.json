@@ -7,7 +7,7 @@
                 {{ if .CustomLabels }}
                 {{ .CustomLabels }}
                 {{ end }}
-                "vendor": "qingcloud",
+                "vendor": "radondb",
                 "name": "{{.Name}}",
                 "pgo-backrest-repo": "true",
                 "pg-cluster": "{{.ClusterName}}"

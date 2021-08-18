@@ -1,7 +1,7 @@
 package configmap
 
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -23,9 +23,9 @@ import (
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	cfg "github.com/qingcloud/postgres-operator/internal/operator/config"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	cfg "github.com/radondb/postgres-operator/internal/operator/config"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 )
 
 // handleConfigMapSync is responsible for syncing a configMap resource that has obtained from

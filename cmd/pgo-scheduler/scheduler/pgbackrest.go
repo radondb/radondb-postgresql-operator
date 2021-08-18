@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/config"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -69,7 +69,7 @@ func (b BackRestBackupJob) Run() {
 
 	contextLogger.Info("Running pgBackRest backup")
 
-	cluster, err := clientset.QingcloudV1().Pgclusters(b.namespace).Get(ctx, b.cluster, metav1.GetOptions{})
+	cluster, err := clientset.RadondbV1().Pgclusters(b.namespace).Get(ctx, b.cluster, metav1.GetOptions{})
 	if err != nil {
 		contextLogger.WithFields(log.Fields{
 			"error": err,
@@ -91,7 +91,7 @@ func (b BackRestBackupJob) Run() {
 		return
 	}
 
-	err = clientset.QingcloudV1().Pgtasks(b.namespace).Delete(ctx, taskName, metav1.DeleteOptions{})
+	err = clientset.RadondbV1().Pgtasks(b.namespace).Delete(ctx, taskName, metav1.DeleteOptions{})
 	if err == nil {
 		deletePropagation := metav1.DeletePropagationForeground
 		err = clientset.
@@ -151,7 +151,7 @@ func (b BackRestBackupJob) Run() {
 		imagePrefix:   cluster.Spec.CCPImagePrefix,
 	}
 
-	_, err = clientset.QingcloudV1().Pgtasks(b.namespace).
+	_, err = clientset.RadondbV1().Pgtasks(b.namespace).
 		Create(ctx, backrest.NewBackRestTask(), metav1.CreateOptions{})
 	if err != nil {
 		contextLogger.WithFields(log.Fields{

@@ -1,7 +1,7 @@
 package pgbouncerservice
 
 /*
-Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,12 +20,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	clusteroperator "github.com/qingcloud/postgres-operator/internal/operator/cluster"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/config"
+	clusteroperator "github.com/radondb/postgres-operator/internal/operator/cluster"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -152,7 +152,7 @@ func CreatePgbouncer(request *msgs.CreatePgbouncerRequest, ns, pgouser string) m
 		cluster.Spec.PgBouncer.TLSSecret = request.TLSSecret
 
 		// update the cluster CRD with these udpates. If there is an error
-		if _, err := apiserver.Clientset.QingcloudV1().Pgclusters(request.Namespace).
+		if _, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).
 			Update(ctx, &cluster, metav1.UpdateOptions{}); err != nil {
 			log.Error(err)
 			resp.Results = append(resp.Results, err.Error())
@@ -223,7 +223,7 @@ func DeletePgbouncer(request *msgs.DeletePgbouncerRequest, ns string) msgs.Delet
 		cluster.Spec.PgBouncer.Limits = v1.ResourceList{}
 
 		// update the cluster CRD with these udpates. If there is an error
-		if _, err := apiserver.Clientset.QingcloudV1().Pgclusters(request.Namespace).
+		if _, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).
 			Update(ctx, &cluster, metav1.UpdateOptions{}); err != nil {
 			log.Error(err)
 			resp.Status.Code = msgs.Error
@@ -438,7 +438,7 @@ func UpdatePgBouncer(request *msgs.UpdatePgBouncerRequest, namespace, pgouser st
 			cluster.Spec.PgBouncer.Replicas = request.Replicas
 		}
 
-		if _, err := apiserver.Clientset.QingcloudV1().Pgclusters(cluster.Namespace).
+		if _, err := apiserver.Clientset.RadondbV1().Pgclusters(cluster.Namespace).
 			Update(ctx, &cluster, metav1.UpdateOptions{}); err != nil {
 			log.Error(err)
 			result.Error = true
@@ -470,7 +470,7 @@ func getClusterList(namespace string, clusterNames []string, selector string) (c
 	// try to build the cluster list based on either the selector or the list
 	// of arguments...or both. First, start with the selector
 	if selector != "" {
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 		// if there is an error, return here with an empty cluster list
 		if err != nil {
 			return crv1.PgclusterList{}, err
@@ -480,7 +480,7 @@ func getClusterList(namespace string, clusterNames []string, selector string) (c
 
 	// now try to get clusters based specific cluster names
 	for _, clusterName := range clusterNames {
-		cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+		cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 		// if there is an error, capture it here and return here with an empty list
 		if err != nil {
 			return crv1.PgclusterList{}, err

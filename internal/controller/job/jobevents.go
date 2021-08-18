@@ -18,7 +18,7 @@ limitations under the License.
 import (
 	"time"
 
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	"github.com/radondb/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 )
 

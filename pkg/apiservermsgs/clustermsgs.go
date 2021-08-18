@@ -1,7 +1,7 @@
 package apiservermsgs
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -16,7 +16,7 @@ limitations under the License.
 */
 
 import (
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 
 	v1 "k8s.io/api/core/v1"
 )
@@ -68,21 +68,21 @@ type CreateClusterRequest struct {
 	ServiceType         v1.ServiceType
 	MetricsFlag         bool
 	// ExporterCPULimit, if specified, is the value of the max CPU for a
-	// Qingcloud Postgres Exporter sidecar container
+	// RadonDB Postgres Exporter sidecar container
 	ExporterCPULimit string
 	// ExporterCPURequest, if specified, is the value of how much CPU should be
-	// requested for a Qingcloud Postgres Exporter sidecar container. Defaults to
+	// requested for a RadonDB Postgres Exporter sidecar container. Defaults to
 	// not being requested
 	ExporterCPURequest string
 	// ExporterMemoryLimit is the value of of the limit of how much RAM a
-	// Qingcloud Postgres Exporter sidecar container should use
+	// RadonDB Postgres Exporter sidecar container should use
 	ExporterMemoryLimit string
 	// ExporterMemoryRequest, if specified, is the value of how much RAM should
-	// be requested for a Qingcloud Postgres Exporter sidecar container. Defaults
+	// be requested for a RadonDB Postgres Exporter sidecar container. Defaults
 	// to the server specified default
 	ExporterMemoryRequest string
 	// ExporterCPULimit, if specified, is the value of the max amount of CPU
-	// to be utilized for a Qingcloud Postgres Exporter sidecar container
+	// to be utilized for a RadonDB Postgres Exporter sidecar container
 	BadgerFlag          bool
 	AutofailFlag        bool
 	ArchiveFlag         bool
@@ -327,7 +327,7 @@ type ShowClusterReplica struct {
 //
 // swagger:model
 type ShowClusterDetail struct {
-	// Defines the Cluster using a Qingcloud Pgcluster crd
+	// Defines the Cluster using a RadonDB Pgcluster crd
 	Cluster     crv1.Pgcluster `json:"cluster"`
 	Deployments []ShowClusterDeployment
 	Pods        []ShowClusterPod
@@ -453,16 +453,16 @@ type UpdateClusterRequest struct {
 	// TLSOnly
 	DisableTLS bool
 	// ExporterCPULimit, if specified, is the value of the max amount of CPU
-	// to be utilized for a Qingcloud Postgres Exporter instance
+	// to be utilized for a RadonDB Postgres Exporter instance
 	ExporterCPULimit string
 	// ExporterCPURequest, if specified, is the value of how much CPU should be
-	// requested the Qingcloud Postgres Exporter. Defaults to not being requested
+	// requested the RadonDB Postgres Exporter. Defaults to not being requested
 	ExporterCPURequest string
-	// ExporterMemoryLimit, if specified is the max amount of memory a Qingcloud
+	// ExporterMemoryLimit, if specified is the max amount of memory a RadonDB
 	// Postgres Exporter instance should use
 	ExporterMemoryLimit string
 	// ExporterMemoryRequest, if specified, is the value of how much RAM should
-	// be requested for the Qingcloud Postgres Exporter instance.
+	// be requested for the RadonDB Postgres Exporter instance.
 	ExporterMemoryRequest string
 	// ExporterRotatePassword, if specified, rotates the password of the metrics
 	// collection agent, i.e. the "ccp_monitoring" user.

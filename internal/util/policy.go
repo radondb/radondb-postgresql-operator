@@ -1,7 +1,7 @@
 package util
 
 /*
- Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -21,9 +21,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	pgo "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -101,7 +101,7 @@ func ExecPolicy(clientset kubeapi.Interface, restconfig *rest.Config, namespace,
 // GetPolicySQL returns the SQL string from a policy
 func GetPolicySQL(clientset pgo.Interface, namespace, policyName string) (string, error) {
 	ctx := context.TODO()
-	p, err := clientset.QingcloudV1().Pgpolicies(namespace).Get(ctx, policyName, metav1.GetOptions{})
+	p, err := clientset.RadondbV1().Pgpolicies(namespace).Get(ctx, policyName, metav1.GetOptions{})
 	if err == nil {
 		return p.Spec.SQL, nil
 	}
@@ -116,7 +116,7 @@ func GetPolicySQL(clientset pgo.Interface, namespace, policyName string) (string
 // ValidatePolicy tests to see if a policy exists
 func ValidatePolicy(clientset pgo.Interface, namespace string, policyName string) error {
 	ctx := context.TODO()
-	_, err := clientset.QingcloudV1().Pgpolicies(namespace).Get(ctx, policyName, metav1.GetOptions{})
+	_, err := clientset.RadondbV1().Pgpolicies(namespace).Get(ctx, policyName, metav1.GetOptions{})
 	if err == nil {
 		log.Debugf("pgpolicy %s was validated", policyName)
 	} else if kerrors.IsNotFound(err) {

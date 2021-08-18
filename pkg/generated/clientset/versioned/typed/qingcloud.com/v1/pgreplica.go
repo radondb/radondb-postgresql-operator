@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,8 +21,8 @@ import (
 	"context"
 	"time"
 
-	v1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	scheme "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	v1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	scheme "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
@@ -56,7 +56,7 @@ type pgreplicas struct {
 }
 
 // newPgreplicas returns a Pgreplicas
-func newPgreplicas(c *QingcloudV1Client, namespace string) *pgreplicas {
+func newPgreplicas(c *RadondbV1Client, namespace string) *pgreplicas {
 	return &pgreplicas{
 		client: c.RESTClient(),
 		ns:     namespace,

@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -18,12 +18,12 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	"github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	v1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 
-type QingcloudV1Interface interface {
+type RadondbV1Interface interface {
 	RESTClient() rest.Interface
 	PgclustersGetter
 	PgpoliciesGetter
@@ -31,29 +31,29 @@ type QingcloudV1Interface interface {
 	PgtasksGetter
 }
 
-// QingcloudV1Client is used to interact with features provided by the qingcloud.com group.
-type QingcloudV1Client struct {
+// RadondbV1Client is used to interact with features provided by the radondb.com group.
+type RadondbV1Client struct {
 	restClient rest.Interface
 }
 
-func (c *QingcloudV1Client) Pgclusters(namespace string) PgclusterInterface {
+func (c *RadondbV1Client) Pgclusters(namespace string) PgclusterInterface {
 	return newPgclusters(c, namespace)
 }
 
-func (c *QingcloudV1Client) Pgpolicies(namespace string) PgpolicyInterface {
+func (c *RadondbV1Client) Pgpolicies(namespace string) PgpolicyInterface {
 	return newPgpolicies(c, namespace)
 }
 
-func (c *QingcloudV1Client) Pgreplicas(namespace string) PgreplicaInterface {
+func (c *RadondbV1Client) Pgreplicas(namespace string) PgreplicaInterface {
 	return newPgreplicas(c, namespace)
 }
 
-func (c *QingcloudV1Client) Pgtasks(namespace string) PgtaskInterface {
+func (c *RadondbV1Client) Pgtasks(namespace string) PgtaskInterface {
 	return newPgtasks(c, namespace)
 }
 
-// NewForConfig creates a new QingcloudV1Client for the given config.
-func NewForConfig(c *rest.Config) (*QingcloudV1Client, error) {
+// NewForConfig creates a new RadondbV1Client for the given config.
+func NewForConfig(c *rest.Config) (*RadondbV1Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -62,12 +62,12 @@ func NewForConfig(c *rest.Config) (*QingcloudV1Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &QingcloudV1Client{client}, nil
+	return &RadondbV1Client{client}, nil
 }
 
-// NewForConfigOrDie creates a new QingcloudV1Client for the given config and
+// NewForConfigOrDie creates a new RadondbV1Client for the given config and
 // panics if there is an error in the config.
-func NewForConfigOrDie(c *rest.Config) *QingcloudV1Client {
+func NewForConfigOrDie(c *rest.Config) *RadondbV1Client {
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -75,9 +75,9 @@ func NewForConfigOrDie(c *rest.Config) *QingcloudV1Client {
 	return client
 }
 
-// New creates a new QingcloudV1Client for the given RESTClient.
-func New(c rest.Interface) *QingcloudV1Client {
-	return &QingcloudV1Client{c}
+// New creates a new RadondbV1Client for the given RESTClient.
+func New(c rest.Interface) *RadondbV1Client {
+	return &RadondbV1Client{c}
 }
 
 func setConfigDefaults(config *rest.Config) error {
@@ -95,7 +95,7 @@ func setConfigDefaults(config *rest.Config) error {
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *QingcloudV1Client) RESTClient() rest.Interface {
+func (c *RadondbV1Client) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}

@@ -18,8 +18,8 @@ package scheduler
 import (
 	"fmt"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

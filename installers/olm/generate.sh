@@ -41,7 +41,7 @@ if [ "${K8S_DISTRIBUTION:-}" = 'openshift' ]; then
 		--arg description "$( render < description.openshift.md )" \
 	'
 		.spec.description = $description |
-		.spec.displayName = "Qingcloud PostgreSQL for OpenShift" |
+		.spec.displayName = "RadonDB PostgreSQL for OpenShift" |
 	.' \
 		"./package/${PGO_VERSION}/postgresoperator.v${PGO_VERSION}.clusterserviceversion.yaml"
 fi

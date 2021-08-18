@@ -1,8 +1,8 @@
-// Package cmd provides the command line functions of the qingcloud CLI
+// Package cmd provides the command line functions of the radondb CLI
 package cmd
 
 /*
- Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/qingcloud/postgres-operator/cmd/pgo/api"
-	"github.com/qingcloud/postgres-operator/cmd/pgo/util"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/cmd/pgo/api"
+	"github.com/radondb/postgres-operator/cmd/pgo/util"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

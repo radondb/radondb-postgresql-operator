@@ -4,7 +4,7 @@ metadata:
   name: pgo-deployer-sa
   namespace: pgo
   labels:
-    vendor: qingcloud
+    vendor: radondb
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -12,7 +12,7 @@ metadata:
   name: pgo-deployer-crb
   namespace: pgo
   labels:
-    vendor: qingcloud
+    vendor: radondb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -28,7 +28,7 @@ metadata:
   name: pgo-deployer-cm
   namespace: pgo
   labels:
-    vendor: qingcloud
+    vendor: radondb
 data:
   values.yaml: |-
     # =====================
@@ -54,7 +54,7 @@ data:
     ccp_image_pull_secret_manifest: ""
     ccp_image_tag: "centos8-13.3-4.7.1"
     create_rbac: "true"
-    qingcloud_debug: "false"
+    radondb_debug: "false"
     db_name: ""
     db_password_age_days: "0"
     db_password_length: "24"
@@ -126,7 +126,7 @@ data:
     storage4_name: "nfsstoragered"
     storage4_access_mode: "ReadWriteMany"
     storage4_size: "1G"
-    storage4_match_labels: "qingcloudzone=red"
+    storage4_match_labels: "radondbzone=red"
     storage4_type: "create"
     storage4_supplemental_groups: "65534"
     storage5_name: "storageos"
@@ -161,14 +161,14 @@ metadata:
   name: pgo-deploy
   namespace: pgo
   labels:
-    vendor: qingcloud
+    vendor: radondb
 spec:
   backoffLimit: 0
   template:
     metadata:
       name: pgo-deploy
       labels:
-        vendor: qingcloud
+        vendor: radondb
     spec:
       serviceAccountName: pgo-deployer-sa
       restartPolicy: Never

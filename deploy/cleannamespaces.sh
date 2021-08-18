@@ -33,4 +33,4 @@ echo "namespace $PGO_OPERATOR_NAMESPACE deleted"
 
 echo ""
 echo "deleting the watched namespaces..."
-$PGO_CMD delete namespace --selector="vendor=qingcloud,pgo-installation-name=$PGO_INSTALLATION_NAME"
+$PGO_CMD delete namespace --selector="vendor=radondb,pgo-installation-name=$PGO_INSTALLATION_NAME"

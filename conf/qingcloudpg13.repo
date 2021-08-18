@@ -1,21 +1,21 @@
-[qingcloudpg13]
+[radondbpg13]
 #Config Version 1.0
-name=qingcloud Data Development PostgreSQL 13 $releasever - $basearch
+name=radondb Data Development PostgreSQL 13 $releasever - $basearch
 baseurl=http://139.198.30.182/postgresql13/centos/EL$releasever/$basearch/
 enabled=1
 gpgcheck=0
 
 
-[qingcloudpg13-source]
+[radondbpg13-source]
 #Config Version 1.0
-name=qingcloud Data Development PostgreSQL 13 $releasever - Source
+name=radondb Data Development PostgreSQL 13 $releasever - Source
 baseurl=http://139.198.30.182/postgresql13/centos/EL$releasever/SRPMS/
 enabled=0
 gpgcheck=0
 
 
-[qingcloudpg13-debuginfo]
+[radondbpg13-debuginfo]
 #Config Version 1.0
-name=qingcloud Data Development PostgreSQL 13 $releasever - Debug
+name=radondb Data Development PostgreSQL 13 $releasever - Debug
 baseurl=http://139.198.30.182/postgresql13/centos/EL$releasever/debug/
 enabled=0

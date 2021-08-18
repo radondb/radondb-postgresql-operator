@@ -22,12 +22,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/operator/pvc"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/operator/pvc"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1batch "k8s.io/api/batch/v1"
@@ -70,7 +70,7 @@ func Restore(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) {
 		return
 	}
 
-	cluster, err := clientset.QingcloudV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Errorf("pgrestore: could not find a pgcluster in Restore Workflow for %s", clusterName)
 		return
@@ -121,7 +121,7 @@ func Restore(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) {
 		return
 	}
 
-	if operator.QINGCLOUD_DEBUG {
+	if operator.RADONDB_DEBUG {
 		_ = config.PgRestoreJobTemplate.Execute(os.Stdout, jobFields)
 	}
 
@@ -133,7 +133,7 @@ func Restore(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) {
 	}
 
 	// set the container image to an override value, if one exists
-	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_QINGCLOUD_POSTGRES_HA,
+	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_RADONDB_POSTGRES_HA,
 		&newjob.Spec.Template.Spec.Containers[0])
 
 	j, err := clientset.BatchV1().Jobs(namespace).Create(ctx, &newjob, metav1.CreateOptions{})

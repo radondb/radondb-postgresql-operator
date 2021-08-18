@@ -1,7 +1,7 @@
 package clusterservice
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,11 +20,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -47,7 +47,7 @@ func ScaleCluster(request msgs.ClusterScaleRequest, pgouser string) msgs.Cluster
 		return response
 	}
 
-	cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(request.Namespace).Get(ctx, request.Name, metav1.GetOptions{})
+	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).Get(ctx, request.Name, metav1.GetOptions{})
 
 	if kerrors.IsNotFound(err) {
 		log.Error("no clusters found")
@@ -137,7 +137,7 @@ func ScaleCluster(request msgs.ClusterScaleRequest, pgouser string) msgs.Cluster
 			},
 		}
 
-		if _, err := apiserver.Clientset.QingcloudV1().Pgreplicas(cluster.Namespace).Create(ctx,
+		if _, err := apiserver.Clientset.RadondbV1().Pgreplicas(cluster.Namespace).Create(ctx,
 			newInstance, metav1.CreateOptions{}); err != nil {
 			log.Error(" in creating Pgreplica instance" + err.Error())
 		}
@@ -160,7 +160,7 @@ func ScaleQuery(name, ns string) msgs.ScaleQueryResponse {
 		Status:  msgs.Status{Code: msgs.Ok, Msg: ""},
 	}
 
-	cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, name, metav1.GetOptions{})
+	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, name, metav1.GetOptions{})
 
 	// If no clusters are found, return a specific error message,
 	// otherwise, pass forward the generic error message that Kubernetes sends
@@ -233,7 +233,7 @@ func ScaleDown(deleteData bool, clusterName, replicaName, ns string) msgs.ScaleD
 	response.Status = msgs.Status{Code: msgs.Ok, Msg: ""}
 	response.Results = make([]string, 0)
 
-	cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 
 	if kerrors.IsNotFound(err) {
 		log.Error("no clusters found")

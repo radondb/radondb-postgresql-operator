@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -18,34 +18,34 @@ limitations under the License.
 package fake
 
 import (
-	v1 "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/typed/qingcloud.com/v1"
+	v1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )
 
-type FakeQingcloudV1 struct {
+type FakeRadondbV1 struct {
 	*testing.Fake
 }
 
-func (c *FakeQingcloudV1) Pgclusters(namespace string) v1.PgclusterInterface {
+func (c *FakeRadondbV1) Pgclusters(namespace string) v1.PgclusterInterface {
 	return &FakePgclusters{c, namespace}
 }
 
-func (c *FakeQingcloudV1) Pgpolicies(namespace string) v1.PgpolicyInterface {
+func (c *FakeRadondbV1) Pgpolicies(namespace string) v1.PgpolicyInterface {
 	return &FakePgpolicies{c, namespace}
 }
 
-func (c *FakeQingcloudV1) Pgreplicas(namespace string) v1.PgreplicaInterface {
+func (c *FakeRadondbV1) Pgreplicas(namespace string) v1.PgreplicaInterface {
 	return &FakePgreplicas{c, namespace}
 }
 
-func (c *FakeQingcloudV1) Pgtasks(namespace string) v1.PgtaskInterface {
+func (c *FakeRadondbV1) Pgtasks(namespace string) v1.PgtaskInterface {
 	return &FakePgtasks{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *FakeQingcloudV1) RESTClient() rest.Interface {
+func (c *FakeRadondbV1) RESTClient() rest.Interface {
 	var ret *rest.RESTClient
 	return ret
 }

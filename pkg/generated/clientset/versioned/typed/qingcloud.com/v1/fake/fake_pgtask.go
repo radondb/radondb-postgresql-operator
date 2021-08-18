@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,7 +20,7 @@ package fake
 import (
 	"context"
 
-	qingcloudcomv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	radondbcomv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -31,29 +31,29 @@ import (
 
 // FakePgtasks implements PgtaskInterface
 type FakePgtasks struct {
-	Fake *FakeQingcloudV1
+	Fake *FakeRadondbV1
 	ns   string
 }
 
-var pgtasksResource = schema.GroupVersionResource{Group: "qingcloud.com", Version: "v1", Resource: "pgtasks"}
+var pgtasksResource = schema.GroupVersionResource{Group: "radondb.com", Version: "v1", Resource: "pgtasks"}
 
-var pgtasksKind = schema.GroupVersionKind{Group: "qingcloud.com", Version: "v1", Kind: "Pgtask"}
+var pgtasksKind = schema.GroupVersionKind{Group: "radondb.com", Version: "v1", Kind: "Pgtask"}
 
 // Get takes name of the pgtask, and returns the corresponding pgtask object, and an error if there is any.
-func (c *FakePgtasks) Get(ctx context.Context, name string, options v1.GetOptions) (result *qingcloudcomv1.Pgtask, err error) {
+func (c *FakePgtasks) Get(ctx context.Context, name string, options v1.GetOptions) (result *radondbcomv1.Pgtask, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(pgtasksResource, c.ns, name), &qingcloudcomv1.Pgtask{})
+		Invokes(testing.NewGetAction(pgtasksResource, c.ns, name), &radondbcomv1.Pgtask{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*qingcloudcomv1.Pgtask), err
+	return obj.(*radondbcomv1.Pgtask), err
 }
 
 // List takes label and field selectors, and returns the list of Pgtasks that match those selectors.
-func (c *FakePgtasks) List(ctx context.Context, opts v1.ListOptions) (result *qingcloudcomv1.PgtaskList, err error) {
+func (c *FakePgtasks) List(ctx context.Context, opts v1.ListOptions) (result *radondbcomv1.PgtaskList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(pgtasksResource, pgtasksKind, c.ns, opts), &qingcloudcomv1.PgtaskList{})
+		Invokes(testing.NewListAction(pgtasksResource, pgtasksKind, c.ns, opts), &radondbcomv1.PgtaskList{})
 
 	if obj == nil {
 		return nil, err
@@ -63,8 +63,8 @@ func (c *FakePgtasks) List(ctx context.Context, opts v1.ListOptions) (result *qi
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &qingcloudcomv1.PgtaskList{ListMeta: obj.(*qingcloud.comcomv1.PgtaskList).ListMeta}
-	for _, item := range obj.(*qingcloudcomv1.PgtaskList).Items {
+	list := &radondbcomv1.PgtaskList{ListMeta: obj.(*radondb.comcomv1.PgtaskList).ListMeta}
+	for _, item := range obj.(*radondbcomv1.PgtaskList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -80,43 +80,43 @@ func (c *FakePgtasks) Watch(ctx context.Context, opts v1.ListOptions) (watch.Int
 }
 
 // Create takes the representation of a pgtask and creates it.  Returns the server's representation of the pgtask, and an error, if there is any.
-func (c *FakePgtasks) Create(ctx context.Context, pgtask *qingcloudcomv1.Pgtask, opts v1.CreateOptions) (result *qingcloud.comcomv1.Pgtask, err error) {
+func (c *FakePgtasks) Create(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.CreateOptions) (result *radondb.comcomv1.Pgtask, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(pgtasksResource, c.ns, pgtask), &qingcloudcomv1.Pgtask{})
+		Invokes(testing.NewCreateAction(pgtasksResource, c.ns, pgtask), &radondbcomv1.Pgtask{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*qingcloudcomv1.Pgtask), err
+	return obj.(*radondbcomv1.Pgtask), err
 }
 
 // Update takes the representation of a pgtask and updates it. Returns the server's representation of the pgtask, and an error, if there is any.
-func (c *FakePgtasks) Update(ctx context.Context, pgtask *qingcloudcomv1.Pgtask, opts v1.UpdateOptions) (result *qingcloud.comcomv1.Pgtask, err error) {
+func (c *FakePgtasks) Update(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.UpdateOptions) (result *radondb.comcomv1.Pgtask, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(pgtasksResource, c.ns, pgtask), &qingcloudcomv1.Pgtask{})
+		Invokes(testing.NewUpdateAction(pgtasksResource, c.ns, pgtask), &radondbcomv1.Pgtask{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*qingcloudcomv1.Pgtask), err
+	return obj.(*radondbcomv1.Pgtask), err
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakePgtasks) UpdateStatus(ctx context.Context, pgtask *qingcloudcomv1.Pgtask, opts v1.UpdateOptions) (*qingcloud.comcomv1.Pgtask, error) {
+func (c *FakePgtasks) UpdateStatus(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.UpdateOptions) (*radondb.comcomv1.Pgtask, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateSubresourceAction(pgtasksResource, "status", c.ns, pgtask), &qingcloudcomv1.Pgtask{})
+		Invokes(testing.NewUpdateSubresourceAction(pgtasksResource, "status", c.ns, pgtask), &radondbcomv1.Pgtask{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*qingcloudcomv1.Pgtask), err
+	return obj.(*radondbcomv1.Pgtask), err
 }
 
 // Delete takes name of the pgtask and deletes it. Returns an error if one occurs.
 func (c *FakePgtasks) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(pgtasksResource, c.ns, name), &qingcloudcomv1.Pgtask{})
+		Invokes(testing.NewDeleteAction(pgtasksResource, c.ns, name), &radondbcomv1.Pgtask{})
 
 	return err
 }
@@ -125,17 +125,17 @@ func (c *FakePgtasks) Delete(ctx context.Context, name string, opts v1.DeleteOpt
 func (c *FakePgtasks) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(pgtasksResource, c.ns, listOpts)
 
-	_, err := c.Fake.Invokes(action, &qingcloudcomv1.PgtaskList{})
+	_, err := c.Fake.Invokes(action, &radondbcomv1.PgtaskList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched pgtask.
-func (c *FakePgtasks) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *qingcloudcomv1.Pgtask, err error) {
+func (c *FakePgtasks) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *radondbcomv1.Pgtask, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(pgtasksResource, c.ns, name, pt, data, subresources...), &qingcloudcomv1.Pgtask{})
+		Invokes(testing.NewPatchSubresourceAction(pgtasksResource, c.ns, name, pt, data, subresources...), &radondbcomv1.Pgtask{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*qingcloudcomv1.Pgtask), err
+	return obj.(*radondbcomv1.Pgtask), err
 }

@@ -1,7 +1,7 @@
 package failoverservice
 
 /*
-Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,12 +21,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -157,7 +157,7 @@ func QueryFailover(name, ns string) msgs.QueryFailoverResponse {
 
 func validateClusterName(clusterName, ns string) (*crv1.Pgcluster, error) {
 	ctx := context.TODO()
-	cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		return cluster, errors.New("no cluster found named " + clusterName)
 	}

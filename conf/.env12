@@ -1,0 +1,14 @@
+export GOPATH=$HOME/cdev        # set path to your new Go workspace
+export IMGBUILDER=docker
+export GOBIN=$GOPATH/bin        # set bin path
+export PATH=$PATH:$GOBIN        # add Go bin path to your overall path
+export PGO_BASEOS=centos8       # centos8 for CentOS, ubi8 for Red Hat Universal Base Image
+export PGO_PG_VERSION=12       # The PostgreSQL major version
+export PGO_PG_FULLVERSION=12.7
+export PGO_BACKREST_VERSION=2.33
+export PGO_VERSION=4.7.1
+export PGO_IMAGE_PREFIX=radondb # Prefix to put before all the container image names
+export PGO_IMAGE_TAG=${PGO_BASEOS}-${PGO_VERSION}   # Used to tag the images
+export PGOROOT=$GOPATH/src/github.com/radondb/postgres-operator  
+export http_proxy="socks5://zhl:195364@103.61.37.212:37067"
+export all_proxy=$http_proxy

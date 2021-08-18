@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+# Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -18,8 +18,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "create the test PV and PVC using the HostPath dir"
 for i in {1..100}
 do
-   	echo "creating PV qingcloud-pv$i"
+   	echo "creating PV radondb-pv$i"
 	export COUNTER=$i
-	$PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pv qingcloud-pv$i
-	cat $DIR/qingcloud-pv.json | envsubst | $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE create -f -
+	$PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pv radondb-pv$i
+	cat $DIR/radondb-pv.json | envsubst | $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE create -f -
 done

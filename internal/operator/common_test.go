@@ -18,7 +18,7 @@ package operator
 import (
 	"testing"
 
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 )
 
 func TestGetRepoType(t *testing.T) {

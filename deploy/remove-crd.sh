@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+# Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -20,9 +20,9 @@ $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pgpolicies --all
 $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pgtasks --all
 
 $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete crd \
-	pgreplicas.qingcloud.com \
-	pgclusters.qingcloud.com \
-	pgpolicies.qingcloud.com \
-	pgtasks.qingcloud.com
+	pgreplicas.radondb.com \
+	pgclusters.radondb.com \
+	pgpolicies.radondb.com \
+	pgtasks.radondb.com
 
 $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete jobs --selector=pgrmdata=true

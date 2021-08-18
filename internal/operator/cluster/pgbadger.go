@@ -21,10 +21,10 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -41,7 +41,7 @@ const (
 )
 
 // AddPGBadger ensures that a PostgreSQL cluster is able to undertake the
-// actions required by the "qingcloud-badger", i.e. updating the Service.
+// actions required by the "radondb-badger", i.e. updating the Service.
 // This executes regardless if this is a standby cluster.
 //
 // This does not modify the Deployment that has the pgBadger sidecar. That is

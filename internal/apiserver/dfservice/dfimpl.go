@@ -1,7 +1,7 @@
 package dfservice
 
 /*
-Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,11 +20,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -55,7 +55,7 @@ func DfCluster(request msgs.DfRequest) msgs.DfResponse {
 
 	// get all of the clusters that match the selector
 	clusterList, err := apiserver.Clientset.
-		QingcloudV1().Pgclusters(namespace).
+		RadondbV1().Pgclusters(namespace).
 		List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		return CreateErrorResponse(err.Error())

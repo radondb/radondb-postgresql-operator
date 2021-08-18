@@ -1,7 +1,7 @@
 package backrestservice
 
 /*
-Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -25,14 +25,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/apiserver/backupoptions"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/apiserver/backupoptions"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -88,7 +88,7 @@ func CreateBackup(request *msgs.CreateBackrestBackupRequest, ns, pgouser string)
 	if request.Selector != "" {
 		// use the selector instead of an argument list to filter on
 		cl, err := apiserver.Clientset.
-			QingcloudV1().Pgclusters(ns).
+			RadondbV1().Pgclusters(ns).
 			List(ctx, metav1.ListOptions{LabelSelector: request.Selector})
 		if err != nil {
 			resp.Status.Code = msgs.Error
@@ -135,7 +135,7 @@ func CreateBackup(request *msgs.CreateBackrestBackupRequest, ns, pgouser string)
 		log.Debugf("create backrestbackup called for %s", clusterName)
 		taskName := "backrest-backup-" + clusterName
 
-		cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+		cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 		if kubeapi.IsNotFound(err) {
 			resp.Status.Code = msgs.Error
 			resp.Status.Msg = clusterName + " was not found, verify cluster name"
@@ -164,7 +164,7 @@ func CreateBackup(request *msgs.CreateBackrestBackupRequest, ns, pgouser string)
 			}
 		}
 
-		err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Delete(ctx, taskName, metav1.DeleteOptions{})
+		err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Delete(ctx, taskName, metav1.DeleteOptions{})
 		if err != nil && !kubeapi.IsNotFound(err) {
 			resp.Status.Code = msgs.Error
 			resp.Status.Msg = err.Error()
@@ -218,7 +218,7 @@ func CreateBackup(request *msgs.CreateBackrestBackupRequest, ns, pgouser string)
 		jobName := "backrest-" + crv1.PgtaskBackrestBackup + "-" + clusterName
 		log.Debugf("setting jobName to %s", jobName)
 
-		_, err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Create(ctx,
+		_, err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Create(ctx,
 			getBackupParams(
 				clusterName, taskName, crv1.PgtaskBackrestBackup, podname, "database",
 				util.GetValueOrDefault(cluster.Spec.CCPImagePrefix, apiserver.Pgo.Cluster.CCPImagePrefix),
@@ -248,7 +248,7 @@ func DeleteBackup(request msgs.DeleteBackrestBackupRequest) msgs.DeleteBackrestB
 
 	// first, make an attempt to get the cluster. if it does not exist, return
 	// an error
-	cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(request.Namespace).
+	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).
 		Get(ctx, request.ClusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err)
@@ -388,7 +388,7 @@ func ShowBackrest(name, selector, ns string) msgs.ShowBackrestResponse {
 
 	// get a list of all clusters
 	clusterList, err := apiserver.Clientset.
-		QingcloudV1().Pgclusters(ns).
+		RadondbV1().Pgclusters(ns).
 		List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		response.Status.Code = msgs.Error
@@ -503,7 +503,7 @@ func Restore(request *msgs.RestoreRequest, ns, pgouser string) msgs.RestoreRespo
 		}
 	}
 
-	cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, request.FromCluster, metav1.GetOptions{})
+	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, request.FromCluster, metav1.GetOptions{})
 	if kubeapi.IsNotFound(err) {
 		resp.Status.Code = msgs.Error
 		resp.Status.Msg = request.FromCluster + " was not found, verify cluster name"
@@ -557,7 +557,7 @@ func Restore(request *msgs.RestoreRequest, ns, pgouser string) msgs.RestoreRespo
 	pgtask.Spec.Parameters[crv1.PgtaskWorkflowID] = id
 
 	// delete any previous restore task
-	err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Delete(ctx, pgtask.Name, metav1.DeleteOptions{})
+	err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Delete(ctx, pgtask.Name, metav1.DeleteOptions{})
 	if err != nil && !kubeapi.IsNotFound(err) {
 		resp.Status.Code = msgs.Error
 		resp.Status.Msg = err.Error()
@@ -565,7 +565,7 @@ func Restore(request *msgs.RestoreRequest, ns, pgouser string) msgs.RestoreRespo
 	}
 
 	// create a pgtask for the restore workflow
-	if _, err := apiserver.Clientset.QingcloudV1().Pgtasks(ns).
+	if _, err := apiserver.Clientset.RadondbV1().Pgtasks(ns).
 		Create(ctx, pgtask, metav1.CreateOptions{}); err != nil {
 		resp.Status.Code = msgs.Error
 		resp.Status.Msg = err.Error()
@@ -633,7 +633,7 @@ func createRestoreWorkflowTask(cluster *crv1.Pgcluster) (string, error) {
 	taskName := cluster.Name + "-" + crv1.PgtaskWorkflowBackrestRestoreType
 
 	// delete any existing pgtask with the same name
-	if err := apiserver.Clientset.QingcloudV1().Pgtasks(cluster.Namespace).
+	if err := apiserver.Clientset.RadondbV1().Pgtasks(cluster.Namespace).
 		Delete(ctx, taskName, metav1.DeleteOptions{}); err != nil && !kubeapi.IsNotFound(err) {
 		return "", err
 	}
@@ -664,7 +664,7 @@ func createRestoreWorkflowTask(cluster *crv1.Pgcluster) (string, error) {
 	newInstance.ObjectMeta.Labels[config.LABEL_PG_CLUSTER] = cluster.Name
 	newInstance.ObjectMeta.Labels[crv1.PgtaskWorkflowID] = spec.Parameters[crv1.PgtaskWorkflowID]
 
-	if _, err := apiserver.Clientset.QingcloudV1().Pgtasks(cluster.Namespace).
+	if _, err := apiserver.Clientset.RadondbV1().Pgtasks(cluster.Namespace).
 		Create(ctx, newInstance, metav1.CreateOptions{}); err != nil {
 		log.Error(err)
 		return "", err
@@ -679,7 +679,7 @@ func clusterNamesToPGClusterList(namespace string, clusterNames []string) (crv1.
 	error) {
 	ctx := context.TODO()
 	selector := fmt.Sprintf("%s in(%s)", config.LABEL_NAME, strings.Join(clusterNames, ","))
-	clusterList, err := apiserver.Clientset.QingcloudV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		return crv1.PgclusterList{}, err
 	}

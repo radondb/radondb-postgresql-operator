@@ -22,7 +22,7 @@ import (
 	"regexp"
 	"runtime"
 
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -53,12 +53,12 @@ func (f *formatter) Format(e *log.Entry) ([]byte, error) {
 	return f.lf.Format(e)
 }
 
-// QingcloudLogger adds the customized logging fields to the logrus instance context
-func QingcloudLogger(logDetails LogValues) {
+// RadondbLogger adds the customized logging fields to the logrus instance context
+func RadondbLogger(logDetails LogValues) {
 	// Sets calling method as a field
 	log.SetReportCaller(true)
 
-	qingcloudTextFormatter := &log.TextFormatter{
+	radondbTextFormatter := &log.TextFormatter{
 		CallerPrettyfier: func(f *runtime.Frame) (string, string) {
 			filename := f.File
 			function := f.Function
@@ -82,7 +82,7 @@ func QingcloudLogger(logDetails LogValues) {
 		fields: log.Fields{
 			"version": logDetails.version,
 		},
-		lf: qingcloudTextFormatter,
+		lf: radondbTextFormatter,
 	})
 
 	// Output to stdout instead of the default stderr

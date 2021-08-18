@@ -21,11 +21,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/apiserver/backupoptions"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/apiserver/backupoptions"
+	"github.com/radondb/postgres-operator/internal/config"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -71,7 +71,7 @@ func CreatepgDump(request *msgs.CreatepgDumpBackupRequest, ns string) msgs.Creat
 		// use the selector instead of an argument list to filter on
 
 		clusterList, err := apiserver.Clientset.
-			QingcloudV1().Pgclusters(ns).
+			RadondbV1().Pgclusters(ns).
 			List(ctx, metav1.ListOptions{LabelSelector: request.Selector})
 		if err != nil {
 			resp.Status.Code = msgs.Error
@@ -97,7 +97,7 @@ func CreatepgDump(request *msgs.CreatepgDumpBackupRequest, ns string) msgs.Creat
 		log.Debugf("create pgdump called for %s", clusterName)
 		taskName := "backup-" + clusterName + pgDumpTaskExtension
 
-		cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+		cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 		if kerrors.IsNotFound(err) {
 			resp.Status.Code = msgs.Error
 			resp.Status.Msg = clusterName + " was not found, verify cluster name"
@@ -122,7 +122,7 @@ func CreatepgDump(request *msgs.CreatepgDumpBackupRequest, ns string) msgs.Creat
 			Delete(ctx, clusterName+pgDumpJobExtension, metav1.DeleteOptions{PropagationPolicy: &deletePropagation})
 
 		// error if the task already exists
-		_, err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Get(ctx, taskName, metav1.GetOptions{})
+		_, err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Get(ctx, taskName, metav1.GetOptions{})
 		if kerrors.IsNotFound(err) {
 			log.Debugf("pgdump pgtask %s was not found so we will create it", taskName)
 		} else if err != nil {
@@ -133,7 +133,7 @@ func CreatepgDump(request *msgs.CreatepgDumpBackupRequest, ns string) msgs.Creat
 
 			log.Debugf("pgtask %s was found so we will recreate it", taskName)
 			// remove the existing pgtask
-			err := apiserver.Clientset.QingcloudV1().Pgtasks(ns).Delete(ctx, taskName, metav1.DeleteOptions{})
+			err := apiserver.Clientset.RadondbV1().Pgtasks(ns).Delete(ctx, taskName, metav1.DeleteOptions{})
 			if err != nil {
 				resp.Status.Code = msgs.Error
 				resp.Status.Msg = err.Error()
@@ -145,7 +145,7 @@ func CreatepgDump(request *msgs.CreatepgDumpBackupRequest, ns string) msgs.Creat
 		// TODO: Needs error handling for invalid parameters in the request
 		theTask := buildPgTaskForDump(clusterName, taskName, crv1.PgtaskpgDump, "database", request)
 
-		_, err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Create(ctx, theTask, metav1.CreateOptions{})
+		_, err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Create(ctx, theTask, metav1.CreateOptions{})
 		if err != nil {
 			resp.Status.Code = msgs.Error
 			resp.Status.Msg = err.Error()
@@ -183,7 +183,7 @@ func ShowpgDump(clusterName string, selector string, ns string) msgs.ShowBackupR
 
 	// get a list of all clusters
 	clusterList, err := apiserver.Clientset.
-		QingcloudV1().Pgclusters(ns).
+		RadondbV1().Pgclusters(ns).
 		List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		response.Status.Code = msgs.Error
@@ -312,7 +312,7 @@ func parseOptionFlags(allFlags string) (bool, string) {
 // if backup && err are nil, it simply wasn't found. Otherwise found or an error
 func getPgBackupForTask(taskName, ns string) (*msgs.Pgbackup, error) {
 	ctx := context.TODO()
-	task, err := apiserver.Clientset.QingcloudV1().Pgtasks(ns).Get(ctx, taskName, metav1.GetOptions{})
+	task, err := apiserver.Clientset.RadondbV1().Pgtasks(ns).Get(ctx, taskName, metav1.GetOptions{})
 
 	if err == nil {
 		return buildPgBackupFrompgTask(task), nil
@@ -373,7 +373,7 @@ func Restore(request *msgs.PgRestoreRequest, ns string) msgs.PgRestoreResponse {
 		}
 	}
 
-	_, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, request.FromCluster, metav1.GetOptions{})
+	_, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, request.FromCluster, metav1.GetOptions{})
 	if kerrors.IsNotFound(err) {
 		resp.Status.Code = msgs.Error
 		resp.Status.Msg = request.FromCluster + " was not found, verify cluster name"
@@ -399,7 +399,7 @@ func Restore(request *msgs.PgRestoreRequest, ns string) msgs.PgRestoreResponse {
 	}
 
 	// delete any existing pgtask with the same name
-	err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Delete(ctx, pgtask.Name, metav1.DeleteOptions{})
+	err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Delete(ctx, pgtask.Name, metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		resp.Status.Code = msgs.Error
 		resp.Status.Msg = err.Error()
@@ -407,7 +407,7 @@ func Restore(request *msgs.PgRestoreRequest, ns string) msgs.PgRestoreResponse {
 	}
 
 	// create a pgtask for the restore workflow
-	_, err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Create(ctx, pgtask, metav1.CreateOptions{})
+	_, err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Create(ctx, pgtask, metav1.CreateOptions{})
 	if err != nil {
 		resp.Status.Code = msgs.Error
 		resp.Status.Msg = err.Error()

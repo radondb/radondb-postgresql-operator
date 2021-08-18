@@ -1,7 +1,7 @@
 package task
 
 /*
- Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -22,12 +22,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 	v1batch "k8s.io/api/batch/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -60,7 +60,7 @@ func RemoveData(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask
 		Bytes()
 	if err == nil {
 		log.Debugf("patching task %s: %s", task.Spec.Name, patch)
-		_, err = clientset.QingcloudV1().Pgtasks(namespace).
+		_, err = clientset.RadondbV1().Pgtasks(namespace).
 			Patch(ctx, task.Spec.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -104,7 +104,7 @@ func RemoveData(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask
 
 	log.Debugf("creating rmdata job %s for cluster %s ", jobName, task.Spec.Name)
 
-	if operator.QINGCLOUD_DEBUG {
+	if operator.RADONDB_DEBUG {
 		_ = config.RmdatajobTemplate.Execute(os.Stdout, jobFields)
 	}
 
