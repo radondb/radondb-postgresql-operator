@@ -8,10 +8,10 @@
             {{ .CustomLabels }}
             {{ end }}
             "name": "{{.Name}}",
-            "radondb-pgbouncer": "true",
+            "RadonDB-pgbouncer": "true",
             "pg-cluster": "{{.ClusterName}}",
             "service-name": "{{.Name}}",
-            "vendor": "radondb"
+            "vendor": "RadonDB"
         }
     },
     "spec": {
@@ -19,11 +19,11 @@
         "selector": {
             "matchLabels": {
                 "name": "{{.Name}}",
-                "radondb-pgbouncer": "true",
+                "RadonDB-pgbouncer": "true",
                 "pg-cluster": "{{.ClusterName}}",
                 "service-name": "{{.Name}}",
                 "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
-                "vendor": "radondb"
+                "vendor": "RadonDB"
             }
         },
         "template": {
@@ -36,11 +36,11 @@
                     {{ .CustomLabels }}
                     {{ end }}
                     "name": "{{.Name}}",
-                    "radondb-pgbouncer": "true",
+                    "RadonDB-pgbouncer": "true",
                     "pg-cluster": "{{.ClusterName}}",
                     "service-name": "{{.Name}}",
                     "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
-                    "vendor": "radondb"
+                    "vendor": "RadonDB"
                 }
             },
             "spec": {
@@ -53,7 +53,7 @@
                 },
                 "containers": [{
                     "name": "pgbouncer",
-                    "image": "{{.CCPImagePrefix}}/radondb-pgbouncer:{{.CCPImageTag}}",
+                    "image": "{{.CCPImagePrefix}}/RadonDB-pgbouncer:{{.CCPImageTag}}",
                     "securityContext": {
                       "allowPrivilegeEscalation": false,
                       "privileged": false,

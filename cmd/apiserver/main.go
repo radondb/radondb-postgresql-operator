@@ -24,10 +24,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/apiserver/routing"
-	radondblog "github.com/radondb/postgres-operator/internal/logging"
-	"github.com/radondb/postgres-operator/internal/tlsutil"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/apiserver/routing"
+	RadonDBlog "github.com/RadonDB/postgres-operator/internal/logging"
+	"github.com/RadonDB/postgres-operator/internal/tlsutil"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -56,8 +56,8 @@ func main() {
 		srvPort = p
 	}
 
-	// RADONDB_DEBUG sets the logging level to Debug (more verbose)
-	if debug, _ := strconv.ParseBool(os.Getenv("RADONDB_DEBUG")); debug {
+	// RadonDB_DEBUG sets the logging level to Debug (more verbose)
+	if debug, _ := strconv.ParseBool(os.Getenv("RadonDB_DEBUG")); debug {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("debug flag set to true")
 	} else {
@@ -102,8 +102,8 @@ func main() {
 		}
 	}
 
-	// init radondb-formatted logger
-	radondblog.RadondbLogger(radondblog.SetParameters())
+	// init RadonDB-formatted logger
+	RadonDBlog.RadonDBLogger(RadonDBlog.SetParameters())
 
 	// give time for pgo-event to start up
 	time.Sleep(time.Duration(5) * time.Second)

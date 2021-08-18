@@ -28,13 +28,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	"github.com/radondb/postgres-operator/internal/operator/backrest"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/events"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/operator/backrest"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/RadonDB/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
 	batchv1 "k8s.io/api/batch/v1"
@@ -100,7 +100,7 @@ func addClusterBootstrapJob(clientset kubeapi.Interface, cl *crv1.Pgcluster,
 		return err
 	}
 
-	if operator.RADONDB_DEBUG {
+	if operator.RadonDB_DEBUG {
 		_ = config.BootstrapTemplate.Execute(os.Stdout, bootstrapFields)
 	}
 
@@ -145,7 +145,7 @@ func addClusterDeployments(clientset kubeapi.Interface,
 	deploymentFields := getClusterDeploymentFields(clientset, cl,
 		dataVolume, tablespaceVolumes)
 
-	if operator.RADONDB_DEBUG {
+	if operator.RadonDB_DEBUG {
 		_ = config.DeploymentTemplate.Execute(os.Stdout, deploymentFields)
 	}
 
@@ -209,7 +209,7 @@ func getBootstrapJobFields(clientset kubeapi.Interface,
 	}
 
 	// Grab the cluster to restore from to see if it still exists
-	restoreCluster, err := clientset.RadondbV1().Pgclusters(cluster.GetNamespace()).
+	restoreCluster, err := clientset.RadonDBV1().Pgclusters(cluster.GetNamespace()).
 		Get(ctx, restoreClusterName, metav1.GetOptions{})
 	found := true
 	if err != nil {
@@ -280,7 +280,7 @@ func getClusterDeploymentFields(clientset kubernetes.Interface,
 	labels[config.LABEL_PGOUSER] = cl.ObjectMeta.Labels[config.LABEL_PGOUSER]
 
 	// Set the Patroni scope to the name of the primary deployment.  Replicas will get scope using the
-	// 'radondb-pgha-scope' label on the pgcluster
+	// 'RadonDB-pgha-scope' label on the pgcluster
 	labels[config.LABEL_PGHA_SCOPE] = cl.Name
 
 	// If applicable, set the exporter labels, used for the scrapers, and create
@@ -521,7 +521,7 @@ func scaleReplicaCreateDeployment(clientset kubernetes.Interface,
 		return err
 	}
 
-	if operator.RADONDB_DEBUG {
+	if operator.RadonDB_DEBUG {
 		_ = config.DeploymentTemplate.Execute(os.Stdout, replicaDeploymentFields)
 	}
 
@@ -542,7 +542,7 @@ func scaleReplicaCreateDeployment(clientset kubernetes.Interface,
 	operator.OverrideClusterContainerImages(replicaDeployment.Spec.Template.Spec.Containers)
 
 	// set the replica scope to the same scope as the primary, i.e. the scope defined using label
-	// 'radondb-pgha-scope'
+	// 'RadonDB-pgha-scope'
 	replicaDeployment.Labels[config.LABEL_PGHA_SCOPE] = cluster.Name
 	replicaDeployment.Spec.Template.Labels[config.LABEL_PGHA_SCOPE] = cluster.Name
 
@@ -638,7 +638,7 @@ func ShutdownCluster(clientset kubeapi.Interface, cluster crv1.Pgcluster) error 
 	cluster.Annotations[config.ANNOTATION_PRIMARY_DEPLOYMENT] =
 		primaryPod.Labels[config.LABEL_DEPLOYMENT_NAME]
 
-	if _, err := clientset.RadondbV1().Pgclusters(cluster.Namespace).
+	if _, err := clientset.RadonDBV1().Pgclusters(cluster.Namespace).
 		Update(ctx, &cluster, metav1.UpdateOptions{}); err != nil {
 		return fmt.Errorf("Cluster Operator: Unable to update the current primary deployment "+
 			"in the pgcluster when shutting down cluster %s", cluster.Name)
@@ -666,7 +666,7 @@ func ShutdownCluster(clientset kubeapi.Interface, cluster crv1.Pgcluster) error 
 	})
 	if err == nil {
 		log.Debugf("patching cluster %s: %s", cluster.Name, patch)
-		_, err = clientset.RadondbV1().Pgclusters(cluster.Namespace).
+		_, err = clientset.RadonDBV1().Pgclusters(cluster.Namespace).
 			Patch(ctx, cluster.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

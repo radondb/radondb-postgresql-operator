@@ -1,7 +1,7 @@
 package controller
 
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,10 +20,10 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	pgo "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -58,7 +58,7 @@ func InitializeReplicaCreation(clientset pgo.Interface, clusterName,
 	namespace string) error {
 	ctx := context.TODO()
 	selector := config.LABEL_PG_CLUSTER + "=" + clusterName
-	pgreplicaList, err := clientset.RadondbV1().Pgreplicas(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	pgreplicaList, err := clientset.RadonDBV1().Pgreplicas(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		log.Error(err)
 		return err
@@ -73,7 +73,7 @@ func InitializeReplicaCreation(clientset pgo.Interface, clusterName,
 			log.Error(err)
 		}
 
-		if _, err := clientset.RadondbV1().Pgreplicas(namespace).
+		if _, err := clientset.RadonDBV1().Pgreplicas(namespace).
 			Patch(ctx, pgreplicaList.Items[i].GetName(), types.MergePatchType, patch,
 				metav1.PatchOptions{}); err != nil {
 			log.Error(err)
@@ -95,7 +95,7 @@ func SetClusterInitializedStatus(clientset pgo.Interface, clusterName,
 		},
 	})
 	if err == nil {
-		_, err = clientset.RadondbV1().Pgclusters(namespace).
+		_, err = clientset.RadonDBV1().Pgclusters(namespace).
 			Patch(ctx, clusterName, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

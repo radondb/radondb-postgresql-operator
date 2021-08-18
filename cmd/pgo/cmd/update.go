@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/radondb/postgres-operator/cmd/pgo/util"
+	"github.com/RadonDB/postgres-operator/cmd/pgo/util"
 	"github.com/spf13/cobra"
 )
 
@@ -129,13 +129,13 @@ func init() {
 	UpdateClusterCmd.Flags().StringVar(&WALPVCSize, "wal-pvc-size", "",
 		`The size of the capacity for WAL storage, which overrides any value in the storage configuration.  Must follow the standard Kubernetes format, e.g. "10.1Gi".`)
 	UpdateClusterCmd.Flags().StringVar(&ExporterCPURequest, "exporter-cpu", "", "Set the number of millicores to request for CPU "+
-		"for the Radondb Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\".")
+		"for the RadonDB Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\".")
 	UpdateClusterCmd.Flags().StringVar(&ExporterCPULimit, "exporter-cpu-limit", "", "Set the number of millicores to limit for CPU "+
-		"for the Radondb Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\".")
+		"for the RadonDB Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\".")
 	UpdateClusterCmd.Flags().StringVar(&ExporterMemoryRequest, "exporter-memory", "", "Set the amount of memory to request for "+
-		"the Radondb Postgres Exporter sidecar container.")
+		"the RadonDB Postgres Exporter sidecar container.")
 	UpdateClusterCmd.Flags().StringVar(&ExporterMemoryLimit, "exporter-memory-limit", "", "Set the amount of memory to limit for "+
-		"the Radondb Postgres Exporter sidecar container.")
+		"the RadonDB Postgres Exporter sidecar container.")
 	UpdateClusterCmd.Flags().BoolVar(&EnableMetrics, "enable-metrics", false,
 		"Enable the metrics collection sidecar. May cause brief downtime.")
 	UpdateClusterCmd.Flags().BoolVar(&EnablePGBadger, "enable-pgbadger", false,
@@ -324,7 +324,7 @@ var UpdateClusterCmd = &cobra.Command{
 
 		if ExporterCPURequest != "" || ExporterMemoryRequest != "" ||
 			ExporterCPULimit != "" || ExporterMemoryLimit != "" {
-			fmt.Println("Updating Radondb Postgres Exporter resources can cause downtime.")
+			fmt.Println("Updating RadonDB Postgres Exporter resources can cause downtime.")
 		}
 
 		if !util.AskForConfirmation(NoPrompt, "") {

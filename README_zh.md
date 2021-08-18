@@ -1,4 +1,4 @@
-# ![LOGO](docs/images/logo_radondb.png)
+# ![LOGO](docs/images/logo_RadonDB.png)
 
 > [English](README.md) | 中文
 
@@ -6,13 +6,13 @@
 
 ## 什么是 RadonDB PostgreSQL
 
-[RadonDB PostgreSQL](https://github.com/radondb/radondb-postgresql-operator) 是基于 [PostgreSQL](https://www.postgresql.org/) 和 [PGO](https://github.com/CrunchyData/postgres-operator/) 开发的开源、高可用、云原生集群解决方案。
+[RadonDB PostgreSQL](https://github.com/RadonDB/RadonDB-postgresql-operator) 是基于 [PostgreSQL](https://www.postgresql.org/) 和 [PGO](https://github.com/CrunchyData/postgres-operator/) 开发的开源、高可用、云原生集群解决方案。
 
 RadonDB PostgreSQL Operator 支持在 [Kubernetes](https://kubernetes.io) 和 [KubeSphere 3.1.x](https://kubesphere.com.cn) 平台部署。
 
 ## 快速入门
 
-- [在 Kubernetes 上部署 RadonDB PostgreSQL 集群](docs/deploy_radondb_postgresql_operator_on_kubernetes.md)
+- [在 Kubernetes 上部署 RadonDB PostgreSQL 集群](docs/deploy_RadonDB_postgresql_operator_on_kubernetes.md)
 - [监控管理](docs/monitor_prometheus.md)
 
 ## 架构图

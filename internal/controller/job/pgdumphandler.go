@@ -18,9 +18,9 @@ limitations under the License.
 import (
 	"context"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 	log "github.com/sirupsen/logrus"
 	apiv1 "k8s.io/api/batch/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -50,7 +50,7 @@ func (c *Controller) handlePGDumpUpdate(job *apiv1.Job) error {
 	patch, err := kubeapi.NewJSONPatch().Add("spec", "status")(status).Bytes()
 	if err == nil {
 		log.Debugf("patching task %s: %s", dumpTask, patch)
-		_, err = c.Client.RadondbV1().Pgtasks(job.Namespace).
+		_, err = c.Client.RadonDBV1().Pgtasks(job.Namespace).
 			Patch(ctx, dumpTask, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -86,7 +86,7 @@ func (c *Controller) handlePGRestoreUpdate(job *apiv1.Job) error {
 	patch, err := kubeapi.NewJSONPatch().Add("spec", "status")(status).Bytes()
 	if err == nil {
 		log.Debugf("patching task %s: %s", restoreTask, patch)
-		_, err = c.Client.RadondbV1().Pgtasks(job.Namespace).
+		_, err = c.Client.RadonDBV1().Pgtasks(job.Namespace).
 			Patch(ctx, restoreTask, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

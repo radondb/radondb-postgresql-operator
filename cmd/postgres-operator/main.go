@@ -1,7 +1,7 @@
 package main
 
 /*
-Copyright 2017 - 2021 Radondb Data
+Copyright 2017 - 2021 RadonDB
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,12 +20,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/controller"
-	"github.com/radondb/postgres-operator/internal/controller/manager"
-	nscontroller "github.com/radondb/postgres-operator/internal/controller/namespace"
-	radondblog "github.com/radondb/postgres-operator/internal/logging"
-	"github.com/radondb/postgres-operator/internal/ns"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/controller"
+	"github.com/RadonDB/postgres-operator/internal/controller/manager"
+	nscontroller "github.com/RadonDB/postgres-operator/internal/controller/namespace"
+	RadonDBlog "github.com/RadonDB/postgres-operator/internal/logging"
+	"github.com/RadonDB/postgres-operator/internal/ns"
 	log "github.com/sirupsen/logrus"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -34,8 +34,8 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"sigs.k8s.io/controller-runtime/pkg/manager/signals"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
 )
 
 func main() {
@@ -45,9 +45,9 @@ func main() {
 		defer flush()
 	}
 
-	debugFlag := os.Getenv("RADONDB_DEBUG")
+	debugFlag := os.Getenv("RadonDB_DEBUG")
 	// add logging configuration
-	radondblog.RadondbLogger(radondblog.SetParameters())
+	RadonDBlog.RadonDBLogger(RadonDBlog.SetParameters())
 	if debugFlag == "true" {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("debug flag set to true")
@@ -134,7 +134,7 @@ func createAndStartNamespaceController(kubeClientset kubernetes.Interface,
 		time.Duration(*operator.Pgo.Pgo.NamespaceRefreshInterval)*time.Second,
 		kubeinformers.WithTweakListOptions(func(options *metav1.ListOptions) {
 			options.LabelSelector = fmt.Sprintf("%s=%s,%s=%s",
-				config.LABEL_VENDOR, config.LABEL_RADONDB,
+				config.LABEL_VENDOR, config.LABEL_RadonDB,
 				config.LABEL_PGO_INSTALLATION_NAME, operator.InstallationName)
 		}))
 	nsController, err := nscontroller.NewNamespaceController(controllerManager,

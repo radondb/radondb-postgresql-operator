@@ -104,7 +104,7 @@ var (
 	// the resource requests / limits for pgBouncer instances
 	PgBouncerCPURequest, PgBouncerMemoryRequest string
 	PgBouncerCPULimit, PgBouncerMemoryLimit     string
-	// the resource requests / limits for Radondb Postgres Exporter the sidecar container
+	// the resource requests / limits for RadonDB Postgres Exporter the sidecar container
 	ExporterCPURequest, ExporterMemoryRequest string
 	ExporterCPULimit, ExporterMemoryLimit     string
 )
@@ -387,7 +387,7 @@ func init() {
 		"Add an Annotation specifically to PostgreSQL deployments\n"+
 			"The format to add an annotation is \"name=value\"\n"+
 			"The format to remove an annotation is \"name-\"")
-	createClusterCmd.Flags().StringVarP(&CCPImage, "ccp-image", "", "", "The CCPImage name to use for cluster creation. If specified, overrides the value radondb-postgres.")
+	createClusterCmd.Flags().StringVarP(&CCPImage, "ccp-image", "", "", "The CCPImage name to use for cluster creation. If specified, overrides the value RadonDB-postgres.")
 	createClusterCmd.Flags().StringVarP(&CCPImageTag, "ccp-image-tag", "c", "", "The CCPImageTag to use for cluster creation. If specified, overrides the pgo.yaml setting.")
 	createClusterCmd.Flags().StringVarP(&CCPImagePrefix, "ccp-image-prefix", "", "", "The CCPImagePrefix to use for cluster creation. If specified, overrides the global configuration.")
 	createClusterCmd.Flags().StringVarP(&PGOImagePrefix, "pgo-image-prefix", "", "", "The PGOImagePrefix to use for cluster creation. If specified, overrides the global configuration.")
@@ -404,15 +404,15 @@ func init() {
 		"1GiB. Overrides the default server value.")
 	createClusterCmd.Flags().StringVar(&MemoryLimit, "memory-limit", "", "Set the amount of RAM to limit, e.g. "+
 		"1GiB.")
-	createClusterCmd.Flags().BoolVarP(&MetricsFlag, "metrics", "", false, "Adds the radondb-postgres-exporter container to the database pod.")
+	createClusterCmd.Flags().BoolVarP(&MetricsFlag, "metrics", "", false, "Adds the RadonDB-postgres-exporter container to the database pod.")
 	createClusterCmd.Flags().StringVar(&ExporterCPURequest, "exporter-cpu", "", "Set the number of millicores to request for CPU "+
-		"for the Radondb Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\". Defaults to being unset.")
+		"for the RadonDB Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\". Defaults to being unset.")
 	createClusterCmd.Flags().StringVar(&ExporterCPULimit, "exporter-cpu-limit", "", "Set the number of millicores to limit for CPU "+
-		"for the Radondb Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\". Defaults to being unset.")
+		"for the RadonDB Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\". Defaults to being unset.")
 	createClusterCmd.Flags().StringVar(&ExporterMemoryRequest, "exporter-memory", "", "Set the amount of memory to request for "+
-		"the Radondb Postgres Exporter sidecar container. Defaults to server value (24Mi).")
+		"the RadonDB Postgres Exporter sidecar container. Defaults to server value (24Mi).")
 	createClusterCmd.Flags().StringVar(&ExporterMemoryLimit, "exporter-memory-limit", "", "Set the amount of memory to limit for "+
-		"the Radondb Postgres Exporter sidecar container.")
+		"the RadonDB Postgres Exporter sidecar container.")
 	createClusterCmd.Flags().StringVar(&NodeAffinityType, "node-affinity-type", "", "Sets the type of node affinity to use. "+
 		"Can be either preferred (default) or required. Must be used with --node-label")
 	createClusterCmd.Flags().StringVarP(&NodeLabel, "node-label", "", "", "The node label (key=value) to use in placing the primary database. If not set, any node is used.")
@@ -470,8 +470,8 @@ func init() {
 	createClusterCmd.Flags().BoolVarP(&BackrestS3VerifyTLS, "pgbackrest-s3-verify-tls", "", true, "This sets if pgBackRest should verify the TLS certificate when connecting to S3. To disable, use \"--pgbackrest-s3-verify-tls=false\".")
 	createClusterCmd.Flags().StringVar(&BackrestStorageConfig, "pgbackrest-storage-config", "", "The name of the storage config in pgo.yaml to use for the pgBackRest local repository.")
 	createClusterCmd.Flags().StringVarP(&BackrestStorageType, "pgbackrest-storage-type", "", "", "The type of storage to use with pgBackRest. Either \"posix\", \"s3\", \"gcs\", \"posix,s3\" or \"posix,gcs\". (default \"posix\")")
-	createClusterCmd.Flags().BoolVarP(&BadgerFlag, "pgbadger", "", false, "Adds the radondb-pgbadger container to the database pod.")
-	createClusterCmd.Flags().BoolVarP(&PgbouncerFlag, "pgbouncer", "", false, "Adds a radondb-pgbouncer deployment to the cluster.")
+	createClusterCmd.Flags().BoolVarP(&BadgerFlag, "pgbadger", "", false, "Adds the RadonDB-pgbadger container to the database pod.")
+	createClusterCmd.Flags().BoolVarP(&PgbouncerFlag, "pgbouncer", "", false, "Adds a RadonDB-pgbouncer deployment to the cluster.")
 	createClusterCmd.Flags().StringVar(&PgBouncerCPURequest, "pgbouncer-cpu", "", "Set the number of millicores to request for CPU "+
 		"for pgBouncer. Defaults to being unset.")
 	createClusterCmd.Flags().StringVar(&PgBouncerCPULimit, "pgbouncer-cpu-limit", "", "Set the number of millicores to limit for CPU "+

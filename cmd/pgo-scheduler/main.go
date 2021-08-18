@@ -22,13 +22,13 @@ import (
 	"syscall"
 	"time"
 
-	sched "github.com/radondb/postgres-operator/cmd/pgo-scheduler/scheduler"
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/controller"
-	nscontroller "github.com/radondb/postgres-operator/internal/controller/namespace"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	radondblog "github.com/radondb/postgres-operator/internal/logging"
-	"github.com/radondb/postgres-operator/internal/ns"
+	sched "github.com/RadonDB/postgres-operator/cmd/pgo-scheduler/scheduler"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/controller"
+	nscontroller "github.com/RadonDB/postgres-operator/internal/controller/namespace"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	RadonDBlog "github.com/RadonDB/postgres-operator/internal/logging"
+	"github.com/RadonDB/postgres-operator/internal/ns"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kubeinformers "k8s.io/client-go/informers"
@@ -37,7 +37,7 @@ import (
 )
 
 const (
-	schedulerLabel       = "radondb-scheduler=true"
+	schedulerLabel       = "RadonDB-scheduler=true"
 	pgoNamespaceEnv      = "PGO_OPERATOR_NAMESPACE"
 	namespaceWorkerCount = 1
 )
@@ -58,9 +58,9 @@ func init() {
 	var err error
 	log.SetLevel(log.InfoLevel)
 
-	debugFlag := os.Getenv("RADONDB_DEBUG")
+	debugFlag := os.Getenv("RadonDB_DEBUG")
 	// add logging configuration
-	radondblog.RadondbLogger(radondblog.SetParameters())
+	RadonDBlog.RadonDBLogger(RadonDBlog.SetParameters())
 	if debugFlag == "true" {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("debug flag set to true")
@@ -99,7 +99,7 @@ func init() {
 }
 
 func main() {
-	log.Info("Starting Radondb Scheduler")
+	log.Info("Starting RadonDB Scheduler")
 	// give time for pgo-event to start up
 	time.Sleep(time.Duration(5) * time.Second)
 
@@ -199,7 +199,7 @@ func createAndStartNamespaceController(kubeClientset kubernetes.Interface,
 		nsRefreshInterval,
 		kubeinformers.WithTweakListOptions(func(options *metav1.ListOptions) {
 			options.LabelSelector = fmt.Sprintf("%s=%s,%s=%s",
-				config.LABEL_VENDOR, config.LABEL_RADONDB,
+				config.LABEL_VENDOR, config.LABEL_RadonDB,
 				config.LABEL_PGO_INSTALLATION_NAME, installationName)
 		}))
 

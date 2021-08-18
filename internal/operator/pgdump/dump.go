@@ -21,12 +21,12 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	"github.com/radondb/postgres-operator/internal/operator/pvc"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/operator/pvc"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 	log "github.com/sirupsen/logrus"
 	v1batch "k8s.io/api/batch/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -71,7 +71,7 @@ func Dump(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) {
 	}
 
 	// get the pgcluster CRD for cases where a CCPImagePrefix is specified
-	cluster, err := clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := clientset.RadonDBV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err)
 		return
@@ -133,7 +133,7 @@ func Dump(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) {
 		return
 	}
 
-	if operator.RADONDB_DEBUG {
+	if operator.RadonDB_DEBUG {
 		_ = config.PgDumpBackupJobTemplate.Execute(os.Stdout, jobFields)
 	}
 
@@ -145,7 +145,7 @@ func Dump(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) {
 	}
 
 	// set the container image to an override value, if one exists
-	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_RADONDB_POSTGRES_HA,
+	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_RadonDB_POSTGRES_HA,
 		&newjob.Spec.Template.Spec.Containers[0])
 
 	_, err = clientset.BatchV1().Jobs(namespace).Create(ctx, &newjob, metav1.CreateOptions{})
@@ -158,7 +158,7 @@ func Dump(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) {
 	patch, err := kubeapi.NewJSONPatch().Add("spec", "status")(crv1.PgBackupJobSubmitted).Bytes()
 	if err == nil {
 		log.Debugf("patching task %s: %s", task.Spec.Name, patch)
-		_, err = clientset.RadondbV1().Pgtasks(namespace).
+		_, err = clientset.RadonDBV1().Pgtasks(namespace).
 			Patch(ctx, task.Spec.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

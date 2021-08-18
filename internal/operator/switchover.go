@@ -1,7 +1,7 @@
 package operator
 
 /*
- Copyright 2021 Radondb Data Solutions, Inc.
+ Copyright 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -18,8 +18,8 @@ package operator
 import (
 	"fmt"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 	log "github.com/sirupsen/logrus"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"

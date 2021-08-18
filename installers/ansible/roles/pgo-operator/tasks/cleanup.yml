@@ -8,7 +8,7 @@
 
 - name: Get number of Operator instances in this cluster
   shell: |
-    {{ kubectl_or_oc }} get deployment --field-selector=metadata.name=postgres-operator --selector=vendor=radondb --all-namespaces -o name | wc -l
+    {{ kubectl_or_oc }} get deployment --field-selector=metadata.name=postgres-operator --selector=vendor=RadonDB --all-namespaces -o name | wc -l
   register: num_operators
   tags:
   - uninstall
@@ -22,7 +22,7 @@
 
 - name: Find watched namespaces
   shell: |
-    {{ kubectl_or_oc }} get namespaces -o json --selector=vendor=radondb,pgo-installation-name={{ pgo_installation_name }}
+    {{ kubectl_or_oc }} get namespaces -o json --selector=vendor=RadonDB,pgo-installation-name={{ pgo_installation_name }}
   register: ns_result
   tags:
   - uninstall
@@ -37,7 +37,7 @@
 
 - name: Delete PG Cluster Deployments
   shell: |
-    {{ kubectl_or_oc }} delete deployment --selector=vendor=radondb -n {{ item }}
+    {{ kubectl_or_oc }} delete deployment --selector=vendor=RadonDB -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -48,7 +48,7 @@
 
 - name: Delete PG Cluster Jobs
   shell: |
-    {{ kubectl_or_oc }} delete jobs --selector=vendor=radondb -n {{ item }}
+    {{ kubectl_or_oc }} delete jobs --selector=vendor=RadonDB -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -59,7 +59,7 @@
 
 - name: Delete PG Cluster Secrets
   shell: |
-    {{ kubectl_or_oc }} delete configmap,secrets --selector=vendor=radondb -n {{ item }}
+    {{ kubectl_or_oc }} delete configmap,secrets --selector=vendor=RadonDB -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -70,7 +70,7 @@
 
 - name: Delete PG Cluster Services
   shell: |
-    {{ kubectl_or_oc }} delete services --selector=vendor=radondb -n {{ item }}
+    {{ kubectl_or_oc }} delete services --selector=vendor=RadonDB -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -81,7 +81,7 @@
 
 - name: Delete PG PVC's
   shell: |
-    {{ kubectl_or_oc }} delete pvc --selector=vendor=radondb -n {{ item }}
+    {{ kubectl_or_oc }} delete pvc --selector=vendor=RadonDB -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -246,8 +246,8 @@
 
 - name: Delete Custom Resource Definitions
   shell: |
-    {{ kubectl_or_oc }} delete crds pgclusters.radondb.com \
-        pgpolicies.radondb.com pgreplicas.radondb.com pgtasks.radondb.com
+    {{ kubectl_or_oc }} delete crds pgclusters.RadonDB.com \
+        pgpolicies.RadonDB.com pgreplicas.RadonDB.com pgtasks.RadonDB.com
   ignore_errors: yes
   no_log: false
   when: not multi_operator_env|bool

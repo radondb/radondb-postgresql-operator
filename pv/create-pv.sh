@@ -18,8 +18,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "create the test PV and PVC using the HostPath dir"
 for i in {1..100}
 do
-   	echo "creating PV radondb-pv$i"
+   	echo "creating PV RadonDB-pv$i"
 	export COUNTER=$i
-	$PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pv radondb-pv$i
-	cat $DIR/radondb-pv.json | envsubst | $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE create -f -
+	$PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pv RadonDB-pv$i
+	cat $DIR/RadonDB-pv.json | envsubst | $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE create -f -
 done

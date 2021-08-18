@@ -1,6 +1,6 @@
 {
     "name": "pgbadger",
-    "image": "{{.CCPImagePrefix}}/radondb-pgbadger:{{.CCPImageTag}}",
+    "image": "{{.CCPImagePrefix}}/RadonDB-pgbadger:{{.CCPImageTag}}",
     "securityContext": {
         "allowPrivilegeEscalation": false,
         "privileged": false,

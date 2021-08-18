@@ -19,6 +19,6 @@ serviceAccount:
     name: ""
 
 # the image prefix and tag to use for the 'pgo-deployer' container
-pgo_image_prefix: "docker.io/radondb"
+pgo_image_prefix: "docker.io/RadonDB"
 pgo_image_tag: "centos8-4.7.1"
 

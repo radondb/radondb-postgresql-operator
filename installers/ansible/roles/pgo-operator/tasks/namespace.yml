@@ -36,7 +36,7 @@
 - name: Label Watched Namespaces (Reconcile RBAC)
   shell: |
     {{ kubectl_or_oc }} label namespace {{ item }} --overwrite \
-      vendor=radondb pgo-installation-name={{ pgo_installation_name }} pgo-created-by=add-script
+      vendor=RadonDB pgo-installation-name={{ pgo_installation_name }} pgo-created-by=add-script
   with_items: "{{ nslist.split(',') | map('trim') | list }}"
   when:
     - namespace_mode != 'dynamic'

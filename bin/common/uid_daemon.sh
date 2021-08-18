@@ -13,11 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-RADONDB_DIR=${RADONDB_DIR:-'/opt/cpm'}
+RadonDB_DIR=${RadonDB_DIR:-'/opt/cpm'}
     
-export RADONDB_NSS_USERNAME="${USER_NAME:-daemon}"
-export RADONDB_NSS_USER_DESC="${USER_NAME:-daemon} user"
+export RadonDB_NSS_USERNAME="${USER_NAME:-daemon}"
+export RadonDB_NSS_USER_DESC="${USER_NAME:-daemon} user"
     
-source "${RADONDB_DIR}/bin/nss_wrapper.sh"
+source "${RadonDB_DIR}/bin/nss_wrapper.sh"
 
 exec "$@"

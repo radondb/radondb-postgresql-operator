@@ -76,7 +76,7 @@ func TestClusterPgBouncer(t *testing.T) {
 					gone := func() bool {
 						deployments, err := TestContext.Kubernetes.ListDeployments(namespace(), map[string]string{
 							"pg-cluster":        cluster(),
-							"radondb-pgbouncer": "true",
+							"RadonDB-pgbouncer": "true",
 						})
 						require.NoError(t, err)
 						return len(deployments) == 0

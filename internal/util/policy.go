@@ -21,9 +21,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	pgo "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -101,7 +101,7 @@ func ExecPolicy(clientset kubeapi.Interface, restconfig *rest.Config, namespace,
 // GetPolicySQL returns the SQL string from a policy
 func GetPolicySQL(clientset pgo.Interface, namespace, policyName string) (string, error) {
 	ctx := context.TODO()
-	p, err := clientset.RadondbV1().Pgpolicies(namespace).Get(ctx, policyName, metav1.GetOptions{})
+	p, err := clientset.RadonDBV1().Pgpolicies(namespace).Get(ctx, policyName, metav1.GetOptions{})
 	if err == nil {
 		return p.Spec.SQL, nil
 	}
@@ -116,7 +116,7 @@ func GetPolicySQL(clientset pgo.Interface, namespace, policyName string) (string
 // ValidatePolicy tests to see if a policy exists
 func ValidatePolicy(clientset pgo.Interface, namespace string, policyName string) error {
 	ctx := context.TODO()
-	_, err := clientset.RadondbV1().Pgpolicies(namespace).Get(ctx, policyName, metav1.GetOptions{})
+	_, err := clientset.RadonDBV1().Pgpolicies(namespace).Get(ctx, policyName, metav1.GetOptions{})
 	if err == nil {
 		log.Debugf("pgpolicy %s was validated", policyName)
 	} else if kerrors.IsNotFound(err) {

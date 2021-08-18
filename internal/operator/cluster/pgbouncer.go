@@ -27,13 +27,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	pgpassword "github.com/radondb/postgres-operator/internal/postgres/password"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/events"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	pgpassword "github.com/RadonDB/postgres-operator/internal/postgres/password"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/RadonDB/postgres-operator/pkg/events"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -89,10 +89,10 @@ const pgPort = "5432"
 
 const (
 	// the path to the pgbouncer uninstallation script script
-	pgBouncerUninstallScript = "/opt/radondb/bin/postgres-ha/sql/pgbouncer/pgbouncer-uninstall.sql"
+	pgBouncerUninstallScript = "/opt/RadonDB/bin/postgres-ha/sql/pgbouncer/pgbouncer-uninstall.sql"
 
 	// the path to the pgbouncer installation script
-	pgBouncerInstallScript = "/opt/radondb/bin/postgres-ha/sql/pgbouncer/pgbouncer-install.sql"
+	pgBouncerInstallScript = "/opt/RadonDB/bin/postgres-ha/sql/pgbouncer/pgbouncer-install.sql"
 )
 
 const (
@@ -534,7 +534,7 @@ func createPgbouncerConfigMap(clientset kubernetes.Interface, cluster *crv1.Pgcl
 			Labels: map[string]string{
 				config.LABEL_PG_CLUSTER: cluster.Name,
 				config.LABEL_PGBOUNCER:  "true",
-				config.LABEL_VENDOR:     config.LABEL_RADONDB,
+				config.LABEL_VENDOR:     config.LABEL_RadonDB,
 			},
 		},
 		Data: map[string]string{
@@ -596,7 +596,7 @@ func createPgBouncerDeployment(clientset kubernetes.Interface, cluster *crv1.Pgc
 	}
 
 	// For debugging purposes, put the template substitution in stdout
-	if operator.RADONDB_DEBUG {
+	if operator.RadonDB_DEBUG {
 		_ = config.PgbouncerTemplate.Execute(os.Stdout, fields)
 	}
 
@@ -615,7 +615,7 @@ func createPgBouncerDeployment(clientset kubernetes.Interface, cluster *crv1.Pgc
 	}
 
 	// set the container image to an override value, if one exists
-	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_RADONDB_PGBOUNCER,
+	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_RadonDB_PGBOUNCER,
 		&deployment.Spec.Template.Spec.Containers[0])
 
 	if _, err := clientset.AppsV1().Deployments(cluster.Namespace).
@@ -651,7 +651,7 @@ func createPgbouncerSecret(clientset kubernetes.Interface, cluster *crv1.Pgclust
 			Labels: map[string]string{
 				config.LABEL_PG_CLUSTER: cluster.Name,
 				config.LABEL_PGBOUNCER:  "true",
-				config.LABEL_VENDOR:     config.LABEL_RADONDB,
+				config.LABEL_VENDOR:     config.LABEL_RadonDB,
 			},
 		},
 		Data: map[string][]byte{

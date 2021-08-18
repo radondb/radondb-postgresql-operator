@@ -9,16 +9,14 @@ ARG PG_FULL
 ARG PACKAGER
 ARG DFSET
 
-MAINTAINER info@radondb.com
 
-LABEL vendor="Radondb Data" \
-	url="https://radondb.com" \
+LABEL vendor="RadonDB" \
 	release="${RELVER}" \
 	postgresql.version.major="${PGVERSION}" \
 	postgresql.version="${PG_FULL}" \
 	os.version="7.7" \
-	org.opencontainers.image.vendor="Radondb Data" \
-	io.openshift.tags="postgresql,postgres,sql,nosql,radondb" \
+	org.opencontainers.image.vendor="RadonDB" \
+	io.openshift.tags="postgresql,postgres,sql,nosql,RadonDB" \
 	io.k8s.description="Trusted open source PostgreSQL-as-a-Service"
 
 COPY redhat/atomic/help.1 /help.1
@@ -74,5 +72,5 @@ RUN if [ "$BASEOS" = "ubi8" ] ; then \
         && echo "state=disabled"  >> /etc/dnf/modules.d/postgresql.module ; \
 fi
 
-# Radondb PostgreSQL repository
-ADD conf/radondbpg${PGVERSION}.repo /etc/yum.repos.d/
+# RadonDB PostgreSQL repository
+ADD conf/RadonDBpg${PGVERSION}.repo /etc/yum.repos.d/

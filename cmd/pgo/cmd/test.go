@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/radondb/postgres-operator/cmd/pgo/api"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/cmd/pgo/api"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"

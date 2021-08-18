@@ -24,10 +24,10 @@ import (
 	"os"
 	"path"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/ns"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/ns"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 	log "github.com/sirupsen/logrus"
 
 	appsv1 "k8s.io/api/apps/v1"
@@ -49,11 +49,11 @@ const (
 	// to set up a pgBackRest repository
 	defaultBackrestRepoConfigPath = "/default-pgo-backrest-repo/"
 	// defaultRegistry is the default registry to pull the container images from
-	defaultRegistry = "docker.io/radondb.com"
+	defaultRegistry = "docker.io/RadonDB.com"
 )
 
 var (
-	RADONDB_DEBUG bool
+	RadonDB_DEBUG bool
 	NAMESPACE     string
 )
 
@@ -91,13 +91,13 @@ type containerResourcesTemplateFields struct {
 var defaultBackrestRepoConfigKeys = []string{"config", "sshd_config", "aws-s3-ca.crt"}
 
 func Initialize(clientset kubernetes.Interface) {
-	tmp := os.Getenv("RADONDB_DEBUG")
+	tmp := os.Getenv("RadonDB_DEBUG")
 	if tmp == "true" {
-		RADONDB_DEBUG = true
-		log.Debug("RADONDB_DEBUG flag set to true")
+		RadonDB_DEBUG = true
+		log.Debug("RadonDB_DEBUG flag set to true")
 	} else {
-		RADONDB_DEBUG = false
-		log.Info("RADONDB_DEBUG flag set to false")
+		RadonDB_DEBUG = false
+		log.Info("RadonDB_DEBUG flag set to false")
 	}
 
 	NAMESPACE = os.Getenv("NAMESPACE")
@@ -515,7 +515,7 @@ func initializeOperatorBackrestSecret(clientset kubernetes.Interface, namespace 
 			ObjectMeta: metav1.ObjectMeta{
 				Name: config.SecretOperatorBackrestRepoConfig,
 				Labels: map[string]string{
-					config.LABEL_VENDOR: config.LABEL_RADONDB,
+					config.LABEL_VENDOR: config.LABEL_RadonDB,
 				},
 			},
 			Data: map[string][]byte{},

@@ -20,9 +20,9 @@ $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pgpolicies --all
 $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pgtasks --all
 
 $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete crd \
-	pgreplicas.radondb.com \
-	pgclusters.radondb.com \
-	pgpolicies.radondb.com \
-	pgtasks.radondb.com
+	pgreplicas.RadonDB.com \
+	pgclusters.RadonDB.com \
+	pgpolicies.RadonDB.com \
+	pgtasks.RadonDB.com
 
 $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete jobs --selector=pgrmdata=true

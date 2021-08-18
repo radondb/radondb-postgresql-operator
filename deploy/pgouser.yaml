@@ -9,7 +9,7 @@ metadata:
     pgo-created-by: upgrade
     pgo-pgouser: "true"
     username: $PGO_USERNAME
-    vendor: radondb
+    vendor: RadonDB
   name: pgouser-$PGO_USERNAME
   namespace: $PGO_OPERATOR_NAMESPACE
 type: Opaque

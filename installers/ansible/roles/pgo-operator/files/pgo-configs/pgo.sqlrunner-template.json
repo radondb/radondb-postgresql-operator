@@ -7,7 +7,7 @@
             {{ if .CustomLabels }}
             {{ .CustomLabels }}
             {{ end }}
-            "vendor": "radondb",
+            "vendor": "RadonDB",
             "pgo-sqlrunner": "true",
             "pg-cluster": "{{.ClusterName}}"
         }
@@ -20,7 +20,7 @@
                     {{ if .CustomLabels }}
                     {{ .CustomLabels }}
                     {{ end }}
-                    "vendor": "radondb",
+                    "vendor": "RadonDB",
                     "pgo-sqlrunner": "true",
                     "pg-cluster": "{{.ClusterName}}"
                 }
@@ -36,14 +36,14 @@
                 "containers": [
                     {
                         "name": "sqlrunner",
-                        "image": "{{.CCPImagePrefix}}/radondb-postgres-ha:{{.CCPImageTag}}",
+                        "image": "{{.CCPImagePrefix}}/RadonDB-postgres-ha:{{.CCPImageTag}}",
                         "securityContext": {
                           "allowPrivilegeEscalation": false,
                           "privileged": false,
                           "readOnlyRootFilesystem": true
                         },
-                        "command": ["/opt/radondb/bin/uid_postgres.sh"],
-                        "args": ["/opt/radondb/bin/start.sh"],
+                        "command": ["/opt/RadonDB/bin/uid_postgres.sh"],
+                        "args": ["/opt/RadonDB/bin/start.sh"],
                         "env": [
                             {
                                 "name": "MODE",

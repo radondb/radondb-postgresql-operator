@@ -22,8 +22,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 )
 

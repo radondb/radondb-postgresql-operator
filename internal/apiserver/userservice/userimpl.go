@@ -23,14 +23,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/pgadmin"
-	pgpassword "github.com/radondb/postgres-operator/internal/postgres/password"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/pgadmin"
+	pgpassword "github.com/RadonDB/postgres-operator/internal/postgres/password"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -804,7 +804,7 @@ func getClusterList(namespace string, clusterNames []string, selector string, al
 	// if the all flag is set, let's return all the clusters here and return
 	if all {
 		// return the value of cluster list or that of the error here
-		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{})
+		cl, err := apiserver.Clientset.RadonDBV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{})
 		if err == nil {
 			clusterList = *cl
 		}
@@ -814,7 +814,7 @@ func getClusterList(namespace string, clusterNames []string, selector string, al
 	// try to build the cluster list based on either the selector or the list
 	// of arguments...or both. First, start with the selector
 	if selector != "" {
-		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+		cl, err := apiserver.Clientset.RadonDBV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 		// if there is an error, return here with an empty cluster list
 		if err != nil {
 			return crv1.PgclusterList{}, err
@@ -824,7 +824,7 @@ func getClusterList(namespace string, clusterNames []string, selector string, al
 
 	// now try to get clusters based specific cluster names
 	for _, clusterName := range clusterNames {
-		cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+		cluster, err := apiserver.Clientset.RadonDBV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 		// if there is an error, capture it here and return here with an empty list
 		if err != nil {
 			return crv1.PgclusterList{}, err

@@ -20,16 +20,16 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	informers "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	informers "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions/RadonDB.com/v1"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/tools/cache"
 
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/events"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/RadonDB/postgres-operator/pkg/events"
 )
 
 // Controller holds connections for the controller
@@ -58,7 +58,7 @@ func (c *Controller) onAdd(obj interface{}) {
 		},
 	})
 	if err == nil {
-		_, err = c.Clientset.RadondbV1().Pgpolicies(policy.Namespace).
+		_, err = c.Clientset.RadonDBV1().Pgpolicies(policy.Namespace).
 			Patch(ctx, policy.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

@@ -22,15 +22,15 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	backrestoperator "github.com/radondb/postgres-operator/internal/operator/backrest"
-	clusteroperator "github.com/radondb/postgres-operator/internal/operator/cluster"
-	"github.com/radondb/postgres-operator/internal/operator/pvc"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	informers "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	backrestoperator "github.com/RadonDB/postgres-operator/internal/operator/backrest"
+	clusteroperator "github.com/RadonDB/postgres-operator/internal/operator/cluster"
+	"github.com/RadonDB/postgres-operator/internal/operator/pvc"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	informers "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -101,7 +101,7 @@ func (c *Controller) processNextItem() bool {
 	defer c.Queue.Done(key)
 
 	// get the pgcluster
-	cluster, err := c.Client.RadondbV1().Pgclusters(keyNamespace).Get(ctx, keyResourceName, metav1.GetOptions{})
+	cluster, err := c.Client.RadonDBV1().Pgclusters(keyNamespace).Get(ctx, keyResourceName, metav1.GetOptions{})
 	if err != nil {
 		log.Debugf("cluster add - pgcluster not found, this is invalid")
 		c.Queue.Forget(key) // NB(cbandy): This should probably be a retry.
@@ -148,7 +148,7 @@ func (c *Controller) processNextItem() bool {
 		},
 	})
 	if err == nil {
-		_, err = c.Client.RadondbV1().Pgclusters(keyNamespace).
+		_, err = c.Client.RadonDBV1().Pgclusters(keyNamespace).
 			Patch(ctx, cluster.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -497,7 +497,7 @@ func (c *Controller) onDelete(obj interface{}) {
 	// let's attempt to do that here. First, clear out any other pgtask with this
 	// existing name. If it errors because it's not found, we're OK
 	taskName := cluster.Name + "-rmdata"
-	if err := c.Client.RadondbV1().Pgtasks(cluster.Namespace).Delete(
+	if err := c.Client.RadonDBV1().Pgtasks(cluster.Namespace).Delete(
 		ctx, taskName, metav1.DeleteOptions{}); err != nil && !kerrors.IsNotFound(err) {
 		log.Error(err)
 		return
@@ -692,7 +692,7 @@ func updateLabelsForConfigMaps(c *Controller, cluster *crv1.Pgcluster, labels ma
 	options := metav1.ListOptions{
 		LabelSelector: fields.AndSelectors(
 			fields.OneTermEqualSelector(config.LABEL_PG_CLUSTER, cluster.Name),
-			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RADONDB),
+			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RadonDB),
 		).String(),
 	}
 
@@ -730,7 +730,7 @@ func updateLabelsForDeployments(c *Controller, cluster *crv1.Pgcluster, labels m
 	options := metav1.ListOptions{
 		LabelSelector: fields.AndSelectors(
 			fields.OneTermEqualSelector(config.LABEL_PG_CLUSTER, cluster.Name),
-			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RADONDB),
+			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RadonDB),
 		).String(),
 	}
 
@@ -779,7 +779,7 @@ func updateLabelsForPVCs(c *Controller, cluster *crv1.Pgcluster, labels map[stri
 	options := metav1.ListOptions{
 		LabelSelector: fields.AndSelectors(
 			fields.OneTermEqualSelector(config.LABEL_PG_CLUSTER, cluster.Name),
-			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RADONDB),
+			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RadonDB),
 		).String(),
 	}
 
@@ -816,7 +816,7 @@ func updateLabelsForSecrets(c *Controller, cluster *crv1.Pgcluster, labels map[s
 	options := metav1.ListOptions{
 		LabelSelector: fields.AndSelectors(
 			fields.OneTermEqualSelector(config.LABEL_PG_CLUSTER, cluster.Name),
-			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RADONDB),
+			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RadonDB),
 		).String(),
 	}
 
@@ -853,7 +853,7 @@ func updateLabelsForServices(c *Controller, cluster *crv1.Pgcluster, labels map[
 	options := metav1.ListOptions{
 		LabelSelector: fields.AndSelectors(
 			fields.OneTermEqualSelector(config.LABEL_PG_CLUSTER, cluster.Name),
-			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RADONDB),
+			fields.OneTermEqualSelector(config.LABEL_VENDOR, config.LABEL_RadonDB),
 		).String(),
 	}
 
@@ -938,7 +938,7 @@ func updateServices(clientset kubeapi.Interface, cluster *crv1.Pgcluster) {
 	options := metav1.ListOptions{
 		LabelSelector: fields.OneTermEqualSelector(config.LABEL_PG_CLUSTER, cluster.Name).String(),
 	}
-	replicas, err := clientset.RadondbV1().Pgreplicas(cluster.Namespace).List(ctx, options)
+	replicas, err := clientset.RadonDBV1().Pgreplicas(cluster.Namespace).List(ctx, options)
 
 	// well, if there is an error here, log it and abort
 	if err != nil {

@@ -25,14 +25,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	pgoconfig "github.com/radondb/postgres-operator/internal/operator/config"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/events"
-	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	pgoconfig "github.com/RadonDB/postgres-operator/internal/operator/config"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/RadonDB/postgres-operator/pkg/events"
+	pgo "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 
@@ -46,16 +46,16 @@ import (
 
 // Store image names as constants to use later
 const (
-	postgresImage      = "radondb-postgres"
-	postgresHAImage    = "radondb-postgres-ha"
-	postgresGISImage   = "radondb-postgres-gis"
-	postgresGISHAImage = "radondb-postgres-gis-ha"
+	postgresImage      = "RadonDB-postgres"
+	postgresHAImage    = "RadonDB-postgres-ha"
+	postgresGISImage   = "RadonDB-postgres-gis"
+	postgresGISHAImage = "RadonDB-postgres-gis-ha"
 )
 
 // nssWrapperForceCommand is the string that should be appended to the sshd_config file as
 // needed for nss_wrapper support when upgrading from versions prior to v4.7
 const nssWrapperForceCommand = `# ensure nss_wrapper env vars are set when executing commands as needed for OpenShift compatibility
-ForceCommand NSS_WRAPPER_SUBDIR=ssh . /opt/radondb/bin/nss_wrapper_env.sh && $SSH_ORIGINAL_COMMAND`
+ForceCommand NSS_WRAPPER_SUBDIR=ssh . /opt/RadonDB/bin/nss_wrapper_env.sh && $SSH_ORIGINAL_COMMAND`
 
 // the following regex expressions are used when upgrading the sshd_config file for a PG cluster
 var (
@@ -89,7 +89,7 @@ func AddUpgrade(clientset kubeapi.Interface, upgrade *crv1.Pgtask, namespace str
 	// publish our upgrade event
 	PublishUpgradeEvent(events.EventUpgradeCluster, namespace, upgrade, "")
 
-	pgcluster, err := clientset.RadondbV1().Pgclusters(namespace).Get(ctx, upgradeTargetClusterName, metav1.GetOptions{})
+	pgcluster, err := clientset.RadonDBV1().Pgclusters(namespace).Get(ctx, upgradeTargetClusterName, metav1.GetOptions{})
 	if err != nil {
 		errormessage := "cound not find pgcluster for pgcluster upgrade"
 		log.Errorf("%s Error: %s", errormessage, err)
@@ -136,8 +136,8 @@ func AddUpgrade(clientset kubeapi.Interface, upgrade *crv1.Pgtask, namespace str
 	// set proper values for the pgcluster that are updated between CR versions
 	preparePgclusterForUpgrade(pgcluster, upgrade.Spec.Parameters, oldpgoversion, currentPrimary)
 
-	// update the unix socket directories parameter so it no longer include /radondbadm and
-	// set any path references to the /opt/radondb... paths
+	// update the unix socket directories parameter so it no longer include /RadonDBadm and
+	// set any path references to the /opt/RadonDB... paths
 	if err = updateClusterConfig(clientset, pgcluster, namespace); err != nil {
 		log.Errorf("error updating %s-pgha-config configmap during upgrade of cluster %s, Error: %v", pgcluster.Name, pgcluster.Name, err)
 	}
@@ -152,7 +152,7 @@ func AddUpgrade(clientset kubeapi.Interface, upgrade *crv1.Pgtask, namespace str
 	// update pgcluster CRD workflow ID
 	pgcluster.Spec.UserLabels[config.LABEL_WORKFLOW_ID] = workflowid
 
-	_, err = clientset.RadondbV1().Pgclusters(namespace).Create(ctx, pgcluster, metav1.CreateOptions{})
+	_, err = clientset.RadonDBV1().Pgclusters(namespace).Create(ctx, pgcluster, metav1.CreateOptions{})
 	if err != nil {
 		log.Errorf("error submitting upgraded pgcluster CRD for cluster recreation of cluster %s, Error: %v", pgcluster.Name, err)
 	} else {
@@ -242,7 +242,7 @@ func handleReplicas(clientset kubeapi.Interface, clusterName, currentPrimaryPVC,
 	log.Debugf("deleting pgreplicas and noting the number found for cluster %s", clusterName)
 	// Save the number of found replicas for this cluster
 	numReps := 0
-	replicaList, err := clientset.RadondbV1().Pgreplicas(namespace).List(ctx, metav1.ListOptions{})
+	replicaList, err := clientset.RadonDBV1().Pgreplicas(namespace).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		log.Errorf("unable to get pgreplicas. Error: %s", err)
 	}
@@ -253,7 +253,7 @@ func handleReplicas(clientset kubeapi.Interface, clusterName, currentPrimaryPVC,
 			log.Debugf("scaling down pgreplica: %s", replicaList.Items[index].Name)
 			ScaleDownBase(clientset, &replicaList.Items[index], namespace)
 			log.Debugf("deleting pgreplica CRD: %s", replicaList.Items[index].Name)
-			_ = clientset.RadondbV1().Pgreplicas(namespace).Delete(ctx, replicaList.Items[index].Name, metav1.DeleteOptions{})
+			_ = clientset.RadonDBV1().Pgreplicas(namespace).Delete(ctx, replicaList.Items[index].Name, metav1.DeleteOptions{})
 			// if the existing replica PVC is not being used as the primary PVC, delete
 			// note this will not remove any leftover PVCs from previous failovers,
 			// those will require manual deletion so as to avoid any accidental
@@ -296,7 +296,7 @@ func deleteBeforeUpgrade(clientset kubeapi.Interface, pgcluster *crv1.Pgcluster,
 	annotations[config.ANNOTATION_UPGRADE_IN_PROGRESS] = config.LABEL_TRUE
 	pgcluster.ObjectMeta.SetAnnotations(annotations)
 
-	if _, err := clientset.RadondbV1().Pgclusters(namespace).Update(ctx,
+	if _, err := clientset.RadonDBV1().Pgclusters(namespace).Update(ctx,
 		pgcluster, metav1.UpdateOptions{}); err != nil {
 		log.Errorf("unable to set annotations to keep backups and data: %s", err)
 		return err
@@ -331,7 +331,7 @@ func deleteBeforeUpgrade(clientset kubeapi.Interface, pgcluster *crv1.Pgcluster,
 	log.Debug(waitStatus)
 
 	// delete the pgcluster
-	_ = clientset.RadondbV1().Pgclusters(namespace).Delete(ctx, pgcluster.Name, metav1.DeleteOptions{})
+	_ = clientset.RadonDBV1().Pgclusters(namespace).Delete(ctx, pgcluster.Name, metav1.DeleteOptions{})
 
 	// delete all existing job references
 	deletePropagation := metav1.DeletePropagationForeground
@@ -379,7 +379,7 @@ func deploymentWait(clientset kubernetes.Interface, namespace, deploymentName st
 // upgrade task itself
 func deleteNonupgradePgtasks(clientset pgo.Interface, selector, namespace string) error {
 	ctx := context.TODO()
-	taskList, err := clientset.RadondbV1().Pgtasks(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	taskList, err := clientset.RadonDBV1().Pgtasks(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		return err
 	}
@@ -388,7 +388,7 @@ func deleteNonupgradePgtasks(clientset pgo.Interface, selector, namespace string
 	for _, v := range taskList.Items {
 		// if the pgtask is not for the upgrade, delete it
 		if v.ObjectMeta.Name != v.Name+"-"+config.LABEL_UPGRADE {
-			err = clientset.RadondbV1().Pgtasks(namespace).Delete(ctx, v.Name, metav1.DeleteOptions{})
+			err = clientset.RadonDBV1().Pgtasks(namespace).Delete(ctx, v.Name, metav1.DeleteOptions{})
 			if err != nil {
 				return err
 			}
@@ -407,7 +407,7 @@ func createUpgradePGHAConfigMap(clientset kubernetes.Interface, cluster *crv1.Pg
 	ctx := context.TODO()
 
 	labels := make(map[string]string)
-	labels[config.LABEL_VENDOR] = config.LABEL_RADONDB
+	labels[config.LABEL_VENDOR] = config.LABEL_RadonDB
 	labels[config.LABEL_PG_CLUSTER] = cluster.Name
 	labels[config.LABEL_PGHA_CONFIGMAP] = "true"
 
@@ -519,20 +519,20 @@ func preparePgclusterForUpgrade(pgcluster *crv1.Pgcluster, parameters map[string
 	pgcluster.ObjectMeta.Labels[config.LABEL_PGO_VERSION] = parameters[config.LABEL_PGO_VERSION]
 	pgcluster.Spec.UserLabels[config.LABEL_PGO_VERSION] = parameters[config.LABEL_PGO_VERSION]
 
-	// next, capture the existing Radondb Postgres Exporter configuration settings (previous to version
-	// 4.5.0 referred to as Radondb Collect), if they exist, and store them in the current labels
+	// next, capture the existing RadonDB Postgres Exporter configuration settings (previous to version
+	// 4.5.0 referred to as RadonDB Collect), if they exist, and store them in the current labels
 	// 4.6.0 added this value to the spec as "Exporter", so the next step ensure
 	// that the value is migrated over
-	if value, ok := pgcluster.ObjectMeta.Labels["radondb_collect"]; ok {
+	if value, ok := pgcluster.ObjectMeta.Labels["RadonDB_collect"]; ok {
 		pgcluster.ObjectMeta.Labels[config.LABEL_EXPORTER] = value
 	}
-	delete(pgcluster.ObjectMeta.Labels, "radondb_collect")
+	delete(pgcluster.ObjectMeta.Labels, "RadonDB_collect")
 
 	// Note that this is the *user labels*, the above is in the metadata labels
-	if value, ok := pgcluster.Spec.UserLabels["radondb_collect"]; ok {
+	if value, ok := pgcluster.Spec.UserLabels["RadonDB_collect"]; ok {
 		pgcluster.Spec.UserLabels[config.LABEL_EXPORTER] = value
 	}
-	delete(pgcluster.Spec.UserLabels, "radondb_collect")
+	delete(pgcluster.Spec.UserLabels, "RadonDB_collect")
 
 	// convert the metrics label over to using a proper definition. Give the user
 	// label precedence.
@@ -549,10 +549,10 @@ func preparePgclusterForUpgrade(pgcluster *crv1.Pgcluster, parameters map[string
 
 	// 4.6.0 moved pgBadger to use an attribute instead of a label. If this label
 	// exists on the current CRD, move the value to the attribute.
-	if ok, _ := strconv.ParseBool(pgcluster.ObjectMeta.GetLabels()["radondb-pgbadger"]); ok {
+	if ok, _ := strconv.ParseBool(pgcluster.ObjectMeta.GetLabels()["RadonDB-pgbadger"]); ok {
 		pgcluster.Spec.PGBadger = true
 	}
-	delete(pgcluster.ObjectMeta.Labels, "radondb-pgbadger")
+	delete(pgcluster.ObjectMeta.Labels, "RadonDB-pgbadger")
 
 	// 4.6.0 moved the format "service-type" label into the ServiceType CRD
 	// attribute, so we may need to do the same
@@ -768,7 +768,7 @@ func createClusterRecreateWorkflowTask(clientset pgo.Interface, clusterName, ns,
 	newInstance.ObjectMeta.Labels[config.LABEL_PG_CLUSTER] = clusterName
 	newInstance.ObjectMeta.Labels[crv1.PgtaskWorkflowID] = spec.Parameters[crv1.PgtaskWorkflowID]
 
-	_, err = clientset.RadondbV1().Pgtasks(ns).Create(ctx, newInstance, metav1.CreateOptions{})
+	_, err = clientset.RadonDBV1().Pgtasks(ns).Create(ctx, newInstance, metav1.CreateOptions{})
 	if err != nil {
 		log.Error(err)
 		return "", err
@@ -785,7 +785,7 @@ func updateUpgradeWorkflow(clientset pgo.Interface, namespace, workflowID, statu
 	// we have to look up the name of the workflow bt the workflow ID, which
 	// involves using a selector
 	selector := fmt.Sprintf("%s=%s", crv1.PgtaskWorkflowID, workflowID)
-	taskList, err := clientset.RadondbV1().Pgtasks(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	taskList, err := clientset.RadonDBV1().Pgtasks(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		log.Errorf("pgcluster upgrade workflow: could not get workflow [%s]", workflowID)
 		return err
@@ -803,7 +803,7 @@ func updateUpgradeWorkflow(clientset pgo.Interface, namespace, workflowID, statu
 	task := taskList.Items[0]
 	task.Spec.Parameters[status] = time.Now().Format(time.RFC3339)
 
-	if _, err := clientset.RadondbV1().Pgtasks(namespace).Update(ctx, &task, metav1.UpdateOptions{}); err != nil {
+	if _, err := clientset.RadonDBV1().Pgtasks(namespace).Update(ctx, &task, metav1.UpdateOptions{}); err != nil {
 		log.Errorf("pgcluster upgrade workflow: could not update workflow [%s] to status [%s]", workflowID, status)
 		return err
 	}
@@ -919,8 +919,8 @@ func updateClusterConfig(clientset kubeapi.Interface, pgcluster *crv1.Pgcluster,
 	}
 
 	// set the updated path values for both DCS and LocalDB configs, if the fields and maps exist
-	// as of version 4.6, the /radondbadm directory no longer exists (previously set as a unix socket directory)
-	// and the /opt/cpm... directories are now set under /opt/radondb
+	// as of version 4.6, the /RadonDBadm directory no longer exists (previously set as a unix socket directory)
+	// and the /opt/cpm... directories are now set under /opt/RadonDB
 	if dcsConf.PostgreSQL != nil && dcsConf.PostgreSQL.Parameters != nil {
 		dcsConf.PostgreSQL.Parameters["unix_socket_directories"] = "/tmp"
 
@@ -928,24 +928,24 @@ func updateClusterConfig(clientset kubeapi.Interface, pgcluster *crv1.Pgcluster,
 		// the pgcluster
 		switch {
 		case operator.IsLocalAndS3Storage(pgcluster):
-			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-archive-push-local-s3.sh %p`
+			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/RadonDB/bin/postgres-ha/pgbackrest/pgbackrest-archive-push-local-s3.sh %p`
 		case operator.IsLocalAndGCSStorage(pgcluster):
-			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-archive-push-local-gcs.sh %p`
+			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/RadonDB/bin/postgres-ha/pgbackrest/pgbackrest-archive-push-local-gcs.sh %p`
 		default:
-			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-push "%p"`
+			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/RadonDB/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-push "%p"`
 		}
 
-		dcsConf.PostgreSQL.RecoveryConf["restore_command"] = `source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-get %f "%p"`
+		dcsConf.PostgreSQL.RecoveryConf["restore_command"] = `source /opt/RadonDB/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-get %f "%p"`
 	}
 
 	if localDBConf.PostgreSQL.Callbacks != nil {
-		localDBConf.PostgreSQL.Callbacks.OnRoleChange = "/opt/radondb/bin/postgres-ha/callbacks/pgha-on-role-change.sh"
+		localDBConf.PostgreSQL.Callbacks.OnRoleChange = "/opt/RadonDB/bin/postgres-ha/callbacks/pgha-on-role-change.sh"
 	}
 	if localDBConf.PostgreSQL.PGBackRest != nil {
-		localDBConf.PostgreSQL.PGBackRest.Command = "/opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-create-replica.sh replica"
+		localDBConf.PostgreSQL.PGBackRest.Command = "/opt/RadonDB/bin/postgres-ha/pgbackrest/pgbackrest-create-replica.sh replica"
 	}
 	if localDBConf.PostgreSQL.PGBackRestStandby != nil {
-		localDBConf.PostgreSQL.PGBackRestStandby.Command = "/opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-create-replica.sh standby"
+		localDBConf.PostgreSQL.PGBackRestStandby.Command = "/opt/RadonDB/bin/postgres-ha/pgbackrest/pgbackrest-create-replica.sh standby"
 	}
 
 	// set up content and patch DCS config

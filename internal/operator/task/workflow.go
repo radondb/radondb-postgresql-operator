@@ -20,8 +20,8 @@ import (
 	"encoding/json"
 	"time"
 
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	pgo "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -43,7 +43,7 @@ func CompleteBackupWorkflow(clusterName string, clientset pgo.Interface, ns stri
 
 func completeWorkflow(clientset pgo.Interface, taskNamespace, taskName string) {
 	ctx := context.TODO()
-	task, err := clientset.RadondbV1().Pgtasks(taskNamespace).Get(ctx, taskName, metav1.GetOptions{})
+	task, err := clientset.RadonDBV1().Pgtasks(taskNamespace).Get(ctx, taskName, metav1.GetOptions{})
 	if err != nil {
 		log.Errorf("Error completing  workflow %s", taskName)
 		log.Error(err)
@@ -62,7 +62,7 @@ func completeWorkflow(clientset pgo.Interface, taskNamespace, taskName string) {
 		},
 	})
 	if err == nil {
-		_, err = clientset.RadondbV1().Pgtasks(task.Namespace).
+		_, err = clientset.RadonDBV1().Pgtasks(task.Namespace).
 			Patch(ctx, task.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

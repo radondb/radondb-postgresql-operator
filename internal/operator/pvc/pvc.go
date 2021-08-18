@@ -23,10 +23,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/operator"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -157,7 +157,7 @@ func Create(clientset kubernetes.Interface, name, clusterName string, storageSpe
 	if storageSpec.StorageType == "dynamic" {
 		log.Debug("using dynamic PVC template")
 		err = config.PVCStorageClassTemplate.Execute(&doc2, pvcFields)
-		if operator.RADONDB_DEBUG {
+		if operator.RadonDB_DEBUG {
 			_ = config.PVCStorageClassTemplate.Execute(os.Stdout, pvcFields)
 		}
 	} else {
@@ -173,7 +173,7 @@ func Create(clientset kubernetes.Interface, name, clusterName string, storageSpe
 		}
 
 		err = config.PVCTemplate.Execute(&doc2, pvcFields)
-		if operator.RADONDB_DEBUG {
+		if operator.RadonDB_DEBUG {
 			_ = config.PVCTemplate.Execute(os.Stdout, pvcFields)
 		}
 	}

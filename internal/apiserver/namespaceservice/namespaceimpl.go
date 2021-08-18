@@ -19,9 +19,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/ns"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/ns"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"

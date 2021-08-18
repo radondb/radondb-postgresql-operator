@@ -19,7 +19,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
 )
 
 func addBackRestConfigDirectoryVolume(podSpec *v1.PodSpec, volumeName string, projections []v1.VolumeProjection) {

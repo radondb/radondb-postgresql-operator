@@ -21,12 +21,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/apiserver/backupoptions"
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/apiserver/backupoptions"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 
 	v1 "k8s.io/api/core/v1"
@@ -123,7 +123,7 @@ func CreateSchedule(request *msgs.CreateScheduleRequest, ns string) msgs.CreateS
 		selector = sr.Request.Selector
 	}
 
-	clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	clusterList, err := apiserver.Clientset.RadonDBV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		sr.Response.Status.Code = msgs.Error
 		sr.Response.Status.Msg = fmt.Sprintf("Could not get cluster via selector: %s", err)
@@ -188,7 +188,7 @@ func CreateSchedule(request *msgs.CreateScheduleRequest, ns string) msgs.CreateS
 
 		labels := make(map[string]string)
 		labels["pg-cluster"] = schedule.Cluster
-		labels["radondb-scheduler"] = "true"
+		labels["RadonDB-scheduler"] = "true"
 
 		data := make(map[string]string)
 		data[schedule.Name] = string(blob)
@@ -325,7 +325,7 @@ func ShowSchedule(request *msgs.ShowScheduleRequest, ns string) msgs.ShowSchedul
 func getSchedules(clusterName, selector, ns string) ([]string, error) {
 	ctx := context.TODO()
 	schedules := []string{}
-	label := "radondb-scheduler=true"
+	label := "RadonDB-scheduler=true"
 	if clusterName == "all" {
 	} else if clusterName != "" {
 		label += fmt.Sprintf(",pg-cluster=%s", clusterName)

@@ -4,5 +4,5 @@ metadata:
   labels:
     pgo-created-by: add-script
     pgo-installation-name: $PGO_INSTALLATION_NAME
-    vendor: radondb
+    vendor: RadonDB
   name: $TARGET_NAMESPACE

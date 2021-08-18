@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/config"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -49,7 +49,7 @@ func getNumClaims(ns string) int {
 
 	pvcs, err := apiserver.Clientset.
 		CoreV1().PersistentVolumeClaims(ns).
-		List(ctx, metav1.ListOptions{LabelSelector: config.LABEL_VENDOR + "=" + config.LABEL_RADONDB})
+		List(ctx, metav1.ListOptions{LabelSelector: config.LABEL_VENDOR + "=" + config.LABEL_RadonDB})
 	if err != nil {
 		log.Error(err)
 		return 0
@@ -75,7 +75,7 @@ func getVolumeCap(ns string) string {
 	// sum all PVCs storage capacity
 	pvcs, err := apiserver.Clientset.
 		CoreV1().PersistentVolumeClaims(ns).
-		List(ctx, metav1.ListOptions{LabelSelector: config.LABEL_VENDOR + "=" + config.LABEL_RADONDB})
+		List(ctx, metav1.ListOptions{LabelSelector: config.LABEL_VENDOR + "=" + config.LABEL_RadonDB})
 	if err != nil {
 		log.Error(err)
 		return "error"
@@ -113,14 +113,14 @@ func getNotReady(ns string) []string {
 	ctx := context.TODO()
 	// show all database pods for each pgcluster that are not yet running
 	agg := make([]string, 0)
-	clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
+	clusterList, err := apiserver.Clientset.RadonDBV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		clusterList = &crv1.PgclusterList{}
 	}
 
 	for _, cluster := range clusterList.Items {
 
-		selector := fmt.Sprintf("%s=radondb,name=%s", config.LABEL_VENDOR, cluster.Spec.ClusterName)
+		selector := fmt.Sprintf("%s=RadonDB,name=%s", config.LABEL_VENDOR, cluster.Spec.ClusterName)
 		pods, err := apiserver.Clientset.CoreV1().Pods(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 		if err != nil {
 			log.Error(err)

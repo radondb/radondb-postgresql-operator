@@ -1,7 +1,7 @@
 package restartservice
 
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,12 +19,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/patroni"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/patroni"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 
@@ -49,7 +49,7 @@ func Restart(request *msgs.RestartRequest, pgouser string) msgs.RestartResponse 
 	clusterName := request.ClusterName
 	namespace := request.Namespace
 
-	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).
+	cluster, err := apiserver.Clientset.RadonDBV1().Pgclusters(namespace).
 		Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		resp.Status.Code = msgs.Error
@@ -89,14 +89,14 @@ func Restart(request *msgs.RestartRequest, pgouser string) msgs.RestartResponse 
 		}
 
 		// remove any previous rolling restart, then add a new one
-		if err := apiserver.Clientset.RadondbV1().Pgtasks(task.Namespace).Delete(ctx, task.Name,
+		if err := apiserver.Clientset.RadonDBV1().Pgtasks(task.Namespace).Delete(ctx, task.Name,
 			metav1.DeleteOptions{}); err != nil && !kerrors.IsNotFound(err) {
 			resp.Status.Code = msgs.Error
 			resp.Status.Msg = err.Error()
 			return resp
 		}
 
-		if _, err := apiserver.Clientset.RadondbV1().Pgtasks(cluster.Namespace).Create(ctx, task,
+		if _, err := apiserver.Clientset.RadonDBV1().Pgtasks(cluster.Namespace).Create(ctx, task,
 			metav1.CreateOptions{}); err != nil {
 			resp.Status.Code = msgs.Error
 			resp.Status.Msg = err.Error()
@@ -150,7 +150,7 @@ func QueryRestart(clusterName, namespace string) msgs.QueryRestartResponse {
 		},
 	}
 
-	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).
+	cluster, err := apiserver.Clientset.RadonDBV1().Pgclusters(namespace).
 		Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		resp.Status.Code = msgs.Error

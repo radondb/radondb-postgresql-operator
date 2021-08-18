@@ -1,4 +1,4 @@
-apiVersion: radondb.com/v1
+apiVersion: RadonDB.com/v1
 kind: Pgreplica
 metadata:
   labels:

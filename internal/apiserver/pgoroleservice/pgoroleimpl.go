@@ -21,11 +21,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/apiserver/pgouserservice"
-	"github.com/radondb/postgres-operator/internal/config"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
-	"github.com/radondb/postgres-operator/pkg/events"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/apiserver/pgouserservice"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -239,7 +239,7 @@ func createSecret(clientset kubernetes.Interface, createdBy, pgorolename, permis
 	secret.ObjectMeta.Labels[config.LABEL_PGO_CREATED_BY] = createdBy
 	secret.ObjectMeta.Labels[config.LABEL_ROLENAME] = pgorolename
 	secret.ObjectMeta.Labels[config.LABEL_PGO_PGOROLE] = "true"
-	secret.ObjectMeta.Labels[config.LABEL_VENDOR] = "radondb"
+	secret.ObjectMeta.Labels[config.LABEL_VENDOR] = "RadonDB"
 	secret.Data = make(map[string][]byte)
 	secret.Data["rolename"] = []byte(enRolename)
 	secret.Data["permissions"] = []byte(permissions)

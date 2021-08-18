@@ -53,29 +53,29 @@
     - name: Copy Grafana data source to Output Directory
       command: "cp {{ pgmonitor_grafana_dir }}/common/{{ item }} {{ grafana_output_dir }}"
       loop:
-        - radondb_grafana_datasource.yml
+        - RadonDB_grafana_datasource.yml
 
     - name: Copy Grafana dashboards to Output Directory
       command: "cp {{ pgmonitor_grafana_dir }}/linux/{{ item }} {{ grafana_output_dir }}"
       loop:
-        - radondb_grafana_dashboards.yml
+        - RadonDB_grafana_dashboards.yml
 
     - name: Add Grafana Dashboard Configuration
       lineinfile:
-        path: "{{ grafana_output_dir }}/radondb_grafana_dashboards.yml"
+        path: "{{ grafana_output_dir }}/RadonDB_grafana_dashboards.yml"
         regexp: "^[ ]{4,}path:"
         line: "    path: $GF_PATHS_PROVISIONING/dashboards"
 
     - name: Add Grafana Datasource Configuration
       lineinfile:
-        path: "{{ grafana_output_dir }}/radondb_grafana_datasource.yml"
+        path: "{{ grafana_output_dir }}/RadonDB_grafana_datasource.yml"
         regexp: "^[ ]{2,}url:"
         line: "  url: http://$PROM_HOST:$PROM_PORT"
 
     - name: Create Grafana Datasource ConfigMap
       shell: |
         {{ kubectl_or_oc }} create configmap {{ grafana_datasources_configmap }} --dry-run --output=yaml \
-          --from-file={{ grafana_output_dir }}/radondb_grafana_datasource.yml \
+          --from-file={{ grafana_output_dir }}/RadonDB_grafana_datasource.yml \
         | {{ kubectl_or_oc }} label --filename=- --local --dry-run --output=yaml \
           app.kubernetes.io/name={{ app_name }} \
         | {{ kubectl_or_oc }} create --filename=- -n {{ metrics_namespace }}
@@ -88,7 +88,7 @@
     - name: Create Grafana Dashboard ConfigMap
       shell: |
         {{ kubectl_or_oc }} create configmap {{ grafana_dashboards_configmap }} --dry-run --output=yaml \
-          --from-file={{ grafana_output_dir }}/radondb_grafana_dashboards.yml \
+          --from-file={{ grafana_output_dir }}/RadonDB_grafana_dashboards.yml \
           --from-file={{ pgmonitor_grafana_dir }}/containers/ \
         | sed -e 's,${DS_PROMETHEUS},PROMETHEUS,' \
         | {{ kubectl_or_oc }} label --filename=- --local --dry-run --output=yaml \

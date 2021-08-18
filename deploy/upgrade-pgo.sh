@@ -23,7 +23,7 @@ echo ""
 echo "More information can be found in the \"Default Installation - Configure Environment\" section"
 echo "of the Postgres Operator Bash installation instructions, located here:"
 echo ""
-echo "https://radondb.github.io/postgres-operator/stable/installation/operator-install/"
+echo "https://RadonDB.github.io/postgres-operator/stable/installation/operator-install/"
 echo ""
 
 read -n1 -rsp $'Press any key to continue the upgrade or Ctrl+C to exit...\n'

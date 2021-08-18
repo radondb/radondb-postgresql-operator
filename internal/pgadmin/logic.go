@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -33,7 +33,7 @@ import (
 // N.B. Changing this name will cause a new group to be created and redirect
 // connection updates to that new group without any cleanup of the old
 // group name
-const sgLabel = "Radondb PostgreSQL Operator"
+const sgLabel = "RadonDB PostgreSQL Operator"
 
 // DeleteUser deletes the specified user, their servergroups, and servers
 func DeleteUser(qr *queryRunner, username string) error {

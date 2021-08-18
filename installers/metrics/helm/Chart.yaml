@@ -1,6 +1,6 @@
 apiVersion: v2
 name: postgres-operator-monitoring
-description: Install for Radondb PostgreSQL Operator Monitoring
+description: Install for RadonDB PostgreSQL Operator Monitoring
 type: application
 version: 0.2.0
 appVersion: 4.7.1

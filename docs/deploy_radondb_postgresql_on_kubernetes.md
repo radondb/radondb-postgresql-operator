@@ -1,6 +1,6 @@
 ## RadonDB PostgreSQL Operator简介
 
-[RadonDB PostgreSQL Operator](https://github.com/radondb/radondb-postgresql-operator) 是基于 [PostgreSQL](https://www.postgresql.org/) 和 [PGO](https://github.com/CrunchyData/postgres-operator/) 开发的开源、高可用、云原生集群解决方案。它简化了在Kubernetes上部署和管理PostgreSQL集群的过程，无论是在开发测试环境中运行简单的PostgreSQL集群还是在生产中部署高可用，自动容错的集群，RadonDB PostgreSQL Operator均提供了满足您需要的特性。
+[RadonDB PostgreSQL Operator](https://github.com/RadonDB/RadonDB-postgresql-operator) 是基于 [PostgreSQL](https://www.postgresql.org/) 和 [PGO](https://github.com/CrunchyData/postgres-operator/) 开发的开源、高可用、云原生集群解决方案。它简化了在Kubernetes上部署和管理PostgreSQL集群的过程，无论是在开发测试环境中运行简单的PostgreSQL集群还是在生产中部署高可用，自动容错的集群，RadonDB PostgreSQL Operator均提供了满足您需要的特性。
 
 ## 支持的平台
 
@@ -19,7 +19,7 @@ PostgreSQL Operator支持多命名空间部署，以下示例会将`operator`及
 
 ```shell
 kubectl create namespace pgo
-kubectl apply -f https://raw.githubusercontent.com/radondb/radondb-postgresql-operator/main/installers/kubectl/postgres-operator.yml
+kubectl apply -f https://raw.githubusercontent.com/RadonDB/RadonDB-postgresql-operator/main/installers/kubectl/postgres-operator.yml
 ```
 
 查看部署后的状态：
@@ -39,8 +39,8 @@ replicaset.apps/postgres-operator-cb9bf568   1         1         1       13d
 或者您可以用helm工具部署`operator`：
 
 ```shell
- git clone https://github.com/radondb/radondb-postgresql-operator
- cd radondb-postgresql-operator/installers/helm
+ git clone https://github.com/RadonDB/RadonDB-postgresql-operator
+ cd RadonDB-postgresql-operator/installers/helm
  helm install demo .
 ```
 
@@ -61,7 +61,7 @@ replicaset.apps/postgres-operator-cb9bf568   1         1         1       13d
 您可以在能与`Kubenetes`集群交互的任何`Linux`环境上安装此客户端：
 
 ```shell
-curl https://raw.githubusercontent.com/radondb/radondb-postgresql-operator/main/installers/kubectl/client-setup.sh |bash
+curl https://raw.githubusercontent.com/RadonDB/RadonDB-postgresql-operator/main/installers/kubectl/client-setup.sh |bash
 ```
 
 安装完成之后，需要设置一些环境变量使其能正常工作：
@@ -98,15 +98,15 @@ pgo create cluster --help
 ```
 
 ```shell
-pgo create cluster radondb \
+pgo create cluster RadonDB \
 #备份存储的类型,支持"posix", "s3", "gcs", "posix,s3" or "posix,gcs"
 --pgbackrest-storage-type="s3" \
 #PostgeSQL副本数量
 --replica-count=3 \
-#使用的镜像名称，带gis插件的镜像：radondb-postgres-gis-ha,不带gis插件的镜像：radondb-postgres-ha
---ccp-image=radondb-postgres-ha \
+#使用的镜像名称，带gis插件的镜像：RadonDB-postgres-gis-ha,不带gis插件的镜像：RadonDB-postgres-ha
+--ccp-image=RadonDB-postgres-ha \
 #镜像仓库
---ccp-image-prefix=docker.io/radondb \
+--ccp-image-prefix=docker.io/RadonDB \
 #ockerhub上镜像的标签，目前支持centos8-12.7-4.7.1 和centos8-13.3-4.7.1
 --ccp-image-tag=centos8-13.3-4.7.1 \
 #支持s3协议的对象存储设置，主要用于备份，如果备份存储选择了s3则需要填写以下参数
@@ -136,18 +136,18 @@ kubectl get po -n pgo --watch
 
 #### 连接到PostgreSQL 集群
 
-您可以使用以下`pgo show user -n pgo radondb`命令获取有关集群中用户的信息：
+您可以使用以下`pgo show user -n pgo RadonDB`命令获取有关集群中用户的信息：
 
 ```shell
- pgo show user -n pgo radondb --show-system-accounts
+ pgo show user -n pgo RadonDB --show-system-accounts
  
  CLUSTER   USERNAME       PASSWORD                 EXPIRES STATUS ERROR 
 --------- -------------- ------------------------ ------- ------ -----
-radondb ccp_monitoring Dwpa|MCg,b4M+rY.>ZC0ONz4 never   ok           
-radondb pgbouncer      MsTk4.auti9[0L2yDaHu/_Ni never   ok           
-radondb postgres       1a4R-d7Po=,PS@R:-=?[gP(9 never   ok           
-radondb primaryuser    =B8x*Haf*dCq+V4hkGSfh/.} never   ok           
-radondb testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok 
+RadonDB ccp_monitoring Dwpa|MCg,b4M+rY.>ZC0ONz4 never   ok           
+RadonDB pgbouncer      MsTk4.auti9[0L2yDaHu/_Ni never   ok           
+RadonDB postgres       1a4R-d7Po=,PS@R:-=?[gP(9 never   ok           
+RadonDB primaryuser    =B8x*Haf*dCq+V4hkGSfh/.} never   ok           
+RadonDB testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok 
 ```
 
 ##### `psql`连接方式
@@ -158,66 +158,66 @@ radondb testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok
  kubectl -n pgo get svc
 NAME                             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                AGE
 postgres-operator                ClusterIP   10.96.64.37     <none>        8443/TCP,4171/TCP,4150/TCP             58m
-radondb                        ClusterIP   10.96.171.227   <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   5m42s
-radondb-backrest-shared-repo   ClusterIP   10.96.235.247   <none>        2022/TCP                               5m42s
-radondb-pgbouncer              ClusterIP   10.96.234.49    <none>        5432/TCP                               4m16s
-radondb-replica                ClusterIP   10.96.67.45     <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   3m50s
+RadonDB                        ClusterIP   10.96.171.227   <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   5m42s
+RadonDB-backrest-shared-repo   ClusterIP   10.96.235.247   <none>        2022/TCP                               5m42s
+RadonDB-pgbouncer              ClusterIP   10.96.234.49    <none>        5432/TCP                               4m16s
+RadonDB-replica                ClusterIP   10.96.67.45     <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   3m50s
 ```
 
-使用`radondb`这个服务连接到数据库：
+使用`RadonDB`这个服务连接到数据库：
 
 ```shell
-kubectl -n pgo port-forward svc/radondb 5432:5432
-PGPASSWORD='yTFeeH1|^DX<Bx4[?:B_/Q;M' psql -h localhost -p 5432 -U testuser radondb
+kubectl -n pgo port-forward svc/RadonDB 5432:5432
+PGPASSWORD='yTFeeH1|^DX<Bx4[?:B_/Q;M' psql -h localhost -p 5432 -U testuser RadonDB
 ```
 
 ##### `pgAdmin`连接
 
 `pgAdmin`是一个图形工具，可用于从 Web 浏览器管理和 PostgreSQL 数据库
 
-`pgo create pgadmin -n pgo radondb`
+`pgo create pgadmin -n pgo RadonDB`
 
 创建pgAdmin的4实例需要一些时间, 等待创建完成后查看可用服务列表：
 
 ```shell
- kubectl -n pgo get svc radondb-pgadmin
+ kubectl -n pgo get svc RadonDB-pgadmin
 NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-radondb-pgadmin   ClusterIP   10.96.239.152   <none>        5050/TCP   2m41s
+RadonDB-pgadmin   ClusterIP   10.96.239.152   <none>        5050/TCP   2m41s
 ```
 
 修改初始用户密码：
 
-`pgo update user -n pgo radondb --username=testuser --password=Radondb`
+`pgo update user -n pgo RadonDB --username=testuser --password=RadonDB`
 
 创建端口转发并连接:
 
 ```shell
-kubectl -n pgo port-forward svc/radondb-pgadmin 5050:5050
+kubectl -n pgo port-forward svc/RadonDB-pgadmin 5050:5050
 ```
 
-将您的浏览器导航到[http://localhost:5050](http://localhost:5050/)并使用您的数据库用户名 ( `testuser`) 和密码(Radondb)连接
+将您的浏览器导航到[http://localhost:5050](http://localhost:5050/)并使用您的数据库用户名 ( `testuser`) 和密码(RadonDB)连接
 
 ### 步骤三: 部署Prometheus服务端
 
-[RadonDB PostgreSQL Operator](https://github.com/radondb/radondb-postgresql-operator) 支持您方便的部署`Prometheus Server`,请参考以下步骤：
+[RadonDB PostgreSQL Operator](https://github.com/RadonDB/RadonDB-postgresql-operator) 支持您方便的部署`Prometheus Server`,请参考以下步骤：
 
 ```shell
- cd radondb-postgresql-operator/installers/metrics/helm
+ cd RadonDB-postgresql-operator/installers/metrics/helm
  helm upgrade demo-monitor  .
 ```
 
 查看服务：
 
 ```shell
- kubectl get svc -n pgo radondb-grafana
+ kubectl get svc -n pgo RadonDB-grafana
 NAME                TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
-radondb-grafana   ClusterIP   10.96.222.20   <none>        3000/TCP   4m4s
+RadonDB-grafana   ClusterIP   10.96.222.20   <none>        3000/TCP   4m4s
 ```
 
 创建端口转发并连接:
 
 ```shell
-kubectl port-forward --namespace pgo svc/radondb-grafana --address 0.0.0.0 3000:3000
+kubectl port-forward --namespace pgo svc/RadonDB-grafana --address 0.0.0.0 3000:3000
 ```
 
 将您的浏览器导航到[http://localhost:3000](http://localhost:3000/)并使用初始用户admin/admin连接

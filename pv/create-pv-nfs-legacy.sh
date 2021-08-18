@@ -19,8 +19,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "create the test PV and PVC using the NFS dir"
 for i in {1..160}
 do
-   	echo "creating PV radondb-pv$i"
+   	echo "creating PV RadonDB-pv$i"
 	export COUNTER=$i
-	$PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pv radondb-pv$i
-	cat $DIR/radondb-pv-nfs.json | envsubst | $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE create -f -
+	$PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE delete pv RadonDB-pv$i
+	cat $DIR/RadonDB-pv-nfs.json | envsubst | $PGO_CMD --namespace=$PGO_OPERATOR_NAMESPACE create -f -
 done

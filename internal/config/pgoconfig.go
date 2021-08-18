@@ -26,7 +26,7 @@ import (
 	"strings"
 	"text/template"
 
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -758,7 +758,7 @@ func initialize(clientset kubernetes.Interface, namespace string) (*v1.ConfigMap
 		ObjectMeta: metav1.ObjectMeta{
 			Name: CustomConfigMapName,
 			Labels: map[string]string{
-				LABEL_VENDOR: LABEL_RADONDB,
+				LABEL_VENDOR: LABEL_RadonDB,
 			},
 		},
 		Data: map[string]string{},

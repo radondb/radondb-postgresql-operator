@@ -24,12 +24,12 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	"github.com/radondb/postgres-operator/internal/operator/pvc"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/operator/pvc"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -151,7 +151,7 @@ func CreateRepoDeployment(clientset kubernetes.Interface, cluster *crv1.Pgcluste
 		return err
 	}
 
-	if operator.RADONDB_DEBUG {
+	if operator.RadonDB_DEBUG {
 		_ = config.PgoBackrestRepoTemplate.Execute(os.Stdout, repoFields)
 	}
 
@@ -409,7 +409,7 @@ func createService(clientset kubernetes.Interface, fields *RepoServiceTemplateFi
 			return err
 		}
 
-		if operator.RADONDB_DEBUG {
+		if operator.RadonDB_DEBUG {
 			_ = config.PgoBackrestRepoServiceTemplate.Execute(os.Stdout, fields)
 		}
 

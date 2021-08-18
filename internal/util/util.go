@@ -24,10 +24,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	pgo "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -39,7 +39,7 @@ import (
 const letterBytes = "abcdefghijklmnopqrstuvwxyz"
 
 // gisImageTagRegex is a regular expression designed to match the standard image tag for
-// the radondb-postgres-gis-ha container
+// the RadonDB-postgres-gis-ha container
 var gisImageTagRegex = regexp.MustCompile(`(.+-[\d|\.]+)-[\d|\.]+?(-[\d|\.]+.*)`)
 
 func init() {
@@ -107,7 +107,7 @@ func PatchClusterCRD(clientset pgo.Interface, labelMap map[string]string, oldCrd
 
 	log.Debugf("patching cluster %s: %s", oldCrd.Spec.Name, patchBytes)
 
-	_, err6 := clientset.RadondbV1().Pgclusters(namespace).
+	_, err6 := clientset.RadonDBV1().Pgclusters(namespace).
 		Patch(ctx, oldCrd.Spec.Name, types.MergePatchType, patchBytes, metav1.PatchOptions{})
 
 	return err6
@@ -151,11 +151,11 @@ func GetSecretPassword(clientset kubernetes.Interface, db, suffix, Namespace str
 
 // GetStandardImageTag takes the current image name and the image tag value
 // stored in the pgcluster CRD and, if the image being used is the
-// radondb-postgres-gis-ha container with the corresponding tag, it returns
+// RadonDB-postgres-gis-ha container with the corresponding tag, it returns
 // the tag without the addition of the GIS version. This tag value can then
 // be used when provisioning containers using the standard containers tag.
 func GetStandardImageTag(imageName, imageTag string) string {
-	if imageName == "radondb-postgres-gis-ha" && strings.Count(imageTag, "-") > 2 {
+	if imageName == "RadonDB-postgres-gis-ha" && strings.Count(imageTag, "-") > 2 {
 		return gisImageTagRegex.ReplaceAllString(imageTag, "$1$2")
 	}
 
@@ -214,7 +214,7 @@ func SQLQuoteIdentifier(identifier string) string {
 //
 // Implementation borrowed from lib/pq: https://github.com/lib/pq which is
 // licensed under the MIT License. Curiously, @jkatz and @cbandy were the ones
-// who worked on the patch to add this, prior to being at Radondb Data
+// who worked on the patch to add this, prior to being at RadonDB
 func SQLQuoteLiteral(literal string) string {
 	// This follows the PostgreSQL internal algorithm for handling quoted literals
 	// from libpq, which can be found in the "PQEscapeStringInternal" function,

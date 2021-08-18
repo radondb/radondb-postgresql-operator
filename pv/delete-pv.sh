@@ -17,6 +17,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 for i in {1..100}
 do
-   	echo "deleting PV radondb-pv$i"
-	$PGO_CMD delete pv radondb-pv$i
+   	echo "deleting PV RadonDB-pv$i"
+	$PGO_CMD delete pv RadonDB-pv$i
 done

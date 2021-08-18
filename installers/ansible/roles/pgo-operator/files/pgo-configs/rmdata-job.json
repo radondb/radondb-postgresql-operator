@@ -4,7 +4,7 @@
     "metadata": {
         "name": "{{.JobName}}",
         "labels": {
-            "vendor": "radondb",
+            "vendor": "RadonDB",
             "pgrmdata": "true",
             "pg-cluster": "{{.ClusterName}}"
         }
@@ -14,7 +14,7 @@
             "metadata": {
                 "name": "{{.JobName}}",
                 "labels": {
-                    "vendor": "radondb",
+                    "vendor": "RadonDB",
                     "pgrmdata": "true",
                     "pg-cluster": "{{.ClusterName}}"
                 }

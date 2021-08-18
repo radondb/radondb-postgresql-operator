@@ -1,7 +1,7 @@
 package configmap
 
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -16,9 +16,9 @@ limitations under the License.
 */
 
 import (
-	"github.com/radondb/postgres-operator/internal/config"
-	pgoinformers "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/radondb.com/v1"
-	pgolisters "github.com/radondb/postgres-operator/pkg/generated/listers/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	pgoinformers "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions/RadonDB.com/v1"
+	pgolisters "github.com/RadonDB/postgres-operator/pkg/generated/listers/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 

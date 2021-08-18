@@ -19,9 +19,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
-	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
+	pgo "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -39,7 +39,7 @@ func CheckVersion(clientset pgo.Interface, ns string) error {
 	ctx := context.TODO()
 
 	// get all pgclusters
-	clusterList, err := clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
+	clusterList, err := clientset.RadonDBV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return fmt.Errorf("%s: %w", ErrUnsuccessfulVersionCheck, err)
 	}
@@ -55,14 +55,14 @@ func CheckVersion(clientset pgo.Interface, ns string) error {
 				cluster.Annotations = map[string]string{}
 			}
 			cluster.Annotations[config.ANNOTATION_IS_UPGRADED] = config.ANNOTATIONS_FALSE
-			if _, err := clientset.RadondbV1().Pgclusters(ns).Update(ctx, cluster, metav1.UpdateOptions{}); err != nil {
+			if _, err := clientset.RadonDBV1().Pgclusters(ns).Update(ctx, cluster, metav1.UpdateOptions{}); err != nil {
 				return fmt.Errorf("%s: %w", ErrUnsuccessfulVersionCheck, err)
 			}
 		}
 	}
 
 	// update pgreplica CRD userlabels["pgo-version"] to current version
-	replicaList, err := clientset.RadondbV1().Pgreplicas(ns).List(ctx, metav1.ListOptions{})
+	replicaList, err := clientset.RadonDBV1().Pgreplicas(ns).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		log.Error(err)
 		return fmt.Errorf("%s: %w", ErrUnsuccessfulVersionCheck, err)
@@ -79,7 +79,7 @@ func CheckVersion(clientset pgo.Interface, ns string) error {
 				replica.Annotations = map[string]string{}
 			}
 			replica.Annotations[config.ANNOTATION_IS_UPGRADED] = config.ANNOTATIONS_FALSE
-			if _, err := clientset.RadondbV1().Pgreplicas(ns).Update(ctx, replica, metav1.UpdateOptions{}); err != nil {
+			if _, err := clientset.RadonDBV1().Pgreplicas(ns).Update(ctx, replica, metav1.UpdateOptions{}); err != nil {
 				return fmt.Errorf("%s: %w", ErrUnsuccessfulVersionCheck, err)
 			}
 		}

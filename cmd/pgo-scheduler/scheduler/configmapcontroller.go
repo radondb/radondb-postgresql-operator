@@ -1,7 +1,7 @@
 package scheduler
 
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -36,7 +36,7 @@ func (c *Controller) onAdd(obj interface{}) {
 		log.WithFields(log.Fields{}).Error("Could not convert runtime object to configmap..")
 	}
 
-	if _, ok := cm.Labels["radondb-scheduler"]; !ok {
+	if _, ok := cm.Labels["RadonDB-scheduler"]; !ok {
 		return
 	}
 
@@ -54,7 +54,7 @@ func (c *Controller) onDelete(obj interface{}) {
 		log.WithFields(log.Fields{}).Error("Could not convert runtime object to configmap..")
 	}
 
-	if _, ok := cm.Labels["radondb-scheduler"]; !ok {
+	if _, ok := cm.Labels["RadonDB-scheduler"]; !ok {
 		return
 	}
 	c.Scheduler.DeleteSchedule(cm)

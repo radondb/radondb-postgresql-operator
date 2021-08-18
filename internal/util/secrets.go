@@ -22,9 +22,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -60,7 +60,7 @@ func CreateSecret(clientset kubernetes.Interface, db, secretName, username, pass
 	secret.Name = secretName
 	secret.ObjectMeta.Labels = labels
 	secret.ObjectMeta.Labels["pg-cluster"] = db
-	secret.ObjectMeta.Labels[config.LABEL_VENDOR] = config.LABEL_RADONDB
+	secret.ObjectMeta.Labels[config.LABEL_VENDOR] = config.LABEL_RadonDB
 	secret.Data = make(map[string][]byte)
 	secret.Data["username"] = []byte(username)
 	secret.Data["password"] = []byte(password)

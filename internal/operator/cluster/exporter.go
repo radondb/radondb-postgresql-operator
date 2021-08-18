@@ -21,11 +21,11 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -38,7 +38,7 @@ import (
 const (
 	// exporterInstallScript references the embedded script that installs all of
 	// the pgMonitor functions
-	exporterInstallScript = "/opt/radondb/bin/exporter/install.sh"
+	exporterInstallScript = "/opt/RadonDB/bin/exporter/install.sh"
 
 	// exporterServicePortName is the name used to identify the exporter port in
 	// the service
@@ -46,7 +46,7 @@ const (
 )
 
 // AddExporter ensures that a PostgreSQL cluster is able to undertake the
-// actions required by the "radondb-postgres-exporter", i.e.
+// actions required by the "RadonDB-postgres-exporter", i.e.
 //
 //   - enable a service port so scrapers can access the metrics
 //   - it can authenticate as the "ccp_monitoring" user; manages the Secret as
@@ -165,7 +165,7 @@ func CreateExporterSecret(clientset kubernetes.Interface, cluster *crv1.Pgcluste
 			Labels: map[string]string{
 				config.LABEL_EXPORTER:   config.LABEL_TRUE,
 				config.LABEL_PG_CLUSTER: cluster.Name,
-				config.LABEL_VENDOR:     config.LABEL_RADONDB,
+				config.LABEL_VENDOR:     config.LABEL_RadonDB,
 			},
 		},
 		Data: map[string][]byte{

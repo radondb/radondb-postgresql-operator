@@ -27,11 +27,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/ns"
-	"github.com/radondb/postgres-operator/internal/tlsutil"
-	"github.com/radondb/postgres-operator/internal/util"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/ns"
+	"github.com/RadonDB/postgres-operator/internal/tlsutil"
+	"github.com/RadonDB/postgres-operator/internal/util"
 	log "github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -51,7 +51,7 @@ var (
 	RESTConfig *rest.Config
 )
 
-// MetricsFlag if set to true will cause radondb-postgres-exporter to be added into new clusters
+// MetricsFlag if set to true will cause RadonDB-postgres-exporter to be added into new clusters
 var MetricsFlag, BadgerFlag bool
 
 // AuditFlag if set to true will cause auditing to occur in the logs
@@ -69,7 +69,7 @@ var (
 	InstallationName string
 )
 
-var RADONDB_DEBUG bool
+var RadonDB_DEBUG bool
 
 // TreeTrunk is for debugging only in this context
 const TreeTrunk = "└── "
@@ -106,10 +106,10 @@ func Initialize() {
 	}
 	log.Info("InstallationName is [" + InstallationName + "]")
 
-	tmp := os.Getenv("RADONDB_DEBUG")
-	RADONDB_DEBUG = false
+	tmp := os.Getenv("RadonDB_DEBUG")
+	RadonDB_DEBUG = false
 	if tmp == "true" {
-		RADONDB_DEBUG = true
+		RadonDB_DEBUG = true
 	}
 	BasicAuth = true
 	MetricsFlag = false
@@ -462,7 +462,7 @@ func generateTLSCert(certPath, keyPath string) error {
 	newSecret := corev1.Secret{}
 	newSecret.Name = PGOSecretName
 	newSecret.ObjectMeta.Labels = make(map[string]string)
-	newSecret.ObjectMeta.Labels[config.LABEL_VENDOR] = "radondb"
+	newSecret.ObjectMeta.Labels[config.LABEL_VENDOR] = "RadonDB"
 	newSecret.Data = make(map[string][]byte)
 	newSecret.Data[corev1.TLSCertKey] = caCertBytes
 	newSecret.Data[corev1.TLSPrivateKeyKey] = privateKeyBytes
@@ -503,7 +503,7 @@ func setNamespaceOperatingMode() error {
 func setRandomPgouserPasswords() {
 	ctx := context.TODO()
 
-	selector := "pgo-pgouser=true,vendor=radondb"
+	selector := "pgo-pgouser=true,vendor=RadonDB"
 	secrets, err := Clientset.CoreV1().Secrets(PgoNamespace).
 		List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {

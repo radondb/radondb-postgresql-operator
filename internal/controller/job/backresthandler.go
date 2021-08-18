@@ -23,12 +23,12 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/controller"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	"github.com/radondb/postgres-operator/internal/operator/backrest"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/controller"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/operator/backrest"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 )
 
 // backrestUpdateHandler is responsible for handling updates to backrest jobs
@@ -70,7 +70,7 @@ func (c *Controller) handleBackrestBackupUpdate(job *apiv1.Job) error {
 	patch, err := kubeapi.NewJSONPatch().Add("spec", "status")(crv1.JobCompletedStatus).Bytes()
 	if err == nil {
 		log.Debugf("patching task %s: %s", job.Name, patch)
-		_, err = c.Client.RadondbV1().Pgtasks(job.Namespace).
+		_, err = c.Client.RadonDBV1().Pgtasks(job.Namespace).
 			Patch(ctx, job.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -135,7 +135,7 @@ func (c *Controller) handleBackrestStanzaCreateUpdate(job *apiv1.Job) error {
 			}
 		}
 
-		cluster, err := c.Client.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+		cluster, err := c.Client.RadonDBV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 		if err != nil {
 			return err
 		}

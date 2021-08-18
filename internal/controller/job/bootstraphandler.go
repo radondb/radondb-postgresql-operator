@@ -1,7 +1,7 @@
 package job
 
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,11 +21,11 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/operator"
-	backrestoperator "github.com/radondb/postgres-operator/internal/operator/backrest"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	backrestoperator "github.com/RadonDB/postgres-operator/internal/operator/backrest"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	apiv1 "k8s.io/api/batch/v1"
@@ -50,7 +50,7 @@ func (c *Controller) handleBootstrapUpdate(job *apiv1.Job) error {
 		return nil
 	}
 
-	cluster, err := c.Client.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := c.Client.RadonDBV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		return err
 	}
@@ -97,7 +97,7 @@ func (c *Controller) handleBootstrapUpdate(job *apiv1.Job) error {
 			},
 		})
 		if err == nil {
-			_, err = c.Client.RadondbV1().Pgclusters(namespace).
+			_, err = c.Client.RadonDBV1().Pgclusters(namespace).
 				Patch(ctx, cluster.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 		}
 		if err != nil {

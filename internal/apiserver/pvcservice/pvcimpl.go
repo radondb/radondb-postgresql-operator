@@ -19,9 +19,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/config"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -30,7 +30,7 @@ import (
 func ShowPVC(allflag bool, clusterName, ns string) ([]msgs.ShowPVCResponseResult, error) {
 	ctx := context.TODO()
 	pvcList := []msgs.ShowPVCResponseResult{}
-	selector := fmt.Sprintf("%s=%s", config.LABEL_VENDOR, config.LABEL_RADONDB)
+	selector := fmt.Sprintf("%s=%s", config.LABEL_VENDOR, config.LABEL_RadonDB)
 
 	// if allflag is not set to true, then update the selector to target the
 	// specific PVCs for a specific cluster

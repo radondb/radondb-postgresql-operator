@@ -8,7 +8,7 @@ password: W4tch0ut4hippo$
 # diskSize: 5Gi
 # monitoring: true
 # ha: true
-# imagePrefix: docker.io/radondb
-# image: radondb-postgres-ha
+# imagePrefix: docker.io/RadonDB
+# image: RadonDB-postgres-ha
 # imageTag: centos8-13.3-4.7.1
 # memory: 1Gi

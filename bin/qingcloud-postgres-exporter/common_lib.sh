@@ -19,7 +19,7 @@ YELLOW="\033[0;33m"
 RESET="\033[0m"
 
 function enable_debugging() {
-    if [[ ${RADONDB_DEBUG:-false} == "true" ]]
+    if [[ ${RadonDB_DEBUG:-false} == "true" ]]
     then
         echo_info "Turning debugging on.."
         export PS4='+(${BASH_SOURCE}:${LINENO})> ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'

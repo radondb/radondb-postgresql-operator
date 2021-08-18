@@ -4,7 +4,7 @@
     "metadata": {
         "name": "{{.Name}}",
         "labels": {
-            "vendor": "radondb",
+            "vendor": "RadonDB",
             "pgo-pg-database": "true",
             {{.DeploymentLabels }}
         }
@@ -13,7 +13,7 @@
         "replicas": {{.Replicas}},
         "selector": {
           "matchLabels": {
-            "vendor": "radondb",
+            "vendor": "RadonDB",
             "pg-cluster": "{{.ClusterName}}",
             "pgo-pg-database": "true",
             "deployment-name": "{{.Name}}"
@@ -26,7 +26,7 @@
                 {{ end }}
                 "labels": {
                     "name": "{{.Name}}",
-                    "vendor": "radondb",
+                    "vendor": "RadonDB",
                     "pgo-pg-database": "true",
                     "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
                     {{.PodLabels }}
@@ -50,7 +50,7 @@
                     "readinessProbe": {
                         "exec": {
                             "command": [
-                                "/opt/radondb/bin/postgres-ha/health/pgha-readiness.sh"
+                                "/opt/RadonDB/bin/postgres-ha/health/pgha-readiness.sh"
                             ]
                         },
                         "initialDelaySeconds": 15
@@ -58,7 +58,7 @@
                     "livenessProbe": {
                         "exec": {
                             "command": [
-                                "/opt/radondb/bin/postgres-ha/health/pgha-liveness.sh"
+                                "/opt/RadonDB/bin/postgres-ha/health/pgha-liveness.sh"
                             ]
                         },
                         "initialDelaySeconds": 30,
@@ -142,7 +142,7 @@
                         }
                     }, {
                         "name": "PATRONI_KUBERNETES_LABELS",
-                        "value": "{vendor: \"radondb\"}"
+                        "value": "{vendor: \"RadonDB\"}"
                     }, {
                         "name": "PATRONI_LOG_LEVEL",
                         "value": "INFO"

@@ -18,19 +18,19 @@ package fake
 import (
 	fakekubernetes "k8s.io/client-go/kubernetes/fake"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	fakeradondb "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/fake"
-	radondbv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	fakeRadonDB "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/fake"
+	RadonDBv1 "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/typed/RadonDB.com/v1"
 )
 
 type Clientset struct {
 	*fakekubernetes.Clientset
-	PGOClientset *fakeradondb.Clientset
+	PGOClientset *fakeRadonDB.Clientset
 }
 
 var _ kubeapi.Interface = &Clientset{}
 
-// RadondbV1 retrieves the RadondbV1Client
-func (c *Clientset) RadondbV1() radondbv1.RadondbV1Interface {
-	return c.PGOClientset.RadondbV1()
+// RadonDBV1 retrieves the RadonDBV1Client
+func (c *Clientset) RadonDBV1() RadonDBv1.RadonDBV1Interface {
+	return c.PGOClientset.RadonDBV1()
 }

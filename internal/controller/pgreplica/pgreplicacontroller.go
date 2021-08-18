@@ -21,13 +21,13 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	clusteroperator "github.com/radondb/postgres-operator/internal/operator/cluster"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	informers "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	clusteroperator "github.com/RadonDB/postgres-operator/internal/operator/cluster"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	informers "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -104,7 +104,7 @@ func (c *Controller) processNextItem() bool {
 
 		// handle the case of when a pgreplica is added which is
 		// scaling up a cluster
-		replica, err := c.Client.RadondbV1().Pgreplicas(keyNamespace).Get(ctx, keyResourceName, metav1.GetOptions{})
+		replica, err := c.Client.RadonDBV1().Pgreplicas(keyNamespace).Get(ctx, keyResourceName, metav1.GetOptions{})
 		if err != nil {
 			log.Error(err)
 			c.Queue.Forget(key) // NB(cbandy): This should probably be a retry.
@@ -112,7 +112,7 @@ func (c *Controller) processNextItem() bool {
 		}
 
 		// get the pgcluster resource for the cluster the replica is a part of
-		cluster, err := c.Client.RadondbV1().Pgclusters(keyNamespace).Get(ctx, replica.Spec.ClusterName, metav1.GetOptions{})
+		cluster, err := c.Client.RadonDBV1().Pgclusters(keyNamespace).Get(ctx, replica.Spec.ClusterName, metav1.GetOptions{})
 		if err != nil {
 			log.Error(err)
 			c.Queue.Forget(key) // NB(cbandy): This should probably be a retry.
@@ -130,7 +130,7 @@ func (c *Controller) processNextItem() bool {
 				},
 			})
 			if err == nil {
-				_, err = c.Client.RadondbV1().Pgreplicas(replica.Namespace).
+				_, err = c.Client.RadonDBV1().Pgreplicas(replica.Namespace).
 					Patch(ctx, replica.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 			}
 			if err != nil {
@@ -144,7 +144,7 @@ func (c *Controller) processNextItem() bool {
 				},
 			})
 			if err == nil {
-				_, err = c.Client.RadondbV1().Pgreplicas(replica.Namespace).
+				_, err = c.Client.RadonDBV1().Pgreplicas(replica.Namespace).
 					Patch(ctx, replica.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 			}
 			if err != nil {
@@ -187,7 +187,7 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 
 	// get the pgcluster resource for the cluster the replica is a part of
 	cluster, err := c.Client.
-		RadondbV1().Pgclusters(newPgreplica.Namespace).
+		RadonDBV1().Pgclusters(newPgreplica.Namespace).
 		Get(ctx, newPgreplica.Spec.ClusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err)
@@ -206,7 +206,7 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 			},
 		})
 		if err == nil {
-			_, err = c.Client.RadondbV1().Pgreplicas(newPgreplica.Namespace).
+			_, err = c.Client.RadonDBV1().Pgreplicas(newPgreplica.Namespace).
 				Patch(ctx, newPgreplica.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 		}
 		if err != nil {
@@ -271,7 +271,7 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 		if annotations != nil {
 			if _, ok := annotations[config.ANNOTATION_CLUSTER_DO_NOT_RESIZE]; ok {
 				delete(newPgreplica.ObjectMeta.Annotations, config.ANNOTATION_CLUSTER_DO_NOT_RESIZE)
-				if _, err := c.Client.RadondbV1().Pgreplicas(newPgreplica.Namespace).Update(ctx,
+				if _, err := c.Client.RadonDBV1().Pgreplicas(newPgreplica.Namespace).Update(ctx,
 					newPgreplica, metav1.UpdateOptions{}); err != nil {
 					log.Warnf("could not remove resize annotation from pgreplica: %s", err.Error())
 				}

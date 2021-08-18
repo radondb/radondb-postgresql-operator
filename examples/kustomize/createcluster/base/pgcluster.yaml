@@ -1,12 +1,12 @@
-apiVersion: radondb.com/v1
+apiVersion: RadonDB.com/v1
 kind: Pgcluster
 metadata:
   annotations:
     current-primary: hippo
   labels:
     autofail: "true"
-    radondb-pgbadger: "false"
-    radondb-pgha-scope: hippo
+    RadonDB-pgbadger: "false"
+    RadonDB-pgha-scope: hippo
     deployment-name: hippo
     name: hippo
     pg-cluster: hippo
@@ -44,8 +44,8 @@ spec:
     backrest: {}
     pgBouncer: {}
     postgres: {}
-  ccpimage: radondb-postgres-ha
-  ccpimageprefix: docker.io/radondb
+  ccpimage: RadonDB-postgres-ha
+  ccpimageprefix: docker.io/RadonDB
   ccpimagetag: centos8-13.3-4.7.1
   clustername: hippo
   customconfig: ""
@@ -60,7 +60,7 @@ spec:
     restoreFrom: ""
     restoreOpts: ""
   pgbadgerport: "10000"
-  pgoimageprefix: docker.io/radondb
+  pgoimageprefix: docker.io/RadonDB
   podAntiAffinity:
     default: preferred
     pgBackRest: preferred

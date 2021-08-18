@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
 )
 
 func TestValidPermissions(t *testing.T) {

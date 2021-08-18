@@ -1,5 +1,5 @@
 ---
-- name: Deploy Radondb PostgreSQL Operator Monitoring
+- name: Deploy RadonDB PostgreSQL Operator Monitoring
   hosts: all
   gather_facts: true
   roles:

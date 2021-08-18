@@ -4,7 +4,7 @@
     "metadata": {
         "name": "{{.Name}}-bootstrap",
         "labels": {
-            "vendor": "radondb",
+            "vendor": "RadonDB",
             "pgo-backrest-job": "true",
             "pgha-bootstrap": "{{.Name}}",
             {{.DeploymentLabels}}
@@ -15,7 +15,7 @@
             "metadata": {
                 "labels": {
                     "name": "{{.Name}}-bootstrap",
-                    "vendor": "radondb",
+                    "vendor": "RadonDB",
                     "pgha-bootstrap": "{{.Name}}",
                     {{.PodLabels}}
                 }
@@ -103,7 +103,7 @@
                         }
                     }, {
                         "name": "PATRONI_KUBERNETES_LABELS",
-                        "value": "{vendor: \"radondb\"}"
+                        "value": "{vendor: \"RadonDB\"}"
                     }, {
                         "name": "PATRONI_LOG_LEVEL",
                         "value": "INFO"

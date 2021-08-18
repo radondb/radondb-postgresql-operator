@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,8 +21,8 @@ import (
 	"context"
 	"time"
 
-	v1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	scheme "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	v1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	scheme "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
@@ -56,7 +56,7 @@ type pgclusters struct {
 }
 
 // newPgclusters returns a Pgclusters
-func newPgclusters(c *RadondbV1Client, namespace string) *pgclusters {
+func newPgclusters(c *RadonDBV1Client, namespace string) *pgclusters {
 	return &pgclusters{
 		client: c.RESTClient(),
 		ns:     namespace,

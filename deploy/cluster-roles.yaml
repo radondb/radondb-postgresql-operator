@@ -4,7 +4,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: pgo-cluster-role
   labels:
-    vendor: radondb
+    vendor: RadonDB
 rules:
   - apiGroups:
       - ''
@@ -91,7 +91,7 @@ rules:
       - delete
       - deletecollection
   - apiGroups:
-      - radondb.com
+      - RadonDB.com
     resources:
       - pgclusters
       - pgpolicies

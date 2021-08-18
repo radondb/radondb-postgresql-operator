@@ -49,21 +49,21 @@
   tags:
     - uninstall-metrics
 
-- name: Install Radondb PostgreSQL Operator Monitoring
+- name: Install RadonDB PostgreSQL Operator Monitoring
   tags:
     - install-metrics
     - update-metrics
   block:
     - name: Check for pgmonitor
       stat:
-        path: "/opt/radondb/pgmonitor"
+        path: "/opt/RadonDB/pgmonitor"
       register: pgmonitor_dir_embed
 
     - name: Set pgMonitor Directory Fact
       block:
         - name: Embeded Path
           set_fact:
-            pgmonitor_dir: "/opt/radondb/pgmonitor"
+            pgmonitor_dir: "/opt/RadonDB/pgmonitor"
           when: pgmonitor_dir_embed.stat.exists
 
         - name: Downloaded Path
@@ -125,9 +125,9 @@
       set_fact: deployments="{{ deployments | default([]) + [ item.name ] }}"
       when: item.deployed
       loop:
-        - { deployed: "{{ alertmanager_install | bool }}", name: "radondb-alertmanager" }
-        - { deployed: "{{ grafana_install | bool }}", name: "radondb-grafana" }
-        - { deployed: "{{ prometheus_install | bool }}", name: "radondb-prometheus" }
+        - { deployed: "{{ alertmanager_install | bool }}", name: "RadonDB-alertmanager" }
+        - { deployed: "{{ grafana_install | bool }}", name: "RadonDB-grafana" }
+        - { deployed: "{{ prometheus_install | bool }}", name: "RadonDB-prometheus" }
 
     - name: Wait for Metrics to Finish Deploying
       command: |

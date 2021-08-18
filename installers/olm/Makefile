@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 .SUFFIXES:
 
-CCP_IMAGE_PREFIX ?= docker.io/radondb
+CCP_IMAGE_PREFIX ?= docker.io/RadonDB
 CCP_PG_FULLVERSION ?= 13.3
 CCP_POSTGIS_VERSION ?= 3.0
 CONTAINER ?= docker
@@ -10,7 +10,7 @@ OLM_SDK_VERSION ?= 0.15.1
 OLM_TOOLS ?= registry.localhost:5000/postgres-operator-olm-tools:$(OLM_SDK_VERSION)
 OLM_VERSION ?= 0.15.1
 PGO_BASEOS ?= centos8
-PGO_IMAGE_PREFIX ?= docker.io/radondb
+PGO_IMAGE_PREFIX ?= docker.io/RadonDB
 PGO_VERSION ?= 4.7.1
 PGO_IMAGE_TAG ?= $(PGO_BASEOS)-$(PGO_VERSION)
 CCP_IMAGE_TAG ?= $(PGO_BASEOS)-$(CCP_PG_FULLVERSION)-$(PGO_VERSION)
@@ -86,9 +86,9 @@ package-openshift: package
 
 .PHONY: package-redhat
 package-redhat: export K8S_DISTRIBUTION := openshift
-package-redhat: export PACKAGE_NAME := radondb-postgres-operator
-package-redhat: CCP_IMAGE_PREFIX := registry.connect.redhat.com/radondb
-package-redhat: PGO_IMAGE_PREFIX := registry.connect.redhat.com/radondb
+package-redhat: export PACKAGE_NAME := RadonDB-postgres-operator
+package-redhat: CCP_IMAGE_PREFIX := registry.connect.redhat.com/RadonDB
+package-redhat: PGO_IMAGE_PREFIX := registry.connect.redhat.com/RadonDB
 package-redhat: PGO_BASEOS := $(subst centos,rhel,$(PGO_BASEOS))
 package-redhat:
 	./generate.sh

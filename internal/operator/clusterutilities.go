@@ -25,9 +25,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	apps_v1 "k8s.io/api/apps/v1"
@@ -45,7 +45,7 @@ const PGHAConfigMapSuffix = "pgha-config"
 // cluster
 const (
 	// PGHAConfigInitSetting determines whether or not initialization logic should be run in the
-	// radondb-postgres-ha (or GIS equivilaent) container
+	// RadonDB-postgres-ha (or GIS equivilaent) container
 	PGHAConfigInitSetting = "init"
 	// PGHAConfigReplicaBootstrapRepoType defines an override for the type of repo (local, S3, etc.)
 	// that should be utilized when bootstrapping a replica (i.e. it override the
@@ -367,7 +367,7 @@ func GetBadgerAddon(cluster *crv1.Pgcluster, target string) string {
 		PGBadgerPort:   cluster.Spec.PGBadgerPort,
 	}
 
-	if RADONDB_DEBUG {
+	if RadonDB_DEBUG {
 		_ = config.BadgerTemplate.Execute(os.Stdout, badgerTemplateFields)
 	}
 
@@ -418,7 +418,7 @@ func GetExporterAddon(spec crv1.PgclusterSpec) string {
 		TLSOnly: (spec.TLS.IsTLSEnabled() && spec.TLSOnly),
 	}
 
-	if RADONDB_DEBUG {
+	if RadonDB_DEBUG {
 		_ = config.ExporterTemplate.Execute(os.Stdout, exporterTemplateFields)
 	}
 
@@ -461,7 +461,7 @@ func GetConfVolume(clientset kubernetes.Interface, cl *crv1.Pgcluster, namespace
 
 // CreatePGHAConfigMap creates a configMap that will be utilized to store configuration settings
 // for a PostgreSQL cluster.  Currently this configMap simply defines an "init" setting, which is
-// utilized by the radondb-postgres-ha container (or GIS equivalent) to determine whether or not
+// utilized by the RadonDB-postgres-ha container (or GIS equivalent) to determine whether or not
 // initialization logic should be executed when the container is run.  This ensures that the
 // original primary in a PostgreSQL cluster does not attempt to run any initialization logic more
 // than once, such as following a restart of the container.  In the future this configMap can also
@@ -472,7 +472,7 @@ func CreatePGHAConfigMap(clientset kubernetes.Interface, cluster *crv1.Pgcluster
 	ctx := context.TODO()
 
 	labels := make(map[string]string)
-	labels[config.LABEL_VENDOR] = config.LABEL_RADONDB
+	labels[config.LABEL_VENDOR] = config.LABEL_RadonDB
 	labels[config.LABEL_PG_CLUSTER] = cluster.Name
 	labels[config.LABEL_PGHA_CONFIGMAP] = "true"
 
@@ -566,7 +566,7 @@ func GetInstanceDeployments(clientset kubernetes.Interface, cluster *crv1.Pgclus
 	// mount the tablespace PVCs after we create them
 	// NOTE: this will also get the pgBackRest deployments, but we will filter
 	// these out later
-	selector := fmt.Sprintf("%s=%s,%s=%s", config.LABEL_VENDOR, config.LABEL_RADONDB,
+	selector := fmt.Sprintf("%s=%s,%s=%s", config.LABEL_VENDOR, config.LABEL_RadonDB,
 		config.LABEL_PG_CLUSTER, cluster.Name)
 
 	// get the deployments for this specific PostgreSQL luster
@@ -750,7 +750,7 @@ func GetPodAntiAffinity(cluster *crv1.Pgcluster, deploymentType crv1.PodAntiAffi
 		AffinityType:            templateAffinityType,
 		ClusterName:             cluster.Spec.Name,
 		VendorLabelKey:          config.LABEL_VENDOR,
-		VendorLabelValue:        config.LABEL_RADONDB,
+		VendorLabelValue:        config.LABEL_RadonDB,
 		PodAntiAffinityLabelKey: config.LABEL_POD_ANTI_AFFINITY,
 	}
 
@@ -762,7 +762,7 @@ func GetPodAntiAffinity(cluster *crv1.Pgcluster, deploymentType crv1.PodAntiAffi
 		return ""
 	}
 
-	if RADONDB_DEBUG {
+	if RadonDB_DEBUG {
 		_ = config.PodAntiAffinityTemplate.Execute(os.Stdout, podAntiAffinityTemplateFields)
 	}
 
@@ -1130,16 +1130,16 @@ func OverrideClusterContainerImages(containers []v1.Container) {
 		switch container.Name {
 
 		case "exporter":
-			containerImageName = config.CONTAINER_IMAGE_RADONDB_POSTGRES_EXPORTER
+			containerImageName = config.CONTAINER_IMAGE_RadonDB_POSTGRES_EXPORTER
 		case "database":
-			containerImageName = config.CONTAINER_IMAGE_RADONDB_POSTGRES_HA
+			containerImageName = config.CONTAINER_IMAGE_RadonDB_POSTGRES_HA
 			// one more step here...determine if this is GIS enabled
 			// ...yes, this is not ideal
 			if strings.Contains(container.Image, "gis-ha") {
-				containerImageName = config.CONTAINER_IMAGE_RADONDB_POSTGRES_GIS_HA
+				containerImageName = config.CONTAINER_IMAGE_RadonDB_POSTGRES_GIS_HA
 			}
 		case "pgbadger":
-			containerImageName = config.CONTAINER_IMAGE_RADONDB_PGBADGER
+			containerImageName = config.CONTAINER_IMAGE_RadonDB_PGBADGER
 		}
 
 		SetContainerImageOverride(containerImageName, &containers[i])

@@ -21,8 +21,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	radondblog "github.com/radondb/postgres-operator/internal/logging"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	RadonDBlog "github.com/RadonDB/postgres-operator/internal/logging"
 )
 
 func main() {
@@ -46,8 +46,8 @@ func main() {
 	flag.StringVar(&request.Namespace, "namespace", "", "")
 	flag.Parse()
 
-	radondblog.RadondbLogger(radondblog.SetParameters())
-	if os.Getenv("RADONDB_DEBUG") == "true" {
+	RadonDBlog.RadonDBLogger(RadonDBlog.SetParameters())
+	if os.Getenv("RadonDB_DEBUG") == "true" {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("debug flag set to true")
 	} else {

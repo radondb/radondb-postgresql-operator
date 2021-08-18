@@ -1,7 +1,7 @@
 package pgadminservice
 
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,11 +19,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/pgadmin"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/pgadmin"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -120,7 +120,7 @@ func CreatePgAdmin(request *msgs.CreatePgAdminRequest, ns, pgouser string) msgs.
 			Spec: spec,
 		}
 
-		if _, err := apiserver.Clientset.RadondbV1().Pgtasks(cluster.Namespace).Create(ctx, task, metav1.CreateOptions{}); err != nil {
+		if _, err := apiserver.Clientset.RadonDBV1().Pgtasks(cluster.Namespace).Create(ctx, task, metav1.CreateOptions{}); err != nil {
 			log.Error(err)
 			resp.SetError("error creating tasks for one or more clusters")
 			resp.Results = append(resp.Results, fmt.Sprintf("%s: error - %s", cluster.Name, err.Error()))
@@ -185,7 +185,7 @@ func DeletePgAdmin(request *msgs.DeletePgAdminRequest, ns string) msgs.DeletePgA
 			Spec: spec,
 		}
 
-		if _, err := apiserver.Clientset.RadondbV1().Pgtasks(cluster.Namespace).Create(ctx, task, metav1.CreateOptions{}); err != nil {
+		if _, err := apiserver.Clientset.RadonDBV1().Pgtasks(cluster.Namespace).Create(ctx, task, metav1.CreateOptions{}); err != nil {
 			log.Error(err)
 			resp.SetError("error creating tasks for one or more clusters")
 			resp.Results = append(resp.Results, fmt.Sprintf("%s: error - %s", cluster.Name, err.Error()))
@@ -298,7 +298,7 @@ func getClusterList(namespace string, clusterNames []string, selector string) (c
 	// of arguments...or both. First, start with the selector
 	if selector != "" {
 		cl, err := apiserver.Clientset.
-			RadondbV1().Pgclusters(namespace).
+			RadonDBV1().Pgclusters(namespace).
 			List(ctx, metav1.ListOptions{LabelSelector: selector})
 			// if there is an error, return here with an empty cluster list
 		if err != nil {
@@ -309,7 +309,7 @@ func getClusterList(namespace string, clusterNames []string, selector string) (c
 
 	// now try to get clusters based specific cluster names
 	for _, clusterName := range clusterNames {
-		cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+		cluster, err := apiserver.Clientset.RadonDBV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 		// if there is an error, capture it here and return here with an empty list
 		if err != nil {
 			return crv1.PgclusterList{}, err

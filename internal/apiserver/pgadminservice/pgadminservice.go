@@ -1,7 +1,7 @@
 package pgadminservice
 
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,8 +19,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 )

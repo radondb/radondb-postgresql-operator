@@ -19,10 +19,10 @@ import (
 	"context"
 	"errors"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/config"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -38,7 +38,7 @@ func ShowWorkflow(id, ns string) (msgs.ShowWorkflowDetail, error) {
 
 	selector := crv1.PgtaskWorkflowID + "=" + id
 
-	taskList, err := apiserver.Clientset.RadondbV1().Pgtasks(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	taskList, err := apiserver.Clientset.RadonDBV1().Pgtasks(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		return detail, err
 	}

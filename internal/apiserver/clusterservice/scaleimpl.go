@@ -20,11 +20,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/internal/apiserver"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -47,7 +47,7 @@ func ScaleCluster(request msgs.ClusterScaleRequest, pgouser string) msgs.Cluster
 		return response
 	}
 
-	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).Get(ctx, request.Name, metav1.GetOptions{})
+	cluster, err := apiserver.Clientset.RadonDBV1().Pgclusters(request.Namespace).Get(ctx, request.Name, metav1.GetOptions{})
 
 	if kerrors.IsNotFound(err) {
 		log.Error("no clusters found")
@@ -137,7 +137,7 @@ func ScaleCluster(request msgs.ClusterScaleRequest, pgouser string) msgs.Cluster
 			},
 		}
 
-		if _, err := apiserver.Clientset.RadondbV1().Pgreplicas(cluster.Namespace).Create(ctx,
+		if _, err := apiserver.Clientset.RadonDBV1().Pgreplicas(cluster.Namespace).Create(ctx,
 			newInstance, metav1.CreateOptions{}); err != nil {
 			log.Error(" in creating Pgreplica instance" + err.Error())
 		}
@@ -160,7 +160,7 @@ func ScaleQuery(name, ns string) msgs.ScaleQueryResponse {
 		Status:  msgs.Status{Code: msgs.Ok, Msg: ""},
 	}
 
-	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, name, metav1.GetOptions{})
+	cluster, err := apiserver.Clientset.RadonDBV1().Pgclusters(ns).Get(ctx, name, metav1.GetOptions{})
 
 	// If no clusters are found, return a specific error message,
 	// otherwise, pass forward the generic error message that Kubernetes sends
@@ -233,7 +233,7 @@ func ScaleDown(deleteData bool, clusterName, replicaName, ns string) msgs.ScaleD
 	response.Status = msgs.Status{Code: msgs.Ok, Msg: ""}
 	response.Results = make([]string, 0)
 
-	cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := apiserver.Clientset.RadonDBV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 
 	if kerrors.IsNotFound(err) {
 		log.Error("no clusters found")

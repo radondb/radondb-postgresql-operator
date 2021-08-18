@@ -37,7 +37,7 @@ fi
 
 # set the labels so that this namespace is owned by this installation
 {{ kubectl_or_oc }} label namespace/{{ item }} pgo-created-by=add-script
-{{ kubectl_or_oc }} label namespace/{{ item }} vendor=radondb
+{{ kubectl_or_oc }} label namespace/{{ item }} vendor=RadonDB
 {{ kubectl_or_oc }} label namespace/{{ item }} pgo-installation-name={{ pgo_installation_name }}
 
 # determine if an existing pod is using the 'pgo-pg' service account.  if so, do not delete

@@ -4,14 +4,14 @@ metadata:
   name: pgo-deployer-sa
   namespace: pgo
   labels:
-    vendor: radondb
+    vendor: RadonDB
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: pgo-deployer-cr
   labels:
-    vendor: radondb
+    vendor: RadonDB
 rules:
   - apiGroups:
       - ''
@@ -109,7 +109,7 @@ rules:
       - delete
       - list
   - apiGroups:
-      - radondb.com
+      - RadonDB.com
     resources:
       - pgclusters
       - pgreplicas
@@ -125,7 +125,7 @@ metadata:
   name: pgo-deployer-cm
   namespace: pgo
   labels:
-    vendor: radondb
+    vendor: RadonDB
 data:
   values.yaml: |-
     # =====================
@@ -146,12 +146,12 @@ data:
     backrest_gcs_key_type: ""
     backrest_port: "2022"
     badger: "false"
-    ccp_image_prefix: "docker.io/radondb"
+    ccp_image_prefix: "docker.io/RadonDB"
     ccp_image_pull_secret: ""
     ccp_image_pull_secret_manifest: ""
     ccp_image_tag: "centos8-13.3-4.7.1"
     create_rbac: "true"
-    radondb_debug: "false"
+    RadonDB_debug: "false"
     db_name: ""
     db_password_age_days: "0"
     db_password_length: "24"
@@ -185,7 +185,7 @@ data:
     pgo_cluster_admin: "false"
     pgo_disable_eventing: "false"
     pgo_disable_tls: "false"
-    pgo_image_prefix: "docker.io/radondb"
+    pgo_image_prefix: "docker.io/RadonDB"
     pgo_image_pull_secret: ""
     pgo_image_pull_secret_manifest: ""
     pgo_image_tag: "centos8-4.7.1"
@@ -222,7 +222,7 @@ data:
     storage4_name: "nfsstoragered"
     storage4_access_mode: "ReadWriteMany"
     storage4_size: "1G"
-    storage4_match_labels: "radondbzone=red"
+    storage4_match_labels: "RadonDBzone=red"
     storage4_type: "create"
     storage4_supplemental_groups: "65534"
     storage5_name: "storageos"
@@ -256,7 +256,7 @@ kind: ClusterRoleBinding
 metadata:
   name: pgo-deployer-crb
   labels:
-    vendor: radondb
+    vendor: RadonDB
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -272,20 +272,20 @@ metadata:
   name: pgo-deploy
   namespace: pgo
   labels:
-    vendor: radondb
+    vendor: RadonDB
 spec:
   backoffLimit: 0
   template:
     metadata:
       name: pgo-deploy
       labels:
-        vendor: radondb
+        vendor: RadonDB
     spec:
       serviceAccountName: pgo-deployer-sa
       restartPolicy: Never
       containers:
         - name: pgo-deploy
-          image: docker.io/radondb/pgo-deployer:centos8-4.7.1
+          image: docker.io/RadonDB/pgo-deployer:centos8-4.7.1
           imagePullPolicy: IfNotPresent
           env:
             - name: DEPLOY_ACTION

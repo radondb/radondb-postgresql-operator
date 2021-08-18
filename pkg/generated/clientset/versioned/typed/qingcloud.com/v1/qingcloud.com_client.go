@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -18,12 +18,12 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	v1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 
-type RadondbV1Interface interface {
+type RadonDBV1Interface interface {
 	RESTClient() rest.Interface
 	PgclustersGetter
 	PgpoliciesGetter
@@ -31,29 +31,29 @@ type RadondbV1Interface interface {
 	PgtasksGetter
 }
 
-// RadondbV1Client is used to interact with features provided by the radondb.com group.
-type RadondbV1Client struct {
+// RadonDBV1Client is used to interact with features provided by the RadonDB.com group.
+type RadonDBV1Client struct {
 	restClient rest.Interface
 }
 
-func (c *RadondbV1Client) Pgclusters(namespace string) PgclusterInterface {
+func (c *RadonDBV1Client) Pgclusters(namespace string) PgclusterInterface {
 	return newPgclusters(c, namespace)
 }
 
-func (c *RadondbV1Client) Pgpolicies(namespace string) PgpolicyInterface {
+func (c *RadonDBV1Client) Pgpolicies(namespace string) PgpolicyInterface {
 	return newPgpolicies(c, namespace)
 }
 
-func (c *RadondbV1Client) Pgreplicas(namespace string) PgreplicaInterface {
+func (c *RadonDBV1Client) Pgreplicas(namespace string) PgreplicaInterface {
 	return newPgreplicas(c, namespace)
 }
 
-func (c *RadondbV1Client) Pgtasks(namespace string) PgtaskInterface {
+func (c *RadonDBV1Client) Pgtasks(namespace string) PgtaskInterface {
 	return newPgtasks(c, namespace)
 }
 
-// NewForConfig creates a new RadondbV1Client for the given config.
-func NewForConfig(c *rest.Config) (*RadondbV1Client, error) {
+// NewForConfig creates a new RadonDBV1Client for the given config.
+func NewForConfig(c *rest.Config) (*RadonDBV1Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -62,12 +62,12 @@ func NewForConfig(c *rest.Config) (*RadondbV1Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &RadondbV1Client{client}, nil
+	return &RadonDBV1Client{client}, nil
 }
 
-// NewForConfigOrDie creates a new RadondbV1Client for the given config and
+// NewForConfigOrDie creates a new RadonDBV1Client for the given config and
 // panics if there is an error in the config.
-func NewForConfigOrDie(c *rest.Config) *RadondbV1Client {
+func NewForConfigOrDie(c *rest.Config) *RadonDBV1Client {
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -75,9 +75,9 @@ func NewForConfigOrDie(c *rest.Config) *RadondbV1Client {
 	return client
 }
 
-// New creates a new RadondbV1Client for the given RESTClient.
-func New(c rest.Interface) *RadondbV1Client {
-	return &RadondbV1Client{c}
+// New creates a new RadonDBV1Client for the given RESTClient.
+func New(c rest.Interface) *RadonDBV1Client {
+	return &RadonDBV1Client{c}
 }
 
 func setConfigDefaults(config *rest.Config) error {
@@ -95,7 +95,7 @@ func setConfigDefaults(config *rest.Config) error {
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *RadondbV1Client) RESTClient() rest.Interface {
+func (c *RadonDBV1Client) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}

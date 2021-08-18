@@ -22,12 +22,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/events"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/RadonDB/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 	v1batch "k8s.io/api/batch/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -60,7 +60,7 @@ func RemoveData(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask
 		Bytes()
 	if err == nil {
 		log.Debugf("patching task %s: %s", task.Spec.Name, patch)
-		_, err = clientset.RadondbV1().Pgtasks(namespace).
+		_, err = clientset.RadonDBV1().Pgtasks(namespace).
 			Patch(ctx, task.Spec.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -104,7 +104,7 @@ func RemoveData(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask
 
 	log.Debugf("creating rmdata job %s for cluster %s ", jobName, task.Spec.Name)
 
-	if operator.RADONDB_DEBUG {
+	if operator.RadonDB_DEBUG {
 		_ = config.RmdatajobTemplate.Execute(os.Stdout, jobFields)
 	}
 

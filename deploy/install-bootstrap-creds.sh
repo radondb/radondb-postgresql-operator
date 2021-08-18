@@ -28,7 +28,7 @@ $PGO_CMD -n "$PGO_OPERATOR_NAMESPACE" create secret generic "pgorole-$PGOADMIN_R
 	--from-literal="rolename=$PGOADMIN_ROLENAME" \
 	--from-literal="permissions=$PGOADMIN_PERMS"
 $PGO_CMD -n "$PGO_OPERATOR_NAMESPACE" label secret "pgorole-$PGOADMIN_ROLENAME" \
-	'vendor=radondb' 'pgo-pgorole=true' "rolename=$PGOADMIN_ROLENAME"
+	'vendor=RadonDB' 'pgo-pgorole=true' "rolename=$PGOADMIN_ROLENAME"
 
 $PGO_CMD -n "$PGO_OPERATOR_NAMESPACE" delete secret "pgouser-$PGOADMIN_USERNAME" --ignore-not-found
 $PGO_CMD -n "$PGO_OPERATOR_NAMESPACE" create secret generic "pgouser-$PGOADMIN_USERNAME" \
@@ -36,4 +36,4 @@ $PGO_CMD -n "$PGO_OPERATOR_NAMESPACE" create secret generic "pgouser-$PGOADMIN_U
 	--from-literal="password=$PGOADMIN_PASSWORD" \
 	--from-literal="roles=$PGOADMIN_ROLENAME"
 $PGO_CMD -n "$PGO_OPERATOR_NAMESPACE" label secret "pgouser-$PGOADMIN_USERNAME" \
-	'vendor=radondb' 'pgo-pgouser=true' "username=$PGOADMIN_USERNAME"
+	'vendor=RadonDB' 'pgo-pgouser=true' "username=$PGOADMIN_USERNAME"

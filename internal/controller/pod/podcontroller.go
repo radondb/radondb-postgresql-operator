@@ -19,11 +19,11 @@ import (
 	"context"
 	"strings"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	pgo "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 	apiv1 "k8s.io/api/core/v1"
@@ -43,8 +43,8 @@ func (c *Controller) onAdd(obj interface{}) {
 	newPod := obj.(*apiv1.Pod)
 
 	newPodLabels := newPod.GetObjectMeta().GetLabels()
-	// only process pods with with vendor=radondb label
-	if newPodLabels[config.LABEL_VENDOR] == "radondb" {
+	// only process pods with with vendor=RadonDB label
+	if newPodLabels[config.LABEL_VENDOR] == "RadonDB" {
 		log.Debugf("Pod Controller: onAdd processing the addition of pod %s in namespace %s",
 			newPod.Name, newPod.Namespace)
 	}
@@ -64,8 +64,8 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 
 	newPodLabels := newPod.GetObjectMeta().GetLabels()
 
-	// only process pods with with vendor=radondb label
-	if newPodLabels[config.LABEL_VENDOR] != "radondb" {
+	// only process pods with with vendor=RadonDB label
+	if newPodLabels[config.LABEL_VENDOR] != "RadonDB" {
 		return
 	}
 
@@ -97,7 +97,7 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 	} else {
 		namespace = newPod.ObjectMeta.Namespace
 	}
-	cluster, err := c.Client.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName,
+	cluster, err := c.Client.RadonDBV1().Pgclusters(namespace).Get(ctx, clusterName,
 		metav1.GetOptions{})
 	if err != nil {
 		log.Error(err.Error())
@@ -163,8 +163,8 @@ func (c *Controller) onDelete(obj interface{}) {
 	pod := obj.(*apiv1.Pod)
 
 	labels := pod.GetObjectMeta().GetLabels()
-	if labels[config.LABEL_VENDOR] != "radondb" {
-		log.Debugf("Pod Controller: onDelete skipping pod that is not radondb %s", pod.ObjectMeta.SelfLink)
+	if labels[config.LABEL_VENDOR] != "RadonDB" {
+		log.Debugf("Pod Controller: onDelete skipping pod that is not RadonDB %s", pod.ObjectMeta.SelfLink)
 		return
 	}
 }
@@ -191,7 +191,7 @@ func isBackRestRepoBecomingReady(oldPod, newPod *apiv1.Pod) bool {
 
 // isBackRestRepoPod determines whether or not a pod is a pgBackRest repository Pod.  This is
 // determined by checking to see if the 'pgo-backrest-repo' label is present on the Pod (also,
-// this controller will only process pod with the 'vendor=radondb' label, so that label is
+// this controller will only process pod with the 'vendor=RadonDB' label, so that label is
 // assumed to be present), specifically because this label will only be included on pgBackRest
 // repository Pods.
 func isBackRestRepoPod(newpod *apiv1.Pod) bool {
@@ -237,7 +237,7 @@ func isDBContainerBecomingReady(oldPod, newPod *apiv1.Pod) bool {
 // isPostgresPod determines whether or not a pod is a PostreSQL Pod, specifically either the
 // primary or a replica pod within a PG cluster.  This is determined by checking to see if the
 // 'pgo-pg-database' label is present on the Pod (also, this controller will only process pod with
-// the 'vendor=radondb' label, so that label is assumed to be present), specifically because
+// the 'vendor=RadonDB' label, so that label is assumed to be present), specifically because
 // this label will only be included on primary and replica PostgreSQL database pods (and will be
 // present as soon as the deployment and pod is created).
 func isPostgresPod(newpod *apiv1.Pod) bool {

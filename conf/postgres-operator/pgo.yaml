@@ -1,5 +1,5 @@
 Cluster:
-  CCPImagePrefix:  docker.io/radondb
+  CCPImagePrefix:  docker.io/RadonDB
   Metrics:  false
   Badger:  false
   CCPImageTag:  centos8-13.3-4.7.1
@@ -53,7 +53,7 @@ Storage:
   nfsstoragered:
     AccessMode:  ReadWriteMany
     Size:  1G
-    MatchLabels: radondbzone=red
+    MatchLabels: RadonDBzone=red
     StorageType:  create
     SupplementalGroups:  65534
   storageos:
@@ -83,5 +83,5 @@ Storage:
     StorageClass:  rook-ceph-block
 Pgo:
   Audit:  false
-  PGOImagePrefix:  docker.io/radondb
+  PGOImagePrefix:  docker.io/RadonDB
   PGOImageTag:  centos8-4.7.1

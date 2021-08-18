@@ -26,7 +26,7 @@ import (
 // PgclusterResourcePlural ..
 const PgclusterResourcePlural = "pgclusters"
 
-// Pgcluster is the CRD that defines a Radondb PG Cluster
+// Pgcluster is the CRD that defines a RadonDB PG Cluster
 //
 // swagger:ignore Pgcluster
 // +genclient
@@ -38,7 +38,7 @@ type Pgcluster struct {
 	Status            PgclusterStatus `json:"status,omitempty"`
 }
 
-// PgclusterSpec is the CRD that defines a Radondb PG Cluster Spec
+// PgclusterSpec is the CRD that defines a RadonDB PG Cluster Spec
 // swagger:ignore
 type PgclusterSpec struct {
 	Name           string `json:"name"`
@@ -102,10 +102,10 @@ type PgclusterSpec struct {
 	// for the pgBackRest Deployment for this PostgreSQL cluster
 	BackrestLimits v1.ResourceList `json:"backrestLimits"`
 	// ExporterResources, if specified, contains the container request resources
-	// for the Radondb Postgres Exporter Deployment for this PostgreSQL cluster
+	// for the RadonDB Postgres Exporter Deployment for this PostgreSQL cluster
 	ExporterResources v1.ResourceList `json:"exporterResources"`
 	// ExporterLimits, if specified, contains the container resource limits
-	// for the Radondb Postgres Exporter Deployment for this PostgreSQL cluster
+	// for the RadonDB Postgres Exporter Deployment for this PostgreSQL cluster
 	ExporterLimits v1.ResourceList `json:"exporterLimits"`
 
 	// PgBouncer contains all of the settings to properly maintain a pgBouncer
@@ -241,7 +241,7 @@ type PGDataSourceSpec struct {
 	RestoreOpts string `json:"restoreOpts"`
 }
 
-// PgclusterList is the CRD that defines a Radondb PG Cluster List
+// PgclusterList is the CRD that defines a RadonDB PG Cluster List
 // swagger:ignore
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type PgclusterList struct {

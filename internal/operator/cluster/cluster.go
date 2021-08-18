@@ -27,15 +27,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/operator"
-	"github.com/radondb/postgres-operator/internal/operator/backrest"
-	cfg "github.com/radondb/postgres-operator/internal/operator/config"
-	"github.com/radondb/postgres-operator/internal/operator/pvc"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/events"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/RadonDB/postgres-operator/internal/operator/backrest"
+	cfg "github.com/RadonDB/postgres-operator/internal/operator/config"
+	"github.com/RadonDB/postgres-operator/internal/operator/pvc"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/RadonDB/postgres-operator/pkg/events"
 
 	log "github.com/sirupsen/logrus"
 	apps_v1 "k8s.io/api/apps/v1"
@@ -203,7 +203,7 @@ func AddClusterBase(clientset kubeapi.Interface, cl *crv1.Pgcluster, namespace s
 	patch, err := kubeapi.NewJSONPatch().Add("spec", "status")(crv1.CompletedStatus).Bytes()
 	if err == nil {
 		log.Debugf("patching cluster %s: %s", cl.Spec.Name, patch)
-		_, err = clientset.RadondbV1().Pgclusters(namespace).
+		_, err = clientset.RadonDBV1().Pgclusters(namespace).
 			Patch(ctx, cl.Spec.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -222,7 +222,7 @@ func AddClusterBase(clientset kubeapi.Interface, cl *crv1.Pgcluster, namespace s
 	patch, err = kubeapi.NewJSONPatch().Add("spec", "PrimaryStorage", "name")(dataVolume.PersistentVolumeClaimName).Bytes()
 	if err == nil {
 		log.Debugf("patching cluster %s: %s", cl.Spec.Name, patch)
-		_, err = clientset.RadondbV1().Pgclusters(namespace).
+		_, err = clientset.RadonDBV1().Pgclusters(namespace).
 			Patch(ctx, cl.Spec.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -297,7 +297,7 @@ func AddClusterBase(clientset kubeapi.Interface, cl *crv1.Pgcluster, namespace s
 				},
 			}
 
-			_, err = clientset.RadondbV1().Pgreplicas(namespace).
+			_, err = clientset.RadonDBV1().Pgreplicas(namespace).
 				Create(ctx, newInstance, metav1.CreateOptions{})
 			if err != nil {
 				log.Error(" in creating Pgreplica instance" + err.Error())
@@ -358,7 +358,7 @@ func AddClusterBootstrap(clientset kubeapi.Interface, cluster *crv1.Pgcluster) e
 	})
 	if err == nil {
 		log.Debugf("patching cluster %s: %s", cluster.Name, patch)
-		_, err = clientset.RadondbV1().Pgclusters(namespace).
+		_, err = clientset.RadonDBV1().Pgclusters(namespace).
 			Patch(ctx, cluster.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -430,7 +430,7 @@ func ResizeClusterPVC(clientset kubeapi.Interface, cluster *crv1.Pgcluster, depl
 	clusterSize, _ := resource.ParseQuantity(cluster.Spec.PrimaryStorage.Size)
 
 	// determine if this deployment represents an individual instance
-	if instance, err := clientset.RadondbV1().Pgreplicas(cluster.Namespace).Get(ctx,
+	if instance, err := clientset.RadonDBV1().Pgreplicas(cluster.Namespace).Get(ctx,
 		deployment.GetName(), metav1.GetOptions{}); err == nil {
 
 		// get the instanceSize. If there is an error parsing this, then we most
@@ -449,7 +449,7 @@ func ResizeClusterPVC(clientset kubeapi.Interface, cluster *crv1.Pgcluster, depl
 			instance.Spec.ReplicaStorage.Size = cluster.Spec.PrimaryStorage.Size
 
 			// and update
-			if _, err := clientset.RadondbV1().Pgreplicas(instance.Namespace).Update(ctx,
+			if _, err := clientset.RadonDBV1().Pgreplicas(instance.Namespace).Update(ctx,
 				instance, metav1.UpdateOptions{}); err != nil {
 				// if we cannot update the instance spec, we should warn that we were
 				// unable to perform the resize, but not block any other action
@@ -537,7 +537,7 @@ func ScaleBase(clientset kubeapi.Interface, replica *crv1.Pgreplica, namespace s
 	}
 
 	// get the pgcluster CRD to base the replica off of
-	cluster, err := clientset.RadondbV1().Pgclusters(namespace).
+	cluster, err := clientset.RadonDBV1().Pgclusters(namespace).
 		Get(ctx, replica.Spec.ClusterName, metav1.GetOptions{})
 	if err != nil {
 		return
@@ -555,7 +555,7 @@ func ScaleBase(clientset kubeapi.Interface, replica *crv1.Pgreplica, namespace s
 	patch, err := kubeapi.NewJSONPatch().Add("spec", "replicastorage", "name")(dataVolume.PersistentVolumeClaimName).Bytes()
 	if err == nil {
 		log.Debugf("patching replica %s: %s", replica.Spec.Name, patch)
-		_, err = clientset.RadondbV1().Pgreplicas(namespace).
+		_, err = clientset.RadonDBV1().Pgreplicas(namespace).
 			Patch(ctx, replica.Spec.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -579,7 +579,7 @@ func ScaleBase(clientset kubeapi.Interface, replica *crv1.Pgreplica, namespace s
 	patch, err = kubeapi.NewJSONPatch().Add("spec", "status")(crv1.CompletedStatus).Bytes()
 	if err == nil {
 		log.Debugf("patching replica %s: %s", replica.Spec.Name, patch)
-		_, err = clientset.RadondbV1().Pgreplicas(namespace).
+		_, err = clientset.RadonDBV1().Pgreplicas(namespace).
 			Patch(ctx, replica.Spec.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -612,7 +612,7 @@ func ScaleDownBase(clientset kubeapi.Interface, replica *crv1.Pgreplica, namespa
 	ctx := context.TODO()
 
 	// get the pgcluster CRD for this replica
-	_, err := clientset.RadondbV1().Pgclusters(namespace).
+	_, err := clientset.RadonDBV1().Pgclusters(namespace).
 		Get(ctx, replica.Spec.ClusterName, metav1.GetOptions{})
 	if err != nil {
 		return
@@ -905,7 +905,7 @@ func UpdateTolerations(clientset kubeapi.Interface, cluster *crv1.Pgcluster, dep
 	}
 
 	// ok, so this is based on a pgreplica. Let's try to find it.
-	instance, err := clientset.RadondbV1().Pgreplicas(cluster.Namespace).Get(ctx, deployment.Name, metav1.GetOptions{})
+	instance, err := clientset.RadonDBV1().Pgreplicas(cluster.Namespace).Get(ctx, deployment.Name, metav1.GetOptions{})
 
 	// if we error, log it and return, as this error will interrupt a rolling update
 	if err != nil {
@@ -1003,7 +1003,7 @@ func createBootstrapBackRestSecret(clientset kubernetes.Interface,
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: restoreFromSecret.GetAnnotations(),
 			Labels: map[string]string{
-				config.LABEL_VENDOR:            config.LABEL_RADONDB,
+				config.LABEL_VENDOR:            config.LABEL_RadonDB,
 				config.LABEL_PG_CLUSTER:        cluster.GetName(),
 				config.LABEL_PGO_BACKREST_REPO: "true",
 				config.LABEL_PGHA_BOOTSTRAP:    cluster.GetName(),

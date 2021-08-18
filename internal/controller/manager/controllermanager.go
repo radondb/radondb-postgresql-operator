@@ -1,7 +1,7 @@
 package manager
 
 /*
-Copyright 2020 - 2021 Radondb Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,20 +21,20 @@ import (
 	"sync"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/controller"
-	"github.com/radondb/postgres-operator/internal/controller/configmap"
-	"github.com/radondb/postgres-operator/internal/controller/job"
-	"github.com/radondb/postgres-operator/internal/controller/pgcluster"
-	"github.com/radondb/postgres-operator/internal/controller/pgpolicy"
-	"github.com/radondb/postgres-operator/internal/controller/pgreplica"
-	"github.com/radondb/postgres-operator/internal/controller/pgtask"
-	"github.com/radondb/postgres-operator/internal/controller/pod"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/ns"
-	"github.com/radondb/postgres-operator/internal/operator/operatorupgrade"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	informers "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/RadonDB/postgres-operator/internal/controller"
+	"github.com/RadonDB/postgres-operator/internal/controller/configmap"
+	"github.com/RadonDB/postgres-operator/internal/controller/job"
+	"github.com/RadonDB/postgres-operator/internal/controller/pgcluster"
+	"github.com/RadonDB/postgres-operator/internal/controller/pgpolicy"
+	"github.com/RadonDB/postgres-operator/internal/controller/pgreplica"
+	"github.com/RadonDB/postgres-operator/internal/controller/pgtask"
+	"github.com/RadonDB/postgres-operator/internal/controller/pod"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/ns"
+	"github.com/RadonDB/postgres-operator/internal/operator/operatorupgrade"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	informers "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"
 
@@ -46,7 +46,7 @@ import (
 // the following variables represent the resources the operator must has "list" access to in order
 // to start an informer
 var (
-	listerResourcesRadondb = []string{"pgtasks", "pgclusters", "pgreplicas", "pgpolicies"}
+	listerResourcesRadonDB = []string{"pgtasks", "pgclusters", "pgreplicas", "pgpolicies"}
 	listerResourcesCore    = []string{"pods", "configmaps"}
 )
 
@@ -244,27 +244,27 @@ func (c *ControllerManager) addControllerGroup(namespace string) error {
 	pgTaskcontroller := &pgtask.Controller{
 		Client:            client,
 		Queue:             workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter()),
-		Informer:          pgoInformerFactory.Radondb().V1().Pgtasks(),
+		Informer:          pgoInformerFactory.RadonDB().V1().Pgtasks(),
 		PgtaskWorkerCount: *c.pgoConfig.Pgo.PGTaskWorkerCount,
 	}
 
 	pgClustercontroller := &pgcluster.Controller{
 		Client:               client,
 		Queue:                workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter()),
-		Informer:             pgoInformerFactory.Radondb().V1().Pgclusters(),
+		Informer:             pgoInformerFactory.RadonDB().V1().Pgclusters(),
 		PgclusterWorkerCount: *c.pgoConfig.Pgo.PGClusterWorkerCount,
 	}
 
 	pgReplicacontroller := &pgreplica.Controller{
 		Client:               client,
 		Queue:                workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter()),
-		Informer:             pgoInformerFactory.Radondb().V1().Pgreplicas(),
+		Informer:             pgoInformerFactory.RadonDB().V1().Pgreplicas(),
 		PgreplicaWorkerCount: *c.pgoConfig.Pgo.PGReplicaWorkerCount,
 	}
 
 	pgPolicycontroller := &pgpolicy.Controller{
 		Clientset: client,
-		Informer:  pgoInformerFactory.Radondb().V1().Pgpolicies(),
+		Informer:  pgoInformerFactory.RadonDB().V1().Pgpolicies(),
 	}
 
 	podcontroller := &pod.Controller{
@@ -279,7 +279,7 @@ func (c *ControllerManager) addControllerGroup(namespace string) error {
 
 	configMapController, err := configmap.NewConfigMapController(client.Config,
 		client, kubeInformerFactoryWithRefresh.Core().V1().ConfigMaps(),
-		pgoInformerFactory.Radondb().V1().Pgclusters(),
+		pgoInformerFactory.RadonDB().V1().Pgclusters(),
 		*c.pgoConfig.Pgo.ConfigMapWorkerCount)
 	if err != nil {
 		log.Errorf("Unable to create ConfigMap controller: %v", err)
@@ -302,10 +302,10 @@ func (c *ControllerManager) addControllerGroup(namespace string) error {
 		kubeInformerFactory:            kubeInformerFactory,
 		kubeInformerFactoryWithRefresh: kubeInformerFactoryWithRefresh,
 		informerSyncedFuncs: []cache.InformerSynced{
-			pgoInformerFactory.Radondb().V1().Pgtasks().Informer().HasSynced,
-			pgoInformerFactory.Radondb().V1().Pgclusters().Informer().HasSynced,
-			pgoInformerFactory.Radondb().V1().Pgreplicas().Informer().HasSynced,
-			pgoInformerFactory.Radondb().V1().Pgpolicies().Informer().HasSynced,
+			pgoInformerFactory.RadonDB().V1().Pgtasks().Informer().HasSynced,
+			pgoInformerFactory.RadonDB().V1().Pgclusters().Informer().HasSynced,
+			pgoInformerFactory.RadonDB().V1().Pgreplicas().Informer().HasSynced,
+			pgoInformerFactory.RadonDB().V1().Pgpolicies().Informer().HasSynced,
 			kubeInformerFactory.Core().V1().Pods().Informer().HasSynced,
 			kubeInformerFactory.Batch().V1().Jobs().Informer().HasSynced,
 			kubeInformerFactoryWithRefresh.Core().V1().ConfigMaps().Informer().HasSynced,
@@ -335,15 +335,15 @@ func (c *ControllerManager) hasListerPrivs(namespace string) bool {
 	controllerGroup := c.controllers[namespace]
 
 	var err error
-	var hasRadondbPrivs, hasCorePrivs, hasBatchPrivs bool
+	var hasRadonDBPrivs, hasCorePrivs, hasBatchPrivs bool
 
-	for _, listerResource := range listerResourcesRadondb {
-		hasRadondbPrivs, err = ns.CheckAccessPrivs(controllerGroup.clientset,
+	for _, listerResource := range listerResourcesRadonDB {
+		hasRadonDBPrivs, err = ns.CheckAccessPrivs(controllerGroup.clientset,
 			map[string][]string{listerResource: {"list"}},
 			crv1.GroupName, namespace)
 		if err != nil {
 			log.Errorf(err.Error())
-		} else if !hasRadondbPrivs {
+		} else if !hasRadonDBPrivs {
 			log.Errorf("Controller Manager: Controller Group for namespace %s does not have the "+
 				"required list privileges for resource %s in the %s API",
 				namespace, listerResource, crv1.GroupName)
@@ -374,7 +374,7 @@ func (c *ControllerManager) hasListerPrivs(namespace string) bool {
 			namespace, "jobs")
 	}
 
-	return (hasRadondbPrivs && hasCorePrivs && hasBatchPrivs)
+	return (hasRadonDBPrivs && hasCorePrivs && hasBatchPrivs)
 }
 
 // runControllerGroup is responsible running the controllers for the controller group corresponding

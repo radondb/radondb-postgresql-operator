@@ -22,10 +22,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	fakekubeapi "github.com/radondb/postgres-operator/internal/kubeapi/fake"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/RadonDB/postgres-operator/internal/config"
+	fakekubeapi "github.com/RadonDB/postgres-operator/internal/kubeapi/fake"
+	"github.com/RadonDB/postgres-operator/internal/util"
+	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -127,10 +127,10 @@ func TestOverrideClusterContainerImages(t *testing.T) {
 		name  string
 		image string
 	}{
-		"database": {name: "database", image: config.CONTAINER_IMAGE_RADONDB_POSTGRES_HA},
-		"exporter": {name: "exporter", image: config.CONTAINER_IMAGE_RADONDB_POSTGRES_EXPORTER},
-		"pgbadger": {name: "pgbadger", image: config.CONTAINER_IMAGE_RADONDB_PGBADGER},
-		"future":   {name: "future", image: "radondb-future"},
+		"database": {name: "database", image: config.CONTAINER_IMAGE_RadonDB_POSTGRES_HA},
+		"exporter": {name: "exporter", image: config.CONTAINER_IMAGE_RadonDB_POSTGRES_EXPORTER},
+		"pgbadger": {name: "pgbadger", image: config.CONTAINER_IMAGE_RadonDB_PGBADGER},
+		"future":   {name: "future", image: "RadonDB-future"},
 	}
 
 	t.Run("no override", func(t *testing.T) {
@@ -188,7 +188,7 @@ func TestOverrideClusterContainerImages(t *testing.T) {
 
 	// test that future does not get overridden
 	t.Run("do not override unmanaged container", func(t *testing.T) {
-		ContainerImageOverrides["radondb-future"] = "overridden"
+		ContainerImageOverrides["RadonDB-future"] = "overridden"
 		containers := mockSetupContainers(containerDefaults)
 
 		OverrideClusterContainerImages(containers)
@@ -208,7 +208,7 @@ func TestOverrideClusterContainerImages(t *testing.T) {
 			}
 		}
 
-		delete(ContainerImageOverrides, "radondb-future")
+		delete(ContainerImageOverrides, "RadonDB-future")
 	})
 
 	// test that gis can be overridden
@@ -220,11 +220,11 @@ func TestOverrideClusterContainerImages(t *testing.T) {
 			image string
 		}{
 			name:  "database",
-			image: config.CONTAINER_IMAGE_RADONDB_POSTGRES_GIS_HA,
+			image: config.CONTAINER_IMAGE_RadonDB_POSTGRES_GIS_HA,
 		}
 		containers := mockSetupContainers(defaults)
 
-		ContainerImageOverrides[config.CONTAINER_IMAGE_RADONDB_POSTGRES_GIS_HA] = "overridden"
+		ContainerImageOverrides[config.CONTAINER_IMAGE_RadonDB_POSTGRES_GIS_HA] = "overridden"
 
 		OverrideClusterContainerImages(containers)
 
@@ -243,7 +243,7 @@ func TestOverrideClusterContainerImages(t *testing.T) {
 			}
 		}
 
-		delete(ContainerImageOverrides, config.CONTAINER_IMAGE_RADONDB_POSTGRES_GIS_HA)
+		delete(ContainerImageOverrides, config.CONTAINER_IMAGE_RadonDB_POSTGRES_GIS_HA)
 	})
 }
 

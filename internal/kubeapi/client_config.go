@@ -21,41 +21,41 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 
-	radondb "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
-	radondbscheme "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
-	radondbv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
+	RadonDB "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
+	RadonDBscheme "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	RadonDBv1 "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/typed/RadonDB.com/v1"
 )
 
 func init() {
 	// Register all types of our clientset into the standard scheme.
-	_ = radondbscheme.AddToScheme(scheme.Scheme)
+	_ = RadonDBscheme.AddToScheme(scheme.Scheme)
 }
 
 type Interface interface {
 	kubernetes.Interface
-	RadondbV1() radondbv1.RadondbV1Interface
+	RadonDBV1() RadonDBv1.RadonDBV1Interface
 }
 
 // Interface should satisfy both our typed Interface and the standard one.
 var (
-	_ radondb.Interface    = Interface(nil)
+	_ RadonDB.Interface    = Interface(nil)
 	_ kubernetes.Interface = Interface(nil)
 )
 
 // Client provides methods for interacting with Kubernetes resources.
-// It implements both kubernetes and radondb clientset Interfaces.
+// It implements both kubernetes and RadonDB clientset Interfaces.
 type Client struct {
 	*rest.Config
 	*kubernetes.Clientset
 
-	radondbV1 *radondbv1.RadondbV1Client
+	RadonDBV1 *RadonDBv1.RadonDBV1Client
 }
 
 // Client should satisfy Interface.
 var _ Interface = &Client{}
 
-// RadondbV1 retrieves the RadondbV1Client
-func (c *Client) RadondbV1() radondbv1.RadondbV1Interface { return c.radondbV1 }
+// RadonDBV1 retrieves the RadonDBV1Client
+func (c *Client) RadonDBV1() RadonDBv1.RadonDBV1Interface { return c.RadonDBV1 }
 
 // LoadClientConfig prepares a configuration from the environment or home directory,
 // falling back to in-cluster when applicable.
@@ -96,7 +96,7 @@ func NewClientForConfig(config *rest.Config) (*Client, error) {
 	client.Clientset, err = kubernetes.NewForConfig(client.Config)
 
 	if err == nil {
-		client.radondbV1, err = radondbv1.NewForConfig(client.Config)
+		client.RadonDBV1, err = RadonDBv1.NewForConfig(client.Config)
 	}
 
 	return client, err

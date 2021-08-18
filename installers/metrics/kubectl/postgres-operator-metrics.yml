@@ -5,7 +5,7 @@ metadata:
   namespace: pgo
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: radondb
+    vendor: RadonDB
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -13,7 +13,7 @@ metadata:
   name: pgo-metrics-deployer-cr
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: radondb
+    vendor: RadonDB
 rules:
   - apiGroups:
       - ''
@@ -85,7 +85,7 @@ metadata:
   namespace: pgo
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: radondb
+    vendor: RadonDB
 data:
   values.yaml: |-
     # =====================
@@ -97,7 +97,7 @@ data:
     alertmanager_install: "true"
     alertmanager_log_level: "info"
     alertmanager_port: "9093"
-    alertmanager_service_name: "radondb-alertmanager"
+    alertmanager_service_name: "RadonDB-alertmanager"
     alertmanager_service_type: "ClusterIP"
     alertmanager_storage_access_mode: "ReadWriteOnce"
     alertmanager_storage_class_name: ""
@@ -113,7 +113,7 @@ data:
     grafana_datasources_custom_config: ""
     grafana_install: "true"
     grafana_port: "3000"
-    grafana_service_name: "radondb-grafana"
+    grafana_service_name: "RadonDB-grafana"
     grafana_service_type: "ClusterIP"
     grafana_storage_access_mode: "ReadWriteOnce"
     grafana_storage_class_name: ""
@@ -126,7 +126,7 @@ data:
     prometheus_custom_config: ""
     prometheus_install: "true"
     prometheus_port: "9090"
-    prometheus_service_name: "radondb-prometheus"
+    prometheus_service_name: "RadonDB-prometheus"
     prometheus_service_type: "ClusterIP"
     prometheus_storage_access_mode: "ReadWriteOnce"
     prometheus_storage_class_name: ""
@@ -139,7 +139,7 @@ metadata:
   name: pgo-metrics-deployer-crb
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: radondb
+    vendor: RadonDB
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -156,7 +156,7 @@ metadata:
   namespace: pgo
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: radondb
+    vendor: RadonDB
 spec:
   backoffLimit: 0
   template:
@@ -164,13 +164,13 @@ spec:
       name: pgo-metrics-deploy
       labels:
         app.kubernetes.io/name: postgres-operator-monitoring
-        vendor: radondb
+        vendor: RadonDB
     spec:
       serviceAccountName: pgo-metrics-deployer-sa
       restartPolicy: Never
       containers:
         - name: pgo-metrics-deploy
-          image: docker.io/radondb/pgo-deployer:centos8-4.7.1
+          image: docker.io/RadonDB/pgo-deployer:centos8-4.7.1
           imagePullPolicy: IfNotPresent
           env:
             - name: DEPLOY_ACTION

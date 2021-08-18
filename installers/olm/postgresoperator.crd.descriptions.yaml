@@ -1,5 +1,5 @@
 # https://github.com/openshift/console/tree/master/frontend/packages/operator-lifecycle-manager/src/components/descriptors
-- name: pgclusters.radondb.com
+- name: pgclusters.RadonDB.com
   kind: Pgcluster
   version: v1
   displayName: Postgres Primary Cluster Member
@@ -17,7 +17,7 @@
   specDescriptors:
     - path: ccpimage
       displayName: PostgreSQL Image
-      description: The Radondb PostgreSQL image to use. Possible values are "radondb-postgres-ha" and "radondb-postgres-gis-ha"
+      description: The RadonDB PostgreSQL image to use. Possible values are "RadonDB-postgres-ha" and "RadonDB-postgres-gis-ha"
       x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:text'
     - path: ccpimagetag
@@ -112,7 +112,7 @@
       x-descriptors:
         - 'urn:alm:descriptor:text'
 
-- name: pgreplicas.radondb.com
+- name: pgreplicas.RadonDB.com
   kind: Pgreplica
   version: v1
   displayName: Postgres Replica Cluster Member
@@ -145,7 +145,7 @@
       x-descriptors:
         - 'urn:alm:descriptor:text'
 
-- name: pgpolicies.radondb.com
+- name: pgpolicies.RadonDB.com
   kind: Pgpolicy
   version: v1
   displayName: Postgres SQL Policy
@@ -175,7 +175,7 @@
       x-descriptors:
         - 'urn:alm:descriptor:text'
 
-- name: pgtasks.radondb.com
+- name: pgtasks.RadonDB.com
   kind: Pgtask
   version: v1
   displayName: Postgres workflow task

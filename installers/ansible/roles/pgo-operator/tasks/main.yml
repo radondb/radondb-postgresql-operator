@@ -216,7 +216,7 @@
             {{ kubectl_or_oc }} create clusterrolebinding pgo-cluster-admin \
               --clusterrole cluster-admin \
               --serviceaccount "{{ pgo_operator_namespace }}:postgres-operator" && \
-            {{ kubectl_or_oc }} label clusterrolebinding pgo-cluster-admin vendor=radondb
+            {{ kubectl_or_oc }} label clusterrolebinding pgo-cluster-admin vendor=RadonDB
           when: pgo_cluster_admin_result.rc == 1
 
 
@@ -274,7 +274,7 @@
         - name: Label PGO BackRest Repo Secret
           command: |
             {{ kubectl_or_oc }} label secret generic -n {{ pgo_operator_namespace }} \
-              pgo-backrest-repo-config vendor=radondb
+              pgo-backrest-repo-config vendor=RadonDB
           when:
             - pgo_backrest_repo_config_result.rc == 1
             - (backrest_aws_s3_key | default('') != '') or
@@ -307,7 +307,7 @@
         - name: Label PGO ConfigMap
           command: |
             {{ kubectl_or_oc }} -n {{ pgo_operator_namespace }} label configmap \
-              pgo-config vendor=radondb
+              pgo-config vendor=RadonDB
           when: pgo_config_result.rc == 1
 
     - name: PGO Service

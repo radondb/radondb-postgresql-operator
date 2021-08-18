@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-for CNAME in radondb-postgres radondb-pgbadger radondb-pgbouncer
+for CNAME in RadonDB-postgres RadonDB-pgbadger RadonDB-pgbouncer
 do
-	docker pull radondb/$CNAME:$CCP_IMAGE_TAG
+	docker pull RadonDB/$CNAME:$CCP_IMAGE_TAG
 done

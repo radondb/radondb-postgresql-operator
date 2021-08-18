@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-GCR_IMAGE_PREFIX=docker.io/radondb
+GCR_IMAGE_PREFIX=docker.io/RadonDB
 
 IMAGES=(
 pgo-event
@@ -23,7 +23,7 @@ pgo-apiserver
 pgo-rmdata
 pgo-client
 pgo-deployer
-radondb-postgres-exporter
+RadonDB-postgres-exporter
 )
 
 for image in "${IMAGES[@]}"

@@ -20,9 +20,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/radondb/postgres-operator/cmd/pgo/api"
-	"github.com/radondb/postgres-operator/cmd/pgo/util"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/RadonDB/postgres-operator/cmd/pgo/api"
+	"github.com/RadonDB/postgres-operator/cmd/pgo/util"
+	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
 	v1 "k8s.io/api/core/v1"
 )
 

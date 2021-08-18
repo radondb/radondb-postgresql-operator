@@ -18,8 +18,8 @@ package task
 import (
 	"context"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/internal/util"
+	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/RadonDB/postgres-operator/internal/util"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -31,7 +31,7 @@ func ApplyPolicies(clusterName string, clientset kubeapi.Interface, RESTConfig *
 	ctx := context.TODO()
 	taskName := clusterName + "-policies"
 
-	task, err := clientset.RadondbV1().Pgtasks(ns).Get(ctx, taskName, metav1.GetOptions{})
+	task, err := clientset.RadonDBV1().Pgtasks(ns).Get(ctx, taskName, metav1.GetOptions{})
 	if err == nil {
 		// apply those policies
 		for k := range task.Spec.Parameters {
@@ -39,13 +39,13 @@ func ApplyPolicies(clusterName string, clientset kubeapi.Interface, RESTConfig *
 			applyPolicy(clientset, RESTConfig, k, clusterName, ns)
 		}
 		// delete the pgtask to not redo this again
-		_ = clientset.RadondbV1().Pgtasks(ns).Delete(ctx, taskName, metav1.DeleteOptions{})
+		_ = clientset.RadonDBV1().Pgtasks(ns).Delete(ctx, taskName, metav1.DeleteOptions{})
 	}
 }
 
 func applyPolicy(clientset kubeapi.Interface, restconfig *rest.Config, policyName, clusterName, ns string) {
 	ctx := context.TODO()
-	cl, err := clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+	cl, err := clientset.RadonDBV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err)
 		return
@@ -72,7 +72,7 @@ func applyPolicy(clientset kubeapi.Interface, restconfig *rest.Config, policyNam
 
 	// update the pgcluster crd labels with the new policy
 	log.Debugf("patching cluster %s: %s", cl.Spec.Name, patch)
-	_, err = clientset.RadondbV1().Pgclusters(ns).Patch(ctx, cl.Spec.Name, types.MergePatchType, patch, metav1.PatchOptions{})
+	_, err = clientset.RadonDBV1().Pgclusters(ns).Patch(ctx, cl.Spec.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	if err != nil {
 		log.Error(err)
 	}

@@ -1,4 +1,4 @@
-# ![LOGO](docs/images/logo_radondb.png)
+# ![LOGO](docs/images/logo_RadonDB.png)
 
 > English | [中文](README_zh.md)
 
@@ -6,13 +6,13 @@
 
 ## What is RadonDB PostgreSQL Operator
 
-[RadonDB PostgreSQL Operator](https://github.com/radondb/radondb-postgresql-operator) is an open-source, cloud-native, highly availability cluster solutions based on [PostgreSQL](https://www.postgresql.org/) and [PGO](https://github.com/CrunchyData/postgres-operator/).
+[RadonDB PostgreSQL Operator](https://github.com/RadonDB/RadonDB-postgresql-operator) is an open-source, cloud-native, highly availability cluster solutions based on [PostgreSQL](https://www.postgresql.org/) and [PGO](https://github.com/CrunchyData/postgres-operator/).
 
 RadonDB PostgreSQL Operator supports [Kubernetes](https://kubernetes.io) or [KubeSphere 3.1.x](https://kubesphere.com.cn) platforms.
 
 ## Quick Start
 
-- [Deploy RadonDB PostgreSQL on Kubernetes](docs/deploy_radondb_postgresql_operator_on_kubernetes.md)
+- [Deploy RadonDB PostgreSQL on Kubernetes](docs/deploy_RadonDB_postgresql_operator_on_kubernetes.md)
 - [Monitoring](docs/monitor_prometheus.md)
 
 ## Architecture
