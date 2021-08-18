@@ -86,9 +86,9 @@ package-openshift: package
 
 .PHONY: package-redhat
 package-redhat: export K8S_DISTRIBUTION := openshift
-package-redhat: export PACKAGE_NAME := qingcloud-postgres-operator
-package-redhat: CCP_IMAGE_PREFIX := registry.connect.redhat.com/qingcloud
-package-redhat: PGO_IMAGE_PREFIX := registry.connect.redhat.com/qingcloud
+package-redhat: export PACKAGE_NAME := randondb-postgres-operator
+package-redhat: CCP_IMAGE_PREFIX := registry.connect.redhat.com/randondb
+package-redhat: PGO_IMAGE_PREFIX := registry.connect.redhat.com/randondb
 package-redhat: PGO_BASEOS := $(subst centos,rhel,$(PGO_BASEOS))
 package-redhat:
 	./generate.sh

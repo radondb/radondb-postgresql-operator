@@ -4,7 +4,7 @@
     "metadata": {
         "name": "{{.Name}}-bootstrap",
         "labels": {
-            "vendor": "qingcloud",
+            "vendor": "randondb",
             "pgo-backrest-job": "true",
             "pgha-bootstrap": "{{.Name}}",
             {{.DeploymentLabels}}
@@ -15,7 +15,7 @@
             "metadata": {
                 "labels": {
                     "name": "{{.Name}}-bootstrap",
-                    "vendor": "qingcloud",
+                    "vendor": "randondb",
                     "pgha-bootstrap": "{{.Name}}",
                     {{.PodLabels}}
                 }
@@ -103,7 +103,7 @@
                         }
                     }, {
                         "name": "PATRONI_KUBERNETES_LABELS",
-                        "value": "{vendor: \"qingcloud\"}"
+                        "value": "{vendor: \"randondb\"}"
                     }, {
                         "name": "PATRONI_LOG_LEVEL",
                         "value": "INFO"

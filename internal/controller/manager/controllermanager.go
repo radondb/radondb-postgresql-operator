@@ -1,7 +1,7 @@
 package manager
 
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Radondb Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,20 +21,20 @@ import (
 	"sync"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/controller"
-	"github.com/qingcloud/postgres-operator/internal/controller/configmap"
-	"github.com/qingcloud/postgres-operator/internal/controller/job"
-	"github.com/qingcloud/postgres-operator/internal/controller/pgcluster"
-	"github.com/qingcloud/postgres-operator/internal/controller/pgpolicy"
-	"github.com/qingcloud/postgres-operator/internal/controller/pgreplica"
-	"github.com/qingcloud/postgres-operator/internal/controller/pgtask"
-	"github.com/qingcloud/postgres-operator/internal/controller/pod"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/ns"
-	"github.com/qingcloud/postgres-operator/internal/operator/operatorupgrade"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	informers "github.com/qingcloud/postgres-operator/pkg/generated/informers/externalversions"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/controller"
+	"github.com/randondb/postgres-operator/internal/controller/configmap"
+	"github.com/randondb/postgres-operator/internal/controller/job"
+	"github.com/randondb/postgres-operator/internal/controller/pgcluster"
+	"github.com/randondb/postgres-operator/internal/controller/pgpolicy"
+	"github.com/randondb/postgres-operator/internal/controller/pgreplica"
+	"github.com/randondb/postgres-operator/internal/controller/pgtask"
+	"github.com/randondb/postgres-operator/internal/controller/pod"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/ns"
+	"github.com/randondb/postgres-operator/internal/operator/operatorupgrade"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	informers "github.com/randondb/postgres-operator/pkg/generated/informers/externalversions"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"
 
@@ -46,8 +46,8 @@ import (
 // the following variables represent the resources the operator must has "list" access to in order
 // to start an informer
 var (
-	listerResourcesQingcloud = []string{"pgtasks", "pgclusters", "pgreplicas", "pgpolicies"}
-	listerResourcesCore      = []string{"pods", "configmaps"}
+	listerResourcesRadondb = []string{"pgtasks", "pgclusters", "pgreplicas", "pgpolicies"}
+	listerResourcesCore    = []string{"pods", "configmaps"}
 )
 
 // ControllerManager manages a map of controller groups, each of which is comprised of the various
@@ -244,27 +244,27 @@ func (c *ControllerManager) addControllerGroup(namespace string) error {
 	pgTaskcontroller := &pgtask.Controller{
 		Client:            client,
 		Queue:             workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter()),
-		Informer:          pgoInformerFactory.Qingcloud().V1().Pgtasks(),
+		Informer:          pgoInformerFactory.Radondb().V1().Pgtasks(),
 		PgtaskWorkerCount: *c.pgoConfig.Pgo.PGTaskWorkerCount,
 	}
 
 	pgClustercontroller := &pgcluster.Controller{
 		Client:               client,
 		Queue:                workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter()),
-		Informer:             pgoInformerFactory.Qingcloud().V1().Pgclusters(),
+		Informer:             pgoInformerFactory.Radondb().V1().Pgclusters(),
 		PgclusterWorkerCount: *c.pgoConfig.Pgo.PGClusterWorkerCount,
 	}
 
 	pgReplicacontroller := &pgreplica.Controller{
 		Client:               client,
 		Queue:                workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter()),
-		Informer:             pgoInformerFactory.Qingcloud().V1().Pgreplicas(),
+		Informer:             pgoInformerFactory.Radondb().V1().Pgreplicas(),
 		PgreplicaWorkerCount: *c.pgoConfig.Pgo.PGReplicaWorkerCount,
 	}
 
 	pgPolicycontroller := &pgpolicy.Controller{
 		Clientset: client,
-		Informer:  pgoInformerFactory.Qingcloud().V1().Pgpolicies(),
+		Informer:  pgoInformerFactory.Radondb().V1().Pgpolicies(),
 	}
 
 	podcontroller := &pod.Controller{
@@ -279,7 +279,7 @@ func (c *ControllerManager) addControllerGroup(namespace string) error {
 
 	configMapController, err := configmap.NewConfigMapController(client.Config,
 		client, kubeInformerFactoryWithRefresh.Core().V1().ConfigMaps(),
-		pgoInformerFactory.Qingcloud().V1().Pgclusters(),
+		pgoInformerFactory.Radondb().V1().Pgclusters(),
 		*c.pgoConfig.Pgo.ConfigMapWorkerCount)
 	if err != nil {
 		log.Errorf("Unable to create ConfigMap controller: %v", err)
@@ -302,10 +302,10 @@ func (c *ControllerManager) addControllerGroup(namespace string) error {
 		kubeInformerFactory:            kubeInformerFactory,
 		kubeInformerFactoryWithRefresh: kubeInformerFactoryWithRefresh,
 		informerSyncedFuncs: []cache.InformerSynced{
-			pgoInformerFactory.Qingcloud().V1().Pgtasks().Informer().HasSynced,
-			pgoInformerFactory.Qingcloud().V1().Pgclusters().Informer().HasSynced,
-			pgoInformerFactory.Qingcloud().V1().Pgreplicas().Informer().HasSynced,
-			pgoInformerFactory.Qingcloud().V1().Pgpolicies().Informer().HasSynced,
+			pgoInformerFactory.Radondb().V1().Pgtasks().Informer().HasSynced,
+			pgoInformerFactory.Radondb().V1().Pgclusters().Informer().HasSynced,
+			pgoInformerFactory.Radondb().V1().Pgreplicas().Informer().HasSynced,
+			pgoInformerFactory.Radondb().V1().Pgpolicies().Informer().HasSynced,
 			kubeInformerFactory.Core().V1().Pods().Informer().HasSynced,
 			kubeInformerFactory.Batch().V1().Jobs().Informer().HasSynced,
 			kubeInformerFactoryWithRefresh.Core().V1().ConfigMaps().Informer().HasSynced,
@@ -335,15 +335,15 @@ func (c *ControllerManager) hasListerPrivs(namespace string) bool {
 	controllerGroup := c.controllers[namespace]
 
 	var err error
-	var hasQingcloudPrivs, hasCorePrivs, hasBatchPrivs bool
+	var hasRadondbPrivs, hasCorePrivs, hasBatchPrivs bool
 
-	for _, listerResource := range listerResourcesQingcloud {
-		hasQingcloudPrivs, err = ns.CheckAccessPrivs(controllerGroup.clientset,
+	for _, listerResource := range listerResourcesRadondb {
+		hasRadondbPrivs, err = ns.CheckAccessPrivs(controllerGroup.clientset,
 			map[string][]string{listerResource: {"list"}},
 			crv1.GroupName, namespace)
 		if err != nil {
 			log.Errorf(err.Error())
-		} else if !hasQingcloudPrivs {
+		} else if !hasRadondbPrivs {
 			log.Errorf("Controller Manager: Controller Group for namespace %s does not have the "+
 				"required list privileges for resource %s in the %s API",
 				namespace, listerResource, crv1.GroupName)
@@ -374,7 +374,7 @@ func (c *ControllerManager) hasListerPrivs(namespace string) bool {
 			namespace, "jobs")
 	}
 
-	return (hasQingcloudPrivs && hasCorePrivs && hasBatchPrivs)
+	return (hasRadondbPrivs && hasCorePrivs && hasBatchPrivs)
 }
 
 // runControllerGroup is responsible running the controllers for the controller group corresponding

@@ -5,7 +5,7 @@ metadata:
   name: pgo-role
   namespace: "$PGO_OPERATOR_NAMESPACE"
   labels:
-    vendor: qingcloud
+    vendor: randondb
 rules:
   - apiGroups:
       - ''

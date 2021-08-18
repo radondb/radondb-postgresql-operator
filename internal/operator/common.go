@@ -1,7 +1,7 @@
 package operator
 
 /*
- Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -24,10 +24,10 @@ import (
 	"os"
 	"path"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/ns"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/ns"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
 	log "github.com/sirupsen/logrus"
 
 	appsv1 "k8s.io/api/apps/v1"
@@ -53,8 +53,8 @@ const (
 )
 
 var (
-	QINGCLOUD_DEBUG bool
-	NAMESPACE       string
+	RADONDB_DEBUG bool
+	NAMESPACE     string
 )
 
 var (
@@ -91,13 +91,13 @@ type containerResourcesTemplateFields struct {
 var defaultBackrestRepoConfigKeys = []string{"config", "sshd_config", "aws-s3-ca.crt"}
 
 func Initialize(clientset kubernetes.Interface) {
-	tmp := os.Getenv("QINGCLOUD_DEBUG")
+	tmp := os.Getenv("RADONDB_DEBUG")
 	if tmp == "true" {
-		QINGCLOUD_DEBUG = true
-		log.Debug("QINGCLOUD_DEBUG flag set to true")
+		RADONDB_DEBUG = true
+		log.Debug("RADONDB_DEBUG flag set to true")
 	} else {
-		QINGCLOUD_DEBUG = false
-		log.Info("QINGCLOUD_DEBUG flag set to false")
+		RADONDB_DEBUG = false
+		log.Info("RADONDB_DEBUG flag set to false")
 	}
 
 	NAMESPACE = os.Getenv("NAMESPACE")
@@ -515,7 +515,7 @@ func initializeOperatorBackrestSecret(clientset kubernetes.Interface, namespace 
 			ObjectMeta: metav1.ObjectMeta{
 				Name: config.SecretOperatorBackrestRepoConfig,
 				Labels: map[string]string{
-					config.LABEL_VENDOR: config.LABEL_QINGCLOUD,
+					config.LABEL_VENDOR: config.LABEL_RADONDB,
 				},
 			},
 			Data: map[string][]byte{},

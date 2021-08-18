@@ -1,7 +1,7 @@
 package job
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -16,8 +16,8 @@ limitations under the License.
 */
 
 import (
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
 	log "github.com/sirupsen/logrus"
 	apiv1 "k8s.io/api/batch/v1"
 	batchinformers "k8s.io/client-go/informers/batch/v1"
@@ -36,8 +36,8 @@ func (c *Controller) onAdd(obj interface{}) {
 	job := obj.(*apiv1.Job)
 	labels := job.GetObjectMeta().GetLabels()
 
-	// only process jobs with with vendor=qingcloud label
-	if labels[config.LABEL_VENDOR] != "qingcloud" {
+	// only process jobs with with vendor=randondb label
+	if labels[config.LABEL_VENDOR] != "randondb" {
 		return
 	}
 
@@ -51,8 +51,8 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 	job := newObj.(*apiv1.Job)
 	labels := job.GetObjectMeta().GetLabels()
 
-	// only process jobs with with vendor=qingcloud label
-	if labels[config.LABEL_VENDOR] != "qingcloud" {
+	// only process jobs with with vendor=randondb label
+	if labels[config.LABEL_VENDOR] != "randondb" {
 		return
 	}
 
@@ -86,8 +86,8 @@ func (c *Controller) onDelete(obj interface{}) {
 	job := obj.(*apiv1.Job)
 	labels := job.GetObjectMeta().GetLabels()
 
-	// only process jobs with with vendor=qingcloud label
-	if labels[config.LABEL_VENDOR] != "qingcloud" {
+	// only process jobs with with vendor=randondb label
+	if labels[config.LABEL_VENDOR] != "randondb" {
 		return
 	}
 

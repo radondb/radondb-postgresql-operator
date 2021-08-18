@@ -14,7 +14,7 @@
             "name": "{{.Name}}",
             "pg-cluster": "{{.ClusterName}}",
             "service-name": "{{.Name}}",
-            "vendor": "qingcloud",
+            "vendor": "randondb",
             "pgo-backrest-repo": "true"
         }
     },
@@ -25,7 +25,7 @@
                     "name": "{{.Name}}",
                     "pg-cluster": "{{.ClusterName}}",
                     "service-name": "{{.Name}}",
-                    "vendor": "qingcloud",
+                    "vendor": "randondb",
                     "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
                     "pgo-backrest-repo": "true"
             }
@@ -46,7 +46,7 @@
                     "name": "{{.Name}}",
                     "pg-cluster": "{{.ClusterName}}",
                     "service-name": "{{.Name}}",
-                    "vendor": "qingcloud",
+                    "vendor": "randondb",
                     "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
                     "pgo-backrest-repo": "true"
                 }
@@ -59,7 +59,7 @@
                 {{ end }}
                 "containers": [{
                     "name": "database",
-                    "image": "{{.CCPImagePrefix}}/qingcloud-pgbackrest-repo:{{.CCPImageTag}}",
+                    "image": "{{.CCPImagePrefix}}/randondb-pgbackrest-repo:{{.CCPImageTag}}",
                     "securityContext": {
                       "allowPrivilegeEscalation": false,
                       "privileged": false,

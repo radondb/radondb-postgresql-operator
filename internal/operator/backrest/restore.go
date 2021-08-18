@@ -1,7 +1,7 @@
 package backrest
 
 /*
- Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -24,12 +24,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	"github.com/qingcloud/postgres-operator/pkg/events"
-	pgo "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/util"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/randondb/postgres-operator/pkg/events"
+	pgo "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -117,7 +117,7 @@ func PrepareClusterForRestore(clientset kubeapi.Interface, cluster *crv1.Pgclust
 		Bytes()
 	if err == nil {
 		log.Debugf("patching cluster %s: %s", clusterName, patch)
-		patchedCluster, err = clientset.QingcloudV1().Pgclusters(namespace).
+		patchedCluster, err = clientset.RadondbV1().Pgclusters(namespace).
 			Patch(ctx, clusterName, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -127,7 +127,7 @@ func PrepareClusterForRestore(clientset kubeapi.Interface, cluster *crv1.Pgclust
 	log.Debugf("restore workflow: patched pgcluster %s for restore", clusterName)
 
 	// find all pgreplica CR's
-	replicas, err := clientset.QingcloudV1().Pgreplicas(namespace).List(ctx, metav1.ListOptions{
+	replicas, err := clientset.RadondbV1().Pgreplicas(namespace).List(ctx, metav1.ListOptions{
 		LabelSelector: fmt.Sprintf("%s=%s", config.LABEL_PG_CLUSTER, clusterName),
 	})
 	if err != nil {
@@ -148,7 +148,7 @@ func PrepareClusterForRestore(clientset kubeapi.Interface, cluster *crv1.Pgclust
 	}
 	for _, r := range replicas.Items {
 		log.Debugf("patching replica %s: %s", r.GetName(), patch)
-		_, err := clientset.QingcloudV1().Pgreplicas(namespace).
+		_, err := clientset.RadondbV1().Pgreplicas(namespace).
 			Patch(ctx, r.GetName(), types.MergePatchType, patch, metav1.PatchOptions{})
 		if err != nil {
 			return nil, err
@@ -283,7 +283,7 @@ func UpdateWorkflow(clientset pgo.Interface, workflowID, namespace, status strin
 	// update workflow
 	log.Debugf("restore workflow: update workflow %s", workflowID)
 	selector := crv1.PgtaskWorkflowID + "=" + workflowID
-	taskList, err := clientset.QingcloudV1().Pgtasks(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	taskList, err := clientset.RadondbV1().Pgtasks(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		log.Errorf("restore workflow error: could not get workflow %s", workflowID)
 		return err
@@ -295,7 +295,7 @@ func UpdateWorkflow(clientset pgo.Interface, workflowID, namespace, status strin
 
 	task := taskList.Items[0]
 	task.Spec.Parameters[status] = time.Now().Format(time.RFC3339)
-	_, err = clientset.QingcloudV1().Pgtasks(namespace).Update(ctx, &task, metav1.UpdateOptions{})
+	_, err = clientset.RadondbV1().Pgtasks(namespace).Update(ctx, &task, metav1.UpdateOptions{})
 	if err != nil {
 		log.Errorf("restore workflow error: could not update workflow %s to status %s", workflowID, status)
 		return err

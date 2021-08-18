@@ -4,7 +4,7 @@
 package cluster
 
 /*
- Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -24,9 +24,9 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/operator"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/api/core/v1"
@@ -57,7 +57,7 @@ func CreateService(clientset kubernetes.Interface, fields *ServiceTemplateFields
 			return err
 		}
 
-		if operator.QINGCLOUD_DEBUG {
+		if operator.RADONDB_DEBUG {
 			_ = config.ServiceTemplate.Execute(os.Stdout, fields)
 		}
 

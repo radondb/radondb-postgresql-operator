@@ -1,7 +1,7 @@
 package cluster
 
 /*
- Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -27,13 +27,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	pgpassword "github.com/qingcloud/postgres-operator/internal/postgres/password"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/operator"
+	pgpassword "github.com/randondb/postgres-operator/internal/postgres/password"
+	"github.com/randondb/postgres-operator/internal/util"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/randondb/postgres-operator/pkg/events"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -89,10 +89,10 @@ const pgPort = "5432"
 
 const (
 	// the path to the pgbouncer uninstallation script script
-	pgBouncerUninstallScript = "/opt/qingcloud/bin/postgres-ha/sql/pgbouncer/pgbouncer-uninstall.sql"
+	pgBouncerUninstallScript = "/opt/randondb/bin/postgres-ha/sql/pgbouncer/pgbouncer-uninstall.sql"
 
 	// the path to the pgbouncer installation script
-	pgBouncerInstallScript = "/opt/qingcloud/bin/postgres-ha/sql/pgbouncer/pgbouncer-install.sql"
+	pgBouncerInstallScript = "/opt/randondb/bin/postgres-ha/sql/pgbouncer/pgbouncer-install.sql"
 )
 
 const (
@@ -534,7 +534,7 @@ func createPgbouncerConfigMap(clientset kubernetes.Interface, cluster *crv1.Pgcl
 			Labels: map[string]string{
 				config.LABEL_PG_CLUSTER: cluster.Name,
 				config.LABEL_PGBOUNCER:  "true",
-				config.LABEL_VENDOR:     config.LABEL_QINGCLOUD,
+				config.LABEL_VENDOR:     config.LABEL_RADONDB,
 			},
 		},
 		Data: map[string]string{
@@ -596,7 +596,7 @@ func createPgBouncerDeployment(clientset kubernetes.Interface, cluster *crv1.Pgc
 	}
 
 	// For debugging purposes, put the template substitution in stdout
-	if operator.QINGCLOUD_DEBUG {
+	if operator.RADONDB_DEBUG {
 		_ = config.PgbouncerTemplate.Execute(os.Stdout, fields)
 	}
 
@@ -615,7 +615,7 @@ func createPgBouncerDeployment(clientset kubernetes.Interface, cluster *crv1.Pgc
 	}
 
 	// set the container image to an override value, if one exists
-	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_QINGCLOUD_PGBOUNCER,
+	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_RADONDB_PGBOUNCER,
 		&deployment.Spec.Template.Spec.Containers[0])
 
 	if _, err := clientset.AppsV1().Deployments(cluster.Namespace).
@@ -651,7 +651,7 @@ func createPgbouncerSecret(clientset kubernetes.Interface, cluster *crv1.Pgclust
 			Labels: map[string]string{
 				config.LABEL_PG_CLUSTER: cluster.Name,
 				config.LABEL_PGBOUNCER:  "true",
-				config.LABEL_VENDOR:     config.LABEL_QINGCLOUD,
+				config.LABEL_VENDOR:     config.LABEL_RADONDB,
 			},
 		},
 		Data: map[string][]byte{

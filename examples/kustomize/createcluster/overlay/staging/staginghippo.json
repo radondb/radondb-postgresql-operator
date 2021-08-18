@@ -1,6 +1,6 @@
 [
     { "op": "replace", "path": "/metadata/annotations/current-primary", "value": "staging-hippo" },
-    { "op": "replace", "path": "/metadata/labels/qingcloud-pgha-scope", "value": "staging-hippo" },
+    { "op": "replace", "path": "/metadata/labels/randondb-pgha-scope", "value": "staging-hippo" },
     { "op": "replace", "path": "/metadata/labels/deployment-name", "value": "staging-hippo" },
     { "op": "replace", "path": "/metadata/labels/name", "value": "staging-hippo" },
     { "op": "replace", "path": "/metadata/labels/pg-cluster", "value": "staging-hippo" },

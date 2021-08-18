@@ -1,4 +1,4 @@
-module github.com/qingcloud/postgres-operator
+module github.com/randondb/postgres-operator
 
 go 1.15
 

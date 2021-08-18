@@ -4,7 +4,7 @@
     "metadata": {
         "name": "postgres-operator",
         "labels": {
-            "vendor": "qingcloud"
+            "vendor": "randondb"
         }
     },
     "spec": {
@@ -12,14 +12,14 @@
         "selector": {
             "matchLabels": {
                 "name": "postgres-operator",
-                "vendor": "qingcloud"
+                "vendor": "randondb"
             }
         },
         "template": {
             "metadata": {
                 "labels": {
                     "name": "postgres-operator",
-                    "vendor": "qingcloud"
+                    "vendor": "randondb"
                 }
             },
             "spec": {
@@ -62,8 +62,8 @@
                         },
                         "env": [
                             {
-                                "name": "QINGCLOUD_DEBUG",
-                                "value": "{{ qingcloud_debug }}"
+                                "name": "RADONDB_DEBUG",
+                                "value": "{{ randondb_debug }}"
                             },
                             {
                                 "name": "PORT",
@@ -143,8 +143,8 @@
                         },
                         "env": [
                             {
-                                "name": "QINGCLOUD_DEBUG",
-                                "value": "{{ qingcloud_debug }}"
+                                "name": "RADONDB_DEBUG",
+                                "value": "{{ randondb_debug }}"
                             },
                             {
                                 "name": "NAMESPACE",
@@ -204,8 +204,8 @@
                         },
                         "env": [
                             {
-                                "name": "QINGCLOUD_DEBUG",
-                                "value": "{{ qingcloud_debug }}"
+                                "name": "RADONDB_DEBUG",
+                                "value": "{{ randondb_debug }}"
                             },
                             {
                                 "name": "PGO_OPERATOR_NAMESPACE",

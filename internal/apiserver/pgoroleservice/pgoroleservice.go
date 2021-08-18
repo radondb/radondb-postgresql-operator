@@ -19,8 +19,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	apiserver "github.com/qingcloud/postgres-operator/internal/apiserver"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	apiserver "github.com/randondb/postgres-operator/internal/apiserver"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	"k8s.io/apimachinery/pkg/util/validation"
 )

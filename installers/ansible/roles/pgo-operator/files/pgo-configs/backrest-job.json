@@ -7,7 +7,7 @@
                     {{ if .CustomLabels }}
                     {{ .CustomLabels }}
                     {{ end }}
-                    "vendor": "qingcloud",
+                    "vendor": "randondb",
                     "pgo-backrest": "true",
                     "pgo-backrest-job": "true",
                     "backrest-command": "{{.Command}}",
@@ -22,7 +22,7 @@
                     {{ if .CustomLabels }}
                     {{ .CustomLabels }}
                     {{ end }}
-                    "vendor": "qingcloud",
+                    "vendor": "randondb",
                     "pgo-backrest": "true",
                     "pgo-backrest-job": "true",
                     "backrest-command": "{{.Command}}",
@@ -47,7 +47,7 @@
                 {{ end }}
                 "containers": [{
                     "name": "backrest",
-                    "image": "{{.CCPImagePrefix}}/qingcloud-pgbackrest:{{.CCPImageTag}}",
+                    "image": "{{.CCPImagePrefix}}/randondb-pgbackrest:{{.CCPImageTag}}",
                     "securityContext": {
                       "allowPrivilegeEscalation": false,
                       "privileged": false,

@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/randondb/postgres-operator/internal/config"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -33,7 +33,7 @@ import (
 // N.B. Changing this name will cause a new group to be created and redirect
 // connection updates to that new group without any cleanup of the old
 // group name
-const sgLabel = "Qingcloud PostgreSQL Operator"
+const sgLabel = "Radondb PostgreSQL Operator"
 
 // DeleteUser deletes the specified user, their servergroups, and servers
 func DeleteUser(qr *queryRunner, username string) error {

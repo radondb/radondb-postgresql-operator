@@ -1,7 +1,7 @@
 package pgpolicy
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,16 +20,16 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	informers "github.com/qingcloud/postgres-operator/pkg/generated/informers/externalversions/qingcloud.com/v1"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	informers "github.com/randondb/postgres-operator/pkg/generated/informers/externalversions/randondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/tools/cache"
 
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/randondb/postgres-operator/pkg/events"
 )
 
 // Controller holds connections for the controller
@@ -58,7 +58,7 @@ func (c *Controller) onAdd(obj interface{}) {
 		},
 	})
 	if err == nil {
-		_, err = c.Clientset.QingcloudV1().Pgpolicies(policy.Namespace).
+		_, err = c.Clientset.RadondbV1().Pgpolicies(policy.Namespace).
 			Patch(ctx, policy.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

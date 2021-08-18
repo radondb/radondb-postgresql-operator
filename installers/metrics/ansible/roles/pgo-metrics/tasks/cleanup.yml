@@ -8,9 +8,9 @@
       command: "{{ kubectl_or_oc }} delete deployment {{ item }} -n {{ metrics_namespace }}"
       ignore_errors: yes
       loop:
-        - qingcloud-alertmanager
-        - qingcloud-prometheus
-        - qingcloud-grafana
+        - randondb-alertmanager
+        - randondb-prometheus
+        - randondb-grafana
 
     - name: Delete Services
       command: "{{ kubectl_or_oc }} delete service {{ item }} -n {{ metrics_namespace }}"

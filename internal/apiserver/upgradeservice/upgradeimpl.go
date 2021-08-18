@@ -1,7 +1,7 @@
 package upgradeservice
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -23,10 +23,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/internal/apiserver"
+	"github.com/randondb/postgres-operator/internal/config"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -65,7 +65,7 @@ func CreateUpgrade(request *msgs.CreateUpgradeRequest, ns, pgouser string) msgs.
 		// get the clusters list
 
 		clusterList, err := apiserver.Clientset.
-			QingcloudV1().Pgclusters(ns).
+			RadondbV1().Pgclusters(ns).
 			List(ctx, metav1.ListOptions{LabelSelector: request.Selector})
 		if err != nil {
 			response.Status.Code = msgs.Error
@@ -135,7 +135,7 @@ func CreateUpgrade(request *msgs.CreateUpgradeRequest, ns, pgouser string) msgs.
 		}
 
 		// remove any existing pgtask for this upgrade
-		task, err := apiserver.Clientset.QingcloudV1().Pgtasks(ns).Get(ctx, spec.Name, metav1.GetOptions{})
+		task, err := apiserver.Clientset.RadondbV1().Pgtasks(ns).Get(ctx, spec.Name, metav1.GetOptions{})
 
 		if err == nil && task.Spec.Status != crv1.CompletedStatus {
 			response.Status.Code = msgs.Error
@@ -144,7 +144,7 @@ func CreateUpgrade(request *msgs.CreateUpgradeRequest, ns, pgouser string) msgs.
 		}
 
 		// validate the cluster name and ensure autofail is turned off for each cluster.
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 		if err != nil {
 			response.Status.Code = msgs.Error
 			response.Status.Msg = clusterName + " is not a valid pgcluster"
@@ -173,7 +173,7 @@ func CreateUpgrade(request *msgs.CreateUpgradeRequest, ns, pgouser string) msgs.
 		}
 
 		// Create an instance of our CRD
-		_, err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Create(ctx, newInstance, metav1.CreateOptions{})
+		_, err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Create(ctx, newInstance, metav1.CreateOptions{})
 		if err != nil {
 			response.Status.Code = msgs.Error
 			response.Status.Msg = err.Error()

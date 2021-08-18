@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+# Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -22,7 +22,7 @@
 # - You have your NFS filesystem mounted to the location you are running this
 #   script
 # - Your NFS filesystem is mounted to /nfsfileshare
-# - Your PV names will be one of "qingcloud-pvNNN" where NNN is a natural number
+# - Your PV names will be one of "randondb-pvNNN" where NNN is a natural number
 # - Your NFS UID:GID is "nfsnobody:nfsnobody", which correspunds to "65534:65534"
 #
 # If you want to modify this script defaults, execute the script with -h argument to see the usage help
@@ -30,8 +30,8 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PGO_NFS_IP=$(ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p')
-PV_NAME_INPUT="qingcloud-pv"
-OLD_PV_NAME_INPUT="qingcloud-pv"
+PV_NAME_INPUT="randondb-pv"
+OLD_PV_NAME_INPUT="randondb-pv"
 SCRIPT_NAME="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
 PV_COUNT=10
 NFS_MOUNT_PATH='/nfsfileshare'
@@ -40,9 +40,9 @@ usage(){
     echo "Usage: ./${SCRIPT_NAME} <options>"
     echo "   
   Options :
-    -n|--name                         persistent volume name. default is qingcloud-pv
+    -n|--name                         persistent volume name. default is randondb-pv
     -v|--old-name                     old persisten volume name. Useful when you want to delete old PVs and use a new name.
-                                      default is qingcloud-pv
+                                      default is randondb-pv
     -c|--count                        PV count. how many PVs to create. default is 10
     -m|--nfs-mount                    nfs mount path. default is /nfsfileshare
     -i|--nfs-ip                       nfs ip. default is ${PGO_NFS_IP}

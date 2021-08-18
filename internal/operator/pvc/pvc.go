@@ -1,7 +1,7 @@
 package pvc
 
 /*
- Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -23,10 +23,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/operator"
+	"github.com/randondb/postgres-operator/internal/util"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -157,7 +157,7 @@ func Create(clientset kubernetes.Interface, name, clusterName string, storageSpe
 	if storageSpec.StorageType == "dynamic" {
 		log.Debug("using dynamic PVC template")
 		err = config.PVCStorageClassTemplate.Execute(&doc2, pvcFields)
-		if operator.QINGCLOUD_DEBUG {
+		if operator.RADONDB_DEBUG {
 			_ = config.PVCStorageClassTemplate.Execute(os.Stdout, pvcFields)
 		}
 	} else {
@@ -173,7 +173,7 @@ func Create(clientset kubernetes.Interface, name, clusterName string, storageSpe
 		}
 
 		err = config.PVCTemplate.Execute(&doc2, pvcFields)
-		if operator.QINGCLOUD_DEBUG {
+		if operator.RADONDB_DEBUG {
 			_ = config.PVCTemplate.Execute(os.Stdout, pvcFields)
 		}
 	}

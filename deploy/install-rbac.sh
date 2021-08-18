@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+# Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -20,7 +20,7 @@ $DIR/cleanup-rbac.sh
 test="${PGO_CONF_DIR:?Need to set PGO_CONF_DIR env variable}"
 
 # see if CRDs need to be created
-$PGO_CMD get crd pgclusters.qingcloud.com > /dev/null
+$PGO_CMD get crd pgclusters.randondb.com > /dev/null
 if [ $? -eq 1 ]; then
 	$PGO_CMD create \
 		-f ${PGO_CONF_DIR}/crds/pgclusters-crd.yaml \

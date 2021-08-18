@@ -10,8 +10,8 @@ ARG PACKAGER
 ARG DFSET
 
 LABEL name="pgo-scheduler" \
-	summary="Qingcloud PostgreSQL Operator - Scheduler" \
-	description="Qingcloud PostgreSQL Operator - Scheduler"
+	summary="Radondb PostgreSQL Operator - Scheduler" \
+	description="Radondb PostgreSQL Operator - Scheduler"
 
 RUN if [ "$DFSET" = "centos" ] ; then \
 	mkdir -p /opt/cpm/bin /opt/cpm/conf /configs \

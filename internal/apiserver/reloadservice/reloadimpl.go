@@ -1,7 +1,7 @@
 package reloadservice
 
 /*
-Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/patroni"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/internal/apiserver"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/patroni"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -49,7 +49,7 @@ func Reload(request *msgs.ReloadRequest, ns, username string) msgs.ReloadRespons
 	}
 
 	if request.Selector != "" {
-		clusterList, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
+		clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
 		if err != nil {
 			resp.Status.Code = msgs.Error
 			resp.Status.Msg = err.Error()
@@ -70,7 +70,7 @@ func Reload(request *msgs.ReloadRequest, ns, username string) msgs.ReloadRespons
 
 		log.Debugf("reload requested for cluster %s", clusterName)
 
-		cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).
+		cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).
 			Get(ctx, clusterName, metav1.GetOptions{})
 		// maintain same "is not found" error message for backwards compatibility
 		if kerrors.IsNotFound(err) {

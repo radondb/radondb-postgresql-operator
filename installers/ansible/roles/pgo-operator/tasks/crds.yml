@@ -4,7 +4,7 @@
     - install
   block:
   - name: Check if PGCluster CRD Is Installed
-    shell: "{{ kubectl_or_oc }} get crd pgclusters.qingcloud.com"
+    shell: "{{ kubectl_or_oc }} get crd pgclusters.randondb.com"
     register: crds_result
     failed_when: false
 
@@ -19,7 +19,7 @@
     - install
   block:
   - name: Check if PGPolicies CRD Is Installed
-    shell: "{{ kubectl_or_oc }} get crd pgpolicies.qingcloud.com"
+    shell: "{{ kubectl_or_oc }} get crd pgpolicies.randondb.com"
     register: crds_result
     failed_when: false
 
@@ -34,7 +34,7 @@
     - install
   block:
   - name: Check if PGReplicas CRD Is Installed
-    shell: "{{ kubectl_or_oc }} get crd pgreplicas.qingcloud.com"
+    shell: "{{ kubectl_or_oc }} get crd pgreplicas.randondb.com"
     register: crds_result
     failed_when: false
 
@@ -49,7 +49,7 @@
     - install
   block:
   - name: Check if PGTasks CRD Is Installed
-    shell: "{{ kubectl_or_oc }} get crd pgtasks.qingcloud.com"
+    shell: "{{ kubectl_or_oc }} get crd pgtasks.randondb.com"
     register: crds_result
     failed_when: false
 

@@ -1,7 +1,7 @@
 /*
-Qingcloud PostgreSQL Operator API
+Radondb PostgreSQL Operator API
 
-The Qingcloud PostgreSQL Operator API defines HTTP(S) interactions with the Qingcloud PostgreSQL Operator.
+The Radondb PostgreSQL Operator API defines HTTP(S) interactions with the Radondb PostgreSQL Operator.
 
 
 ## Direct API Calls
@@ -92,7 +92,7 @@ $PGO_APISERVER_URL/clustersdelete
   BasePath: /
   Version: 4.7.1
   License: Apache 2.0 http://www.apache.org/licenses/LICENSE-2.0
-  Contact: Qingcloud Data<info@qingcloud.com> https://www.qingcloud.com/
+  Contact: Radondb Data<info@randondb.com> https://www.randondb.com/
 
 
 	Consumes:
@@ -108,7 +108,7 @@ package v1
 // +k8s:deepcopy-gen=package,register
 
 /*
- Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at

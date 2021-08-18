@@ -1,12 +1,12 @@
 {
-  "apiVersion": "qingcloud.com/v1",
+  "apiVersion": "randondb.com/v1",
   "kind": "Pgcluster",
   "metadata": {
     "annotations": {
       "current-primary": "fromcrd"
     },
     "labels": {
-      "qingcloud-pgha-scope": "fromcrd",
+      "randondb-pgha-scope": "fromcrd",
       "deployment-name": "fromcrd",
       "name": "fromcrd",
       "pg-cluster": "fromcrd",
@@ -44,7 +44,7 @@
       "storagetype": "dynamic",
       "supplementalgroups": ""
     },
-    "ccpimage": "qingcloud-postgres-ha",
+    "ccpimage": "randondb-postgres-ha",
     "ccpimagetag": "centos8-13.3-4.7.1",
     "clustername": "fromcrd",
     "database": "userdb",

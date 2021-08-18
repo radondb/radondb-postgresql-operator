@@ -10,8 +10,8 @@ ARG DFSET
 ARG BASEOS
 
 LABEL name="postgres-operator" \
-	summary="Qingcloud PostgreSQL Operator" \
-	description="Qingcloud PostgreSQL Operator"
+	summary="Radondb PostgreSQL Operator" \
+	description="Radondb PostgreSQL Operator"
 
 RUN if [ "$DFSET" = "centos" ] ; then \
         ${PACKAGER} -y install \

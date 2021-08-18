@@ -1,7 +1,7 @@
 package clusterservice
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -26,15 +26,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/apiserver/backupoptions"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator/backrest"
-	clusteroperator "github.com/qingcloud/postgres-operator/internal/operator/cluster"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/internal/apiserver"
+	"github.com/randondb/postgres-operator/internal/apiserver/backupoptions"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/operator/backrest"
+	clusteroperator "github.com/randondb/postgres-operator/internal/operator/cluster"
+	"github.com/randondb/postgres-operator/internal/util"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -71,7 +71,7 @@ func DeleteCluster(name, selector string, deleteData, deleteBackups bool, ns, pg
 	log.Debugf("delete-backups is [%t]", deleteBackups)
 
 	// get the clusters list
-	clusterList, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		response.Status.Code = msgs.Error
 		response.Status.Msg = err.Error()
@@ -98,7 +98,7 @@ func DeleteCluster(name, selector string, deleteData, deleteBackups bool, ns, pg
 		log.Debugf("deleting cluster %s", cluster.Spec.Name)
 
 		// first delete any existing rmdata pgtask with the same name
-		err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Delete(ctx, cluster.Name+"-rmdata", metav1.DeleteOptions{})
+		err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Delete(ctx, cluster.Name+"-rmdata", metav1.DeleteOptions{})
 		if err != nil && !kerrors.IsNotFound(err) {
 			response.Status.Code = msgs.Error
 			response.Status.Msg = err.Error()
@@ -139,7 +139,7 @@ func ShowCluster(name, selector, ccpimagetag, ns string, allflag bool) msgs.Show
 	log.Debugf("selector on showCluster is %s", selector)
 
 	// get a list of all clusters
-	clusterList, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		response.Status.Code = msgs.Error
 		response.Status.Msg = err.Error()
@@ -364,7 +364,7 @@ func TestCluster(name, selector, ns, pgouser string, allFlag bool) msgs.ClusterT
 	}
 
 	// Find a list of a clusters that match the given selector
-	clusterList, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	// If the response errors, return here, as we won't be able to return any
 	// useful information in the test
 	if err != nil {
@@ -568,7 +568,7 @@ func CreateCluster(request *msgs.CreateClusterRequest, ns, pgouser string) msgs.
 	log.Debugf("create cluster called for %s", clusterName)
 
 	// error if it already exists
-	_, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+	_, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 	if err == nil {
 		log.Debugf("pgcluster %s was found so we will not create it", clusterName)
 		resp.Status.Code = msgs.Error
@@ -664,7 +664,7 @@ func CreateCluster(request *msgs.CreateClusterRequest, ns, pgouser string) msgs.
 		return resp
 	}
 
-	// similarly, if any of the Qingcloud Postgres Exporter CPU / Memory values have been set,
+	// similarly, if any of the Radondb Postgres Exporter CPU / Memory values have been set,
 	// evaluate those as well
 	if err := apiserver.ValidateResourceRequestLimit(request.ExporterCPURequest, request.ExporterCPULimit, zeroQuantity); err != nil {
 		resp.Status.Code = msgs.Error
@@ -994,7 +994,7 @@ func CreateCluster(request *msgs.CreateClusterRequest, ns, pgouser string) msgs.
 			ObjectMeta: metav1.ObjectMeta{
 				Name: secretName,
 				Labels: map[string]string{
-					config.LABEL_VENDOR:            config.LABEL_QINGCLOUD,
+					config.LABEL_VENDOR:            config.LABEL_RADONDB,
 					config.LABEL_PG_CLUSTER:        clusterName,
 					config.LABEL_PGO_BACKREST_REPO: "true",
 				},
@@ -1045,7 +1045,7 @@ func CreateCluster(request *msgs.CreateClusterRequest, ns, pgouser string) msgs.
 	resp.Result.Database = newInstance.Spec.Database
 
 	// create CRD for new cluster
-	_, err = apiserver.Clientset.QingcloudV1().Pgclusters(ns).Create(ctx, newInstance, metav1.CreateOptions{})
+	_, err = apiserver.Clientset.RadondbV1().Pgclusters(ns).Create(ctx, newInstance, metav1.CreateOptions{})
 	if err != nil {
 		resp.Status.Code = msgs.Error
 		resp.Status.Msg = err.Error()
@@ -1104,7 +1104,7 @@ func validateConfigPolicies(clusterName, PoliciesFlag, ns string) error {
 
 	for _, v := range policies {
 		// error if it already exists
-		_, err := apiserver.Clientset.QingcloudV1().Pgpolicies(ns).Get(ctx, v, metav1.GetOptions{})
+		_, err := apiserver.Clientset.RadondbV1().Pgpolicies(ns).Get(ctx, v, metav1.GetOptions{})
 		if err != nil {
 			log.Error("error getting pgpolicy " + v + err.Error())
 			return err
@@ -1132,7 +1132,7 @@ func validateConfigPolicies(clusterName, PoliciesFlag, ns string) error {
 		Spec: spec,
 	}
 
-	_, err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Create(ctx, newInstance, metav1.CreateOptions{})
+	_, err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Create(ctx, newInstance, metav1.CreateOptions{})
 
 	return err
 }
@@ -1397,7 +1397,7 @@ func getClusterParams(request *msgs.CreateClusterRequest, name string, ns string
 		spec.CCPImage = request.CCPImage
 		log.Debugf("user is overriding CCPImage from command line %s", request.CCPImage)
 	} else {
-		spec.CCPImage = "qingcloud-postgres-ha"
+		spec.CCPImage = "randondb-postgres-ha"
 	}
 
 	// update the CRD spec to use the custom CCPImagePrefix, if given
@@ -1697,7 +1697,7 @@ func createWorkflowTask(clusterName, ns, pgouser string) (string, error) {
 	newInstance.ObjectMeta.Labels[config.LABEL_PG_CLUSTER] = clusterName
 	newInstance.ObjectMeta.Labels[crv1.PgtaskWorkflowID] = spec.Parameters[crv1.PgtaskWorkflowID]
 
-	_, err = apiserver.Clientset.QingcloudV1().Pgtasks(ns).Create(ctx, newInstance, metav1.CreateOptions{})
+	_, err = apiserver.Clientset.RadondbV1().Pgtasks(ns).Create(ctx, newInstance, metav1.CreateOptions{})
 	if err != nil {
 		log.Error(err)
 		return "", err
@@ -1731,7 +1731,7 @@ func getReplicas(cluster *crv1.Pgcluster, ns string) ([]msgs.ShowClusterReplica,
 
 	selector := config.LABEL_PG_CLUSTER + "=" + cluster.Spec.Name
 
-	replicaList, err := apiserver.Clientset.QingcloudV1().Pgreplicas(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	replicaList, err := apiserver.Clientset.RadondbV1().Pgreplicas(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		return output, err
 	}
@@ -1882,7 +1882,7 @@ func UpdateCluster(request *msgs.UpdateClusterRequest) msgs.UpdateClusterRespons
 		return response
 	}
 
-	// similarly, if any of the Qingcloud Postgres Exporter repo CPU / Memory values have been set,
+	// similarly, if any of the Radondb Postgres Exporter repo CPU / Memory values have been set,
 	// evaluate those as well
 	if err := apiserver.ValidateResourceRequestLimit(request.ExporterCPURequest, request.ExporterCPULimit, zeroQuantity); err != nil {
 		response.Status.Code = msgs.Error
@@ -1892,7 +1892,7 @@ func UpdateCluster(request *msgs.UpdateClusterRequest) msgs.UpdateClusterRespons
 
 	// Note: we don't consider the default value here because the cluster is
 	// already deployed. Additionally, this does not check to see if the
-	// request/limits are inline with what's already deployed for Qingcloud Postgres
+	// request/limits are inline with what's already deployed for Radondb Postgres
 	// Exporter. That just becomes too complicated
 	if err := apiserver.ValidateResourceRequestLimit(request.ExporterMemoryRequest, request.ExporterMemoryLimit, zeroQuantity); err != nil {
 		response.Status.Code = msgs.Error
@@ -1938,7 +1938,7 @@ func UpdateCluster(request *msgs.UpdateClusterRequest) msgs.UpdateClusterRespons
 
 	// get the clusters list
 	if request.AllFlag {
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(request.Namespace).List(ctx, metav1.ListOptions{})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).List(ctx, metav1.ListOptions{})
 		if err != nil {
 			response.Status.Code = msgs.Error
 			response.Status.Msg = err.Error()
@@ -1946,7 +1946,7 @@ func UpdateCluster(request *msgs.UpdateClusterRequest) msgs.UpdateClusterRespons
 		}
 		clusterList = *cl
 	} else if request.Selector != "" {
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(request.Namespace).List(ctx, metav1.ListOptions{
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).List(ctx, metav1.ListOptions{
 			LabelSelector: request.Selector,
 		})
 		if err != nil {
@@ -1957,7 +1957,7 @@ func UpdateCluster(request *msgs.UpdateClusterRequest) msgs.UpdateClusterRespons
 		clusterList = *cl
 	} else {
 		for _, v := range request.Clustername {
-			cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(request.Namespace).Get(ctx, v, metav1.GetOptions{})
+			cl, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).Get(ctx, v, metav1.GetOptions{})
 			if err != nil {
 				response.Status.Code = msgs.Error
 				response.Status.Msg = err.Error()
@@ -2290,7 +2290,7 @@ func UpdateCluster(request *msgs.UpdateClusterRequest) msgs.UpdateClusterRespons
 		// now, add any new tolerations to the spec
 		cluster.Spec.Tolerations = append(cluster.Spec.Tolerations, request.Tolerations...)
 
-		if _, err := apiserver.Clientset.QingcloudV1().Pgclusters(request.Namespace).Update(ctx, &cluster, metav1.UpdateOptions{}); err != nil {
+		if _, err := apiserver.Clientset.RadondbV1().Pgclusters(request.Namespace).Update(ctx, &cluster, metav1.UpdateOptions{}); err != nil {
 			response.Status.Code = msgs.Error
 			response.Status.Msg = err.Error()
 			return response
@@ -2653,7 +2653,7 @@ func validateDataSourceParms(request *msgs.CreateClusterRequest) error {
 
 	// finally, verify that the cluster being restored from is in the proper status, and that no
 	// other clusters currently being bootstrapping from the same cluster
-	clusterList, err := apiserver.Clientset.QingcloudV1().Pgclusters(restoreFromNamespace).List(ctx, metav1.ListOptions{})
+	clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(restoreFromNamespace).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return fmt.Errorf("%s: %w", ErrInvalidDataSource, err)
 	}

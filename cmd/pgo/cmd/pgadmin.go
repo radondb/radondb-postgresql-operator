@@ -20,9 +20,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/cmd/pgo/api"
-	"github.com/qingcloud/postgres-operator/cmd/pgo/util"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/cmd/pgo/api"
+	"github.com/randondb/postgres-operator/cmd/pgo/util"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 )
 
 // showPgAdminTextPadding contains the values for what the text padding should be

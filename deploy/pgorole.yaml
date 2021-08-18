@@ -8,7 +8,7 @@ metadata:
     pgo-created-by: upgrade
     pgo-pgorole: "true"
     rolename: $PGO_ROLENAME
-    vendor: qingcloud
+    vendor: randondb
   name: pgorole-$PGO_ROLENAME
   namespace: $PGO_OPERATOR_NAMESPACE
 type: Opaque

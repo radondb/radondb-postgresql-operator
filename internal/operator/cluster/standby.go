@@ -1,7 +1,7 @@
 package cluster
 
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Radondb Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -26,16 +26,16 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/wait"
 
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/operator/pvc"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/operator"
+	"github.com/randondb/postgres-operator/internal/operator/pvc"
+	"github.com/randondb/postgres-operator/internal/util"
+	"github.com/randondb/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	cfg "github.com/qingcloud/postgres-operator/internal/operator/config"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/randondb/postgres-operator/internal/config"
+	cfg "github.com/randondb/postgres-operator/internal/operator/config"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 )
@@ -58,7 +58,7 @@ const (
     "create_replica_methods": [
 	    "pgbackrest_standby"
     ],
-	"restore_command": "source /opt/qingcloud/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-get %f \"%p\""
+	"restore_command": "source /opt/randondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-get %f \"%p\""
 }`
 )
 

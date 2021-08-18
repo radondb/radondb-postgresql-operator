@@ -25,14 +25,14 @@ import (
 	"os"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/operator/pvc"
-	"github.com/qingcloud/postgres-operator/internal/pgadmin"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/operator"
+	"github.com/randondb/postgres-operator/internal/operator/pvc"
+	"github.com/randondb/postgres-operator/internal/pgadmin"
+	"github.com/randondb/postgres-operator/internal/util"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/randondb/postgres-operator/pkg/events"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -96,7 +96,7 @@ func AddPgAdmin(
 
 	ns := cluster.Namespace
 
-	if _, err := clientset.QingcloudV1().Pgclusters(ns).Update(ctx, cluster, metav1.UpdateOptions{}); err != nil {
+	if _, err := clientset.RadondbV1().Pgclusters(ns).Update(ctx, cluster, metav1.UpdateOptions{}); err != nil {
 		return err
 	}
 
@@ -138,7 +138,7 @@ func AddPgAdminFromPgTask(clientset kubeapi.Interface, restconfig *rest.Config, 
 		clusterName, namespace)
 
 	// first, check to ensure that the cluster still exosts
-	cluster, err := clientset.QingcloudV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err)
 		return
@@ -155,7 +155,7 @@ func AddPgAdminFromPgTask(clientset kubeapi.Interface, restconfig *rest.Config, 
 
 	// at this point, the pgtask is successful, so we can safely rvemove it
 	// we can fallthrough in the event of an error, because we're returning anyway
-	if err := clientset.QingcloudV1().Pgtasks(namespace).Delete(ctx, task.Name, metav1.DeleteOptions{}); err != nil {
+	if err := clientset.RadondbV1().Pgtasks(namespace).Delete(ctx, task.Name, metav1.DeleteOptions{}); err != nil {
 		log.Error(err)
 	}
 
@@ -269,7 +269,7 @@ func DeletePgAdmin(clientset kubeapi.Interface, restconfig *rest.Config, cluster
 	// if we cannot update this we abort
 	cluster.Labels[config.LABEL_PGADMIN] = "false"
 
-	if _, err := clientset.QingcloudV1().Pgclusters(namespace).
+	if _, err := clientset.RadondbV1().Pgclusters(namespace).
 		Update(ctx, cluster, metav1.UpdateOptions{}); err != nil {
 		return err
 	}
@@ -312,7 +312,7 @@ func DeletePgAdminFromPgTask(clientset kubeapi.Interface, restconfig *rest.Confi
 		clusterName, namespace)
 
 	// find the pgcluster that is associated with this task
-	cluster, err := clientset.QingcloudV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err)
 		return
@@ -328,7 +328,7 @@ func DeletePgAdminFromPgTask(clientset kubeapi.Interface, restconfig *rest.Confi
 	publishPgAdminEvent(events.EventDeletePgAdmin, task)
 
 	// lastly, remove the task
-	if err := clientset.QingcloudV1().Pgtasks(namespace).Delete(ctx, task.Name, metav1.DeleteOptions{}); err != nil {
+	if err := clientset.RadondbV1().Pgtasks(namespace).Delete(ctx, task.Name, metav1.DeleteOptions{}); err != nil {
 		log.Warn(err)
 	}
 }
@@ -420,7 +420,7 @@ func createPgAdminDeployment(clientset kubernetes.Interface, cluster *crv1.Pgclu
 	}
 
 	// For debugging purposes, put the template substitution in stdout
-	if operator.QINGCLOUD_DEBUG {
+	if operator.RADONDB_DEBUG {
 		_ = config.PgAdminTemplate.Execute(os.Stdout, fields)
 	}
 
@@ -439,7 +439,7 @@ func createPgAdminDeployment(clientset kubernetes.Interface, cluster *crv1.Pgclu
 	}
 
 	// set the container image to an override value, if one exists
-	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_QINGCLOUD_PGADMIN,
+	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_RADONDB_PGADMIN,
 		&deployment.Spec.Template.Spec.Containers[0])
 
 	if _, err := clientset.AppsV1().Deployments(cluster.Namespace).
@@ -466,7 +466,7 @@ func createPgAdminService(clientset kubernetes.Interface, cluster *crv1.Pgcluste
 	}
 
 	// For debugging purposes, put the template substitution in stdout
-	if operator.QINGCLOUD_DEBUG {
+	if operator.RADONDB_DEBUG {
 		_ = config.PgAdminServiceTemplate.Execute(os.Stdout, fields)
 	}
 

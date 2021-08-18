@@ -1,7 +1,7 @@
 package userservice
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -23,14 +23,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/pgadmin"
-	pgpassword "github.com/qingcloud/postgres-operator/internal/postgres/password"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/internal/apiserver"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/pgadmin"
+	pgpassword "github.com/randondb/postgres-operator/internal/postgres/password"
+	"github.com/randondb/postgres-operator/internal/util"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -804,7 +804,7 @@ func getClusterList(namespace string, clusterNames []string, selector string, al
 	// if the all flag is set, let's return all the clusters here and return
 	if all {
 		// return the value of cluster list or that of the error here
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{})
 		if err == nil {
 			clusterList = *cl
 		}
@@ -814,7 +814,7 @@ func getClusterList(namespace string, clusterNames []string, selector string, al
 	// try to build the cluster list based on either the selector or the list
 	// of arguments...or both. First, start with the selector
 	if selector != "" {
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 		// if there is an error, return here with an empty cluster list
 		if err != nil {
 			return crv1.PgclusterList{}, err
@@ -824,7 +824,7 @@ func getClusterList(namespace string, clusterNames []string, selector string, al
 
 	// now try to get clusters based specific cluster names
 	for _, clusterName := range clusterNames {
-		cluster, err := apiserver.Clientset.QingcloudV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+		cluster, err := apiserver.Clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 		// if there is an error, capture it here and return here with an empty list
 		if err != nil {
 			return crv1.PgclusterList{}, err

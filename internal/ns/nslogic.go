@@ -27,9 +27,9 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/pkg/events"
 
 	log "github.com/sirupsen/logrus"
 	authv1 "k8s.io/api/authorization/v1"
@@ -149,7 +149,7 @@ func CreateFakeNamespaceClient(installationName string) (kubernetes.Interface, e
 			ObjectMeta: metav1.ObjectMeta{
 				Name: namespace,
 				Labels: map[string]string{
-					config.LABEL_VENDOR:                config.LABEL_QINGCLOUD,
+					config.LABEL_VENDOR:                config.LABEL_RADONDB,
 					config.LABEL_PGO_INSTALLATION_NAME: installationName,
 				},
 			},
@@ -171,7 +171,7 @@ func CreateNamespace(clientset kubernetes.Interface, installationName, pgoNamesp
 	// define the new namespace
 	n := v1.Namespace{}
 	n.ObjectMeta.Labels = make(map[string]string)
-	n.ObjectMeta.Labels[config.LABEL_VENDOR] = config.LABEL_QINGCLOUD
+	n.ObjectMeta.Labels[config.LABEL_VENDOR] = config.LABEL_RADONDB
 	n.ObjectMeta.Labels[config.LABEL_PGO_CREATED_BY] = createdBy
 	n.ObjectMeta.Labels[config.LABEL_PGO_INSTALLATION_NAME] = installationName
 
@@ -440,7 +440,7 @@ func UpdateNamespace(clientset kubernetes.Interface, installationName, pgoNamesp
 	if theNs.ObjectMeta.Labels == nil {
 		theNs.ObjectMeta.Labels = make(map[string]string)
 	}
-	theNs.ObjectMeta.Labels[config.LABEL_VENDOR] = config.LABEL_QINGCLOUD
+	theNs.ObjectMeta.Labels[config.LABEL_VENDOR] = config.LABEL_RADONDB
 	theNs.ObjectMeta.Labels[config.LABEL_PGO_INSTALLATION_NAME] = installationName
 
 	if _, err := clientset.CoreV1().Namespaces().Update(ctx, theNs, metav1.UpdateOptions{}); err != nil {
@@ -493,7 +493,7 @@ func ConfigureInstallNamespaces(clientset kubernetes.Interface, installationName
 			if nameSpaceExists {
 				// continue if already owned by this install, or if owned by another install
 				labels := namespace.ObjectMeta.Labels
-				if labels != nil && labels[config.LABEL_VENDOR] == config.LABEL_QINGCLOUD &&
+				if labels != nil && labels[config.LABEL_VENDOR] == config.LABEL_RADONDB &&
 					labels[config.LABEL_PGO_INSTALLATION_NAME] != installationName {
 					log.Errorf("Configure install namespaces: namespace %s owned by another "+
 						"installation, will not update it", namespaceName)
@@ -553,7 +553,7 @@ func GetCurrentNamespaceList(clientset kubernetes.Interface,
 
 	for _, v := range nsList.Items {
 		labels := v.ObjectMeta.Labels
-		if labels[config.LABEL_VENDOR] == config.LABEL_QINGCLOUD &&
+		if labels[config.LABEL_VENDOR] == config.LABEL_RADONDB &&
 			labels[config.LABEL_PGO_INSTALLATION_NAME] == installationName {
 			ns = append(ns, v.Name)
 		}

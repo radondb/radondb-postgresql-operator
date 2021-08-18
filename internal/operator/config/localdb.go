@@ -23,8 +23,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
 
 	log "github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
@@ -40,13 +40,13 @@ var (
 	// container
 	readConfigCMD []string = []string{
 		"bash", "-c",
-		"/opt/qingcloud/bin/yq r /tmp/postgres-ha-bootstrap.yaml postgresql | " +
-			"/opt/qingcloud/bin/yq p - postgresql",
+		"/opt/randondb/bin/yq r /tmp/postgres-ha-bootstrap.yaml postgresql | " +
+			"/opt/randondb/bin/yq p - postgresql",
 	}
 	// applyAndReloadConfigCMD is the command for calling the script to apply and reload the local
 	// configuration for a database container.  The required arguments are appended to this command
 	// when the script is called.
-	applyAndReloadConfigCMD []string = []string{"/opt/qingcloud/bin/postgres-ha/common/pgha-reload-local.sh"}
+	applyAndReloadConfigCMD []string = []string{"/opt/randondb/bin/postgres-ha/common/pgha-reload-local.sh"}
 
 	// PGHALocalConfigName represents the name of the local configuration stored for each database
 	// server in the "<clustername>-pgha-config" configMap, which is "<clusterName>-local-config"

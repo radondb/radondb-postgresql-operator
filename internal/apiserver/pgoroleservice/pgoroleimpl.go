@@ -21,11 +21,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/apiserver/pgouserservice"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	"github.com/randondb/postgres-operator/internal/apiserver"
+	"github.com/randondb/postgres-operator/internal/apiserver/pgouserservice"
+	"github.com/randondb/postgres-operator/internal/config"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -239,7 +239,7 @@ func createSecret(clientset kubernetes.Interface, createdBy, pgorolename, permis
 	secret.ObjectMeta.Labels[config.LABEL_PGO_CREATED_BY] = createdBy
 	secret.ObjectMeta.Labels[config.LABEL_ROLENAME] = pgorolename
 	secret.ObjectMeta.Labels[config.LABEL_PGO_PGOROLE] = "true"
-	secret.ObjectMeta.Labels[config.LABEL_VENDOR] = "qingcloud"
+	secret.ObjectMeta.Labels[config.LABEL_VENDOR] = "randondb"
 	secret.Data = make(map[string][]byte)
 	secret.Data["rolename"] = []byte(enRolename)
 	secret.Data["permissions"] = []byte(permissions)

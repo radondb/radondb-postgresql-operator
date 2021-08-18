@@ -1,7 +1,7 @@
 package task
 
 /*
- Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -20,8 +20,8 @@ import (
 	"encoding/json"
 	"time"
 
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	pgo "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	pgo "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -43,7 +43,7 @@ func CompleteBackupWorkflow(clusterName string, clientset pgo.Interface, ns stri
 
 func completeWorkflow(clientset pgo.Interface, taskNamespace, taskName string) {
 	ctx := context.TODO()
-	task, err := clientset.QingcloudV1().Pgtasks(taskNamespace).Get(ctx, taskName, metav1.GetOptions{})
+	task, err := clientset.RadondbV1().Pgtasks(taskNamespace).Get(ctx, taskName, metav1.GetOptions{})
 	if err != nil {
 		log.Errorf("Error completing  workflow %s", taskName)
 		log.Error(err)
@@ -62,7 +62,7 @@ func completeWorkflow(clientset pgo.Interface, taskNamespace, taskName string) {
 		},
 	})
 	if err == nil {
-		_, err = clientset.QingcloudV1().Pgtasks(task.Namespace).
+		_, err = clientset.RadondbV1().Pgtasks(task.Namespace).
 			Patch(ctx, task.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

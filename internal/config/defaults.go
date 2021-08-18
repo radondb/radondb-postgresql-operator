@@ -40,7 +40,7 @@ var (
 	// for memory of a pgBouncer instance
 	DefaultPgBouncerResourceMemory = resource.MustParse("24Mi")
 	// DefaultExporterResourceMemory is the default value of the resource request
-	// for memory of a Qingcloud Postgres Exporter instance
+	// for memory of a Radondb Postgres Exporter instance
 	DefaultExporterResourceMemory = resource.MustParse("24Mi")
 )
 

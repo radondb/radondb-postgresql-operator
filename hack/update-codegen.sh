@@ -36,7 +36,7 @@ target_directory='pkg/generated'
 target_package="$(go list -m)/${target_directory}"
 
 # space-separated list of Groups with comma-separated lists of Versions 'g1:v1,v2 g2:v3,v4'
-groups_with_versions='qingcloud.com:v1'
+groups_with_versions='randondb.com:v1'
 
 bash -- "$tool" all \
 	"$target_package" "$groups_parent_package" "$groups_with_versions" \

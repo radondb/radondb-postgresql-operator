@@ -5,7 +5,7 @@ metadata:
   namespace: pgo
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: qingcloud
+    vendor: randondb
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -14,7 +14,7 @@ metadata:
   namespace: pgo
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: qingcloud
+    vendor: randondb
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -31,7 +31,7 @@ metadata:
   namespace: pgo
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: qingcloud
+    vendor: randondb
 data:
   values.yaml: |-
     # =====================
@@ -43,7 +43,7 @@ data:
     alertmanager_install: "true"
     alertmanager_log_level: "info"
     alertmanager_port: "9093"
-    alertmanager_service_name: "qingcloud-alertmanager"
+    alertmanager_service_name: "randondb-alertmanager"
     alertmanager_service_type: "ClusterIP"
     alertmanager_storage_access_mode: "ReadWriteOnce"
     alertmanager_storage_class_name: ""
@@ -59,7 +59,7 @@ data:
     grafana_datasources_custom_config: ""
     grafana_install: "true"
     grafana_port: "3000"
-    grafana_service_name: "qingcloud-grafana"
+    grafana_service_name: "randondb-grafana"
     grafana_service_type: "ClusterIP"
     grafana_storage_access_mode: "ReadWriteOnce"
     grafana_storage_class_name: ""
@@ -72,7 +72,7 @@ data:
     prometheus_custom_config: ""
     prometheus_install: "true"
     prometheus_port: "9090"
-    prometheus_service_name: "qingcloud-prometheus"
+    prometheus_service_name: "randondb-prometheus"
     prometheus_service_type: "ClusterIP"
     prometheus_storage_access_mode: "ReadWriteOnce"
     prometheus_storage_class_name: ""
@@ -86,7 +86,7 @@ metadata:
   namespace: pgo
   labels:
     app.kubernetes.io/name: postgres-operator-monitoring
-    vendor: qingcloud
+    vendor: randondb
 spec:
   backoffLimit: 0
   template:
@@ -94,7 +94,7 @@ spec:
       name: pgo-metrics-deploy
       labels:
         app.kubernetes.io/name: postgres-operator-monitoring
-        vendor: qingcloud
+        vendor: randondb
     spec:
       serviceAccountName: pgo-metrics-deployer-sa
       restartPolicy: Never

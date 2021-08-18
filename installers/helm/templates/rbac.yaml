@@ -118,7 +118,7 @@ rules:
       - delete
       - list
   - apiGroups:
-      - qingcloud.com
+      - randondb.com
     resources:
       - pgclusters
       - pgreplicas

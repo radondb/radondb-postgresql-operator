@@ -1,7 +1,7 @@
 package main
 
 /*
- Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -24,10 +24,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/apiserver/routing"
-	qingcloudlog "github.com/qingcloud/postgres-operator/internal/logging"
-	"github.com/qingcloud/postgres-operator/internal/tlsutil"
+	"github.com/randondb/postgres-operator/internal/apiserver"
+	"github.com/randondb/postgres-operator/internal/apiserver/routing"
+	randondblog "github.com/randondb/postgres-operator/internal/logging"
+	"github.com/randondb/postgres-operator/internal/tlsutil"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -56,8 +56,8 @@ func main() {
 		srvPort = p
 	}
 
-	// QINGCLOUD_DEBUG sets the logging level to Debug (more verbose)
-	if debug, _ := strconv.ParseBool(os.Getenv("QINGCLOUD_DEBUG")); debug {
+	// RADONDB_DEBUG sets the logging level to Debug (more verbose)
+	if debug, _ := strconv.ParseBool(os.Getenv("RADONDB_DEBUG")); debug {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("debug flag set to true")
 	} else {
@@ -102,8 +102,8 @@ func main() {
 		}
 	}
 
-	// init qingcloud-formatted logger
-	qingcloudlog.QingcloudLogger(qingcloudlog.SetParameters())
+	// init randondb-formatted logger
+	randondblog.RadondbLogger(randondblog.SetParameters())
 
 	// give time for pgo-event to start up
 	time.Sleep(time.Duration(5) * time.Second)

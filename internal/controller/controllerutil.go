@@ -1,7 +1,7 @@
 package controller
 
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Radondb Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,10 +20,10 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	pgo "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	pgo "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -58,7 +58,7 @@ func InitializeReplicaCreation(clientset pgo.Interface, clusterName,
 	namespace string) error {
 	ctx := context.TODO()
 	selector := config.LABEL_PG_CLUSTER + "=" + clusterName
-	pgreplicaList, err := clientset.QingcloudV1().Pgreplicas(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	pgreplicaList, err := clientset.RadondbV1().Pgreplicas(namespace).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		log.Error(err)
 		return err
@@ -73,7 +73,7 @@ func InitializeReplicaCreation(clientset pgo.Interface, clusterName,
 			log.Error(err)
 		}
 
-		if _, err := clientset.QingcloudV1().Pgreplicas(namespace).
+		if _, err := clientset.RadondbV1().Pgreplicas(namespace).
 			Patch(ctx, pgreplicaList.Items[i].GetName(), types.MergePatchType, patch,
 				metav1.PatchOptions{}); err != nil {
 			log.Error(err)
@@ -95,7 +95,7 @@ func SetClusterInitializedStatus(clientset pgo.Interface, clusterName,
 		},
 	})
 	if err == nil {
-		_, err = clientset.QingcloudV1().Pgclusters(namespace).
+		_, err = clientset.RadondbV1().Pgclusters(namespace).
 			Patch(ctx, clusterName, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

@@ -8,7 +8,7 @@
 
 - name: Get number of Operator instances in this cluster
   shell: |
-    {{ kubectl_or_oc }} get deployment --field-selector=metadata.name=postgres-operator --selector=vendor=qingcloud --all-namespaces -o name | wc -l
+    {{ kubectl_or_oc }} get deployment --field-selector=metadata.name=postgres-operator --selector=vendor=randondb --all-namespaces -o name | wc -l
   register: num_operators
   tags:
   - uninstall
@@ -22,7 +22,7 @@
 
 - name: Find watched namespaces
   shell: |
-    {{ kubectl_or_oc }} get namespaces -o json --selector=vendor=qingcloud,pgo-installation-name={{ pgo_installation_name }}
+    {{ kubectl_or_oc }} get namespaces -o json --selector=vendor=randondb,pgo-installation-name={{ pgo_installation_name }}
   register: ns_result
   tags:
   - uninstall
@@ -37,7 +37,7 @@
 
 - name: Delete PG Cluster Deployments
   shell: |
-    {{ kubectl_or_oc }} delete deployment --selector=vendor=qingcloud -n {{ item }}
+    {{ kubectl_or_oc }} delete deployment --selector=vendor=randondb -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -48,7 +48,7 @@
 
 - name: Delete PG Cluster Jobs
   shell: |
-    {{ kubectl_or_oc }} delete jobs --selector=vendor=qingcloud -n {{ item }}
+    {{ kubectl_or_oc }} delete jobs --selector=vendor=randondb -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -59,7 +59,7 @@
 
 - name: Delete PG Cluster Secrets
   shell: |
-    {{ kubectl_or_oc }} delete configmap,secrets --selector=vendor=qingcloud -n {{ item }}
+    {{ kubectl_or_oc }} delete configmap,secrets --selector=vendor=randondb -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -70,7 +70,7 @@
 
 - name: Delete PG Cluster Services
   shell: |
-    {{ kubectl_or_oc }} delete services --selector=vendor=qingcloud -n {{ item }}
+    {{ kubectl_or_oc }} delete services --selector=vendor=randondb -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -81,7 +81,7 @@
 
 - name: Delete PG PVC's
   shell: |
-    {{ kubectl_or_oc }} delete pvc --selector=vendor=qingcloud -n {{ item }}
+    {{ kubectl_or_oc }} delete pvc --selector=vendor=randondb -n {{ item }}
   with_items:
   - "{{ watched_namespaces }}"
   when: not preserve_pg_clusters|bool
@@ -246,8 +246,8 @@
 
 - name: Delete Custom Resource Definitions
   shell: |
-    {{ kubectl_or_oc }} delete crds pgclusters.qingcloud.com \
-        pgpolicies.qingcloud.com pgreplicas.qingcloud.com pgtasks.qingcloud.com
+    {{ kubectl_or_oc }} delete crds pgclusters.randondb.com \
+        pgpolicies.randondb.com pgreplicas.randondb.com pgtasks.randondb.com
   ignore_errors: yes
   no_log: false
   when: not multi_operator_env|bool

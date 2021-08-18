@@ -5,9 +5,9 @@ set -e -u
 REGISTRY='us.gcr.io/container-suite'
 VERSION=$CCP_IMAGE_TAG
 IMAGES=(
-    qingcloud-postgres-ha
-    qingcloud-pgbadger
-    qingcloud-pgbouncer
+    randondb-postgres-ha
+    randondb-pgbadger
+    randondb-pgbouncer
 )
 
 function echo_green() {
@@ -24,7 +24,7 @@ for image in "${IMAGES[@]}"
 do
     echo_green "=> Pulling ${REGISTRY?}/${image?}:${VERSION?}.."
     docker pull ${REGISTRY?}/${image?}:${VERSION?}
-    docker tag ${REGISTRY?}/${image?}:${VERSION?} qingcloud/${image?}:${VERSION?}
+    docker tag ${REGISTRY?}/${image?}:${VERSION?} randondb/${image?}:${VERSION?}
 done
 
 echo_green "=> Done!"

@@ -18,7 +18,7 @@ limitations under the License.
 import (
 	"fmt"
 
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
 )
 
 type Request struct {

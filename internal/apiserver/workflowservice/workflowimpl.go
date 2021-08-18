@@ -1,7 +1,7 @@
 package workflowservice
 
 /*
-Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,10 +19,10 @@ import (
 	"context"
 	"errors"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/internal/apiserver"
+	"github.com/randondb/postgres-operator/internal/config"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -38,7 +38,7 @@ func ShowWorkflow(id, ns string) (msgs.ShowWorkflowDetail, error) {
 
 	selector := crv1.PgtaskWorkflowID + "=" + id
 
-	taskList, err := apiserver.Clientset.QingcloudV1().Pgtasks(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	taskList, err := apiserver.Clientset.RadondbV1().Pgtasks(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		return detail, err
 	}

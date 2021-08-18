@@ -1,7 +1,7 @@
 package scheduler
 
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Radondb Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/qingcloud/postgres-operator/internal/controller"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/ns"
+	"github.com/randondb/postgres-operator/internal/controller"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/ns"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"
 

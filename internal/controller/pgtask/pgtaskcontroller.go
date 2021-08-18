@@ -1,7 +1,7 @@
 package pgtask
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -20,15 +20,15 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	backrestoperator "github.com/qingcloud/postgres-operator/internal/operator/backrest"
-	clusteroperator "github.com/qingcloud/postgres-operator/internal/operator/cluster"
-	pgdumpoperator "github.com/qingcloud/postgres-operator/internal/operator/pgdump"
-	taskoperator "github.com/qingcloud/postgres-operator/internal/operator/task"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	pgo "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
-	informers "github.com/qingcloud/postgres-operator/pkg/generated/informers/externalversions/qingcloud.com/v1"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	backrestoperator "github.com/randondb/postgres-operator/internal/operator/backrest"
+	clusteroperator "github.com/randondb/postgres-operator/internal/operator/cluster"
+	pgdumpoperator "github.com/randondb/postgres-operator/internal/operator/pgdump"
+	taskoperator "github.com/randondb/postgres-operator/internal/operator/task"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	pgo "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
+	informers "github.com/randondb/postgres-operator/pkg/generated/informers/externalversions/randondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -87,7 +87,7 @@ func (c *Controller) processNextItem() bool {
 	// parallel.
 	defer c.Queue.Done(key)
 
-	tmpTask, err := c.Client.QingcloudV1().Pgtasks(keyNamespace).Get(ctx, keyResourceName, metav1.GetOptions{})
+	tmpTask, err := c.Client.RadondbV1().Pgtasks(keyNamespace).Get(ctx, keyResourceName, metav1.GetOptions{})
 	if err != nil {
 		log.Errorf("ERROR onAdd getting pgtask : %s", err.Error())
 		c.Queue.Forget(key) // NB(cbandy): This should probably be a retry.
@@ -102,7 +102,7 @@ func (c *Controller) processNextItem() bool {
 		},
 	})
 	if err == nil {
-		_, err = c.Client.QingcloudV1().Pgtasks(keyNamespace).
+		_, err = c.Client.RadondbV1().Pgtasks(keyNamespace).
 			Patch(ctx, tmpTask.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -127,7 +127,7 @@ func (c *Controller) processNextItem() bool {
 		// first, attempt to get the pgcluster object
 		clusterName := tmpTask.Spec.Parameters[config.LABEL_PG_CLUSTER]
 
-		if cluster, err := c.Client.QingcloudV1().Pgclusters(tmpTask.Namespace).
+		if cluster, err := c.Client.RadondbV1().Pgclusters(tmpTask.Namespace).
 			Get(ctx, clusterName, metav1.GetOptions{}); err == nil {
 			if err := clusteroperator.RollingUpdate(c.Client, c.Client.Config, cluster, false,
 				func(kubeapi.Interface, *crv1.Pgcluster, *appsv1.Deployment) error { return nil }); err != nil {
@@ -212,7 +212,7 @@ func (c *Controller) AddPGTaskEventHandler() {
 // started on this
 func dupeDeleteData(clientset pgo.Interface, task *crv1.Pgtask, ns string) bool {
 	ctx := context.TODO()
-	tmp, err := clientset.QingcloudV1().Pgtasks(ns).Get(ctx, task.Spec.Name, metav1.GetOptions{})
+	tmp, err := clientset.RadondbV1().Pgtasks(ns).Get(ctx, task.Spec.Name, metav1.GetOptions{})
 	if err != nil {
 		// a big time error if this occurs
 		return false

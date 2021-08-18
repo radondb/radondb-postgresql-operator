@@ -53,7 +53,7 @@ Storage:
   nfsstoragered:
     AccessMode:  ReadWriteMany
     Size:  1G
-    MatchLabels: qingcloudzone=red
+    MatchLabels: randondbzone=red
     StorageType:  create
     SupplementalGroups:  65534
   storageos:

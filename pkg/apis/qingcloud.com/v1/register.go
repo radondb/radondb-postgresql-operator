@@ -1,7 +1,7 @@
 package v1
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ var (
 
 // GroupName is the group name used in this package.
 // const GroupName = "cr.client-go.k8s.io"
-const GroupName = "qingcloud.com"
+const GroupName = "randondb.com"
 
 // SchemeGroupVersion is the group version used to register these objects.
 var SchemeGroupVersion = schema.GroupVersion{Group: GroupName, Version: "v1"}

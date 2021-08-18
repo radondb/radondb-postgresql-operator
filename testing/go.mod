@@ -1,4 +1,4 @@
-module github.com/qingcloud/postgres-operator/testing
+module github.com/randondb/postgres-operator/testing
 
 go 1.12
 

@@ -9,8 +9,8 @@ ARG PACKAGER
 ARG DFSET
 
 LABEL name="pgo-deployer" \
-    summary="Qingcloud PostgreSQL Operator - Installer" \
-    description="Qingcloud PostgreSQL Operator - Installer"
+    summary="Radondb PostgreSQL Operator - Installer" \
+    description="Radondb PostgreSQL Operator - Installer"
 
 COPY installers/image/conf/kubernetes.repo /etc/yum.repos.d/kubernetes.repo
 
@@ -71,7 +71,7 @@ RUN mkdir -p /opt/cpm/bin
 
 COPY installers/ansible /ansible/postgres-operator
 COPY installers/metrics/ansible /ansible/metrics
-ADD tools/pgmonitor /opt/qingcloud/pgmonitor
+ADD tools/pgmonitor /opt/randondb/pgmonitor
 COPY installers/image/bin/pgo-deploy.sh /pgo-deploy.sh
 ADD bin/common /opt/cpm/bin
 

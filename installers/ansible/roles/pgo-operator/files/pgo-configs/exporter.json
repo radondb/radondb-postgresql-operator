@@ -1,6 +1,6 @@
 {
     "name": "exporter",
-    "image": "{{.PGOImagePrefix}}/qingcloud-postgres-exporter:{{.PGOImageTag}}",
+    "image": "{{.PGOImagePrefix}}/randondb-postgres-exporter:{{.PGOImageTag}}",
     "securityContext": {
       "allowPrivilegeEscalation": false,
       "privileged": false,

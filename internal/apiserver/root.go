@@ -1,7 +1,7 @@
 package apiserver
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -27,11 +27,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/ns"
-	"github.com/qingcloud/postgres-operator/internal/tlsutil"
-	"github.com/qingcloud/postgres-operator/internal/util"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/ns"
+	"github.com/randondb/postgres-operator/internal/tlsutil"
+	"github.com/randondb/postgres-operator/internal/util"
 	log "github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -51,7 +51,7 @@ var (
 	RESTConfig *rest.Config
 )
 
-// MetricsFlag if set to true will cause qingcloud-postgres-exporter to be added into new clusters
+// MetricsFlag if set to true will cause randondb-postgres-exporter to be added into new clusters
 var MetricsFlag, BadgerFlag bool
 
 // AuditFlag if set to true will cause auditing to occur in the logs
@@ -69,7 +69,7 @@ var (
 	InstallationName string
 )
 
-var QINGCLOUD_DEBUG bool
+var RADONDB_DEBUG bool
 
 // TreeTrunk is for debugging only in this context
 const TreeTrunk = "└── "
@@ -106,10 +106,10 @@ func Initialize() {
 	}
 	log.Info("InstallationName is [" + InstallationName + "]")
 
-	tmp := os.Getenv("QINGCLOUD_DEBUG")
-	QINGCLOUD_DEBUG = false
+	tmp := os.Getenv("RADONDB_DEBUG")
+	RADONDB_DEBUG = false
 	if tmp == "true" {
-		QINGCLOUD_DEBUG = true
+		RADONDB_DEBUG = true
 	}
 	BasicAuth = true
 	MetricsFlag = false
@@ -462,7 +462,7 @@ func generateTLSCert(certPath, keyPath string) error {
 	newSecret := corev1.Secret{}
 	newSecret.Name = PGOSecretName
 	newSecret.ObjectMeta.Labels = make(map[string]string)
-	newSecret.ObjectMeta.Labels[config.LABEL_VENDOR] = "qingcloud"
+	newSecret.ObjectMeta.Labels[config.LABEL_VENDOR] = "randondb"
 	newSecret.Data = make(map[string][]byte)
 	newSecret.Data[corev1.TLSCertKey] = caCertBytes
 	newSecret.Data[corev1.TLSPrivateKeyKey] = privateKeyBytes
@@ -503,7 +503,7 @@ func setNamespaceOperatingMode() error {
 func setRandomPgouserPasswords() {
 	ctx := context.TODO()
 
-	selector := "pgo-pgouser=true,vendor=qingcloud"
+	selector := "pgo-pgouser=true,vendor=randondb"
 	secrets, err := Clientset.CoreV1().Secrets(PgoNamespace).
 		List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {

@@ -9,6 +9,6 @@ password: W4tch0ut4hippo$
 # monitoring: true
 # ha: true
 # imagePrefix: docker.io/radondb
-# image: qingcloud-postgres-ha
+# image: randondb-postgres-ha
 # imageTag: centos8-13.3-4.7.1
 # memory: 1Gi

@@ -9,8 +9,8 @@ ARG PACKAGER
 ARG DFSET
 
 LABEL name="pgo-event" \
-    summary="Qingcloud PostgreSQL Operator - pgo-event" \
-    description="Qingcloud PostgreSQL Operator - pgo-event"
+    summary="Radondb PostgreSQL Operator - pgo-event" \
+    description="Radondb PostgreSQL Operator - pgo-event"
 
 ADD bin/pgo-event /usr/local/bin
 

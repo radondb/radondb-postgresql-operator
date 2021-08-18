@@ -2,11 +2,11 @@
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: pgpolicies.qingcloud.com
+  name: pgpolicies.randondb.com
   labels:
-    vendor: qingcloud
+    vendor: randondb
 spec:
-  group: qingcloud.com
+  group: randondb.com
   names:
     kind: Pgpolicy
     listKind: PgpolicyList

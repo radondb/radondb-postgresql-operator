@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+# Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -17,6 +17,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 for i in {1..100}
 do
-   	echo "deleting PV qingcloud-pv$i"
-	$PGO_CMD delete pv qingcloud-pv$i
+   	echo "deleting PV randondb-pv$i"
+	$PGO_CMD delete pv randondb-pv$i
 done

@@ -7,7 +7,7 @@
             {{ if .CustomLabels }}
             {{ .CustomLabels }}
             {{ end }}
-            "vendor": "qingcloud",
+            "vendor": "randondb",
             "pgrestore": "true",
             "pg-cluster": "{{.ClusterName}}",
             "pg-task": "{{.TaskName}}"
@@ -21,7 +21,7 @@
                     {{ if .CustomLabels }}
                     {{ .CustomLabels }}
                     {{ end }}
-                    "vendor": "qingcloud",
+                    "vendor": "randondb",
                     "pgrestore": "true",
                     "pg-cluster": "{{.ClusterName}}"
                 }
@@ -50,14 +50,14 @@
                 "containers": [
                     {
                         "name": "pgrestore",
-                        "image": "{{.CCPImagePrefix}}/qingcloud-postgres-ha:{{.CCPImageTag}}",
+                        "image": "{{.CCPImagePrefix}}/randondb-postgres-ha:{{.CCPImageTag}}",
                         "securityContext": {
                           "allowPrivilegeEscalation": false,
                           "privileged": false,
                           "readOnlyRootFilesystem": true
                         },
-                        "command": ["/opt/qingcloud/bin/uid_postgres.sh"],
-                        "args": ["/opt/qingcloud/bin/start.sh"],
+                        "command": ["/opt/randondb/bin/uid_postgres.sh"],
+                        "args": ["/opt/randondb/bin/start.sh"],
                         "volumeMounts": [
                             {
                                 "mountPath": "/tmp",

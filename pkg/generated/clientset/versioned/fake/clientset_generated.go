@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Radondb Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -18,9 +18,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
-	qingcloudv1 "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/typed/qingcloud.com/v1"
-	fakeqingcloudv1 "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/typed/qingcloud.com/v1/fake"
+	clientset "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
+	randondbv1 "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/typed/randondb.com/v1"
+	fakerandondbv1 "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/typed/randondb.com/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -75,7 +75,7 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 
 var _ clientset.Interface = &Clientset{}
 
-// QingcloudV1 retrieves the QingcloudV1Client
-func (c *Clientset) QingcloudV1() qingcloudv1.QingcloudV1Interface {
-	return &fakeqingcloudv1.FakeQingcloudV1{Fake: &c.Fake}
+// RadondbV1 retrieves the RadondbV1Client
+func (c *Clientset) RadondbV1() randondbv1.RadondbV1Interface {
+	return &fakerandondbv1.FakeRadondbV1{Fake: &c.Fake}
 }

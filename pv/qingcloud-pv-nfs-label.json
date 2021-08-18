@@ -2,9 +2,9 @@
   "apiVersion": "v1",
   "kind": "PersistentVolume",
   "metadata": {
-    	"name": "qingcloud-pv$COUNTER",
+    	"name": "randondb-pv$COUNTER",
 	"labels": {
-		"qingcloudzone": "red"
+		"randondbzone": "red"
 	}
   },
   "spec": {

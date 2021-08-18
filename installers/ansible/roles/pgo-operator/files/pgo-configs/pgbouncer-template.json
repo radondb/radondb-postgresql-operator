@@ -8,10 +8,10 @@
             {{ .CustomLabels }}
             {{ end }}
             "name": "{{.Name}}",
-            "qingcloud-pgbouncer": "true",
+            "randondb-pgbouncer": "true",
             "pg-cluster": "{{.ClusterName}}",
             "service-name": "{{.Name}}",
-            "vendor": "qingcloud"
+            "vendor": "randondb"
         }
     },
     "spec": {
@@ -19,11 +19,11 @@
         "selector": {
             "matchLabels": {
                 "name": "{{.Name}}",
-                "qingcloud-pgbouncer": "true",
+                "randondb-pgbouncer": "true",
                 "pg-cluster": "{{.ClusterName}}",
                 "service-name": "{{.Name}}",
                 "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
-                "vendor": "qingcloud"
+                "vendor": "randondb"
             }
         },
         "template": {
@@ -36,11 +36,11 @@
                     {{ .CustomLabels }}
                     {{ end }}
                     "name": "{{.Name}}",
-                    "qingcloud-pgbouncer": "true",
+                    "randondb-pgbouncer": "true",
                     "pg-cluster": "{{.ClusterName}}",
                     "service-name": "{{.Name}}",
                     "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
-                    "vendor": "qingcloud"
+                    "vendor": "randondb"
                 }
             },
             "spec": {
@@ -53,7 +53,7 @@
                 },
                 "containers": [{
                     "name": "pgbouncer",
-                    "image": "{{.CCPImagePrefix}}/qingcloud-pgbouncer:{{.CCPImageTag}}",
+                    "image": "{{.CCPImagePrefix}}/randondb-pgbouncer:{{.CCPImageTag}}",
                     "securityContext": {
                       "allowPrivilegeEscalation": false,
                       "privileged": false,

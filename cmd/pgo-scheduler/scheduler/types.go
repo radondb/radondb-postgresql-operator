@@ -18,7 +18,7 @@ package scheduler
 import (
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
 	cv3 "github.com/robfig/cron/v3"
 )
 

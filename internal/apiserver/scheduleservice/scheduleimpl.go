@@ -1,7 +1,7 @@
 package scheduleservice
 
 /*
- Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -21,12 +21,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/apiserver/backupoptions"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/internal/apiserver"
+	"github.com/randondb/postgres-operator/internal/apiserver/backupoptions"
+	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/randondb/postgres-operator/internal/util"
+	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 
 	v1 "k8s.io/api/core/v1"
@@ -123,7 +123,7 @@ func CreateSchedule(request *msgs.CreateScheduleRequest, ns string) msgs.CreateS
 		selector = sr.Request.Selector
 	}
 
-	clusterList, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
+	clusterList, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		sr.Response.Status.Code = msgs.Error
 		sr.Response.Status.Msg = fmt.Sprintf("Could not get cluster via selector: %s", err)
@@ -188,7 +188,7 @@ func CreateSchedule(request *msgs.CreateScheduleRequest, ns string) msgs.CreateS
 
 		labels := make(map[string]string)
 		labels["pg-cluster"] = schedule.Cluster
-		labels["qingcloud-scheduler"] = "true"
+		labels["randondb-scheduler"] = "true"
 
 		data := make(map[string]string)
 		data[schedule.Name] = string(blob)
@@ -325,7 +325,7 @@ func ShowSchedule(request *msgs.ShowScheduleRequest, ns string) msgs.ShowSchedul
 func getSchedules(clusterName, selector, ns string) ([]string, error) {
 	ctx := context.TODO()
 	schedules := []string{}
-	label := "qingcloud-scheduler=true"
+	label := "randondb-scheduler=true"
 	if clusterName == "all" {
 	} else if clusterName != "" {
 		label += fmt.Sprintf(",pg-cluster=%s", clusterName)

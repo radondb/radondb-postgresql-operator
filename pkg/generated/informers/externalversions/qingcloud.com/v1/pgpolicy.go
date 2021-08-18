@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Radondb Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,10 +21,10 @@ import (
 	"context"
 	time "time"
 
-	qingcloudcomv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	versioned "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
-	internalinterfaces "github.com/qingcloud/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
-	v1 "github.com/qingcloud/postgres-operator/pkg/generated/listers/qingcloud.com/v1"
+	randondbcomv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	versioned "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
+	internalinterfaces "github.com/randondb/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
+	v1 "github.com/randondb/postgres-operator/pkg/generated/listers/randondb.com/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
@@ -61,16 +61,16 @@ func NewFilteredPgpolicyInformer(client versioned.Interface, namespace string, r
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.QingcloudV1().Pgpolicies(namespace).List(context.TODO(), options)
+				return client.RadondbV1().Pgpolicies(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.QingcloudV1().Pgpolicies(namespace).Watch(context.TODO(), options)
+				return client.RadondbV1().Pgpolicies(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&qingcloudcomv1.Pgpolicy{},
+		&randondbcomv1.Pgpolicy{},
 		resyncPeriod,
 		indexers,
 	)
@@ -81,7 +81,7 @@ func (f *pgpolicyInformer) defaultInformer(client versioned.Interface, resyncPer
 }
 
 func (f *pgpolicyInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&qingcloudcomv1.Pgpolicy{}, f.defaultInformer)
+	return f.factory.InformerFor(&randondbcomv1.Pgpolicy{}, f.defaultInformer)
 }
 
 func (f *pgpolicyInformer) Lister() v1.PgpolicyLister {

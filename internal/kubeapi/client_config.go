@@ -21,41 +21,41 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 
-	qingcloud "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
-	qingcloudscheme "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/scheme"
-	qingcloudv1 "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/typed/qingcloud.com/v1"
+	randondb "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
+	randondbscheme "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	randondbv1 "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/typed/randondb.com/v1"
 )
 
 func init() {
 	// Register all types of our clientset into the standard scheme.
-	_ = qingcloudscheme.AddToScheme(scheme.Scheme)
+	_ = randondbscheme.AddToScheme(scheme.Scheme)
 }
 
 type Interface interface {
 	kubernetes.Interface
-	QingcloudV1() qingcloudv1.QingcloudV1Interface
+	RadondbV1() randondbv1.RadondbV1Interface
 }
 
 // Interface should satisfy both our typed Interface and the standard one.
 var (
-	_ qingcloud.Interface  = Interface(nil)
+	_ randondb.Interface   = Interface(nil)
 	_ kubernetes.Interface = Interface(nil)
 )
 
 // Client provides methods for interacting with Kubernetes resources.
-// It implements both kubernetes and qingcloud clientset Interfaces.
+// It implements both kubernetes and randondb clientset Interfaces.
 type Client struct {
 	*rest.Config
 	*kubernetes.Clientset
 
-	qingcloudV1 *qingcloudv1.QingcloudV1Client
+	randondbV1 *randondbv1.RadondbV1Client
 }
 
 // Client should satisfy Interface.
 var _ Interface = &Client{}
 
-// QingcloudV1 retrieves the QingcloudV1Client
-func (c *Client) QingcloudV1() qingcloudv1.QingcloudV1Interface { return c.qingcloudV1 }
+// RadondbV1 retrieves the RadondbV1Client
+func (c *Client) RadondbV1() randondbv1.RadondbV1Interface { return c.randondbV1 }
 
 // LoadClientConfig prepares a configuration from the environment or home directory,
 // falling back to in-cluster when applicable.
@@ -96,7 +96,7 @@ func NewClientForConfig(config *rest.Config) (*Client, error) {
 	client.Clientset, err = kubernetes.NewForConfig(client.Config)
 
 	if err == nil {
-		client.qingcloudV1, err = qingcloudv1.NewForConfig(client.Config)
+		client.randondbV1, err = randondbv1.NewForConfig(client.Config)
 	}
 
 	return client, err

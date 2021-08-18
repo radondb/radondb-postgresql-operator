@@ -1,4 +1,4 @@
-// Package cmd provides the command line functions of the qingcloud CLI
+// Package cmd provides the command line functions of the randondb CLI
 package cmd
 
 /*
@@ -21,9 +21,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/qingcloud/postgres-operator/cmd/pgo/api"
-	"github.com/qingcloud/postgres-operator/cmd/pgo/util"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/randondb/postgres-operator/cmd/pgo/api"
+	"github.com/randondb/postgres-operator/cmd/pgo/util"
+	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

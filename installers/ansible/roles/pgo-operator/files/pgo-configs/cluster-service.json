@@ -7,7 +7,7 @@
           {{ if .CustomLabels }}
           {{ .CustomLabels }}
           {{ end }}
-          "vendor": "qingcloud",
+          "vendor": "randondb",
           "pg-cluster": "{{.ClusterName}}",
           "name": "{{.Name}}"
       }

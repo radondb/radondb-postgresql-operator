@@ -8,10 +8,10 @@
       {{ .CustomLabels }}
       {{ end }}
       "name": "{{.Name}}",
-      "qingcloud-pgadmin": "true",
+      "randondb-pgadmin": "true",
       "pg-cluster": "{{.ClusterName}}",
       "service-name": "{{.Name}}",
-      "vendor": "qingcloud"
+      "vendor": "randondb"
     }
   },
   "spec": {
@@ -19,10 +19,10 @@
     "selector": {
       "matchLabels": {
         "name": "{{.Name}}",
-        "qingcloud-pgadmin": "true",
+        "randondb-pgadmin": "true",
         "pg-cluster": "{{.ClusterName}}",
         "service-name": "{{.Name}}",
-        "vendor": "qingcloud"
+        "vendor": "randondb"
       }
     },
     "template": {
@@ -32,10 +32,10 @@
           {{ .CustomLabels }}
           {{ end }}
           "name": "{{.Name}}",
-          "qingcloud-pgadmin": "true",
+          "randondb-pgadmin": "true",
           "pg-cluster": "{{.ClusterName}}",
           "service-name": "{{.Name}}",
-          "vendor": "qingcloud"
+          "vendor": "randondb"
         }
       },
       "spec": {
@@ -48,7 +48,7 @@
         },
         "containers": [{
           "name": "pgadminweb",
-          "image": "{{.CCPImagePrefix}}/qingcloud-pgadmin4:{{.CCPImageTag}}",
+          "image": "{{.CCPImagePrefix}}/randondb-pgadmin4:{{.CCPImageTag}}",
           "securityContext": {
             "allowPrivilegeEscalation": false,
             "privileged": false,

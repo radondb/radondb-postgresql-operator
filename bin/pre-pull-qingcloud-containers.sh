@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+# Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-for CNAME in qingcloud-postgres qingcloud-pgbadger qingcloud-pgbouncer
+for CNAME in randondb-postgres randondb-pgbadger randondb-pgbouncer
 do
-	docker pull qingcloud/$CNAME:$CCP_IMAGE_TAG
+	docker pull randondb/$CNAME:$CCP_IMAGE_TAG
 done

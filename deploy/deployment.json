@@ -4,7 +4,7 @@
     "metadata": {
         "name": "postgres-operator",
         "labels": {
-            "vendor": "qingcloud"
+            "vendor": "randondb"
         }
     },
     "spec": {
@@ -12,14 +12,14 @@
         "selector": {
             "matchLabels": {
                 "name": "postgres-operator",
-                "vendor": "qingcloud"
+                "vendor": "randondb"
             }
         },
         "template": {
             "metadata": {
                 "labels": {
                     "name": "postgres-operator",
-                    "vendor": "qingcloud"
+                    "vendor": "randondb"
                 }
             },
             "spec": {
@@ -60,7 +60,7 @@
                         },
                         "env": [
                             {
-                                "name": "QINGCLOUD_DEBUG",
+                                "name": "RADONDB_DEBUG",
                                 "value": "true"
                             },
                             {
@@ -139,7 +139,7 @@
                         },
                         "env": [
                             {
-                                "name": "QINGCLOUD_DEBUG",
+                                "name": "RADONDB_DEBUG",
                                 "value": "true"
                             },
                             {
@@ -198,7 +198,7 @@
                         },
                         "env": [
                             {
-                                "name": "QINGCLOUD_DEBUG",
+                                "name": "RADONDB_DEBUG",
                                 "value": "true"
                             },
                             {

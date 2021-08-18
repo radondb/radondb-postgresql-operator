@@ -18,19 +18,19 @@ package fake
 import (
 	fakekubernetes "k8s.io/client-go/kubernetes/fake"
 
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	fakeqingcloud "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/fake"
-	qingcloudv1 "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/typed/qingcloud.com/v1"
+	"github.com/randondb/postgres-operator/internal/kubeapi"
+	fakerandondb "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/fake"
+	randondbv1 "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/typed/randondb.com/v1"
 )
 
 type Clientset struct {
 	*fakekubernetes.Clientset
-	PGOClientset *fakeqingcloud.Clientset
+	PGOClientset *fakerandondb.Clientset
 }
 
 var _ kubeapi.Interface = &Clientset{}
 
-// QingcloudV1 retrieves the QingcloudV1Client
-func (c *Clientset) QingcloudV1() qingcloudv1.QingcloudV1Interface {
-	return c.PGOClientset.QingcloudV1()
+// RadondbV1 retrieves the RadondbV1Client
+func (c *Clientset) RadondbV1() randondbv1.RadondbV1Interface {
+	return c.PGOClientset.RadondbV1()
 }

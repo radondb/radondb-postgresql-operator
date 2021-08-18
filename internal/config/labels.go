@@ -35,7 +35,7 @@ const (
 const (
 	LABEL_PGPOLICY           = "pgpolicy"
 	LABEL_PVCNAME            = "pvcname"
-	LABEL_EXPORTER           = "qingcloud-postgres-exporter"
+	LABEL_EXPORTER           = "randondb-postgres-exporter"
 	LABEL_ARCHIVE            = "archive"
 	LABEL_ARCHIVE_TIMEOUT    = "archive-timeout"
 	LABEL_NODE_AFFINITY_TYPE = "node-affinity-type"
@@ -126,13 +126,13 @@ const (
 )
 
 const (
-	LABEL_PGADMIN              = "qingcloud-pgadmin"
+	LABEL_PGADMIN              = "randondb-pgadmin"
 	LABEL_PGADMIN_TASK_ADD     = "pgadmin-add"
 	LABEL_PGADMIN_TASK_CLUSTER = "pgadmin-cluster"
 	LABEL_PGADMIN_TASK_DELETE  = "pgadmin-delete"
 )
 
-const LABEL_PGBOUNCER = "qingcloud-pgbouncer"
+const LABEL_PGBOUNCER = "randondb-pgbouncer"
 
 const (
 	LABEL_JOB_NAME             = "job-name"
@@ -168,7 +168,7 @@ const (
 	LABEL_NAMESPACE             = "namespace"
 	LABEL_PGO_INSTALLATION_NAME = "pgo-installation-name"
 	LABEL_VENDOR                = "vendor"
-	LABEL_QINGCLOUD             = "qingcloud"
+	LABEL_RADONDB               = "randondb"
 	LABEL_PGO_CREATED_BY        = "pgo-created-by"
 	LABEL_PGO_UPDATED_BY        = "pgo-updated-by"
 )
@@ -176,7 +176,7 @@ const (
 const GLOBAL_CUSTOM_CONFIGMAP = "pgo-custom-pg-config"
 
 const (
-	LABEL_PGHA_SCOPE               = "qingcloud-pgha-scope"
+	LABEL_PGHA_SCOPE               = "randondb-pgha-scope"
 	LABEL_PGHA_CONFIGMAP           = "pgha-config"
 	LABEL_PGHA_BACKUP_TYPE         = "pgha-backup-type"
 	LABEL_PGHA_ROLE                = "role"

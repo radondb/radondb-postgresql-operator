@@ -5,7 +5,7 @@
         "name": "pgo-client",
         "namespace": "{{ pgo_operator_namespace }}",
         "labels": {
-            "vendor": "qingcloud"
+            "vendor": "randondb"
         }
     },
     "spec": {
@@ -13,14 +13,14 @@
         "selector": {
                 "matchLabels": {
                         "name": "pgo-client",
-                        "vendor": "qingcloud"
+                        "vendor": "randondb"
                 }
         },
         "template": {
             "metadata": {
                 "labels": {
                     "name": "pgo-client",
-                    "vendor": "qingcloud"
+                    "vendor": "randondb"
                 }
             },
             "spec": {

@@ -98,13 +98,13 @@ pgo create cluster --help
 ```
 
 ```shell
-pgo create cluster qingcloud \
+pgo create cluster randondb \
 #备份存储的类型,支持"posix", "s3", "gcs", "posix,s3" or "posix,gcs"
 --pgbackrest-storage-type="s3" \
 #PostgeSQL副本数量
 --replica-count=3 \
-#使用的镜像名称，带gis插件的镜像：qingcloud-postgres-gis-ha,不带gis插件的镜像：qingcloud-postgres-ha
---ccp-image=qingcloud-postgres-ha \
+#使用的镜像名称，带gis插件的镜像：randondb-postgres-gis-ha,不带gis插件的镜像：randondb-postgres-ha
+--ccp-image=randondb-postgres-ha \
 #镜像仓库
 --ccp-image-prefix=docker.io/radondb \
 #ockerhub上镜像的标签，目前支持centos8-12.7-4.7.1 和centos8-13.3-4.7.1
@@ -136,18 +136,18 @@ kubectl get po -n pgo --watch
 
 #### 连接到PostgreSQL 集群
 
-您可以使用以下`pgo show user -n pgo qingcloud`命令获取有关集群中用户的信息：
+您可以使用以下`pgo show user -n pgo randondb`命令获取有关集群中用户的信息：
 
 ```shell
- pgo show user -n pgo qingcloud --show-system-accounts
+ pgo show user -n pgo randondb --show-system-accounts
  
  CLUSTER   USERNAME       PASSWORD                 EXPIRES STATUS ERROR 
 --------- -------------- ------------------------ ------- ------ -----
-qingcloud ccp_monitoring Dwpa|MCg,b4M+rY.>ZC0ONz4 never   ok           
-qingcloud pgbouncer      MsTk4.auti9[0L2yDaHu/_Ni never   ok           
-qingcloud postgres       1a4R-d7Po=,PS@R:-=?[gP(9 never   ok           
-qingcloud primaryuser    =B8x*Haf*dCq+V4hkGSfh/.} never   ok           
-qingcloud testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok 
+randondb ccp_monitoring Dwpa|MCg,b4M+rY.>ZC0ONz4 never   ok           
+randondb pgbouncer      MsTk4.auti9[0L2yDaHu/_Ni never   ok           
+randondb postgres       1a4R-d7Po=,PS@R:-=?[gP(9 never   ok           
+randondb primaryuser    =B8x*Haf*dCq+V4hkGSfh/.} never   ok           
+randondb testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok 
 ```
 
 ##### `psql`连接方式
@@ -158,44 +158,44 @@ qingcloud testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok
  kubectl -n pgo get svc
 NAME                             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                AGE
 postgres-operator                ClusterIP   10.96.64.37     <none>        8443/TCP,4171/TCP,4150/TCP             58m
-qingcloud                        ClusterIP   10.96.171.227   <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   5m42s
-qingcloud-backrest-shared-repo   ClusterIP   10.96.235.247   <none>        2022/TCP                               5m42s
-qingcloud-pgbouncer              ClusterIP   10.96.234.49    <none>        5432/TCP                               4m16s
-qingcloud-replica                ClusterIP   10.96.67.45     <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   3m50s
+randondb                        ClusterIP   10.96.171.227   <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   5m42s
+randondb-backrest-shared-repo   ClusterIP   10.96.235.247   <none>        2022/TCP                               5m42s
+randondb-pgbouncer              ClusterIP   10.96.234.49    <none>        5432/TCP                               4m16s
+randondb-replica                ClusterIP   10.96.67.45     <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   3m50s
 ```
 
-使用`qingcloud`这个服务连接到数据库：
+使用`randondb`这个服务连接到数据库：
 
 ```shell
-kubectl -n pgo port-forward svc/qingcloud 5432:5432
-PGPASSWORD='yTFeeH1|^DX<Bx4[?:B_/Q;M' psql -h localhost -p 5432 -U testuser qingcloud
+kubectl -n pgo port-forward svc/randondb 5432:5432
+PGPASSWORD='yTFeeH1|^DX<Bx4[?:B_/Q;M' psql -h localhost -p 5432 -U testuser randondb
 ```
 
 ##### `pgAdmin`连接
 
 `pgAdmin`是一个图形工具，可用于从 Web 浏览器管理和 PostgreSQL 数据库
 
-`pgo create pgadmin -n pgo qingcloud`
+`pgo create pgadmin -n pgo randondb`
 
 创建pgAdmin的4实例需要一些时间, 等待创建完成后查看可用服务列表：
 
 ```shell
- kubectl -n pgo get svc qingcloud-pgadmin
+ kubectl -n pgo get svc randondb-pgadmin
 NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-qingcloud-pgadmin   ClusterIP   10.96.239.152   <none>        5050/TCP   2m41s
+randondb-pgadmin   ClusterIP   10.96.239.152   <none>        5050/TCP   2m41s
 ```
 
 修改初始用户密码：
 
-`pgo update user -n pgo qingcloud --username=testuser --password=Qingcloud`
+`pgo update user -n pgo randondb --username=testuser --password=Radondb`
 
 创建端口转发并连接:
 
 ```shell
-kubectl -n pgo port-forward svc/qingcloud-pgadmin 5050:5050
+kubectl -n pgo port-forward svc/randondb-pgadmin 5050:5050
 ```
 
-将您的浏览器导航到[http://localhost:5050](http://localhost:5050/)并使用您的数据库用户名 ( `testuser`) 和密码(Qingcloud)连接
+将您的浏览器导航到[http://localhost:5050](http://localhost:5050/)并使用您的数据库用户名 ( `testuser`) 和密码(Radondb)连接
 
 ### 步骤三: 部署Prometheus服务端
 
@@ -209,15 +209,15 @@ kubectl -n pgo port-forward svc/qingcloud-pgadmin 5050:5050
 查看服务：
 
 ```shell
- kubectl get svc -n pgo qingcloud-grafana
+ kubectl get svc -n pgo randondb-grafana
 NAME                TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
-qingcloud-grafana   ClusterIP   10.96.222.20   <none>        3000/TCP   4m4s
+randondb-grafana   ClusterIP   10.96.222.20   <none>        3000/TCP   4m4s
 ```
 
 创建端口转发并连接:
 
 ```shell
-kubectl port-forward --namespace pgo svc/qingcloud-grafana --address 0.0.0.0 3000:3000
+kubectl port-forward --namespace pgo svc/randondb-grafana --address 0.0.0.0 3000:3000
 ```
 
 将您的浏览器导航到[http://localhost:3000](http://localhost:3000/)并使用初始用户admin/admin连接

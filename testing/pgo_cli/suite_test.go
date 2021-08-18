@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/testing/kubeapi"
+	"github.com/randondb/postgres-operator/testing/kubeapi"
 )
 
 func TestMain(m *testing.M) {

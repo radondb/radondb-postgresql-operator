@@ -1,4 +1,4 @@
-Thank you for installing the Qingcloud PostgreSQL Operator v{{ .Chart.AppVersion }}!
+Thank you for installing the Radondb PostgreSQL Operator v{{ .Chart.AppVersion }}!
   ______      __  .__   __.   _______   ______  __        ______    __    __   _______  
  /  __  \    |  | |  \ |  |  /  _____| /      ||  |      /  __  \  |  |  |  | |       \ 
 |  |  |  |   |  | |   \|  | |  |  __  |  ,----'|  |     |  |  |  | |  |  |  | |  .--.  |

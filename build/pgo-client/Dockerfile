@@ -9,8 +9,8 @@ ARG PACKAGER
 ARG DFSET
 
 LABEL name="pgo-client" \
-  summary="Qingcloud PostgreSQL Operator - pgo client" \
-  description="Qingcloud PostgreSQL Operator - pgo client"
+  summary="Radondb PostgreSQL Operator - pgo client" \
+  description="Radondb PostgreSQL Operator - pgo client"
 
 ADD bin/pgo /usr/local/bin
 
