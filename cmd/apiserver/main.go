@@ -24,10 +24,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/apiserver"
-	"github.com/randondb/postgres-operator/internal/apiserver/routing"
-	randondblog "github.com/randondb/postgres-operator/internal/logging"
-	"github.com/randondb/postgres-operator/internal/tlsutil"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/apiserver/routing"
+	radondblog "github.com/radondb/postgres-operator/internal/logging"
+	"github.com/radondb/postgres-operator/internal/tlsutil"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
@@ -102,8 +102,8 @@ func main() {
 		}
 	}
 
-	// init randondb-formatted logger
-	randondblog.RadondbLogger(randondblog.SetParameters())
+	// init radondb-formatted logger
+	radondblog.RadondbLogger(radondblog.SetParameters())
 
 	// give time for pgo-event to start up
 	time.Sleep(time.Duration(5) * time.Second)

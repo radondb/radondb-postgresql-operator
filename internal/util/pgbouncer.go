@@ -18,7 +18,7 @@ package util
 import (
 	"fmt"
 
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 )
 
 // pgBouncerConfigMapFormat is the format used for the name of the config

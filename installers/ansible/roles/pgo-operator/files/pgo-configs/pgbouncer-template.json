@@ -8,10 +8,10 @@
             {{ .CustomLabels }}
             {{ end }}
             "name": "{{.Name}}",
-            "randondb-pgbouncer": "true",
+            "radondb-pgbouncer": "true",
             "pg-cluster": "{{.ClusterName}}",
             "service-name": "{{.Name}}",
-            "vendor": "randondb"
+            "vendor": "radondb"
         }
     },
     "spec": {
@@ -19,11 +19,11 @@
         "selector": {
             "matchLabels": {
                 "name": "{{.Name}}",
-                "randondb-pgbouncer": "true",
+                "radondb-pgbouncer": "true",
                 "pg-cluster": "{{.ClusterName}}",
                 "service-name": "{{.Name}}",
                 "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
-                "vendor": "randondb"
+                "vendor": "radondb"
             }
         },
         "template": {
@@ -36,11 +36,11 @@
                     {{ .CustomLabels }}
                     {{ end }}
                     "name": "{{.Name}}",
-                    "randondb-pgbouncer": "true",
+                    "radondb-pgbouncer": "true",
                     "pg-cluster": "{{.ClusterName}}",
                     "service-name": "{{.Name}}",
                     "{{.PodAntiAffinityLabelName}}": "{{.PodAntiAffinityLabelValue}}",
-                    "vendor": "randondb"
+                    "vendor": "radondb"
                 }
             },
             "spec": {
@@ -53,7 +53,7 @@
                 },
                 "containers": [{
                     "name": "pgbouncer",
-                    "image": "{{.CCPImagePrefix}}/randondb-pgbouncer:{{.CCPImageTag}}",
+                    "image": "{{.CCPImagePrefix}}/radondb-pgbouncer:{{.CCPImageTag}}",
                     "securityContext": {
                       "allowPrivilegeEscalation": false,
                       "privileged": false,

@@ -18,8 +18,8 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	"github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	v1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 
@@ -31,7 +31,7 @@ type RadondbV1Interface interface {
 	PgtasksGetter
 }
 
-// RadondbV1Client is used to interact with features provided by the randondb.com group.
+// RadondbV1Client is used to interact with features provided by the radondb.com group.
 type RadondbV1Client struct {
 	restClient rest.Interface
 }

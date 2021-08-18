@@ -16,8 +16,8 @@ limitations under the License.
 */
 
 import (
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
 	log "github.com/sirupsen/logrus"
 	apiv1 "k8s.io/api/batch/v1"
 	batchinformers "k8s.io/client-go/informers/batch/v1"
@@ -36,8 +36,8 @@ func (c *Controller) onAdd(obj interface{}) {
 	job := obj.(*apiv1.Job)
 	labels := job.GetObjectMeta().GetLabels()
 
-	// only process jobs with with vendor=randondb label
-	if labels[config.LABEL_VENDOR] != "randondb" {
+	// only process jobs with with vendor=radondb label
+	if labels[config.LABEL_VENDOR] != "radondb" {
 		return
 	}
 
@@ -51,8 +51,8 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 	job := newObj.(*apiv1.Job)
 	labels := job.GetObjectMeta().GetLabels()
 
-	// only process jobs with with vendor=randondb label
-	if labels[config.LABEL_VENDOR] != "randondb" {
+	// only process jobs with with vendor=radondb label
+	if labels[config.LABEL_VENDOR] != "radondb" {
 		return
 	}
 
@@ -86,8 +86,8 @@ func (c *Controller) onDelete(obj interface{}) {
 	job := obj.(*apiv1.Job)
 	labels := job.GetObjectMeta().GetLabels()
 
-	// only process jobs with with vendor=randondb label
-	if labels[config.LABEL_VENDOR] != "randondb" {
+	// only process jobs with with vendor=radondb label
+	if labels[config.LABEL_VENDOR] != "radondb" {
 		return
 	}
 

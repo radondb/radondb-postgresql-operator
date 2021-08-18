@@ -1,11 +1,11 @@
 ---
-apiVersion: randondb.com/v1
+apiVersion: radondb.com/v1
 kind: Pgcluster
 metadata:
   annotations: { current-primary: 'hippo' }
   name: hippo
   labels:
-    randondb-pgha-scope: hippo
+    radondb-pgha-scope: hippo
     deployment-name: hippo
     name: hippo
     namespace: pgo
@@ -15,7 +15,7 @@ spec:
   name: hippo
   namespace: pgo
   clustername: hippo
-  ccpimage: randondb-postgres-ha
+  ccpimage: radondb-postgres-ha
   ccpimagetag: '${CCP_IMAGE_TAG}'
   BackrestStorage:
     accessmode: ReadWriteMany
@@ -52,7 +52,7 @@ spec:
     pgo-version: '${PGO_VERSION}'
 
 ---
-apiVersion: randondb.com/v1
+apiVersion: radondb.com/v1
 kind: Pgreplica
 metadata:
   name: example
@@ -60,7 +60,7 @@ spec: {}
 status: {}
 
 ---
-apiVersion: randondb.com/v1
+apiVersion: radondb.com/v1
 kind: Pgpolicy
 metadata:
   name: example
@@ -68,7 +68,7 @@ spec: {}
 status: {}
 
 ---
-apiVersion: randondb.com/v1
+apiVersion: radondb.com/v1
 kind: Pgtask
 metadata:
   name: example

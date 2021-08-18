@@ -24,12 +24,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	"github.com/randondb/postgres-operator/pkg/events"
-	pgo "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/postgres-operator/pkg/events"
+	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"

@@ -26,15 +26,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/apiserver"
-	"github.com/randondb/postgres-operator/internal/apiserver/backupoptions"
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/operator/backrest"
-	clusteroperator "github.com/randondb/postgres-operator/internal/operator/cluster"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/apiserver/backupoptions"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator/backrest"
+	clusteroperator "github.com/radondb/postgres-operator/internal/operator/cluster"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -1397,7 +1397,7 @@ func getClusterParams(request *msgs.CreateClusterRequest, name string, ns string
 		spec.CCPImage = request.CCPImage
 		log.Debugf("user is overriding CCPImage from command line %s", request.CCPImage)
 	} else {
-		spec.CCPImage = "randondb-postgres-ha"
+		spec.CCPImage = "radondb-postgres-ha"
 	}
 
 	// update the CRD spec to use the custom CCPImagePrefix, if given

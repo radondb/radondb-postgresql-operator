@@ -18,11 +18,11 @@ package backrest
 import (
 	"context"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/operator"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -88,7 +88,7 @@ func StanzaCreate(namespace, clusterName string, clientset kubeapi.Interface) {
 	spec.Parameters[config.LABEL_JOB_NAME] = jobName
 	spec.Parameters[config.LABEL_PG_CLUSTER] = clusterName
 	spec.Parameters[config.LABEL_POD_NAME] = podName
-	spec.Parameters[config.LABEL_CONTAINER_NAME] = "randondb-pgbackrest-repo"
+	spec.Parameters[config.LABEL_CONTAINER_NAME] = "radondb-pgbackrest-repo"
 	// pass along the appropriate image prefix for the backup task
 	// this will be used by the associated backrest job
 	spec.Parameters[config.LABEL_IMAGE_PREFIX] = util.GetValueOrDefault(cluster.Spec.CCPImagePrefix, operator.Pgo.Cluster.CCPImagePrefix)

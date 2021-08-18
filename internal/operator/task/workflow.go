@@ -20,8 +20,8 @@ import (
 	"encoding/json"
 	"time"
 
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	pgo "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"

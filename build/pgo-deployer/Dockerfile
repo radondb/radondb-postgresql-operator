@@ -71,7 +71,7 @@ RUN mkdir -p /opt/cpm/bin
 
 COPY installers/ansible /ansible/postgres-operator
 COPY installers/metrics/ansible /ansible/metrics
-ADD tools/pgmonitor /opt/randondb/pgmonitor
+ADD tools/pgmonitor /opt/radondb/pgmonitor
 COPY installers/image/bin/pgo-deploy.sh /pgo-deploy.sh
 ADD bin/common /opt/cpm/bin
 

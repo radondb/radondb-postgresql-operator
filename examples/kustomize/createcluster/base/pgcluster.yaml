@@ -1,12 +1,12 @@
-apiVersion: randondb.com/v1
+apiVersion: radondb.com/v1
 kind: Pgcluster
 metadata:
   annotations:
     current-primary: hippo
   labels:
     autofail: "true"
-    randondb-pgbadger: "false"
-    randondb-pgha-scope: hippo
+    radondb-pgbadger: "false"
+    radondb-pgha-scope: hippo
     deployment-name: hippo
     name: hippo
     pg-cluster: hippo
@@ -44,7 +44,7 @@ spec:
     backrest: {}
     pgBouncer: {}
     postgres: {}
-  ccpimage: randondb-postgres-ha
+  ccpimage: radondb-postgres-ha
   ccpimageprefix: docker.io/radondb
   ccpimagetag: centos8-13.3-4.7.1
   clustername: hippo

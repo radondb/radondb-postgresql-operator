@@ -20,11 +20,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/randondb/postgres-operator/cmd/pgo/api"
-	"github.com/randondb/postgres-operator/cmd/pgo/util"
-	"github.com/randondb/postgres-operator/internal/apiserver"
-	utiloperator "github.com/randondb/postgres-operator/internal/util"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/cmd/pgo/api"
+	"github.com/radondb/postgres-operator/cmd/pgo/util"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	utiloperator "github.com/radondb/postgres-operator/internal/util"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 )

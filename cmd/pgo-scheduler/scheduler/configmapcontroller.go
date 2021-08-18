@@ -36,7 +36,7 @@ func (c *Controller) onAdd(obj interface{}) {
 		log.WithFields(log.Fields{}).Error("Could not convert runtime object to configmap..")
 	}
 
-	if _, ok := cm.Labels["randondb-scheduler"]; !ok {
+	if _, ok := cm.Labels["radondb-scheduler"]; !ok {
 		return
 	}
 
@@ -54,7 +54,7 @@ func (c *Controller) onDelete(obj interface{}) {
 		log.WithFields(log.Fields{}).Error("Could not convert runtime object to configmap..")
 	}
 
-	if _, ok := cm.Labels["randondb-scheduler"]; !ok {
+	if _, ok := cm.Labels["radondb-scheduler"]; !ok {
 		return
 	}
 	c.Scheduler.DeleteSchedule(cm)

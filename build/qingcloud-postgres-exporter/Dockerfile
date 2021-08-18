@@ -8,12 +8,12 @@ ARG PGVERSION
 ARG PACKAGER
 ARG DFSET
 
-LABEL name="randondb-postgres-exporter" \
+LABEL name="radondb-postgres-exporter" \
 	summary="Metrics exporter for PostgreSQL" \
-	description="When run with the randondb-postgres family of containers, randondb-postgres-exporter reads the PostgreSQL data directory and has a SQL interface to a database to allow for metrics collection." \
+	description="When run with the radondb-postgres family of containers, radondb-postgres-exporter reads the PostgreSQL data directory and has a SQL interface to a database to allow for metrics collection." \
 	io.k8s.description="Radondb PostgreSQL Exporter" \
 	io.k8s.display-name="Radondb PostgreSQL Exporter" \
-	io.openshift.tags="postgresql,postgres,monitoring,database,randondb"
+	io.openshift.tags="postgresql,postgres,monitoring,database,radondb"
 
 RUN if [ "$DFSET" = "centos" ] ; then \
 	${PACKAGER} -y install epel-release \
@@ -48,7 +48,7 @@ RUN mkdir -p /opt/cpm/bin /opt/cpm/conf
 ADD postgres_exporter.tar.gz /opt/cpm/bin
 ADD tools/pgmonitor/postgres_exporter/common /opt/cpm/conf
 ADD tools/pgmonitor/postgres_exporter/linux /opt/cpm/conf
-ADD bin/randondb-postgres-exporter /opt/cpm/bin
+ADD bin/radondb-postgres-exporter /opt/cpm/bin
 ADD bin/common /opt/cpm/bin
 
 RUN chgrp -R 0 /opt/cpm/bin /opt/cpm/conf && \

@@ -32,15 +32,15 @@ Contents
 2. 查看 Prometheus 服务状态。
 
    ```shell
-    kubectl get svc -n pgo qingcloud-grafana
+    kubectl get svc -n pgo radondb-grafana
    NAME                TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
-   qingcloud-grafana   ClusterIP   10.96.222.20   <none>        3000/TCP   4m4s
+   radondb-grafana   ClusterIP   10.96.222.20   <none>        3000/TCP   4m4s
    ```
 
 3. 创建端口转发并连接 Prometheus 服务。
 
    ```shell
-   kubectl port-forward --namespace pgo svc/qingcloud-grafana --address 0.0.0.0 3000:3000
+   kubectl port-forward --namespace pgo svc/radondb-grafana --address 0.0.0.0 3000:3000
    ```
 
 ## 查看监控信息

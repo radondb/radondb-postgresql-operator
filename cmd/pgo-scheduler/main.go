@@ -22,13 +22,13 @@ import (
 	"syscall"
 	"time"
 
-	sched "github.com/randondb/postgres-operator/cmd/pgo-scheduler/scheduler"
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/controller"
-	nscontroller "github.com/randondb/postgres-operator/internal/controller/namespace"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	randondblog "github.com/randondb/postgres-operator/internal/logging"
-	"github.com/randondb/postgres-operator/internal/ns"
+	sched "github.com/radondb/postgres-operator/cmd/pgo-scheduler/scheduler"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/controller"
+	nscontroller "github.com/radondb/postgres-operator/internal/controller/namespace"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	radondblog "github.com/radondb/postgres-operator/internal/logging"
+	"github.com/radondb/postgres-operator/internal/ns"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kubeinformers "k8s.io/client-go/informers"
@@ -37,7 +37,7 @@ import (
 )
 
 const (
-	schedulerLabel       = "randondb-scheduler=true"
+	schedulerLabel       = "radondb-scheduler=true"
 	pgoNamespaceEnv      = "PGO_OPERATOR_NAMESPACE"
 	namespaceWorkerCount = 1
 )
@@ -60,7 +60,7 @@ func init() {
 
 	debugFlag := os.Getenv("RADONDB_DEBUG")
 	// add logging configuration
-	randondblog.RadondbLogger(randondblog.SetParameters())
+	radondblog.RadondbLogger(radondblog.SetParameters())
 	if debugFlag == "true" {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("debug flag set to true")

@@ -23,7 +23,7 @@ pgo-apiserver
 pgo-rmdata
 pgo-client
 pgo-deployer
-randondb-postgres-exporter
+radondb-postgres-exporter
 )
 
 for image in "${IMAGES[@]}"

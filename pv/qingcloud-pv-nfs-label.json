@@ -2,9 +2,9 @@
   "apiVersion": "v1",
   "kind": "PersistentVolume",
   "metadata": {
-    	"name": "randondb-pv$COUNTER",
+    	"name": "radondb-pv$COUNTER",
 	"labels": {
-		"randondbzone": "red"
+		"radondbzone": "red"
 	}
   },
   "spec": {

@@ -26,16 +26,16 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/wait"
 
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/operator"
-	"github.com/randondb/postgres-operator/internal/operator/pvc"
-	"github.com/randondb/postgres-operator/internal/util"
-	"github.com/randondb/postgres-operator/pkg/events"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/operator/pvc"
+	"github.com/radondb/postgres-operator/internal/util"
+	"github.com/radondb/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	cfg "github.com/randondb/postgres-operator/internal/operator/config"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	cfg "github.com/radondb/postgres-operator/internal/operator/config"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 )
@@ -58,7 +58,7 @@ const (
     "create_replica_methods": [
 	    "pgbackrest_standby"
     ],
-	"restore_command": "source /opt/randondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-get %f \"%p\""
+	"restore_command": "source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-get %f \"%p\""
 }`
 )
 

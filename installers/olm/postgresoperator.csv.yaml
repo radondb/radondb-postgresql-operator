@@ -5,7 +5,7 @@ metadata:
   name: 'postgresoperator.v${PGO_VERSION}'
   annotations:
     certified: 'false'
-    support: randondb.com
+    support: radondb.com
 
     # The following affect how the package is indexed at OperatorHub.io:
     # https://operatorhub.io/?category=Database
@@ -17,7 +17,7 @@ metadata:
     # https://operatorhub.io/operator/postgresql
     createdAt: 2019-12-31 19:40Z
     containerImage: '${PGO_IMAGE_PREFIX}/postgres-operator:${PGO_IMAGE_TAG}'
-    repository: https://github.com/RandonDB/postgres-operator
+    repository: https://github.com/RadonDB/postgres-operator
 
     alm-examples: |- # postgresoperator.crd.examples.yaml
 
@@ -32,7 +32,7 @@ spec:
     - database
     - sql
     - operator
-    - randondb data
+    - radondb data
 
   # The following appear on the details page at OperatorHub.io:
   # https://operatorhub.io/operator/postgresql
@@ -40,7 +40,7 @@ spec:
   version: '${PGO_VERSION}'
   links:
     - name: Radondb Data
-      url: https://www.randondb.com/
+      url: https://www.radondb.com/
   maintainers:
     - name: Radondb Data
       email: hualongzhong@yunify.com
@@ -153,7 +153,7 @@ spec:
                 - delete
                 - deletecollection
             - apiGroups:
-                - randondb.com
+                - radondb.com
               resources:
                 - pgclusters
                 - pgpolicies
@@ -197,12 +197,12 @@ spec:
             selector:
               matchLabels:
                 name: postgres-operator
-                vendor: randondb
+                vendor: radondb
             template:
               metadata:
                 labels:
                   name: postgres-operator
-                  vendor: randondb
+                  vendor: radondb
               spec:
                 serviceAccountName: postgres-operator
                 securityContext:

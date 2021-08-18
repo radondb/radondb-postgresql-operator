@@ -5,7 +5,7 @@
         "name": "pgo-backrest-role",
         "namespace": "{{.TargetNamespace}}",
         "labels": {
-          "vendor": "randondb"
+          "vendor": "radondb"
         }
     },
     "rules": [

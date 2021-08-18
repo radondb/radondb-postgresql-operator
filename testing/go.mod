@@ -1,4 +1,4 @@
-module github.com/randondb/postgres-operator/testing
+module github.com/radondb/postgres-operator/testing
 
 go 1.12
 

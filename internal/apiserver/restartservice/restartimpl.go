@@ -19,12 +19,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/randondb/postgres-operator/internal/apiserver"
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/patroni"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/patroni"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 

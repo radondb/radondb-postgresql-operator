@@ -92,7 +92,7 @@ $PGO_APISERVER_URL/clustersdelete
   BasePath: /
   Version: 4.7.1
   License: Apache 2.0 http://www.apache.org/licenses/LICENSE-2.0
-  Contact: Radondb Data<info@randondb.com> https://www.randondb.com/
+  Contact: Radondb Data<info@radondb.com> https://www.radondb.com/
 
 
 	Consumes:

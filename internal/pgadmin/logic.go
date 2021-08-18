@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"

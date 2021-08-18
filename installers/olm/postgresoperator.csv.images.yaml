@@ -4,14 +4,14 @@
 - { name: PGO_IMAGE_PREFIX, value: '${PGO_IMAGE_PREFIX}' }
 - { name: PGO_IMAGE_TAG,    value: '${PGO_IMAGE_TAG}' }
 
-- { name: RELATED_IMAGE_PGO_BACKREST,                value: '${CCP_IMAGE_PREFIX}/randondb-pgbackrest:${CCP_IMAGE_TAG}' }
-- { name: RELATED_IMAGE_PGO_BACKREST_REPO,           value: '${CCP_IMAGE_PREFIX}/randondb-pgbackrest-repo:${CCP_IMAGE_TAG}' }
+- { name: RELATED_IMAGE_PGO_BACKREST,                value: '${CCP_IMAGE_PREFIX}/radondb-pgbackrest:${CCP_IMAGE_TAG}' }
+- { name: RELATED_IMAGE_PGO_BACKREST_REPO,           value: '${CCP_IMAGE_PREFIX}/radondb-pgbackrest-repo:${CCP_IMAGE_TAG}' }
 - { name: RELATED_IMAGE_PGO_CLIENT,                  value: '${PGO_IMAGE_PREFIX}/pgo-client:${PGO_IMAGE_TAG}' }
 - { name: RELATED_IMAGE_PGO_RMDATA,                  value: '${PGO_IMAGE_PREFIX}/pgo-rmdata:${PGO_IMAGE_TAG}' }
-- { name: RELATED_IMAGE_RADONDB_POSTGRES_EXPORTER,   value: '${PGO_IMAGE_PREFIX}/randondb-postgres-exporter:${PGO_IMAGE_TAG}' }
+- { name: RELATED_IMAGE_RADONDB_POSTGRES_EXPORTER,   value: '${PGO_IMAGE_PREFIX}/radondb-postgres-exporter:${PGO_IMAGE_TAG}' }
 
-- { name: RELATED_IMAGE_RADONDB_PGADMIN,          value: '${CCP_IMAGE_PREFIX}/randondb-pgadmin4:${CCP_IMAGE_TAG}' }
-- { name: RELATED_IMAGE_RADONDB_PGBADGER,         value: '${CCP_IMAGE_PREFIX}/randondb-pgbadger:${CCP_IMAGE_TAG}' }
-- { name: RELATED_IMAGE_RADONDB_PGBOUNCER,        value: '${CCP_IMAGE_PREFIX}/randondb-pgbouncer:${CCP_IMAGE_TAG}' }
-- { name: RELATED_IMAGE_RADONDB_POSTGRES_HA,      value: '${CCP_IMAGE_PREFIX}/randondb-postgres-ha:${CCP_IMAGE_TAG}' }
-- { name: RELATED_IMAGE_RADONDB_POSTGRES_GIS_HA,  value: '${CCP_IMAGE_PREFIX}/randondb-postgres-gis-ha:${CCP_POSTGIS_IMAGE_TAG}' }
+- { name: RELATED_IMAGE_RADONDB_PGADMIN,          value: '${CCP_IMAGE_PREFIX}/radondb-pgadmin4:${CCP_IMAGE_TAG}' }
+- { name: RELATED_IMAGE_RADONDB_PGBADGER,         value: '${CCP_IMAGE_PREFIX}/radondb-pgbadger:${CCP_IMAGE_TAG}' }
+- { name: RELATED_IMAGE_RADONDB_PGBOUNCER,        value: '${CCP_IMAGE_PREFIX}/radondb-pgbouncer:${CCP_IMAGE_TAG}' }
+- { name: RELATED_IMAGE_RADONDB_POSTGRES_HA,      value: '${CCP_IMAGE_PREFIX}/radondb-postgres-ha:${CCP_IMAGE_TAG}' }
+- { name: RELATED_IMAGE_RADONDB_POSTGRES_GIS_HA,  value: '${CCP_IMAGE_PREFIX}/radondb-postgres-gis-ha:${CCP_POSTGIS_IMAGE_TAG}' }

@@ -22,7 +22,7 @@ import (
 	"regexp"
 	"runtime"
 
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -58,7 +58,7 @@ func RadondbLogger(logDetails LogValues) {
 	// Sets calling method as a field
 	log.SetReportCaller(true)
 
-	randondbTextFormatter := &log.TextFormatter{
+	radondbTextFormatter := &log.TextFormatter{
 		CallerPrettyfier: func(f *runtime.Frame) (string, string) {
 			filename := f.File
 			function := f.Function
@@ -82,7 +82,7 @@ func RadondbLogger(logDetails LogValues) {
 		fields: log.Fields{
 			"version": logDetails.version,
 		},
-		lf: randondbTextFormatter,
+		lf: radondbTextFormatter,
 	})
 
 	// Output to stdout instead of the default stderr

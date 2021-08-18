@@ -20,7 +20,7 @@ package fake
 import (
 	"context"
 
-	randondbcomv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	radondbcomv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -35,25 +35,25 @@ type FakePgpolicies struct {
 	ns   string
 }
 
-var pgpoliciesResource = schema.GroupVersionResource{Group: "randondb.com", Version: "v1", Resource: "pgpolicies"}
+var pgpoliciesResource = schema.GroupVersionResource{Group: "radondb.com", Version: "v1", Resource: "pgpolicies"}
 
-var pgpoliciesKind = schema.GroupVersionKind{Group: "randondb.com", Version: "v1", Kind: "Pgpolicy"}
+var pgpoliciesKind = schema.GroupVersionKind{Group: "radondb.com", Version: "v1", Kind: "Pgpolicy"}
 
 // Get takes name of the pgpolicy, and returns the corresponding pgpolicy object, and an error if there is any.
-func (c *FakePgpolicies) Get(ctx context.Context, name string, options v1.GetOptions) (result *randondbcomv1.Pgpolicy, err error) {
+func (c *FakePgpolicies) Get(ctx context.Context, name string, options v1.GetOptions) (result *radondbcomv1.Pgpolicy, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(pgpoliciesResource, c.ns, name), &randondbcomv1.Pgpolicy{})
+		Invokes(testing.NewGetAction(pgpoliciesResource, c.ns, name), &radondbcomv1.Pgpolicy{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgpolicy), err
+	return obj.(*radondbcomv1.Pgpolicy), err
 }
 
 // List takes label and field selectors, and returns the list of Pgpolicies that match those selectors.
-func (c *FakePgpolicies) List(ctx context.Context, opts v1.ListOptions) (result *randondbcomv1.PgpolicyList, err error) {
+func (c *FakePgpolicies) List(ctx context.Context, opts v1.ListOptions) (result *radondbcomv1.PgpolicyList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(pgpoliciesResource, pgpoliciesKind, c.ns, opts), &randondbcomv1.PgpolicyList{})
+		Invokes(testing.NewListAction(pgpoliciesResource, pgpoliciesKind, c.ns, opts), &radondbcomv1.PgpolicyList{})
 
 	if obj == nil {
 		return nil, err
@@ -63,8 +63,8 @@ func (c *FakePgpolicies) List(ctx context.Context, opts v1.ListOptions) (result 
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &randondbcomv1.PgpolicyList{ListMeta: obj.(*randondb.comcomv1.PgpolicyList).ListMeta}
-	for _, item := range obj.(*randondbcomv1.PgpolicyList).Items {
+	list := &radondbcomv1.PgpolicyList{ListMeta: obj.(*radondb.comcomv1.PgpolicyList).ListMeta}
+	for _, item := range obj.(*radondbcomv1.PgpolicyList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -80,43 +80,43 @@ func (c *FakePgpolicies) Watch(ctx context.Context, opts v1.ListOptions) (watch.
 }
 
 // Create takes the representation of a pgpolicy and creates it.  Returns the server's representation of the pgpolicy, and an error, if there is any.
-func (c *FakePgpolicies) Create(ctx context.Context, pgpolicy *randondbcomv1.Pgpolicy, opts v1.CreateOptions) (result *randondb.comcomv1.Pgpolicy, err error) {
+func (c *FakePgpolicies) Create(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.CreateOptions) (result *radondb.comcomv1.Pgpolicy, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(pgpoliciesResource, c.ns, pgpolicy), &randondbcomv1.Pgpolicy{})
+		Invokes(testing.NewCreateAction(pgpoliciesResource, c.ns, pgpolicy), &radondbcomv1.Pgpolicy{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgpolicy), err
+	return obj.(*radondbcomv1.Pgpolicy), err
 }
 
 // Update takes the representation of a pgpolicy and updates it. Returns the server's representation of the pgpolicy, and an error, if there is any.
-func (c *FakePgpolicies) Update(ctx context.Context, pgpolicy *randondbcomv1.Pgpolicy, opts v1.UpdateOptions) (result *randondb.comcomv1.Pgpolicy, err error) {
+func (c *FakePgpolicies) Update(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.UpdateOptions) (result *radondb.comcomv1.Pgpolicy, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(pgpoliciesResource, c.ns, pgpolicy), &randondbcomv1.Pgpolicy{})
+		Invokes(testing.NewUpdateAction(pgpoliciesResource, c.ns, pgpolicy), &radondbcomv1.Pgpolicy{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgpolicy), err
+	return obj.(*radondbcomv1.Pgpolicy), err
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakePgpolicies) UpdateStatus(ctx context.Context, pgpolicy *randondbcomv1.Pgpolicy, opts v1.UpdateOptions) (*randondb.comcomv1.Pgpolicy, error) {
+func (c *FakePgpolicies) UpdateStatus(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.UpdateOptions) (*radondb.comcomv1.Pgpolicy, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateSubresourceAction(pgpoliciesResource, "status", c.ns, pgpolicy), &randondbcomv1.Pgpolicy{})
+		Invokes(testing.NewUpdateSubresourceAction(pgpoliciesResource, "status", c.ns, pgpolicy), &radondbcomv1.Pgpolicy{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgpolicy), err
+	return obj.(*radondbcomv1.Pgpolicy), err
 }
 
 // Delete takes name of the pgpolicy and deletes it. Returns an error if one occurs.
 func (c *FakePgpolicies) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(pgpoliciesResource, c.ns, name), &randondbcomv1.Pgpolicy{})
+		Invokes(testing.NewDeleteAction(pgpoliciesResource, c.ns, name), &radondbcomv1.Pgpolicy{})
 
 	return err
 }
@@ -125,17 +125,17 @@ func (c *FakePgpolicies) Delete(ctx context.Context, name string, opts v1.Delete
 func (c *FakePgpolicies) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(pgpoliciesResource, c.ns, listOpts)
 
-	_, err := c.Fake.Invokes(action, &randondbcomv1.PgpolicyList{})
+	_, err := c.Fake.Invokes(action, &radondbcomv1.PgpolicyList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched pgpolicy.
-func (c *FakePgpolicies) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *randondbcomv1.Pgpolicy, err error) {
+func (c *FakePgpolicies) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *radondbcomv1.Pgpolicy, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(pgpoliciesResource, c.ns, name, pt, data, subresources...), &randondbcomv1.Pgpolicy{})
+		Invokes(testing.NewPatchSubresourceAction(pgpoliciesResource, c.ns, name, pt, data, subresources...), &radondbcomv1.Pgpolicy{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgpolicy), err
+	return obj.(*radondbcomv1.Pgpolicy), err
 }

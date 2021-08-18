@@ -21,12 +21,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/apiserver"
-	"github.com/randondb/postgres-operator/internal/apiserver/backupoptions"
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/apiserver/backupoptions"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 
 	v1 "k8s.io/api/core/v1"
@@ -188,7 +188,7 @@ func CreateSchedule(request *msgs.CreateScheduleRequest, ns string) msgs.CreateS
 
 		labels := make(map[string]string)
 		labels["pg-cluster"] = schedule.Cluster
-		labels["randondb-scheduler"] = "true"
+		labels["radondb-scheduler"] = "true"
 
 		data := make(map[string]string)
 		data[schedule.Name] = string(blob)
@@ -325,7 +325,7 @@ func ShowSchedule(request *msgs.ShowScheduleRequest, ns string) msgs.ShowSchedul
 func getSchedules(clusterName, selector, ns string) ([]string, error) {
 	ctx := context.TODO()
 	schedules := []string{}
-	label := "randondb-scheduler=true"
+	label := "radondb-scheduler=true"
 	if clusterName == "all" {
 	} else if clusterName != "" {
 		label += fmt.Sprintf(",pg-cluster=%s", clusterName)

@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-RADONDB_DIR=${RADONDB_DIR:-'/opt/randondb'}
+RADONDB_DIR=${RADONDB_DIR:-'/opt/radondb'}
 
 # The following sets up an nss_wrapper environment in accordance with OpenShift
 # guidance for supporting arbitrary user ID's

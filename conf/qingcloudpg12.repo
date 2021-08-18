@@ -1,21 +1,21 @@
-[randondbpg12]
+[radondbpg12]
 #Config Version 1.0
-name=randondb Data Development PostgreSQL 12 $releasever - $basearch
+name=radondb Data Development PostgreSQL 12 $releasever - $basearch
 baseurl=http://139.198.30.182/postgresql12/centos/EL$releasever/$basearch/
 enabled=1
 gpgcheck=0
 
 
-[randondbpg12-source]
+[radondbpg12-source]
 #Config Version 1.0
-name=randondb Data Development PostgreSQL 12 $releasever - Source
+name=radondb Data Development PostgreSQL 12 $releasever - Source
 baseurl=http://139.198.30.182/postgresql12/centos/EL$releasever/SRPMS/
 enabled=1
 gpgcheck=0
 
 
-[randondbpg12-debuginfo]
+[radondbpg12-debuginfo]
 #Config Version 1.0
-name=randondb Data Development PostgreSQL 12 $releasever - Debug
+name=radondb Data Development PostgreSQL 12 $releasever - Debug
 baseurl=http://139.198.30.182/postgresql12/centos/EL$releasever/debug/
 enabled=1

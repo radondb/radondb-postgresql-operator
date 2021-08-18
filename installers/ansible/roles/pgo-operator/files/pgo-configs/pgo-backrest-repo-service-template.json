@@ -7,7 +7,7 @@
                 {{ if .CustomLabels }}
                 {{ .CustomLabels }}
                 {{ end }}
-                "vendor": "randondb",
+                "vendor": "radondb",
                 "name": "{{.Name}}",
                 "pgo-backrest-repo": "true",
                 "pg-cluster": "{{.ClusterName}}"

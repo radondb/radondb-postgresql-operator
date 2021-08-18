@@ -25,9 +25,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	apps_v1 "k8s.io/api/apps/v1"
@@ -45,7 +45,7 @@ const PGHAConfigMapSuffix = "pgha-config"
 // cluster
 const (
 	// PGHAConfigInitSetting determines whether or not initialization logic should be run in the
-	// randondb-postgres-ha (or GIS equivilaent) container
+	// radondb-postgres-ha (or GIS equivilaent) container
 	PGHAConfigInitSetting = "init"
 	// PGHAConfigReplicaBootstrapRepoType defines an override for the type of repo (local, S3, etc.)
 	// that should be utilized when bootstrapping a replica (i.e. it override the
@@ -461,7 +461,7 @@ func GetConfVolume(clientset kubernetes.Interface, cl *crv1.Pgcluster, namespace
 
 // CreatePGHAConfigMap creates a configMap that will be utilized to store configuration settings
 // for a PostgreSQL cluster.  Currently this configMap simply defines an "init" setting, which is
-// utilized by the randondb-postgres-ha container (or GIS equivalent) to determine whether or not
+// utilized by the radondb-postgres-ha container (or GIS equivalent) to determine whether or not
 // initialization logic should be executed when the container is run.  This ensures that the
 // original primary in a PostgreSQL cluster does not attempt to run any initialization logic more
 // than once, such as following a restart of the container.  In the future this configMap can also

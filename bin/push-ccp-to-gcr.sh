@@ -13,18 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-GCR_IMAGE_PREFIX=gcr.io/randondb-dev-test
+GCR_IMAGE_PREFIX=gcr.io/radondb-dev-test
 
-CCP_IMAGE_PREFIX=randondb
+CCP_IMAGE_PREFIX=radondb
 CCP_IMAGE_TAG=centos8-13.3-4.7.1
 
 IMAGES=(
-randondb-prometheus
-randondb-grafana
-randondb-pgbadger
-randondb-backup
-randondb-postgres
-randondb-pgbouncer
+radondb-prometheus
+radondb-grafana
+radondb-pgbadger
+radondb-backup
+radondb-postgres
+radondb-pgbouncer
 )
 
 for image in "${IMAGES[@]}"

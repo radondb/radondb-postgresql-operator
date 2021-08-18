@@ -27,7 +27,7 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/randondb/postgres-operator/testing/kubeapi"
+	"github.com/radondb/postgres-operator/testing/kubeapi"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	core_v1 "k8s.io/api/core/v1"
@@ -205,8 +205,8 @@ func requirePgBouncerReady(t testing.TB, namespace, cluster string, timeout time
 
 	ready := func() bool {
 		deployments, err := TestContext.Kubernetes.ListDeployments(namespace, map[string]string{
-			"pg-cluster":         cluster,
-			"randondb-pgbouncer": "true",
+			"pg-cluster":        cluster,
+			"radondb-pgbouncer": "true",
 		})
 		require.NoError(t, err)
 

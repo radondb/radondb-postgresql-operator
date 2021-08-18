@@ -23,7 +23,7 @@ import (
 	"regexp"
 	"strings"
 
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	"github.com/spf13/pflag"
 )
 

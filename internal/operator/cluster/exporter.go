@@ -21,11 +21,11 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/operator"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -38,7 +38,7 @@ import (
 const (
 	// exporterInstallScript references the embedded script that installs all of
 	// the pgMonitor functions
-	exporterInstallScript = "/opt/randondb/bin/exporter/install.sh"
+	exporterInstallScript = "/opt/radondb/bin/exporter/install.sh"
 
 	// exporterServicePortName is the name used to identify the exporter port in
 	// the service
@@ -46,7 +46,7 @@ const (
 )
 
 // AddExporter ensures that a PostgreSQL cluster is able to undertake the
-// actions required by the "randondb-postgres-exporter", i.e.
+// actions required by the "radondb-postgres-exporter", i.e.
 //
 //   - enable a service port so scrapers can access the metrics
 //   - it can authenticate as the "ccp_monitoring" user; manages the Secret as

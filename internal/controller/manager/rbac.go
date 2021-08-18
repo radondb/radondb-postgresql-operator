@@ -19,8 +19,8 @@ import (
 	"context"
 	"text/template"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/ns"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/ns"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"

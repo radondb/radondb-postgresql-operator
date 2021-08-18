@@ -18,11 +18,11 @@ limitations under the License.
 import (
 	"context"
 
-	"github.com/randondb/postgres-operator/internal/apiserver"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"

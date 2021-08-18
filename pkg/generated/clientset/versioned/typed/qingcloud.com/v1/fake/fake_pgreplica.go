@@ -20,7 +20,7 @@ package fake
 import (
 	"context"
 
-	randondbcomv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	radondbcomv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -35,25 +35,25 @@ type FakePgreplicas struct {
 	ns   string
 }
 
-var pgreplicasResource = schema.GroupVersionResource{Group: "randondb.com", Version: "v1", Resource: "pgreplicas"}
+var pgreplicasResource = schema.GroupVersionResource{Group: "radondb.com", Version: "v1", Resource: "pgreplicas"}
 
-var pgreplicasKind = schema.GroupVersionKind{Group: "randondb.com", Version: "v1", Kind: "Pgreplica"}
+var pgreplicasKind = schema.GroupVersionKind{Group: "radondb.com", Version: "v1", Kind: "Pgreplica"}
 
 // Get takes name of the pgreplica, and returns the corresponding pgreplica object, and an error if there is any.
-func (c *FakePgreplicas) Get(ctx context.Context, name string, options v1.GetOptions) (result *randondbcomv1.Pgreplica, err error) {
+func (c *FakePgreplicas) Get(ctx context.Context, name string, options v1.GetOptions) (result *radondbcomv1.Pgreplica, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(pgreplicasResource, c.ns, name), &randondbcomv1.Pgreplica{})
+		Invokes(testing.NewGetAction(pgreplicasResource, c.ns, name), &radondbcomv1.Pgreplica{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgreplica), err
+	return obj.(*radondbcomv1.Pgreplica), err
 }
 
 // List takes label and field selectors, and returns the list of Pgreplicas that match those selectors.
-func (c *FakePgreplicas) List(ctx context.Context, opts v1.ListOptions) (result *randondbcomv1.PgreplicaList, err error) {
+func (c *FakePgreplicas) List(ctx context.Context, opts v1.ListOptions) (result *radondbcomv1.PgreplicaList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(pgreplicasResource, pgreplicasKind, c.ns, opts), &randondbcomv1.PgreplicaList{})
+		Invokes(testing.NewListAction(pgreplicasResource, pgreplicasKind, c.ns, opts), &radondbcomv1.PgreplicaList{})
 
 	if obj == nil {
 		return nil, err
@@ -63,8 +63,8 @@ func (c *FakePgreplicas) List(ctx context.Context, opts v1.ListOptions) (result 
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &randondbcomv1.PgreplicaList{ListMeta: obj.(*randondb.comcomv1.PgreplicaList).ListMeta}
-	for _, item := range obj.(*randondbcomv1.PgreplicaList).Items {
+	list := &radondbcomv1.PgreplicaList{ListMeta: obj.(*radondb.comcomv1.PgreplicaList).ListMeta}
+	for _, item := range obj.(*radondbcomv1.PgreplicaList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -80,43 +80,43 @@ func (c *FakePgreplicas) Watch(ctx context.Context, opts v1.ListOptions) (watch.
 }
 
 // Create takes the representation of a pgreplica and creates it.  Returns the server's representation of the pgreplica, and an error, if there is any.
-func (c *FakePgreplicas) Create(ctx context.Context, pgreplica *randondbcomv1.Pgreplica, opts v1.CreateOptions) (result *randondb.comcomv1.Pgreplica, err error) {
+func (c *FakePgreplicas) Create(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.CreateOptions) (result *radondb.comcomv1.Pgreplica, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(pgreplicasResource, c.ns, pgreplica), &randondbcomv1.Pgreplica{})
+		Invokes(testing.NewCreateAction(pgreplicasResource, c.ns, pgreplica), &radondbcomv1.Pgreplica{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgreplica), err
+	return obj.(*radondbcomv1.Pgreplica), err
 }
 
 // Update takes the representation of a pgreplica and updates it. Returns the server's representation of the pgreplica, and an error, if there is any.
-func (c *FakePgreplicas) Update(ctx context.Context, pgreplica *randondbcomv1.Pgreplica, opts v1.UpdateOptions) (result *randondb.comcomv1.Pgreplica, err error) {
+func (c *FakePgreplicas) Update(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.UpdateOptions) (result *radondb.comcomv1.Pgreplica, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(pgreplicasResource, c.ns, pgreplica), &randondbcomv1.Pgreplica{})
+		Invokes(testing.NewUpdateAction(pgreplicasResource, c.ns, pgreplica), &radondbcomv1.Pgreplica{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgreplica), err
+	return obj.(*radondbcomv1.Pgreplica), err
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakePgreplicas) UpdateStatus(ctx context.Context, pgreplica *randondbcomv1.Pgreplica, opts v1.UpdateOptions) (*randondb.comcomv1.Pgreplica, error) {
+func (c *FakePgreplicas) UpdateStatus(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.UpdateOptions) (*radondb.comcomv1.Pgreplica, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateSubresourceAction(pgreplicasResource, "status", c.ns, pgreplica), &randondbcomv1.Pgreplica{})
+		Invokes(testing.NewUpdateSubresourceAction(pgreplicasResource, "status", c.ns, pgreplica), &radondbcomv1.Pgreplica{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgreplica), err
+	return obj.(*radondbcomv1.Pgreplica), err
 }
 
 // Delete takes name of the pgreplica and deletes it. Returns an error if one occurs.
 func (c *FakePgreplicas) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(pgreplicasResource, c.ns, name), &randondbcomv1.Pgreplica{})
+		Invokes(testing.NewDeleteAction(pgreplicasResource, c.ns, name), &radondbcomv1.Pgreplica{})
 
 	return err
 }
@@ -125,17 +125,17 @@ func (c *FakePgreplicas) Delete(ctx context.Context, name string, opts v1.Delete
 func (c *FakePgreplicas) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(pgreplicasResource, c.ns, listOpts)
 
-	_, err := c.Fake.Invokes(action, &randondbcomv1.PgreplicaList{})
+	_, err := c.Fake.Invokes(action, &radondbcomv1.PgreplicaList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched pgreplica.
-func (c *FakePgreplicas) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *randondbcomv1.Pgreplica, err error) {
+func (c *FakePgreplicas) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *radondbcomv1.Pgreplica, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(pgreplicasResource, c.ns, name, pt, data, subresources...), &randondbcomv1.Pgreplica{})
+		Invokes(testing.NewPatchSubresourceAction(pgreplicasResource, c.ns, name, pt, data, subresources...), &radondbcomv1.Pgreplica{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgreplica), err
+	return obj.(*radondbcomv1.Pgreplica), err
 }

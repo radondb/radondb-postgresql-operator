@@ -18,7 +18,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/randondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/config"
 	"github.com/spf13/cobra"
 )
 

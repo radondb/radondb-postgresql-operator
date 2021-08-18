@@ -20,7 +20,7 @@ $DIR/cleanup-rbac.sh
 test="${PGO_CONF_DIR:?Need to set PGO_CONF_DIR env variable}"
 
 # see if CRDs need to be created
-$PGO_CMD get crd pgclusters.randondb.com > /dev/null
+$PGO_CMD get crd pgclusters.radondb.com > /dev/null
 if [ $? -eq 1 ]; then
 	$PGO_CMD create \
 		-f ${PGO_CONF_DIR}/crds/pgclusters-crd.yaml \

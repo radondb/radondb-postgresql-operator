@@ -1,5 +1,5 @@
 apiVersion: v2
-name: randondbcrdcluster
+name: radondbcrdcluster
 description: Helm chart for deploying a PostgreSQL cluster with the Radondb PostgreSQL Operator
 
 # A chart can be either an 'application' or a 'library' chart.

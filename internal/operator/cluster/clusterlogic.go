@@ -28,13 +28,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/operator"
-	"github.com/randondb/postgres-operator/internal/operator/backrest"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	"github.com/randondb/postgres-operator/pkg/events"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/operator/backrest"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
 	batchv1 "k8s.io/api/batch/v1"
@@ -280,7 +280,7 @@ func getClusterDeploymentFields(clientset kubernetes.Interface,
 	labels[config.LABEL_PGOUSER] = cl.ObjectMeta.Labels[config.LABEL_PGOUSER]
 
 	// Set the Patroni scope to the name of the primary deployment.  Replicas will get scope using the
-	// 'randondb-pgha-scope' label on the pgcluster
+	// 'radondb-pgha-scope' label on the pgcluster
 	labels[config.LABEL_PGHA_SCOPE] = cl.Name
 
 	// If applicable, set the exporter labels, used for the scrapers, and create
@@ -542,7 +542,7 @@ func scaleReplicaCreateDeployment(clientset kubernetes.Interface,
 	operator.OverrideClusterContainerImages(replicaDeployment.Spec.Template.Spec.Containers)
 
 	// set the replica scope to the same scope as the primary, i.e. the scope defined using label
-	// 'randondb-pgha-scope'
+	// 'radondb-pgha-scope'
 	replicaDeployment.Labels[config.LABEL_PGHA_SCOPE] = cluster.Name
 	replicaDeployment.Spec.Template.Labels[config.LABEL_PGHA_SCOPE] = cluster.Name
 

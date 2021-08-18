@@ -21,7 +21,7 @@
     - name: Copy Alertmanger Config to Output Directory
       command: "cp {{ pgmonitor_alertmanager_dir }}/{{ item.src }} {{ alertmanager_output_dir }}/{{ item.dst }}"
       loop:
-        - { src: 'randondb-alertmanager.yml', dst: 'alertmanager.yml'}
+        - { src: 'radondb-alertmanager.yml', dst: 'alertmanager.yml'}
 
     - name: Set pgmonitor Prometheus Directory Fact
       set_fact:
@@ -30,7 +30,7 @@
     - name: Copy Prometheus-Alertmanger Config to Output Directory
       command: "cp {{ pgmonitor_prometheus_dir }}/{{ item.src }} {{ alertmanager_output_dir }}/{{ item.dst }}"
       loop:
-        - { src: 'alert-rules.d/randondb-alert-rules-pg.yml.containers.example', dst: 'randondb-alert-rules-pg.yml'}
+        - { src: 'alert-rules.d/radondb-alert-rules-pg.yml.containers.example', dst: 'radondb-alert-rules-pg.yml'}
 
     - name: Create Alertmanager Config ConfigMap
       shell: |
@@ -53,7 +53,7 @@
     - name: Create Alertmanager Rules ConfigMap
       shell: |
         {{ kubectl_or_oc }} create configmap {{ alertmanager_rules_configmap }} --dry-run --output=yaml \
-          --from-file={{ alertmanager_output_dir }}/randondb-alert-rules-pg.yml \
+          --from-file={{ alertmanager_output_dir }}/radondb-alert-rules-pg.yml \
         | {{ kubectl_or_oc }} label --filename=- --local --dry-run --output=yaml \
           app.kubernetes.io/name={{ app_name }} \
         | {{ kubectl_or_oc }} create --filename=- -n {{ metrics_namespace }}

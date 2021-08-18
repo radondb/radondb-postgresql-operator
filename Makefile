@@ -4,7 +4,7 @@ ANSIBLE_VERSION ?= 2.9.*
 PGOROOT ?= $(CURDIR)
 PGO_BASEOS ?= centos8
 BASE_IMAGE_OS ?= $(PGO_BASEOS)
-PGO_IMAGE_PREFIX ?= randondb
+PGO_IMAGE_PREFIX ?= radondb
 PGO_VERSION ?= 4.7.1
 PGO_IMAGE_TAG ?= $(PGO_BASEOS)-$(PGO_VERSION)
 PGO_PG_VERSION ?= 13
@@ -86,7 +86,7 @@ images = pgo-apiserver \
 	pgo-scheduler \
 	pgo-client \
 	pgo-deployer \
-	randondb-postgres-exporter \
+	radondb-postgres-exporter \
 	postgres-operator
 
 .PHONY: all installrbac setup setupnamespaces cleannamespaces \
@@ -136,7 +136,7 @@ build-pgo-client:
 build-pgo-%:
 	$(info No binary build needed for $@)
 
-build-randondb-postgres-exporter:
+build-radondb-postgres-exporter:
 	$(info No binary build needed for $@)
 
 linuxpgo: GO_ENV += GOOS=linux GOARCH=amd64

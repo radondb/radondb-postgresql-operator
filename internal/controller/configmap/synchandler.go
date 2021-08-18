@@ -23,9 +23,9 @@ import (
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	cfg "github.com/randondb/postgres-operator/internal/operator/config"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	cfg "github.com/radondb/postgres-operator/internal/operator/config"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 )
 
 // handleConfigMapSync is responsible for syncing a configMap resource that has obtained from

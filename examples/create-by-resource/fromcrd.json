@@ -1,12 +1,12 @@
 {
-  "apiVersion": "randondb.com/v1",
+  "apiVersion": "radondb.com/v1",
   "kind": "Pgcluster",
   "metadata": {
     "annotations": {
       "current-primary": "fromcrd"
     },
     "labels": {
-      "randondb-pgha-scope": "fromcrd",
+      "radondb-pgha-scope": "fromcrd",
       "deployment-name": "fromcrd",
       "name": "fromcrd",
       "pg-cluster": "fromcrd",
@@ -44,7 +44,7 @@
       "storagetype": "dynamic",
       "supplementalgroups": ""
     },
-    "ccpimage": "randondb-postgres-ha",
+    "ccpimage": "radondb-postgres-ha",
     "ccpimagetag": "centos8-13.3-4.7.1",
     "clustername": "fromcrd",
     "database": "userdb",

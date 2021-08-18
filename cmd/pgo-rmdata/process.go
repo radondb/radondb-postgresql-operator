@@ -22,8 +22,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/util"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/util"
 
 	log "github.com/sirupsen/logrus"
 	kerror "k8s.io/apimachinery/pkg/api/errors"
@@ -728,8 +728,8 @@ func removeSchedules(request Request) {
 	log.Debugf("removing schedules for '%s'", request.ClusterName)
 
 	// a ConfigMap used for the schedule uses the following label selector:
-	// randondb-scheduler=true,<config.LABEL_PG_CLUSTER>=<request.ClusterName>
-	selector := fmt.Sprintf("randondb-scheduler=true,%s=%s",
+	// radondb-scheduler=true,<config.LABEL_PG_CLUSTER>=<request.ClusterName>
+	selector := fmt.Sprintf("radondb-scheduler=true,%s=%s",
 		config.LABEL_PG_CLUSTER, request.ClusterName)
 
 	// run the query the deletes all of the scheduled configmaps

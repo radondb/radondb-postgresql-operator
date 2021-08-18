@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/randondb/postgres-operator/internal/apiserver"
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/patroni"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/patroni"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 
 	kerrors "k8s.io/apimachinery/pkg/api/errors"

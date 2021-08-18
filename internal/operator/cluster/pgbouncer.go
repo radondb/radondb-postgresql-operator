@@ -27,13 +27,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/operator"
-	pgpassword "github.com/randondb/postgres-operator/internal/postgres/password"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	"github.com/randondb/postgres-operator/pkg/events"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	pgpassword "github.com/radondb/postgres-operator/internal/postgres/password"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/postgres-operator/pkg/events"
 
 	log "github.com/sirupsen/logrus"
 	appsv1 "k8s.io/api/apps/v1"
@@ -89,10 +89,10 @@ const pgPort = "5432"
 
 const (
 	// the path to the pgbouncer uninstallation script script
-	pgBouncerUninstallScript = "/opt/randondb/bin/postgres-ha/sql/pgbouncer/pgbouncer-uninstall.sql"
+	pgBouncerUninstallScript = "/opt/radondb/bin/postgres-ha/sql/pgbouncer/pgbouncer-uninstall.sql"
 
 	// the path to the pgbouncer installation script
-	pgBouncerInstallScript = "/opt/randondb/bin/postgres-ha/sql/pgbouncer/pgbouncer-install.sql"
+	pgBouncerInstallScript = "/opt/radondb/bin/postgres-ha/sql/pgbouncer/pgbouncer-install.sql"
 )
 
 const (

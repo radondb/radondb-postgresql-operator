@@ -1,10 +1,10 @@
-apiVersion: randondb.com/v1
+apiVersion: radondb.com/v1
 kind: Pgcluster
 metadata:
   annotations:
     current-primary: {{ .Values.name | quote }}
   labels:
-    randondb-pgha-scope: {{ .Values.name | quote }}
+    radondb-pgha-scope: {{ .Values.name | quote }}
     deployment-name: {{ .Values.name | quote }}
     name: {{ .Values.name | quote }}
     pg-cluster: {{ .Values.name | quote }}
@@ -26,7 +26,7 @@ spec:
     accessmode: ReadWriteOnce
     size: {{ .Values.diskSize | default "1Gi" | quote }}
     storagetype: dynamic
-  ccpimage: {{ .Values.image | default "randondb-postgres-ha" | quote }}
+  ccpimage: {{ .Values.image | default "radondb-postgres-ha" | quote }}
   ccpimageprefix: {{ .Values.imagePrefix | default "docker.io/radondb" | quote }}
   ccpimagetag: {{ .Values.imageTag | default "centos8-13.3-4.7.1" | quote }}
   clustername: {{ .Values.name | quote }}

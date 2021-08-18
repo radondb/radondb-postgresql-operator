@@ -25,14 +25,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/operator"
-	pgoconfig "github.com/randondb/postgres-operator/internal/operator/config"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	"github.com/randondb/postgres-operator/pkg/events"
-	pgo "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	pgoconfig "github.com/radondb/postgres-operator/internal/operator/config"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/postgres-operator/pkg/events"
+	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 
@@ -46,16 +46,16 @@ import (
 
 // Store image names as constants to use later
 const (
-	postgresImage      = "randondb-postgres"
-	postgresHAImage    = "randondb-postgres-ha"
-	postgresGISImage   = "randondb-postgres-gis"
-	postgresGISHAImage = "randondb-postgres-gis-ha"
+	postgresImage      = "radondb-postgres"
+	postgresHAImage    = "radondb-postgres-ha"
+	postgresGISImage   = "radondb-postgres-gis"
+	postgresGISHAImage = "radondb-postgres-gis-ha"
 )
 
 // nssWrapperForceCommand is the string that should be appended to the sshd_config file as
 // needed for nss_wrapper support when upgrading from versions prior to v4.7
 const nssWrapperForceCommand = `# ensure nss_wrapper env vars are set when executing commands as needed for OpenShift compatibility
-ForceCommand NSS_WRAPPER_SUBDIR=ssh . /opt/randondb/bin/nss_wrapper_env.sh && $SSH_ORIGINAL_COMMAND`
+ForceCommand NSS_WRAPPER_SUBDIR=ssh . /opt/radondb/bin/nss_wrapper_env.sh && $SSH_ORIGINAL_COMMAND`
 
 // the following regex expressions are used when upgrading the sshd_config file for a PG cluster
 var (
@@ -136,8 +136,8 @@ func AddUpgrade(clientset kubeapi.Interface, upgrade *crv1.Pgtask, namespace str
 	// set proper values for the pgcluster that are updated between CR versions
 	preparePgclusterForUpgrade(pgcluster, upgrade.Spec.Parameters, oldpgoversion, currentPrimary)
 
-	// update the unix socket directories parameter so it no longer include /randondbadm and
-	// set any path references to the /opt/randondb... paths
+	// update the unix socket directories parameter so it no longer include /radondbadm and
+	// set any path references to the /opt/radondb... paths
 	if err = updateClusterConfig(clientset, pgcluster, namespace); err != nil {
 		log.Errorf("error updating %s-pgha-config configmap during upgrade of cluster %s, Error: %v", pgcluster.Name, pgcluster.Name, err)
 	}
@@ -523,16 +523,16 @@ func preparePgclusterForUpgrade(pgcluster *crv1.Pgcluster, parameters map[string
 	// 4.5.0 referred to as Radondb Collect), if they exist, and store them in the current labels
 	// 4.6.0 added this value to the spec as "Exporter", so the next step ensure
 	// that the value is migrated over
-	if value, ok := pgcluster.ObjectMeta.Labels["randondb_collect"]; ok {
+	if value, ok := pgcluster.ObjectMeta.Labels["radondb_collect"]; ok {
 		pgcluster.ObjectMeta.Labels[config.LABEL_EXPORTER] = value
 	}
-	delete(pgcluster.ObjectMeta.Labels, "randondb_collect")
+	delete(pgcluster.ObjectMeta.Labels, "radondb_collect")
 
 	// Note that this is the *user labels*, the above is in the metadata labels
-	if value, ok := pgcluster.Spec.UserLabels["randondb_collect"]; ok {
+	if value, ok := pgcluster.Spec.UserLabels["radondb_collect"]; ok {
 		pgcluster.Spec.UserLabels[config.LABEL_EXPORTER] = value
 	}
-	delete(pgcluster.Spec.UserLabels, "randondb_collect")
+	delete(pgcluster.Spec.UserLabels, "radondb_collect")
 
 	// convert the metrics label over to using a proper definition. Give the user
 	// label precedence.
@@ -549,10 +549,10 @@ func preparePgclusterForUpgrade(pgcluster *crv1.Pgcluster, parameters map[string
 
 	// 4.6.0 moved pgBadger to use an attribute instead of a label. If this label
 	// exists on the current CRD, move the value to the attribute.
-	if ok, _ := strconv.ParseBool(pgcluster.ObjectMeta.GetLabels()["randondb-pgbadger"]); ok {
+	if ok, _ := strconv.ParseBool(pgcluster.ObjectMeta.GetLabels()["radondb-pgbadger"]); ok {
 		pgcluster.Spec.PGBadger = true
 	}
-	delete(pgcluster.ObjectMeta.Labels, "randondb-pgbadger")
+	delete(pgcluster.ObjectMeta.Labels, "radondb-pgbadger")
 
 	// 4.6.0 moved the format "service-type" label into the ServiceType CRD
 	// attribute, so we may need to do the same
@@ -919,8 +919,8 @@ func updateClusterConfig(clientset kubeapi.Interface, pgcluster *crv1.Pgcluster,
 	}
 
 	// set the updated path values for both DCS and LocalDB configs, if the fields and maps exist
-	// as of version 4.6, the /randondbadm directory no longer exists (previously set as a unix socket directory)
-	// and the /opt/cpm... directories are now set under /opt/randondb
+	// as of version 4.6, the /radondbadm directory no longer exists (previously set as a unix socket directory)
+	// and the /opt/cpm... directories are now set under /opt/radondb
 	if dcsConf.PostgreSQL != nil && dcsConf.PostgreSQL.Parameters != nil {
 		dcsConf.PostgreSQL.Parameters["unix_socket_directories"] = "/tmp"
 
@@ -928,24 +928,24 @@ func updateClusterConfig(clientset kubeapi.Interface, pgcluster *crv1.Pgcluster,
 		// the pgcluster
 		switch {
 		case operator.IsLocalAndS3Storage(pgcluster):
-			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/randondb/bin/postgres-ha/pgbackrest/pgbackrest-archive-push-local-s3.sh %p`
+			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-archive-push-local-s3.sh %p`
 		case operator.IsLocalAndGCSStorage(pgcluster):
-			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/randondb/bin/postgres-ha/pgbackrest/pgbackrest-archive-push-local-gcs.sh %p`
+			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-archive-push-local-gcs.sh %p`
 		default:
-			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/randondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-push "%p"`
+			dcsConf.PostgreSQL.Parameters["archive_command"] = `source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-push "%p"`
 		}
 
-		dcsConf.PostgreSQL.RecoveryConf["restore_command"] = `source /opt/randondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-get %f "%p"`
+		dcsConf.PostgreSQL.RecoveryConf["restore_command"] = `source /opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-set-env.sh && pgbackrest archive-get %f "%p"`
 	}
 
 	if localDBConf.PostgreSQL.Callbacks != nil {
-		localDBConf.PostgreSQL.Callbacks.OnRoleChange = "/opt/randondb/bin/postgres-ha/callbacks/pgha-on-role-change.sh"
+		localDBConf.PostgreSQL.Callbacks.OnRoleChange = "/opt/radondb/bin/postgres-ha/callbacks/pgha-on-role-change.sh"
 	}
 	if localDBConf.PostgreSQL.PGBackRest != nil {
-		localDBConf.PostgreSQL.PGBackRest.Command = "/opt/randondb/bin/postgres-ha/pgbackrest/pgbackrest-create-replica.sh replica"
+		localDBConf.PostgreSQL.PGBackRest.Command = "/opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-create-replica.sh replica"
 	}
 	if localDBConf.PostgreSQL.PGBackRestStandby != nil {
-		localDBConf.PostgreSQL.PGBackRestStandby.Command = "/opt/randondb/bin/postgres-ha/pgbackrest/pgbackrest-create-replica.sh standby"
+		localDBConf.PostgreSQL.PGBackRestStandby.Command = "/opt/radondb/bin/postgres-ha/pgbackrest/pgbackrest-create-replica.sh standby"
 	}
 
 	// set up content and patch DCS config

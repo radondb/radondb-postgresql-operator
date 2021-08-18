@@ -17,18 +17,18 @@ package config
 
 // a list of container images that are available
 const (
-	CONTAINER_IMAGE_PGO_BACKREST              = "randondb-pgbackrest"
-	CONTAINER_IMAGE_PGO_BACKREST_REPO         = "randondb-pgbackrest-repo"
+	CONTAINER_IMAGE_PGO_BACKREST              = "radondb-pgbackrest"
+	CONTAINER_IMAGE_PGO_BACKREST_REPO         = "radondb-pgbackrest-repo"
 	CONTAINER_IMAGE_PGO_CLIENT                = "pgo-client"
 	CONTAINER_IMAGE_PGO_RMDATA                = "pgo-rmdata"
-	CONTAINER_IMAGE_RADONDB_POSTGRES_EXPORTER = "randondb-postgres-exporter"
-	CONTAINER_IMAGE_RADONDB_GRAFANA           = "randondb-grafana"
-	CONTAINER_IMAGE_RADONDB_PGADMIN           = "randondb-pgadmin4"
-	CONTAINER_IMAGE_RADONDB_PGBADGER          = "randondb-pgbadger"
-	CONTAINER_IMAGE_RADONDB_PGBOUNCER         = "randondb-pgbouncer"
-	CONTAINER_IMAGE_RADONDB_POSTGRES_HA       = "randondb-postgres-ha"
-	CONTAINER_IMAGE_RADONDB_POSTGRES_GIS_HA   = "randondb-postgres-gis-ha"
-	CONTAINER_IMAGE_RADONDB_PROMETHEUS        = "randondb-prometheus"
+	CONTAINER_IMAGE_RADONDB_POSTGRES_EXPORTER = "radondb-postgres-exporter"
+	CONTAINER_IMAGE_RADONDB_GRAFANA           = "radondb-grafana"
+	CONTAINER_IMAGE_RADONDB_PGADMIN           = "radondb-pgadmin4"
+	CONTAINER_IMAGE_RADONDB_PGBADGER          = "radondb-pgbadger"
+	CONTAINER_IMAGE_RADONDB_PGBOUNCER         = "radondb-pgbouncer"
+	CONTAINER_IMAGE_RADONDB_POSTGRES_HA       = "radondb-postgres-ha"
+	CONTAINER_IMAGE_RADONDB_POSTGRES_GIS_HA   = "radondb-postgres-gis-ha"
+	CONTAINER_IMAGE_RADONDB_PROMETHEUS        = "radondb-prometheus"
 )
 
 // a map of the "RELATED_IMAGE_*" environmental variables to their defined

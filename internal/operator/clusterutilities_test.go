@@ -22,10 +22,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	fakekubeapi "github.com/randondb/postgres-operator/internal/kubeapi/fake"
-	"github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	fakekubeapi "github.com/radondb/postgres-operator/internal/kubeapi/fake"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -130,7 +130,7 @@ func TestOverrideClusterContainerImages(t *testing.T) {
 		"database": {name: "database", image: config.CONTAINER_IMAGE_RADONDB_POSTGRES_HA},
 		"exporter": {name: "exporter", image: config.CONTAINER_IMAGE_RADONDB_POSTGRES_EXPORTER},
 		"pgbadger": {name: "pgbadger", image: config.CONTAINER_IMAGE_RADONDB_PGBADGER},
-		"future":   {name: "future", image: "randondb-future"},
+		"future":   {name: "future", image: "radondb-future"},
 	}
 
 	t.Run("no override", func(t *testing.T) {
@@ -188,7 +188,7 @@ func TestOverrideClusterContainerImages(t *testing.T) {
 
 	// test that future does not get overridden
 	t.Run("do not override unmanaged container", func(t *testing.T) {
-		ContainerImageOverrides["randondb-future"] = "overridden"
+		ContainerImageOverrides["radondb-future"] = "overridden"
 		containers := mockSetupContainers(containerDefaults)
 
 		OverrideClusterContainerImages(containers)
@@ -208,7 +208,7 @@ func TestOverrideClusterContainerImages(t *testing.T) {
 			}
 		}
 
-		delete(ContainerImageOverrides, "randondb-future")
+		delete(ContainerImageOverrides, "radondb-future")
 	})
 
 	// test that gis can be overridden

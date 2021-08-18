@@ -18,8 +18,8 @@ backrest_port: "2022"
 service_type: "ClusterIP"
 
 cleanup: "false"
-common_name: "randondb"
-randondb_debug: "false"
+common_name: "radondb"
+radondb_debug: "false"
 disable_replica_start_fail_reinit: "false"
 
 default_instance_memory: ""

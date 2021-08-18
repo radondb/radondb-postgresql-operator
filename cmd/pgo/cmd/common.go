@@ -22,8 +22,8 @@ import (
 	"reflect"
 	"strings"
 
-	operatorutil "github.com/randondb/postgres-operator/internal/util"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	operatorutil "github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 )
 
 // unitType is used to group together the unit types

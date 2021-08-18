@@ -9,16 +9,16 @@ ARG PG_FULL
 ARG PACKAGER
 ARG DFSET
 
-MAINTAINER info@randondb.com
+MAINTAINER info@radondb.com
 
 LABEL vendor="Radondb Data" \
-	url="https://randondb.com" \
+	url="https://radondb.com" \
 	release="${RELVER}" \
 	postgresql.version.major="${PGVERSION}" \
 	postgresql.version="${PG_FULL}" \
 	os.version="7.7" \
 	org.opencontainers.image.vendor="Radondb Data" \
-	io.openshift.tags="postgresql,postgres,sql,nosql,randondb" \
+	io.openshift.tags="postgresql,postgres,sql,nosql,radondb" \
 	io.k8s.description="Trusted open source PostgreSQL-as-a-Service"
 
 COPY redhat/atomic/help.1 /help.1
@@ -75,4 +75,4 @@ RUN if [ "$BASEOS" = "ubi8" ] ; then \
 fi
 
 # Radondb PostgreSQL repository
-ADD conf/randondbpg${PGVERSION}.repo /etc/yum.repos.d/
+ADD conf/radondbpg${PGVERSION}.repo /etc/yum.repos.d/

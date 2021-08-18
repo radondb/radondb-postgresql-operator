@@ -18,7 +18,7 @@ limitations under the License.
 package fake
 
 import (
-	v1 "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/typed/randondb.com/v1"
+	v1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )

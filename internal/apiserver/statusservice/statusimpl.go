@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/randondb/postgres-operator/internal/apiserver"
-	"github.com/randondb/postgres-operator/internal/config"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/config"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
@@ -120,7 +120,7 @@ func getNotReady(ns string) []string {
 
 	for _, cluster := range clusterList.Items {
 
-		selector := fmt.Sprintf("%s=randondb,name=%s", config.LABEL_VENDOR, cluster.Spec.ClusterName)
+		selector := fmt.Sprintf("%s=radondb,name=%s", config.LABEL_VENDOR, cluster.Spec.ClusterName)
 		pods, err := apiserver.Clientset.CoreV1().Pods(ns).List(ctx, metav1.ListOptions{LabelSelector: selector})
 		if err != nil {
 			log.Error(err)

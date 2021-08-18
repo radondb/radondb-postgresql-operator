@@ -20,12 +20,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/controller"
-	"github.com/randondb/postgres-operator/internal/controller/manager"
-	nscontroller "github.com/randondb/postgres-operator/internal/controller/namespace"
-	randondblog "github.com/randondb/postgres-operator/internal/logging"
-	"github.com/randondb/postgres-operator/internal/ns"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/controller"
+	"github.com/radondb/postgres-operator/internal/controller/manager"
+	nscontroller "github.com/radondb/postgres-operator/internal/controller/namespace"
+	radondblog "github.com/radondb/postgres-operator/internal/logging"
+	"github.com/radondb/postgres-operator/internal/ns"
 	log "github.com/sirupsen/logrus"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -34,8 +34,8 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"sigs.k8s.io/controller-runtime/pkg/manager/signals"
 
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
 )
 
 func main() {
@@ -47,7 +47,7 @@ func main() {
 
 	debugFlag := os.Getenv("RADONDB_DEBUG")
 	// add logging configuration
-	randondblog.RadondbLogger(randondblog.SetParameters())
+	radondblog.RadondbLogger(radondblog.SetParameters())
 	if debugFlag == "true" {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("debug flag set to true")

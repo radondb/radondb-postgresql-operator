@@ -19,9 +19,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
-	pgo "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/radondb/postgres-operator/internal/config"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

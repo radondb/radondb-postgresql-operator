@@ -4,7 +4,7 @@
     "metadata": {
         "name": "postgres-operator",
         "labels": {
-            "vendor": "randondb"
+            "vendor": "radondb"
         }
     },
     "spec": {
@@ -12,14 +12,14 @@
         "selector": {
             "matchLabels": {
                 "name": "postgres-operator",
-                "vendor": "randondb"
+                "vendor": "radondb"
             }
         },
         "template": {
             "metadata": {
                 "labels": {
                     "name": "postgres-operator",
-                    "vendor": "randondb"
+                    "vendor": "radondb"
                 }
             },
             "spec": {

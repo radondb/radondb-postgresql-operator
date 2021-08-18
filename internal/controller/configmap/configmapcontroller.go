@@ -16,9 +16,9 @@ limitations under the License.
 */
 
 import (
-	"github.com/randondb/postgres-operator/internal/config"
-	pgoinformers "github.com/randondb/postgres-operator/pkg/generated/informers/externalversions/randondb.com/v1"
-	pgolisters "github.com/randondb/postgres-operator/pkg/generated/listers/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	pgoinformers "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/radondb.com/v1"
+	pgolisters "github.com/radondb/postgres-operator/pkg/generated/listers/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 

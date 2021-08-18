@@ -7,7 +7,7 @@
             {{ if .CustomLabels }}
             {{ .CustomLabels }}
             {{ end }}
-            "vendor": "randondb",
+            "vendor": "radondb",
             "pg-cluster": "{{.ClusterName}}"
         }
     },

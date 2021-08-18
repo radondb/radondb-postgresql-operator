@@ -1,6 +1,6 @@
 {
     "name": "exporter",
-    "image": "{{.PGOImagePrefix}}/randondb-postgres-exporter:{{.PGOImageTag}}",
+    "image": "{{.PGOImagePrefix}}/radondb-postgres-exporter:{{.PGOImageTag}}",
     "securityContext": {
       "allowPrivilegeEscalation": false,
       "privileged": false,

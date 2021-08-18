@@ -21,10 +21,10 @@ import (
 	"context"
 	time "time"
 
-	randondbcomv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
-	versioned "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
-	internalinterfaces "github.com/randondb/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
-	v1 "github.com/randondb/postgres-operator/pkg/generated/listers/randondb.com/v1"
+	radondbcomv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	versioned "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	internalinterfaces "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
+	v1 "github.com/radondb/postgres-operator/pkg/generated/listers/radondb.com/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
@@ -70,7 +70,7 @@ func NewFilteredPgtaskInformer(client versioned.Interface, namespace string, res
 				return client.RadondbV1().Pgtasks(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&randondbcomv1.Pgtask{},
+		&radondbcomv1.Pgtask{},
 		resyncPeriod,
 		indexers,
 	)
@@ -81,7 +81,7 @@ func (f *pgtaskInformer) defaultInformer(client versioned.Interface, resyncPerio
 }
 
 func (f *pgtaskInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&randondbcomv1.Pgtask{}, f.defaultInformer)
+	return f.factory.InformerFor(&radondbcomv1.Pgtask{}, f.defaultInformer)
 }
 
 func (f *pgtaskInformer) Lister() v1.PgtaskLister {

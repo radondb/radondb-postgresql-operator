@@ -39,7 +39,7 @@ const StorageDynamic = "dynamic"
 const (
 	// PGUserAdmin is a DEPRECATED user and is only included to filter this out
 	// as a system user in older systems
-	PGUserAdmin = "randondbadm"
+	PGUserAdmin = "radondbadm"
 	// PGUserMonitor is the monitoring user that can access metric data
 	PGUserMonitor = "ccp_monitoring"
 	// PGUserPgBouncer is the user that's used for managing pgBouncer, which a

@@ -4,8 +4,8 @@ description: 'PGO: The Postgres Operator from Radondb Data Helm Chart for Kubern
 type: application
 version: 0.2.1
 appVersion: 4.7.1
-home: https://github.com/RandonDB/postgres-operator
-icon: https://github.com/RandonDB/postgres-operator/raw/master/docs/static/logos/pgo.svg
+home: https://github.com/RadonDB/postgres-operator
+icon: https://github.com/RadonDB/postgres-operator/raw/master/docs/static/logos/pgo.svg
 keywords:
     - PostgreSQL
     - Operator

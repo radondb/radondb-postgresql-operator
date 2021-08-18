@@ -25,7 +25,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes"
 
-	"github.com/randondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
 )
 
 const (

@@ -18,8 +18,8 @@ package operator
 import (
 	"fmt"
 
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	crv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"

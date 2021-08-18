@@ -27,8 +27,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/randondb/postgres-operator/internal/tlsutil"
-	msgs "github.com/randondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/tlsutil"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 )

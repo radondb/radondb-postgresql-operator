@@ -20,7 +20,7 @@ package fake
 import (
 	"context"
 
-	randondbcomv1 "github.com/randondb/postgres-operator/pkg/apis/randondb.com/v1"
+	radondbcomv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -35,25 +35,25 @@ type FakePgclusters struct {
 	ns   string
 }
 
-var pgclustersResource = schema.GroupVersionResource{Group: "randondb.com", Version: "v1", Resource: "pgclusters"}
+var pgclustersResource = schema.GroupVersionResource{Group: "radondb.com", Version: "v1", Resource: "pgclusters"}
 
-var pgclustersKind = schema.GroupVersionKind{Group: "randondb.com", Version: "v1", Kind: "Pgcluster"}
+var pgclustersKind = schema.GroupVersionKind{Group: "radondb.com", Version: "v1", Kind: "Pgcluster"}
 
 // Get takes name of the pgcluster, and returns the corresponding pgcluster object, and an error if there is any.
-func (c *FakePgclusters) Get(ctx context.Context, name string, options v1.GetOptions) (result *randondbcomv1.Pgcluster, err error) {
+func (c *FakePgclusters) Get(ctx context.Context, name string, options v1.GetOptions) (result *radondbcomv1.Pgcluster, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(pgclustersResource, c.ns, name), &randondbcomv1.Pgcluster{})
+		Invokes(testing.NewGetAction(pgclustersResource, c.ns, name), &radondbcomv1.Pgcluster{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgcluster), err
+	return obj.(*radondbcomv1.Pgcluster), err
 }
 
 // List takes label and field selectors, and returns the list of Pgclusters that match those selectors.
-func (c *FakePgclusters) List(ctx context.Context, opts v1.ListOptions) (result *randondbcomv1.PgclusterList, err error) {
+func (c *FakePgclusters) List(ctx context.Context, opts v1.ListOptions) (result *radondbcomv1.PgclusterList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(pgclustersResource, pgclustersKind, c.ns, opts), &randondbcomv1.PgclusterList{})
+		Invokes(testing.NewListAction(pgclustersResource, pgclustersKind, c.ns, opts), &radondbcomv1.PgclusterList{})
 
 	if obj == nil {
 		return nil, err
@@ -63,8 +63,8 @@ func (c *FakePgclusters) List(ctx context.Context, opts v1.ListOptions) (result 
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &randondbcomv1.PgclusterList{ListMeta: obj.(*randondb.comcomv1.PgclusterList).ListMeta}
-	for _, item := range obj.(*randondbcomv1.PgclusterList).Items {
+	list := &radondbcomv1.PgclusterList{ListMeta: obj.(*radondb.comcomv1.PgclusterList).ListMeta}
+	for _, item := range obj.(*radondbcomv1.PgclusterList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -80,43 +80,43 @@ func (c *FakePgclusters) Watch(ctx context.Context, opts v1.ListOptions) (watch.
 }
 
 // Create takes the representation of a pgcluster and creates it.  Returns the server's representation of the pgcluster, and an error, if there is any.
-func (c *FakePgclusters) Create(ctx context.Context, pgcluster *randondbcomv1.Pgcluster, opts v1.CreateOptions) (result *randondb.comcomv1.Pgcluster, err error) {
+func (c *FakePgclusters) Create(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.CreateOptions) (result *radondb.comcomv1.Pgcluster, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(pgclustersResource, c.ns, pgcluster), &randondbcomv1.Pgcluster{})
+		Invokes(testing.NewCreateAction(pgclustersResource, c.ns, pgcluster), &radondbcomv1.Pgcluster{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgcluster), err
+	return obj.(*radondbcomv1.Pgcluster), err
 }
 
 // Update takes the representation of a pgcluster and updates it. Returns the server's representation of the pgcluster, and an error, if there is any.
-func (c *FakePgclusters) Update(ctx context.Context, pgcluster *randondbcomv1.Pgcluster, opts v1.UpdateOptions) (result *randondb.comcomv1.Pgcluster, err error) {
+func (c *FakePgclusters) Update(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.UpdateOptions) (result *radondb.comcomv1.Pgcluster, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(pgclustersResource, c.ns, pgcluster), &randondbcomv1.Pgcluster{})
+		Invokes(testing.NewUpdateAction(pgclustersResource, c.ns, pgcluster), &radondbcomv1.Pgcluster{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgcluster), err
+	return obj.(*radondbcomv1.Pgcluster), err
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakePgclusters) UpdateStatus(ctx context.Context, pgcluster *randondbcomv1.Pgcluster, opts v1.UpdateOptions) (*randondb.comcomv1.Pgcluster, error) {
+func (c *FakePgclusters) UpdateStatus(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.UpdateOptions) (*radondb.comcomv1.Pgcluster, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateSubresourceAction(pgclustersResource, "status", c.ns, pgcluster), &randondbcomv1.Pgcluster{})
+		Invokes(testing.NewUpdateSubresourceAction(pgclustersResource, "status", c.ns, pgcluster), &radondbcomv1.Pgcluster{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgcluster), err
+	return obj.(*radondbcomv1.Pgcluster), err
 }
 
 // Delete takes name of the pgcluster and deletes it. Returns an error if one occurs.
 func (c *FakePgclusters) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(pgclustersResource, c.ns, name), &randondbcomv1.Pgcluster{})
+		Invokes(testing.NewDeleteAction(pgclustersResource, c.ns, name), &radondbcomv1.Pgcluster{})
 
 	return err
 }
@@ -125,17 +125,17 @@ func (c *FakePgclusters) Delete(ctx context.Context, name string, opts v1.Delete
 func (c *FakePgclusters) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(pgclustersResource, c.ns, listOpts)
 
-	_, err := c.Fake.Invokes(action, &randondbcomv1.PgclusterList{})
+	_, err := c.Fake.Invokes(action, &radondbcomv1.PgclusterList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched pgcluster.
-func (c *FakePgclusters) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *randondbcomv1.Pgcluster, err error) {
+func (c *FakePgclusters) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *radondbcomv1.Pgcluster, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(pgclustersResource, c.ns, name, pt, data, subresources...), &randondbcomv1.Pgcluster{})
+		Invokes(testing.NewPatchSubresourceAction(pgclustersResource, c.ns, name, pt, data, subresources...), &radondbcomv1.Pgcluster{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*randondbcomv1.Pgcluster), err
+	return obj.(*radondbcomv1.Pgcluster), err
 }

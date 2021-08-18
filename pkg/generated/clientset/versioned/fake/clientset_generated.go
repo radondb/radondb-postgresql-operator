@@ -18,9 +18,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned"
-	randondbv1 "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/typed/randondb.com/v1"
-	fakerandondbv1 "github.com/randondb/postgres-operator/pkg/generated/clientset/versioned/typed/randondb.com/v1/fake"
+	clientset "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	radondbv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
+	fakeradondbv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -76,6 +76,6 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 var _ clientset.Interface = &Clientset{}
 
 // RadondbV1 retrieves the RadondbV1Client
-func (c *Clientset) RadondbV1() randondbv1.RadondbV1Interface {
-	return &fakerandondbv1.FakeRadondbV1{Fake: &c.Fake}
+func (c *Clientset) RadondbV1() radondbv1.RadondbV1Interface {
+	return &fakeradondbv1.FakeRadondbV1{Fake: &c.Fake}
 }

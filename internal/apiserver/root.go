@@ -27,11 +27,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/randondb/postgres-operator/internal/config"
-	"github.com/randondb/postgres-operator/internal/kubeapi"
-	"github.com/randondb/postgres-operator/internal/ns"
-	"github.com/randondb/postgres-operator/internal/tlsutil"
-	"github.com/randondb/postgres-operator/internal/util"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/ns"
+	"github.com/radondb/postgres-operator/internal/tlsutil"
+	"github.com/radondb/postgres-operator/internal/util"
 	log "github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -51,7 +51,7 @@ var (
 	RESTConfig *rest.Config
 )
 
-// MetricsFlag if set to true will cause randondb-postgres-exporter to be added into new clusters
+// MetricsFlag if set to true will cause radondb-postgres-exporter to be added into new clusters
 var MetricsFlag, BadgerFlag bool
 
 // AuditFlag if set to true will cause auditing to occur in the logs
@@ -462,7 +462,7 @@ func generateTLSCert(certPath, keyPath string) error {
 	newSecret := corev1.Secret{}
 	newSecret.Name = PGOSecretName
 	newSecret.ObjectMeta.Labels = make(map[string]string)
-	newSecret.ObjectMeta.Labels[config.LABEL_VENDOR] = "randondb"
+	newSecret.ObjectMeta.Labels[config.LABEL_VENDOR] = "radondb"
 	newSecret.Data = make(map[string][]byte)
 	newSecret.Data[corev1.TLSCertKey] = caCertBytes
 	newSecret.Data[corev1.TLSPrivateKeyKey] = privateKeyBytes
@@ -503,7 +503,7 @@ func setNamespaceOperatingMode() error {
 func setRandomPgouserPasswords() {
 	ctx := context.TODO()
 
-	selector := "pgo-pgouser=true,vendor=randondb"
+	selector := "pgo-pgouser=true,vendor=radondb"
 	secrets, err := Clientset.CoreV1().Secrets(PgoNamespace).
 		List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
