@@ -19,8 +19,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/qingcloud/postgres-operator/cmd/pgo/api"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/radondb-postgresql-operator/cmd/pgo/api"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 )
 

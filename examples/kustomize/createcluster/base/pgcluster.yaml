@@ -1,12 +1,12 @@
-apiVersion: qingcloud.com/v1
+apiVersion: radondb.com/v1
 kind: Pgcluster
 metadata:
   annotations:
     current-primary: hippo
   labels:
     autofail: "true"
-    qingcloud-pgbadger: "false"
-    qingcloud-pgha-scope: hippo
+    radondb-pgbadger: "false"
+    radondb-pgha-scope: hippo
     deployment-name: hippo
     name: hippo
     pg-cluster: hippo
@@ -44,7 +44,7 @@ spec:
     backrest: {}
     pgBouncer: {}
     postgres: {}
-  ccpimage: qingcloud-postgres-ha
+  ccpimage: radondb-postgres-ha
   ccpimageprefix: docker.io/radondb
   ccpimagetag: centos8-13.3-4.7.1
   clustername: hippo

@@ -1,7 +1,7 @@
 package pvcservice
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,9 +19,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/radondb-postgresql-operator/internal/apiserver"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -30,7 +30,7 @@ import (
 func ShowPVC(allflag bool, clusterName, ns string) ([]msgs.ShowPVCResponseResult, error) {
 	ctx := context.TODO()
 	pvcList := []msgs.ShowPVCResponseResult{}
-	selector := fmt.Sprintf("%s=%s", config.LABEL_VENDOR, config.LABEL_QINGCLOUD)
+	selector := fmt.Sprintf("%s=%s", config.LABEL_VENDOR, config.LABEL_RADONDB)
 
 	// if allflag is not set to true, then update the selector to target the
 	// specific PVCs for a specific cluster

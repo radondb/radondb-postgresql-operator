@@ -24,9 +24,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	fakekube "k8s.io/client-go/kubernetes/fake"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	fakeqingcloud "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned/fake"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	fakeradondb "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned/fake"
 )
 
 const (
@@ -60,7 +60,7 @@ func NewFakePGOClient() (kubeapi.Interface, error) {
 			"of the PostgreSQL Operator project repository in order to create a fake client")
 	}
 
-	os.Setenv("QINGCLOUD_DEBUG", "false")
+	os.Setenv("RADONDB_DEBUG", "false")
 	os.Setenv("NAMESPACE", defaultTargetNamespaces)
 	os.Setenv("PGO_INSTALLATION_NAME", defaultPGOInstallationName)
 	os.Setenv("PGO_OPERATOR_NAMESPACE", defaultPGONamespace)
@@ -74,7 +74,7 @@ func NewFakePGOClient() (kubeapi.Interface, error) {
 	// now create and return a fake client containing the ConfigMap
 	return &Clientset{
 		Clientset:    fakekube.NewSimpleClientset(pgoConfig),
-		PGOClientset: fakeqingcloud.NewSimpleClientset(),
+		PGOClientset: fakeradondb.NewSimpleClientset(),
 	}, nil
 }
 

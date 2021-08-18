@@ -1,7 +1,7 @@
 package manager
 
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -19,8 +19,8 @@ import (
 	"context"
 	"text/template"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/ns"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/ns"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"

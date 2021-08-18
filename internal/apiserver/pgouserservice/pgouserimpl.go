@@ -21,11 +21,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/ns"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
-	"github.com/qingcloud/postgres-operator/pkg/events"
+	"github.com/radondb/radondb-postgresql-operator/internal/apiserver"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/ns"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
+	"github.com/radondb/radondb-postgresql-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -290,7 +290,7 @@ func createSecret(clientset kubernetes.Interface, createdBy string, request *msg
 	secret.ObjectMeta.Labels[config.LABEL_PGO_CREATED_BY] = createdBy
 	secret.ObjectMeta.Labels[config.LABEL_USERNAME] = request.PgouserName
 	secret.ObjectMeta.Labels[config.LABEL_PGO_PGOUSER] = "true"
-	secret.ObjectMeta.Labels[config.LABEL_VENDOR] = "qingcloud"
+	secret.ObjectMeta.Labels[config.LABEL_VENDOR] = "radondb"
 	secret.Data = make(map[string][]byte)
 	secret.Data[MAP_KEY_USERNAME] = []byte(request.PgouserName)
 	secret.Data[MAP_KEY_ROLES] = []byte(request.PgouserRoles)

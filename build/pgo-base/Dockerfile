@@ -9,20 +9,18 @@ ARG PG_FULL
 ARG PACKAGER
 ARG DFSET
 
-MAINTAINER info@qingcloud.com
 
-LABEL vendor="Qingcloud Data" \
-	url="https://qingcloud.com" \
+LABEL vendor="RadonDB" \
+	url="https://radondb.com" \
 	release="${RELVER}" \
 	postgresql.version.major="${PGVERSION}" \
 	postgresql.version="${PG_FULL}" \
 	os.version="7.7" \
-	org.opencontainers.image.vendor="Qingcloud Data" \
-	io.openshift.tags="postgresql,postgres,sql,nosql,qingcloud" \
+	org.opencontainers.image.vendor="RadonDB" \
+	io.openshift.tags="postgresql,postgres,sql,nosql,radondb" \
 	io.k8s.description="Trusted open source PostgreSQL-as-a-Service"
 
 COPY redhat/atomic/help.1 /help.1
-COPY redhat/atomic/help.md /help.md
 COPY licenses /licenses
 ENV TZ=Asia/Shanghai
 COPY conf/pip.conf pip.conf
@@ -74,5 +72,5 @@ RUN if [ "$BASEOS" = "ubi8" ] ; then \
         && echo "state=disabled"  >> /etc/dnf/modules.d/postgresql.module ; \
 fi
 
-# Qingcloud PostgreSQL repository
-ADD conf/qingcloudpg${PGVERSION}.repo /etc/yum.repos.d/
+# RadonDB PostgreSQL repository
+ADD conf/radondbpg${PGVERSION}.repo /etc/yum.repos.d/

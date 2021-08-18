@@ -23,9 +23,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
@@ -163,7 +163,7 @@ func CreateBackrestRepoSecrets(clientset kubernetes.Interface,
 			ObjectMeta: metav1.ObjectMeta{
 				Name: secretName,
 				Labels: map[string]string{
-					config.LABEL_VENDOR:            config.LABEL_QINGCLOUD,
+					config.LABEL_VENDOR:            config.LABEL_RADONDB,
 					config.LABEL_PG_CLUSTER:        backrestRepoConfig.ClusterName,
 					config.LABEL_PGO_BACKREST_REPO: "true",
 				},
@@ -301,7 +301,7 @@ func CreateRMDataTask(clientset kubeapi.Interface, cluster *crv1.Pgcluster, repl
 		},
 	}
 
-	if _, err := clientset.QingcloudV1().Pgtasks(cluster.Namespace).Create(ctx, task, metav1.CreateOptions{}); err != nil {
+	if _, err := clientset.RadondbV1().Pgtasks(cluster.Namespace).Create(ctx, task, metav1.CreateOptions{}); err != nil {
 		log.Error(err)
 		return err
 	}

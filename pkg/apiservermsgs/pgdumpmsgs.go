@@ -16,7 +16,7 @@ limitations under the License.
 */
 
 import (
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 )
 
 // CreatepgDumpBackupResponse ...

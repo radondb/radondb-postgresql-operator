@@ -1,5 +1,5 @@
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -22,9 +22,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
-	internalinterfaces "github.com/qingcloud/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
-	qingcloudcom "github.com/qingcloud/postgres-operator/pkg/generated/informers/externalversions/qingcloud.com"
+	versioned "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned"
+	internalinterfaces "github.com/radondb/radondb-postgresql-operator/pkg/generated/informers/externalversions/internalinterfaces"
+	radondbcom "github.com/radondb/radondb-postgresql-operator/pkg/generated/informers/externalversions/radondb.com"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -171,9 +171,9 @@ type SharedInformerFactory interface {
 	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
-	Qingcloud() qingcloudcom.Interface
+	Radondb() radondbcom.Interface
 }
 
-func (f *sharedInformerFactory) Qingcloud() qingcloudcom.Interface {
-	return qingcloudcom.New(f, f.namespace, f.tweakListOptions)
+func (f *sharedInformerFactory) Radondb() radondbcom.Interface {
+	return radondbcom.New(f, f.namespace, f.tweakListOptions)
 }

@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/util"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/operator"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
 	log "github.com/sirupsen/logrus"
 	v1batch "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"
@@ -65,7 +65,7 @@ func (p PolicyJob) Run() {
 
 	contextLogger.Info("Running Policy schedule")
 
-	cluster, err := clientset.QingcloudV1().Pgclusters(p.namespace).Get(ctx, p.cluster, metav1.GetOptions{})
+	cluster, err := clientset.RadondbV1().Pgclusters(p.namespace).Get(ctx, p.cluster, metav1.GetOptions{})
 	if err != nil {
 		contextLogger.WithFields(log.Fields{
 			"error": err,
@@ -73,7 +73,7 @@ func (p PolicyJob) Run() {
 		return
 	}
 
-	policy, err := clientset.QingcloudV1().Pgpolicies(p.namespace).Get(ctx, p.policy, metav1.GetOptions{})
+	policy, err := clientset.RadondbV1().Pgpolicies(p.namespace).Get(ctx, p.policy, metav1.GetOptions{})
 	if err != nil {
 		contextLogger.WithFields(log.Fields{
 			"error": err,
@@ -181,7 +181,7 @@ func (p PolicyJob) Run() {
 	}
 
 	// set the container image to an override value, if one exists
-	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_QINGCLOUD_POSTGRES_HA,
+	operator.SetContainerImageOverride(config.CONTAINER_IMAGE_RADONDB_POSTGRES_HA,
 		&newJob.Spec.Template.Spec.Containers[0])
 
 	_, err = clientset.BatchV1().Jobs(p.namespace).Create(ctx, newJob, metav1.CreateOptions{})

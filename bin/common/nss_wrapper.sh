@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2021 Qingcloud Data Solutions, Inc.
+# Copyright 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-QINGCLOUD_DIR=${QINGCLOUD_DIR:-'/opt/qingcloud'}
+RADONDB_DIR=${RADONDB_DIR:-'/opt/radondb'}
 
 # The following sets up an nss_wrapper environment in accordance with OpenShift
 # guidance for supporting arbitrary user ID's
@@ -42,12 +42,12 @@ export GROUP_ID
 [[ -f "${NSS_WRAPPER_GROUP}" ]] || cp "/etc/group" "${NSS_WRAPPER_GROUP}"
 
 # if the username is missing from the passwd file, then add it
-if [[ ! $(cat "${NSS_WRAPPER_PASSWD}") =~ ${QINGCLOUD_NSS_USERNAME}:x:${USER_ID} ]]; then
+if [[ ! $(cat "${NSS_WRAPPER_PASSWD}") =~ ${RADONDB_NSS_USERNAME}:x:${USER_ID} ]]; then
     echo "nss_wrapper: adding user"
     passwd_tmp="${NSS_WRAPPER_DIR}/passwd_tmp"
     cp "${NSS_WRAPPER_PASSWD}" "${passwd_tmp}"
-    sed -i "/${QINGCLOUD_NSS_USERNAME}:x:/d" "${passwd_tmp}"
-    printf '${QINGCLOUD_NSS_USERNAME}:x:${USER_ID}:${GROUP_ID}:${QINGCLOUD_NSS_USER_DESC}:${HOME}:/bin/bash\n' >> "${passwd_tmp}"
+    sed -i "/${RADONDB_NSS_USERNAME}:x:/d" "${passwd_tmp}"
+    printf '${RADONDB_NSS_USERNAME}:x:${USER_ID}:${GROUP_ID}:${RADONDB_NSS_USER_DESC}:${HOME}:/bin/bash\n' >> "${passwd_tmp}"
     envsubst < "${passwd_tmp}" > "${NSS_WRAPPER_PASSWD}"
     rm "${passwd_tmp}"
 else
@@ -55,12 +55,12 @@ else
 fi
 
 # if the username (which will be the same as the group name) is missing from group file, then add it
-if [[ ! $(cat "${NSS_WRAPPER_GROUP}") =~ ${QINGCLOUD_NSS_USERNAME}:x:${USER_ID} ]]; then
+if [[ ! $(cat "${NSS_WRAPPER_GROUP}") =~ ${RADONDB_NSS_USERNAME}:x:${USER_ID} ]]; then
     echo "nss_wrapper: adding group"
     group_tmp="${NSS_WRAPPER_DIR}/group_tmp"
     cp "${NSS_WRAPPER_GROUP}" "${group_tmp}"
-    sed -i "/${QINGCLOUD_NSS_USERNAME}:x:/d" "${group_tmp}"
-    printf '${QINGCLOUD_NSS_USERNAME}:x:${USER_ID}:${QINGCLOUD_NSS_USERNAME}\n' >> "${group_tmp}"
+    sed -i "/${RADONDB_NSS_USERNAME}:x:/d" "${group_tmp}"
+    printf '${RADONDB_NSS_USERNAME}:x:${USER_ID}:${RADONDB_NSS_USERNAME}\n' >> "${group_tmp}"
     envsubst < "${group_tmp}" > "${NSS_WRAPPER_GROUP}"
     rm "${group_tmp}"
 else
@@ -68,5 +68,5 @@ else
 fi
 
 # export the nss_wrapper env vars
-source "${QINGCLOUD_DIR}/bin/nss_wrapper_env.sh"
+source "${RADONDB_DIR}/bin/nss_wrapper_env.sh"
 echo "nss_wrapper: environment configured"

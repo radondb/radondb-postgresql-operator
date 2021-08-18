@@ -20,9 +20,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/radondb-postgresql-operator/internal/apiserver"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 )
 

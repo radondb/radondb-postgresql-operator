@@ -18,11 +18,11 @@ package backrest
 import (
 	"context"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/internal/operator"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -36,7 +36,7 @@ func CleanStanzaCreateResources(namespace, clusterName string, clientset kubeapi
 
 	resourceName := clusterName + "-" + crv1.PgtaskBackrestStanzaCreate
 
-	if err := clientset.QingcloudV1().Pgtasks(namespace).
+	if err := clientset.RadondbV1().Pgtasks(namespace).
 		Delete(ctx, resourceName, metav1.DeleteOptions{}); err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
@@ -72,7 +72,7 @@ func StanzaCreate(namespace, clusterName string, clientset kubeapi.Interface) {
 	podName := pods.Items[0].Name
 
 	// get the cluster to determine the proper storage type
-	cluster, err := clientset.QingcloudV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		return
 	}
@@ -88,7 +88,7 @@ func StanzaCreate(namespace, clusterName string, clientset kubeapi.Interface) {
 	spec.Parameters[config.LABEL_JOB_NAME] = jobName
 	spec.Parameters[config.LABEL_PG_CLUSTER] = clusterName
 	spec.Parameters[config.LABEL_POD_NAME] = podName
-	spec.Parameters[config.LABEL_CONTAINER_NAME] = "qingcloud-pgbackrest-repo"
+	spec.Parameters[config.LABEL_CONTAINER_NAME] = "radondb-pgbackrest-repo"
 	// pass along the appropriate image prefix for the backup task
 	// this will be used by the associated backrest job
 	spec.Parameters[config.LABEL_IMAGE_PREFIX] = util.GetValueOrDefault(cluster.Spec.CCPImagePrefix, operator.Pgo.Cluster.CCPImagePrefix)
@@ -114,7 +114,7 @@ func StanzaCreate(namespace, clusterName string, clientset kubeapi.Interface) {
 	newInstance.ObjectMeta.Labels = make(map[string]string)
 	newInstance.ObjectMeta.Labels[config.LABEL_PG_CLUSTER] = clusterName
 
-	_, err = clientset.QingcloudV1().Pgtasks(namespace).Create(ctx, newInstance, metav1.CreateOptions{})
+	_, err = clientset.RadondbV1().Pgtasks(namespace).Create(ctx, newInstance, metav1.CreateOptions{})
 	if err != nil {
 		log.Error(err)
 	}

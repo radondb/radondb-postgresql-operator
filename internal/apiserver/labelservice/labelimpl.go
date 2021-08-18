@@ -1,7 +1,7 @@
 package labelservice
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -18,11 +18,11 @@ limitations under the License.
 import (
 	"context"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/radondb-postgresql-operator/internal/apiserver"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -53,7 +53,7 @@ func Label(request *msgs.LabelRequest, ns, pgouser string) msgs.LabelResponse {
 
 	clusterList := crv1.PgclusterList{}
 	if len(request.Args) > 0 && request.Args[0] == "all" {
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
 		if err != nil {
 			log.Error("error getting list of clusters" + err.Error())
 			resp.Status.Code = msgs.Error
@@ -70,7 +70,7 @@ func Label(request *msgs.LabelRequest, ns, pgouser string) msgs.LabelResponse {
 	} else if request.Selector != "" {
 		log.Debugf("label selector is %s and ns is %s", request.Selector, ns)
 
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: request.Selector})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: request.Selector})
 		if err != nil {
 			log.Error("error getting list of clusters" + err.Error())
 			resp.Status.Code = msgs.Error
@@ -87,7 +87,7 @@ func Label(request *msgs.LabelRequest, ns, pgouser string) msgs.LabelResponse {
 		// each arg represents a cluster name
 		items := make([]crv1.Pgcluster, 0)
 		for _, cluster := range request.Args {
-			result, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, cluster, metav1.GetOptions{})
+			result, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, cluster, metav1.GetOptions{})
 			if err != nil {
 				resp.Status.Code = msgs.Error
 				resp.Status.Msg = "error getting list of clusters" + err.Error()
@@ -121,7 +121,7 @@ func addLabels(items []crv1.Pgcluster, DryRun bool, newLabels map[string]string,
 			log.Debug("dry run only")
 		} else {
 			log.Debugf("patching cluster %s: %s", items[i].Spec.Name, patchBytes)
-			_, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).
+			_, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).
 				Patch(ctx, items[i].Spec.Name, types.MergePatchType, patchBytes, metav1.PatchOptions{})
 			if err != nil {
 				log.Error(err.Error())
@@ -155,7 +155,7 @@ func DeleteLabel(request *msgs.DeleteLabelRequest, ns string) msgs.LabelResponse
 
 	clusterList := crv1.PgclusterList{}
 	if len(request.Args) > 0 && request.Args[0] == "all" {
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
 		if err != nil {
 			log.Error("error getting list of clusters" + err.Error())
 			resp.Status.Code = msgs.Error
@@ -170,7 +170,7 @@ func DeleteLabel(request *msgs.DeleteLabelRequest, ns string) msgs.LabelResponse
 		clusterList = *cl
 
 	} else if request.Selector != "" {
-		cl, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: request.Selector})
+		cl, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{LabelSelector: request.Selector})
 		if err != nil {
 			log.Error("error getting list of clusters" + err.Error())
 			resp.Status.Code = msgs.Error
@@ -187,7 +187,7 @@ func DeleteLabel(request *msgs.DeleteLabelRequest, ns string) msgs.LabelResponse
 		// each arg represents a cluster name
 		items := make([]crv1.Pgcluster, 0)
 		for _, cluster := range request.Args {
-			result, err := apiserver.Clientset.QingcloudV1().Pgclusters(ns).Get(ctx, cluster, metav1.GetOptions{})
+			result, err := apiserver.Clientset.RadondbV1().Pgclusters(ns).Get(ctx, cluster, metav1.GetOptions{})
 			if err != nil {
 				resp.Status.Code = msgs.Error
 				resp.Status.Msg = "error getting list of clusters" + err.Error()
@@ -226,7 +226,7 @@ func deleteLabels(items []crv1.Pgcluster, labelsMap map[string]string, ns string
 
 	for i := 0; i < len(items); i++ {
 		log.Debugf("patching cluster %s: %s", items[i].Spec.Name, patchBytes)
-		_, err = apiserver.Clientset.QingcloudV1().Pgclusters(ns).
+		_, err = apiserver.Clientset.RadondbV1().Pgclusters(ns).
 			Patch(ctx, items[i].Spec.Name, types.MergePatchType, patchBytes, metav1.PatchOptions{})
 		if err != nil {
 			log.Error(err.Error())

@@ -22,8 +22,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/util"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
 
 	log "github.com/sirupsen/logrus"
 	kerror "k8s.io/apimachinery/pkg/api/errors"
@@ -60,7 +60,7 @@ func Delete(request Request) {
 		}
 		// delete the pgreplica CRD
 		if err := request.Clientset.
-			QingcloudV1().Pgreplicas(request.Namespace).
+			RadondbV1().Pgreplicas(request.Namespace).
 			Delete(ctx, request.ReplicaName, metav1.DeleteOptions{}); err != nil {
 			// If the name of the replica being deleted matches the scope for the cluster, then
 			// we assume it was the original primary and the pgreplica deletion will fail with
@@ -104,9 +104,9 @@ func Delete(request Request) {
 	// attempt to delete the pgcluster object if it has not already been deleted.
 	// quite possibly, we are here because one deleted the pgcluster object
 	// already, so this step is optional
-	if _, err := request.Clientset.QingcloudV1().Pgclusters(request.Namespace).Get(
+	if _, err := request.Clientset.RadondbV1().Pgclusters(request.Namespace).Get(
 		ctx, request.ClusterName, metav1.GetOptions{}); err == nil {
-		if err := request.Clientset.QingcloudV1().Pgclusters(request.Namespace).Delete(
+		if err := request.Clientset.RadondbV1().Pgclusters(request.Namespace).Delete(
 			ctx, request.ClusterName, metav1.DeleteOptions{}); err != nil {
 			log.Error(err)
 		}
@@ -413,7 +413,7 @@ func removePgreplicas(request Request) {
 	ctx := context.TODO()
 
 	// get a list of pgreplicas for this cluster
-	replicaList, err := request.Clientset.QingcloudV1().Pgreplicas(request.Namespace).List(ctx, metav1.ListOptions{
+	replicaList, err := request.Clientset.RadondbV1().Pgreplicas(request.Namespace).List(ctx, metav1.ListOptions{
 		LabelSelector: config.LABEL_PG_CLUSTER + "=" + request.ClusterName,
 	})
 	if err != nil {
@@ -425,7 +425,7 @@ func removePgreplicas(request Request) {
 
 	for _, r := range replicaList.Items {
 		if err := request.Clientset.
-			QingcloudV1().Pgreplicas(request.Namespace).
+			RadondbV1().Pgreplicas(request.Namespace).
 			Delete(ctx, r.Spec.Name, metav1.DeleteOptions{}); err != nil {
 			log.Warn(err)
 		}
@@ -437,7 +437,7 @@ func removePgtasks(request Request) {
 
 	// get a list of pgtasks for this cluster
 	taskList, err := request.Clientset.
-		QingcloudV1().Pgtasks(request.Namespace).
+		RadondbV1().Pgtasks(request.Namespace).
 		List(ctx, metav1.ListOptions{LabelSelector: config.LABEL_PG_CLUSTER + "=" + request.ClusterName})
 	if err != nil {
 		log.Error(err)
@@ -447,7 +447,7 @@ func removePgtasks(request Request) {
 	log.Debugf("pgtasks to remove is %d\n", len(taskList.Items))
 
 	for _, r := range taskList.Items {
-		if err := request.Clientset.QingcloudV1().Pgtasks(request.Namespace).Delete(ctx, r.Spec.Name, metav1.DeleteOptions{}); err != nil {
+		if err := request.Clientset.RadondbV1().Pgtasks(request.Namespace).Delete(ctx, r.Spec.Name, metav1.DeleteOptions{}); err != nil {
 			log.Warn(err)
 		}
 	}
@@ -728,8 +728,8 @@ func removeSchedules(request Request) {
 	log.Debugf("removing schedules for '%s'", request.ClusterName)
 
 	// a ConfigMap used for the schedule uses the following label selector:
-	// qingcloud-scheduler=true,<config.LABEL_PG_CLUSTER>=<request.ClusterName>
-	selector := fmt.Sprintf("qingcloud-scheduler=true,%s=%s",
+	// radondb-scheduler=true,<config.LABEL_PG_CLUSTER>=<request.ClusterName>
+	selector := fmt.Sprintf("radondb-scheduler=true,%s=%s",
 		config.LABEL_PG_CLUSTER, request.ClusterName)
 
 	// run the query the deletes all of the scheduled configmaps

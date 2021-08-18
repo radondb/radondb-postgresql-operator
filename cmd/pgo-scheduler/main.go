@@ -22,13 +22,13 @@ import (
 	"syscall"
 	"time"
 
-	sched "github.com/qingcloud/postgres-operator/cmd/pgo-scheduler/scheduler"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/controller"
-	nscontroller "github.com/qingcloud/postgres-operator/internal/controller/namespace"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	qingcloudlog "github.com/qingcloud/postgres-operator/internal/logging"
-	"github.com/qingcloud/postgres-operator/internal/ns"
+	sched "github.com/radondb/radondb-postgresql-operator/cmd/pgo-scheduler/scheduler"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/controller"
+	nscontroller "github.com/radondb/radondb-postgresql-operator/internal/controller/namespace"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	radondblog "github.com/radondb/radondb-postgresql-operator/internal/logging"
+	"github.com/radondb/radondb-postgresql-operator/internal/ns"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kubeinformers "k8s.io/client-go/informers"
@@ -37,7 +37,7 @@ import (
 )
 
 const (
-	schedulerLabel       = "qingcloud-scheduler=true"
+	schedulerLabel       = "radondb-scheduler=true"
 	pgoNamespaceEnv      = "PGO_OPERATOR_NAMESPACE"
 	namespaceWorkerCount = 1
 )
@@ -58,9 +58,9 @@ func init() {
 	var err error
 	log.SetLevel(log.InfoLevel)
 
-	debugFlag := os.Getenv("QINGCLOUD_DEBUG")
+	debugFlag := os.Getenv("RADONDB_DEBUG")
 	// add logging configuration
-	qingcloudlog.QingcloudLogger(qingcloudlog.SetParameters())
+	radondblog.RadondbLogger(radondblog.SetParameters())
 	if debugFlag == "true" {
 		log.SetLevel(log.DebugLevel)
 		log.Debug("debug flag set to true")
@@ -99,7 +99,7 @@ func init() {
 }
 
 func main() {
-	log.Info("Starting Qingcloud Scheduler")
+	log.Info("Starting RadonDB Scheduler")
 	// give time for pgo-event to start up
 	time.Sleep(time.Duration(5) * time.Second)
 
@@ -199,7 +199,7 @@ func createAndStartNamespaceController(kubeClientset kubernetes.Interface,
 		nsRefreshInterval,
 		kubeinformers.WithTweakListOptions(func(options *metav1.ListOptions) {
 			options.LabelSelector = fmt.Sprintf("%s=%s,%s=%s",
-				config.LABEL_VENDOR, config.LABEL_QINGCLOUD,
+				config.LABEL_VENDOR, config.LABEL_RADONDB,
 				config.LABEL_PGO_INSTALLATION_NAME, installationName)
 		}))
 

@@ -1,7 +1,7 @@
 package backrest
 
 /*
- Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -26,13 +26,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	"github.com/qingcloud/postgres-operator/pkg/events"
-	pgo "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/internal/operator"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/pkg/events"
+	pgo "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	v1batch "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"
@@ -77,7 +77,7 @@ func Backrest(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) 
 
 	// get the cluster that is requesting the backup. if we cannot get the cluster
 	// do not take the backup
-	cluster, err := clientset.QingcloudV1().Pgclusters(task.Namespace).Get(ctx,
+	cluster, err := clientset.RadondbV1().Pgclusters(task.Namespace).Get(ctx,
 		task.Spec.Parameters[config.LABEL_PG_CLUSTER], metav1.GetOptions{})
 
 	if err != nil {
@@ -139,7 +139,7 @@ func Backrest(namespace string, clientset kubeapi.Interface, task *crv1.Pgtask) 
 		return
 	}
 
-	if operator.QINGCLOUD_DEBUG {
+	if operator.RADONDB_DEBUG {
 		_ = config.BackrestjobTemplate.Execute(os.Stdout, jobFields)
 	}
 
@@ -209,7 +209,7 @@ func CreateBackup(clientset pgo.Interface, namespace, clusterName, podName strin
 
 	log.Debug("pgBackRest operator CreateBackup called")
 
-	cluster, err := clientset.QingcloudV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
+	cluster, err := clientset.RadondbV1().Pgclusters(namespace).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err)
 		return nil, err
@@ -249,7 +249,7 @@ func CreateBackup(clientset pgo.Interface, namespace, clusterName, podName strin
 	newInstance.ObjectMeta.Labels[config.LABEL_PG_CLUSTER] = cluster.Name
 	newInstance.ObjectMeta.Labels[config.LABEL_PGOUSER] = cluster.ObjectMeta.Labels[config.LABEL_PGOUSER]
 
-	_, err = clientset.QingcloudV1().Pgtasks(cluster.Namespace).Create(ctx, newInstance, metav1.CreateOptions{})
+	_, err = clientset.RadondbV1().Pgtasks(cluster.Namespace).Create(ctx, newInstance, metav1.CreateOptions{})
 	if err != nil {
 		log.Error(err)
 		return nil, err
@@ -265,7 +265,7 @@ func CleanBackupResources(clientset kubeapi.Interface, namespace, clusterName st
 	ctx := context.TODO()
 
 	taskName := "backrest-backup-" + clusterName
-	err := clientset.QingcloudV1().Pgtasks(namespace).Delete(ctx, taskName, metav1.DeleteOptions{})
+	err := clientset.RadondbV1().Pgtasks(namespace).Delete(ctx, taskName, metav1.DeleteOptions{})
 	if err != nil && !kubeapi.IsNotFound(err) {
 		log.Error(err)
 		return err
