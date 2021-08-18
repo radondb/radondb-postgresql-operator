@@ -12,7 +12,7 @@ RadonDB PostgreSQL Operator supports [Kubernetes](https://kubernetes.io) or [Kub
 
 ## Quick Start
 
-- [Deploy RadonDB PostgreSQL on Kubernetes](docs/deploy_radondb_postgresql_on_kubernetes.md)
+- [Deploy RadonDB PostgreSQL on Kubernetes](docs/deploy_radondb_postgresql_operator_on_kubernetes.md)
 - [Monitoring](docs/monitor_prometheus.md)
 
 ## Architecture
