@@ -24,12 +24,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
-	"github.com/RadonDB/postgres-operator/internal/kubeapi"
-	"github.com/RadonDB/postgres-operator/internal/util"
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
-	"github.com/RadonDB/postgres-operator/pkg/events"
-	pgo "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/radondb/postgres-operator/pkg/events"
+	pgo "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
 
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"

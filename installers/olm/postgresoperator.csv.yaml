@@ -17,7 +17,7 @@ metadata:
     # https://operatorhub.io/operator/postgresql
     createdAt: 2019-12-31 19:40Z
     containerImage: '${PGO_IMAGE_PREFIX}/postgres-operator:${PGO_IMAGE_TAG}'
-    repository: https://github.com/RadonDB/postgres-operator
+    repository: https://github.com/radondb/postgres-operator
 
     alm-examples: |- # postgresoperator.crd.examples.yaml
 

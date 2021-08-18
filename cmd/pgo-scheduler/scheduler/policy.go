@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
-	"github.com/RadonDB/postgres-operator/internal/operator"
-	"github.com/RadonDB/postgres-operator/internal/util"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/util"
 	log "github.com/sirupsen/logrus"
 	v1batch "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"

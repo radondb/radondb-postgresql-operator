@@ -16,8 +16,8 @@ limitations under the License.
 */
 
 import (
-	"github.com/RadonDB/postgres-operator/internal/apiserver"
-	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 )
 

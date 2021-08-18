@@ -18,9 +18,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
-	RadonDBv1 "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/typed/RadonDB.com/v1"
-	fakeRadonDBv1 "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/typed/RadonDB.com/v1/fake"
+	clientset "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	RadonDBv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/RadonDB.com/v1"
+	fakeRadonDBv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/RadonDB.com/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

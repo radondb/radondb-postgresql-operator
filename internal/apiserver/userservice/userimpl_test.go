@@ -19,7 +19,7 @@ import (
 	"strings"
 	"testing"
 
-	pgpassword "github.com/RadonDB/postgres-operator/internal/postgres/password"
+	pgpassword "github.com/radondb/postgres-operator/internal/postgres/password"
 )
 
 func TestGeneratePassword(t *testing.T) {

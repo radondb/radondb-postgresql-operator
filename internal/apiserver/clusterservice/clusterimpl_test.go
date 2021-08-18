@@ -18,9 +18,9 @@ limitations under the License.
 import (
 	"testing"
 
-	"github.com/RadonDB/postgres-operator/internal/apiserver"
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
-	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 )
 
 func TestIsMissingGCSConfig(t *testing.T) {

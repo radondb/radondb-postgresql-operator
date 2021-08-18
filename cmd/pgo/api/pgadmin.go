@@ -22,7 +22,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 
 	log "github.com/sirupsen/logrus"
 )

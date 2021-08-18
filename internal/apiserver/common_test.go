@@ -19,8 +19,8 @@ import (
 	"errors"
 	"testing"
 
-	pgpassword "github.com/RadonDB/postgres-operator/internal/postgres/password"
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	pgpassword "github.com/radondb/postgres-operator/internal/postgres/password"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	"k8s.io/apimachinery/pkg/api/resource"
 )

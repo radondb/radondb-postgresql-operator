@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/RadonDB/postgres-operator/internal/apiserver"
-	"github.com/RadonDB/postgres-operator/internal/config"
-	"github.com/RadonDB/postgres-operator/internal/patroni"
-	msgs "github.com/RadonDB/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/patroni"
+	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 
 	kerrors "k8s.io/apimachinery/pkg/api/errors"

@@ -23,12 +23,12 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
-	"github.com/RadonDB/postgres-operator/internal/controller"
-	"github.com/RadonDB/postgres-operator/internal/kubeapi"
-	"github.com/RadonDB/postgres-operator/internal/operator"
-	"github.com/RadonDB/postgres-operator/internal/operator/backrest"
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/controller"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/operator/backrest"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
 )
 
 // backrestUpdateHandler is responsible for handling updates to backrest jobs

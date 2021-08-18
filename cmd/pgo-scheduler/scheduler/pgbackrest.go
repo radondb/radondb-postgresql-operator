@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/config"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"

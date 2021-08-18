@@ -20,7 +20,7 @@ package versioned
 import (
 	"fmt"
 
-	RadonDBv1 "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/typed/RadonDB.com/v1"
+	RadonDBv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/RadonDB.com/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

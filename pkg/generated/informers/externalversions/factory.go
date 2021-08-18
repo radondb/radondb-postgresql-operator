@@ -22,9 +22,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned"
-	internalinterfaces "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
-	RadonDBcom "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions/RadonDB.com"
+	versioned "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
+	internalinterfaces "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
+	RadonDBcom "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/RadonDB.com"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

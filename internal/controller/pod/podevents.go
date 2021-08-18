@@ -18,9 +18,9 @@ limitations under the License.
 import (
 	"time"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
-	"github.com/RadonDB/postgres-operator/pkg/events"
+	"github.com/radondb/postgres-operator/internal/config"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/radondb/postgres-operator/pkg/events"
 	log "github.com/sirupsen/logrus"
 )
 

@@ -18,10 +18,10 @@ limitations under the License.
 import (
 	"context"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
-	backrestoperator "github.com/RadonDB/postgres-operator/internal/operator/backrest"
-	clusteroperator "github.com/RadonDB/postgres-operator/internal/operator/cluster"
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	backrestoperator "github.com/radondb/postgres-operator/internal/operator/backrest"
+	clusteroperator "github.com/radondb/postgres-operator/internal/operator/cluster"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

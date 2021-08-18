@@ -20,7 +20,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	v1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )

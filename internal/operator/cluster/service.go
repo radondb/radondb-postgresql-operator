@@ -24,9 +24,9 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
-	"github.com/RadonDB/postgres-operator/internal/operator"
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/operator"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
 	log "github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/api/core/v1"

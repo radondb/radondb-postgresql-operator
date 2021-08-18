@@ -24,10 +24,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RadonDB/postgres-operator/internal/apiserver"
-	"github.com/RadonDB/postgres-operator/internal/apiserver/routing"
-	RadonDBlog "github.com/RadonDB/postgres-operator/internal/logging"
-	"github.com/RadonDB/postgres-operator/internal/tlsutil"
+	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/postgres-operator/internal/apiserver/routing"
+	RadonDBlog "github.com/radondb/postgres-operator/internal/logging"
+	"github.com/radondb/postgres-operator/internal/tlsutil"
 
 	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"

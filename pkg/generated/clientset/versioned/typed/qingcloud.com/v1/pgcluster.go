@@ -21,8 +21,8 @@ import (
 	"context"
 	"time"
 
-	v1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
-	scheme "github.com/RadonDB/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	v1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
+	scheme "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"

@@ -22,10 +22,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
-	fakekubeapi "github.com/RadonDB/postgres-operator/internal/kubeapi/fake"
-	"github.com/RadonDB/postgres-operator/internal/util"
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	"github.com/radondb/postgres-operator/internal/config"
+	fakekubeapi "github.com/radondb/postgres-operator/internal/kubeapi/fake"
+	"github.com/radondb/postgres-operator/internal/util"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

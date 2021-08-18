@@ -18,7 +18,7 @@ package operator
 import (
 	"testing"
 
-	crv1 "github.com/RadonDB/postgres-operator/pkg/apis/RadonDB.com/v1"
+	crv1 "github.com/radondb/postgres-operator/pkg/apis/RadonDB.com/v1"
 )
 
 func TestGetRepoType(t *testing.T) {

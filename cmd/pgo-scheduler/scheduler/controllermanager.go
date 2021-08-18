@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/RadonDB/postgres-operator/internal/controller"
-	"github.com/RadonDB/postgres-operator/internal/kubeapi"
-	"github.com/RadonDB/postgres-operator/internal/ns"
+	"github.com/radondb/postgres-operator/internal/controller"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/ns"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/sync/semaphore"
 

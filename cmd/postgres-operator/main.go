@@ -20,12 +20,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/RadonDB/postgres-operator/internal/config"
-	"github.com/RadonDB/postgres-operator/internal/controller"
-	"github.com/RadonDB/postgres-operator/internal/controller/manager"
-	nscontroller "github.com/RadonDB/postgres-operator/internal/controller/namespace"
-	RadonDBlog "github.com/RadonDB/postgres-operator/internal/logging"
-	"github.com/RadonDB/postgres-operator/internal/ns"
+	"github.com/radondb/postgres-operator/internal/config"
+	"github.com/radondb/postgres-operator/internal/controller"
+	"github.com/radondb/postgres-operator/internal/controller/manager"
+	nscontroller "github.com/radondb/postgres-operator/internal/controller/namespace"
+	RadonDBlog "github.com/radondb/postgres-operator/internal/logging"
+	"github.com/radondb/postgres-operator/internal/ns"
 	log "github.com/sirupsen/logrus"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -34,8 +34,8 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"sigs.k8s.io/controller-runtime/pkg/manager/signals"
 
-	"github.com/RadonDB/postgres-operator/internal/kubeapi"
-	"github.com/RadonDB/postgres-operator/internal/operator"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/operator"
 )
 
 func main() {

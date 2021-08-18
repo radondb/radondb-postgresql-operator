@@ -18,8 +18,8 @@ limitations under the License.
 package RadonDB
 
 import (
-	internalinterfaces "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
-	v1 "github.com/RadonDB/postgres-operator/pkg/generated/informers/externalversions/RadonDB.com/v1"
+	internalinterfaces "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
+	v1 "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/RadonDB.com/v1"
 )
 
 // Interface provides access to each of this group's versions.

@@ -18,7 +18,7 @@ package scheduler
 import (
 	"time"
 
-	"github.com/RadonDB/postgres-operator/internal/kubeapi"
+	"github.com/radondb/postgres-operator/internal/kubeapi"
 	cv3 "github.com/robfig/cron/v3"
 )
 
