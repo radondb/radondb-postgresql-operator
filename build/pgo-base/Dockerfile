@@ -21,7 +21,6 @@ LABEL vendor="RadonDB" \
 	io.k8s.description="Trusted open source PostgreSQL-as-a-Service"
 
 COPY redhat/atomic/help.1 /help.1
-COPY redhat/atomic/help.md /help.md
 COPY licenses /licenses
 ENV TZ=Asia/Shanghai
 COPY conf/pip.conf pip.conf
