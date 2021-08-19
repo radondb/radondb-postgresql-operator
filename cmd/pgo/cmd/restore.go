@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/radondb/postgres-operator/cmd/pgo/api"
-	pgoutil "github.com/radondb/postgres-operator/cmd/pgo/util"
-	"github.com/radondb/postgres-operator/internal/config"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/radondb-postgresql-operator/cmd/pgo/api"
+	pgoutil "github.com/radondb/radondb-postgresql-operator/cmd/pgo/util"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

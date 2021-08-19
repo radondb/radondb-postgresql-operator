@@ -20,8 +20,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/labels"

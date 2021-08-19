@@ -18,7 +18,7 @@ limitations under the License.
 package scheme
 
 import (
-	radondbv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	radondbv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

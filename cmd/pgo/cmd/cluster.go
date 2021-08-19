@@ -28,11 +28,11 @@ import (
 	"github.com/spf13/cobra"
 	v1 "k8s.io/api/core/v1"
 
-	"github.com/radondb/postgres-operator/cmd/pgo/api"
-	"github.com/radondb/postgres-operator/cmd/pgo/util"
-	pgoutil "github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	"github.com/radondb/radondb-postgresql-operator/cmd/pgo/api"
+	"github.com/radondb/radondb-postgresql-operator/cmd/pgo/util"
+	pgoutil "github.com/radondb/radondb-postgresql-operator/internal/util"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
 )
 
 // below are the tablespace parameters and the expected values of each

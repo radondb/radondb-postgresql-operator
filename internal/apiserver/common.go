@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"strings"
 
-	pgpassword "github.com/radondb/postgres-operator/internal/postgres/password"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	pgpassword "github.com/radondb/radondb-postgresql-operator/internal/postgres/password"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"

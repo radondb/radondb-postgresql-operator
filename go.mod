@@ -1,4 +1,4 @@
-module github.com/radondb/postgres-operator
+module github.com/radondb/radondb-postgresql-operator
 
 go 1.15
 

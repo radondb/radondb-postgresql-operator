@@ -22,10 +22,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	fakekubeapi "github.com/radondb/postgres-operator/internal/kubeapi/fake"
-	"github.com/radondb/postgres-operator/internal/util"
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	fakekubeapi "github.com/radondb/radondb-postgresql-operator/internal/kubeapi/fake"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

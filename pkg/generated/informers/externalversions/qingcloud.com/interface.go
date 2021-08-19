@@ -18,8 +18,8 @@ limitations under the License.
 package radondb
 
 import (
-	internalinterfaces "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/internalinterfaces"
-	v1 "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/radondb.com/v1"
+	internalinterfaces "github.com/radondb/radondb-postgresql-operator/pkg/generated/informers/externalversions/internalinterfaces"
+	v1 "github.com/radondb/radondb-postgresql-operator/pkg/generated/informers/externalversions/radondb.com/v1"
 )
 
 // Interface provides access to each of this group's versions.

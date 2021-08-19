@@ -21,9 +21,9 @@ import (
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 
-	radondb "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned"
-	radondbscheme "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
-	radondbv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
+	radondb "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned"
+	radondbscheme "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned/scheme"
+	radondbv1 "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
 )
 
 func init() {

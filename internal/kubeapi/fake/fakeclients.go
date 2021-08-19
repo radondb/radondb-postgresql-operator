@@ -24,9 +24,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	fakekube "k8s.io/client-go/kubernetes/fake"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	fakeradondb "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/fake"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	fakeradondb "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned/fake"
 )
 
 const (

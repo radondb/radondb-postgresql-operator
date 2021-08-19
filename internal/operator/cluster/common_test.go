@@ -18,7 +18,7 @@ package cluster
 import (
 	"testing"
 
-	pgpassword "github.com/radondb/postgres-operator/internal/postgres/password"
+	pgpassword "github.com/radondb/radondb-postgresql-operator/internal/postgres/password"
 )
 
 func TestMakePostgresPassword(t *testing.T) {

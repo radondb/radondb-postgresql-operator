@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/radondb/postgres-operator/cmd/pgo/util"
+	"github.com/radondb/radondb-postgresql-operator/cmd/pgo/util"
 	"github.com/spf13/cobra"
 )
 

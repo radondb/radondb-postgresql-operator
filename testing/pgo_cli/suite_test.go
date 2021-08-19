@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/radondb/postgres-operator/testing/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/testing/kubeapi"
 )
 
 func TestMain(m *testing.M) {

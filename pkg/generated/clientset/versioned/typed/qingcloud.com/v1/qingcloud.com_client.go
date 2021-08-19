@@ -18,8 +18,8 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/scheme"
+	v1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 

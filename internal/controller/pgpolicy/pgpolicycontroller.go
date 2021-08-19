@@ -20,16 +20,16 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	informers "github.com/radondb/postgres-operator/pkg/generated/informers/externalversions/radondb.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	informers "github.com/radondb/radondb-postgresql-operator/pkg/generated/informers/externalversions/radondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/tools/cache"
 
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
-	"github.com/radondb/postgres-operator/pkg/events"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/pkg/events"
 )
 
 // Controller holds connections for the controller

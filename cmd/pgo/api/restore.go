@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	msgs "github.com/radondb/postgres-operator/pkg/apiservermsgs"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 )
 

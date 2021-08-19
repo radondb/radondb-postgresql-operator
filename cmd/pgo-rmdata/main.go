@@ -21,8 +21,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	radondblog "github.com/radondb/postgres-operator/internal/logging"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	radondblog "github.com/radondb/radondb-postgresql-operator/internal/logging"
 )
 
 func main() {

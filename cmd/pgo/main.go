@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/radondb/postgres-operator/cmd/pgo/cmd"
+	"github.com/radondb/radondb-postgresql-operator/cmd/pgo/cmd"
 )
 
 func main() {

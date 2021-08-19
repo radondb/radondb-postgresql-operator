@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/radondb/postgres-operator/internal/apiserver"
+	"github.com/radondb/radondb-postgresql-operator/internal/apiserver"
 	log "github.com/sirupsen/logrus"
 )
 

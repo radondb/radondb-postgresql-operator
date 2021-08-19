@@ -22,7 +22,7 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
 	log "github.com/sirupsen/logrus"
 
 	cv3 "github.com/robfig/cron/v3"

@@ -26,7 +26,7 @@ import (
 	"strings"
 	"text/template"
 
-	crv1 "github.com/radondb/postgres-operator/pkg/apis/radondb.com/v1"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"

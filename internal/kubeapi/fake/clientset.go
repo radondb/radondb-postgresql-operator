@@ -18,9 +18,9 @@ package fake
 import (
 	fakekubernetes "k8s.io/client-go/kubernetes/fake"
 
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	fakeradondb "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/fake"
-	radondbv1 "github.com/radondb/postgres-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	fakeradondb "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned/fake"
+	radondbv1 "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned/typed/radondb.com/v1"
 )
 
 type Clientset struct {

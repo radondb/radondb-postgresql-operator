@@ -4,5 +4,5 @@ description: Install for RadonDB PostgreSQL Operator Monitoring
 type: application
 version: 0.2.0
 appVersion: 4.7.1
-home: https://github.com/radondb/postgres-operator
-icon: https://github.com/radondb/postgres-operator/raw/master/docs/static/logos/pgo.svg
+home: https://github.com/radondb/radondb-postgresql-operator
+icon: https://github.com/radondb/radondb-postgresql-operator/raw/master/docs/static/logos/pgo.svg

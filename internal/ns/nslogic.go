@@ -27,9 +27,9 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/radondb/postgres-operator/internal/config"
-	"github.com/radondb/postgres-operator/internal/kubeapi"
-	"github.com/radondb/postgres-operator/pkg/events"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/pkg/events"
 
 	log "github.com/sirupsen/logrus"
 	authv1 "k8s.io/api/authorization/v1"
