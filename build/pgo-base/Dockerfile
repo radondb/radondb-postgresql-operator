@@ -9,7 +9,6 @@ ARG PG_FULL
 ARG PACKAGER
 ARG DFSET
 
-MAINTAINER info@radondb.com
 
 LABEL vendor="RadonDB" \
 	url="https://radondb.com" \
