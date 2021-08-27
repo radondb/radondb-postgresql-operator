@@ -115,7 +115,7 @@ PGO 客户端是已编译的 `postgres-operator` 客户端工具，可在与 Kub
 1. 启用 PGO 客户端，创建集群。
 
    ```shell
-   pgo create cluster qingcloud \
+   pgo create cluster radondb \
    ```
 
 2. 设置部署参数。
@@ -131,7 +131,7 @@ PGO 客户端是已编译的 `postgres-operator` 客户端工具，可在与 Kub
    |:----|:----|
    |   --pgbackrest-storage-type="s3" \   |  备份存储的类型。支持 `posix` 、`s3`、`gcs`、`posix,s3` 和 `posix,gcs`五种类型。  |
    |   --replica-count=3 \  |  PostgeSQL 副本数量。   |
-   |   --ccp-image=qingcloud-postgres-ha \      |   使用的镜像名称。<br>带 `gis` 插件的镜像，例如 `qingcloud-postgres-gis-ha`。<br> 不带 `gis` 插件的镜像，例如 `qingcloud-postgres-ha`。  |
+   |   --ccp-image=radondb-postgres-ha \      |   使用的镜像名称。<br>带 `gis` 插件的镜像，例如 `radondb-postgres-gis-ha`。<br> 不带 `gis` 插件的镜像，例如 `radondb-postgres-ha`。  |
    |   --ccp-image-prefix=docker.io/radondb \     |   镜像仓库。  |
    |   --ccp-image-tag=centos8-13.3-4.7.1 \       |   ockerhub 上镜像的标签。目前支持 `centos8-12.7-4.7.1` 和 `centos8-13.3-4.7.1`。  |
    |   --pgbackrest-s3-endpoint=s3.pek3b.qingstor.com \ <br> --pgbackrest-s3-key=xxxxx \ <br> --pgbackrest-s3-key-secret=xxxx \ <br> --pgbackrest-s3-bucket=xxxx \ <br> --pgbackrest-s3-region=xxx \ <br> --pgbackrest-s3-verify-tls=false \  |   支持 s3 协议的对象存储设置，主要用于备份。若备份存储选择了 s3 则需要设置这部分参数。  |
@@ -149,20 +149,20 @@ PGO 客户端是已编译的 `postgres-operator` 客户端工具，可在与 Kub
 
 ## 连接 RadonDB PostgreSQL 集群
 
-执行 `pgo show user -n pgo qingcloud` 命令，获取集群中用户账号信息。
+执行 `pgo show user -n pgo radondb` 命令，获取集群中用户账号信息。
 
-以下以 `qingcloud` 集群为示例，获取数据库账号并连接数据库。
+以下以 `radondb` 集群为示例，获取数据库账号并连接数据库。
 
 ```shell
- pgo show user -n pgo qingcloud --show-system-accounts
+ pgo show user -n pgo radondb --show-system-accounts
  
  CLUSTER   USERNAME       PASSWORD                 EXPIRES STATUS ERROR 
 --------- -------------- ------------------------ ------- ------ -----
-qingcloud ccp_monitoring Dwpa|MCg,b4M+rY.>ZC0ONz4 never   ok           
-qingcloud pgbouncer      MsTk4.auti9[0L2yDaHu/_Ni never   ok           
-qingcloud postgres       1a4R-d7Po=,PS@R:-=?[gP(9 never   ok           
-qingcloud primaryuser    =B8x*Haf*dCq+V4hkGSfh/.} never   ok           
-qingcloud testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok 
+radondb ccp_monitoring Dwpa|MCg,b4M+rY.>ZC0ONz4 never   ok           
+radondb pgbouncer      MsTk4.auti9[0L2yDaHu/_Ni never   ok           
+radondb postgres       1a4R-d7Po=,PS@R:-=?[gP(9 never   ok           
+radondb primaryuser    =B8x*Haf*dCq+V4hkGSfh/.} never   ok           
+radondb testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok 
 ```
 
 ### 通过 psql 连接
@@ -173,42 +173,42 @@ qingcloud testuser       yTFeeH1|^DX<Bx4[?:B_/Q;M never   ok
     kubectl -n pgo get svc
    NAME                             TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                AGE
    postgres-operator                ClusterIP   10.96.64.37     <none>        8443/TCP,4171/TCP,4150/TCP             58m
-   qingcloud                        ClusterIP   10.96.171.227   <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   5m42s
-   qingcloud-backrest-shared-repo   ClusterIP   10.96.235.247   <none>        2022/TCP                               5m42s
-   qingcloud-pgbouncer              ClusterIP   10.96.234.49    <none>        5432/TCP                               4m16s
-   qingcloud-replica                ClusterIP   10.96.67.45     <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   3m50s
+   radondb                        ClusterIP   10.96.171.227   <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   5m42s
+   radondb-backrest-shared-repo   ClusterIP   10.96.235.247   <none>        2022/TCP                               5m42s
+   radondb-pgbouncer              ClusterIP   10.96.234.49    <none>        5432/TCP                               4m16s
+   radondb-replica                ClusterIP   10.96.67.45     <none>        10000/TCP,9187/TCP,2022/TCP,5432/TCP   3m50s
    ```
 
 2. 以 `testuser` 账号为示例，连接到数据库。
 
    ```shell
-   kubectl -n pgo port-forward svc/qingcloud 5432:5432
-   PGPASSWORD='yTFeeH1|^DX<Bx4[?:B_/Q;M' psql -h localhost -p 5432 -U testuser qingcloud
+   kubectl -n pgo port-forward svc/radondb 5432:5432
+   PGPASSWORD='yTFeeH1|^DX<Bx4[?:B_/Q;M' psql -h localhost -p 5432 -U testuser radondb
    ```
 
 ### 通过 pgAdmin 连接
 
 pgAdmin 是一个图形工具，可用于从 Web 浏览器连接和管理 PostgreSQL 数据库。
 
-1. 执行 `pgo create pgadmin -n pgo qingcloud`命令，创建 pgAdmin 的实例。
+1. 执行 `pgo create pgadmin -n pgo radondb`命令，创建 pgAdmin 的实例。
 2. 实例创建完成后，查看可用服务列表。
 
    ```shell
-    kubectl -n pgo get svc qingcloud-pgadmin
+    kubectl -n pgo get svc radondb-pgadmin
    NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-   qingcloud-pgadmin   ClusterIP   10.96.239.152   <none>        5050/TCP   2m41s
+   radondb-pgadmin   ClusterIP   10.96.239.152   <none>        5050/TCP   2m41s
    ```
 
 3. 修改初始用户账号密码。
 
     ```shell
-   pgo update user -n pgo qingcloud --username=testuser --password=Qingcloud
+   pgo update user -n pgo radondb --username=testuser --password=radondb
    ```
 
 4. 创建端口转发并连接数据库。
 
    ```shell
-   kubectl -n pgo port-forward svc/qingcloud-pgadmin 5050:5050
+   kubectl -n pgo port-forward svc/radondb-pgadmin 5050:5050
    ```
 
 5. 在浏览器打开[http://localhost:5050](http://localhost:5050/)，使用数据库用户账号 `testuser` 和密码即可连接到数据库。
