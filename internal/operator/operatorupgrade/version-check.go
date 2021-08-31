@@ -1,7 +1,7 @@
 package operatorupgrade
 
 /*
- Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -19,9 +19,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
-	pgo "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
+	pgo "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -39,7 +39,7 @@ func CheckVersion(clientset pgo.Interface, ns string) error {
 	ctx := context.TODO()
 
 	// get all pgclusters
-	clusterList, err := clientset.QingcloudV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
+	clusterList, err := clientset.RadondbV1().Pgclusters(ns).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return fmt.Errorf("%s: %w", ErrUnsuccessfulVersionCheck, err)
 	}
@@ -55,14 +55,14 @@ func CheckVersion(clientset pgo.Interface, ns string) error {
 				cluster.Annotations = map[string]string{}
 			}
 			cluster.Annotations[config.ANNOTATION_IS_UPGRADED] = config.ANNOTATIONS_FALSE
-			if _, err := clientset.QingcloudV1().Pgclusters(ns).Update(ctx, cluster, metav1.UpdateOptions{}); err != nil {
+			if _, err := clientset.RadondbV1().Pgclusters(ns).Update(ctx, cluster, metav1.UpdateOptions{}); err != nil {
 				return fmt.Errorf("%s: %w", ErrUnsuccessfulVersionCheck, err)
 			}
 		}
 	}
 
 	// update pgreplica CRD userlabels["pgo-version"] to current version
-	replicaList, err := clientset.QingcloudV1().Pgreplicas(ns).List(ctx, metav1.ListOptions{})
+	replicaList, err := clientset.RadondbV1().Pgreplicas(ns).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		log.Error(err)
 		return fmt.Errorf("%s: %w", ErrUnsuccessfulVersionCheck, err)
@@ -79,7 +79,7 @@ func CheckVersion(clientset pgo.Interface, ns string) error {
 				replica.Annotations = map[string]string{}
 			}
 			replica.Annotations[config.ANNOTATION_IS_UPGRADED] = config.ANNOTATIONS_FALSE
-			if _, err := clientset.QingcloudV1().Pgreplicas(ns).Update(ctx, replica, metav1.UpdateOptions{}); err != nil {
+			if _, err := clientset.RadondbV1().Pgreplicas(ns).Update(ctx, replica, metav1.UpdateOptions{}); err != nil {
 				return fmt.Errorf("%s: %w", ErrUnsuccessfulVersionCheck, err)
 			}
 		}

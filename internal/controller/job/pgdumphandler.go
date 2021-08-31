@@ -1,7 +1,7 @@
 package job
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -18,9 +18,9 @@ limitations under the License.
 import (
 	"context"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 	log "github.com/sirupsen/logrus"
 	apiv1 "k8s.io/api/batch/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -50,7 +50,7 @@ func (c *Controller) handlePGDumpUpdate(job *apiv1.Job) error {
 	patch, err := kubeapi.NewJSONPatch().Add("spec", "status")(status).Bytes()
 	if err == nil {
 		log.Debugf("patching task %s: %s", dumpTask, patch)
-		_, err = c.Client.QingcloudV1().Pgtasks(job.Namespace).
+		_, err = c.Client.RadondbV1().Pgtasks(job.Namespace).
 			Patch(ctx, dumpTask, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {
@@ -86,7 +86,7 @@ func (c *Controller) handlePGRestoreUpdate(job *apiv1.Job) error {
 	patch, err := kubeapi.NewJSONPatch().Add("spec", "status")(status).Bytes()
 	if err == nil {
 		log.Debugf("patching task %s: %s", restoreTask, patch)
-		_, err = c.Client.QingcloudV1().Pgtasks(job.Namespace).
+		_, err = c.Client.RadondbV1().Pgtasks(job.Namespace).
 			Patch(ctx, restoreTask, types.JSONPatchType, patch, metav1.PatchOptions{})
 	}
 	if err != nil {

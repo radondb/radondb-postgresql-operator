@@ -13,11 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-QINGCLOUD_DIR=${QINGCLOUD_DIR:-'/opt/cpm'}
+RADONDB_DIR=${RADONDB_DIR:-'/opt/cpm'}
     
-export QINGCLOUD_NSS_USERNAME="${USER_NAME:-daemon}"
-export QINGCLOUD_NSS_USER_DESC="${USER_NAME:-daemon} user"
+export RADONDB_NSS_USERNAME="${USER_NAME:-daemon}"
+export RADONDB_NSS_USER_DESC="${USER_NAME:-daemon} user"
     
-source "${QINGCLOUD_DIR}/bin/nss_wrapper.sh"
+source "${RADONDB_DIR}/bin/nss_wrapper.sh"
 
 exec "$@"

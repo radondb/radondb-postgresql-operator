@@ -1,5 +1,5 @@
 # https://github.com/openshift/console/tree/master/frontend/packages/operator-lifecycle-manager/src/components/descriptors
-- name: pgclusters.qingcloud.com
+- name: pgclusters.radondb.com
   kind: Pgcluster
   version: v1
   displayName: Postgres Primary Cluster Member
@@ -17,7 +17,7 @@
   specDescriptors:
     - path: ccpimage
       displayName: PostgreSQL Image
-      description: The Qingcloud PostgreSQL image to use. Possible values are "qingcloud-postgres-ha" and "qingcloud-postgres-gis-ha"
+      description: The RadonDB PostgreSQL image to use. Possible values are "radondb-postgres-ha" and "radondb-postgres-gis-ha"
       x-descriptors:
         - 'urn:alm:descriptor:com.tectonic.ui:text'
     - path: ccpimagetag
@@ -112,7 +112,7 @@
       x-descriptors:
         - 'urn:alm:descriptor:text'
 
-- name: pgreplicas.qingcloud.com
+- name: pgreplicas.radondb.com
   kind: Pgreplica
   version: v1
   displayName: Postgres Replica Cluster Member
@@ -145,7 +145,7 @@
       x-descriptors:
         - 'urn:alm:descriptor:text'
 
-- name: pgpolicies.qingcloud.com
+- name: pgpolicies.radondb.com
   kind: Pgpolicy
   version: v1
   displayName: Postgres SQL Policy
@@ -175,7 +175,7 @@
       x-descriptors:
         - 'urn:alm:descriptor:text'
 
-- name: pgtasks.qingcloud.com
+- name: pgtasks.radondb.com
   kind: Pgtask
   version: v1
   displayName: Postgres workflow task

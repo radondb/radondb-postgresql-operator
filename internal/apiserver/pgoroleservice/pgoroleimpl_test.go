@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
+	"github.com/radondb/radondb-postgresql-operator/internal/apiserver"
 )
 
 func TestValidPermissions(t *testing.T) {

@@ -9,8 +9,8 @@ ARG PACKAGER
 ARG DFSET
 
 LABEL name="pgo-rmdata" \
-	summary="Qingcloud PostgreSQL Operator - Remove Data" \
-	description="Qingcloud PostgreSQL Operator - Remove Data"
+	summary="RadonDB PostgreSQL Operator - Remove Data" \
+	description="RadonDB PostgreSQL Operator - Remove Data"
 
 ADD bin/pgo-rmdata/ /usr/local/bin
 

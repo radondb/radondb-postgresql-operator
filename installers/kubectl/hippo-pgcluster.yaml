@@ -1,0 +1,72 @@
+apiVersion: radondb.com/v1
+kind: Pgcluster
+metadata:
+  annotations:
+    current-primary: hippo
+  labels:
+    radondb-pgha-scope: hippo
+    deployment-name: hippo
+    name: hippo
+    pg-cluster: hippo
+    pgo-version: 4.7.1
+    pgouser: admin
+  name: hippo
+  namespace: pgo
+spec:
+  BackrestStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: ""
+    size: 1G
+    storageclass: ""
+    storagetype: dynamic
+    supplementalgroups: ""
+  PrimaryStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: hippo
+    size: 1G
+    storageclass: ""
+    storagetype: dynamic
+    supplementalgroups: ""
+  ReplicaStorage:
+    accessmode: ReadWriteOnce
+    matchLabels: ""
+    name: ""
+    size: 1G
+    storageclass: ""
+    storagetype: dynamic
+    supplementalgroups: ""
+  annotations: {}
+  backrestStorageTypes:
+  - s3
+  backrestS3Bucket: pg-test-byzhl
+  backrestS3Endpoint: s3.pek3b.qingstor.com
+  backrestS3Region: pek3b
+  backrestS3URIStyle: ""
+  backrestS3VerifyTLS: ""
+  ccpimage: radondb-postgres-ha
+  ccpimageprefix: docker.io/radondb
+  ccpimagetag: centos8-13.3-4.7
+  ccpimage: radondb-postgres-gis-ha
+  ccpimageprefix: docker.io/radondb
+  ccpimagetag: centos8-13.3-3.0-4.7.1
+  clustername: hippo
+  database: hippo
+  exporterport: "9187"
+  limits: {}
+  name: hippo
+  pgDataSource:
+    restoreFrom: ""
+    restoreOpts: ""
+  pgbadgerport: "10000"
+  pgoimageprefix: docker.io/radondb
+  podAntiAffinity:
+    default: preferred
+    pgBackRest: preferred
+    pgBouncer: preferred
+  port: "5432"
+  tolerations: []
+  user: hippo
+  userlabels:
+    pgo-version: 4.7.1

@@ -20,12 +20,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/operator"
-	pgpassword "github.com/qingcloud/postgres-operator/internal/postgres/password"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/internal/operator"
+	pgpassword "github.com/radondb/radondb-postgresql-operator/internal/postgres/password"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"

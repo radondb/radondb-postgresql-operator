@@ -1,7 +1,7 @@
 package task
 
 /*
- Copyright 2018 - 2021 Qingcloud Data Solutions, Inc.
+ Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -18,8 +18,8 @@ package task
 import (
 	"context"
 
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/util"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
 	log "github.com/sirupsen/logrus"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
@@ -31,7 +31,7 @@ func ApplyPolicies(clusterName string, clientset kubeapi.Interface, RESTConfig *
 	ctx := context.TODO()
 	taskName := clusterName + "-policies"
 
-	task, err := clientset.QingcloudV1().Pgtasks(ns).Get(ctx, taskName, metav1.GetOptions{})
+	task, err := clientset.RadondbV1().Pgtasks(ns).Get(ctx, taskName, metav1.GetOptions{})
 	if err == nil {
 		// apply those policies
 		for k := range task.Spec.Parameters {
@@ -39,13 +39,13 @@ func ApplyPolicies(clusterName string, clientset kubeapi.Interface, RESTConfig *
 			applyPolicy(clientset, RESTConfig, k, clusterName, ns)
 		}
 		// delete the pgtask to not redo this again
-		_ = clientset.QingcloudV1().Pgtasks(ns).Delete(ctx, taskName, metav1.DeleteOptions{})
+		_ = clientset.RadondbV1().Pgtasks(ns).Delete(ctx, taskName, metav1.DeleteOptions{})
 	}
 }
 
 func applyPolicy(clientset kubeapi.Interface, restconfig *rest.Config, policyName, clusterName, ns string) {
 	ctx := context.TODO()
-	cl, err := clientset.QingcloudV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
+	cl, err := clientset.RadondbV1().Pgclusters(ns).Get(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		log.Error(err)
 		return
@@ -72,7 +72,7 @@ func applyPolicy(clientset kubeapi.Interface, restconfig *rest.Config, policyNam
 
 	// update the pgcluster crd labels with the new policy
 	log.Debugf("patching cluster %s: %s", cl.Spec.Name, patch)
-	_, err = clientset.QingcloudV1().Pgclusters(ns).Patch(ctx, cl.Spec.Name, types.MergePatchType, patch, metav1.PatchOptions{})
+	_, err = clientset.RadondbV1().Pgclusters(ns).Patch(ctx, cl.Spec.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 	if err != nil {
 		log.Error(err)
 	}

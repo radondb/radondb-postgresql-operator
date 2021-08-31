@@ -9,8 +9,8 @@ ARG BASEOS
 ARG PACKAGER
 
 LABEL name="pgo-apiserver" \
-	summary="Qingcloud PostgreSQL Operator - Apiserver" \
-	description="Qingcloud PostgreSQL Operator - Apiserver"
+	summary="RadonDB PostgreSQL Operator - Apiserver" \
+	description="RadonDB PostgreSQL Operator - Apiserver"
 
 RUN if [ "$BASEOS" = "ubi8" ] ; then \
 	${PACKAGER} -y install \

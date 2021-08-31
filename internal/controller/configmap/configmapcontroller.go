@@ -1,7 +1,7 @@
 package configmap
 
 /*
-Copyright 2020 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -16,9 +16,9 @@ limitations under the License.
 */
 
 import (
-	"github.com/qingcloud/postgres-operator/internal/config"
-	pgoinformers "github.com/qingcloud/postgres-operator/pkg/generated/informers/externalversions/qingcloud.com/v1"
-	pgolisters "github.com/qingcloud/postgres-operator/pkg/generated/listers/qingcloud.com/v1"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	pgoinformers "github.com/radondb/radondb-postgresql-operator/pkg/generated/informers/externalversions/radondb.com/v1"
+	pgolisters "github.com/radondb/radondb-postgresql-operator/pkg/generated/listers/radondb.com/v1"
 
 	log "github.com/sirupsen/logrus"
 

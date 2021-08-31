@@ -1,7 +1,7 @@
 package policyservice
 
 /*
-Copyright 2017 - 2021 Qingcloud Data Solutions, Inc.
+Copyright 2017 - 2021 Crunchy Data Solutions, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -21,14 +21,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qingcloud/postgres-operator/internal/apiserver"
-	"github.com/qingcloud/postgres-operator/internal/config"
-	"github.com/qingcloud/postgres-operator/internal/kubeapi"
-	"github.com/qingcloud/postgres-operator/internal/util"
-	crv1 "github.com/qingcloud/postgres-operator/pkg/apis/qingcloud.com/v1"
-	msgs "github.com/qingcloud/postgres-operator/pkg/apiservermsgs"
-	"github.com/qingcloud/postgres-operator/pkg/events"
-	pgo "github.com/qingcloud/postgres-operator/pkg/generated/clientset/versioned"
+	"github.com/radondb/radondb-postgresql-operator/internal/apiserver"
+	"github.com/radondb/radondb-postgresql-operator/internal/config"
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	"github.com/radondb/radondb-postgresql-operator/internal/util"
+	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
+	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
+	"github.com/radondb/radondb-postgresql-operator/pkg/events"
+	pgo "github.com/radondb/radondb-postgresql-operator/pkg/generated/clientset/versioned"
 	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/apps/v1"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -58,7 +58,7 @@ func CreatePolicy(client pgo.Interface, policyName, policyFile, ns, pgouser stri
 		Spec: spec,
 	}
 
-	_, err := client.QingcloudV1().Pgpolicies(ns).Create(ctx, newInstance, metav1.CreateOptions{})
+	_, err := client.RadondbV1().Pgpolicies(ns).Create(ctx, newInstance, metav1.CreateOptions{})
 
 	if kerrors.IsAlreadyExists(err) {
 		log.Debugf("pgpolicy %s was found so we will not create it", policyName)
@@ -75,12 +75,12 @@ func ShowPolicy(client pgo.Interface, name string, allflags bool, ns string) crv
 
 	if allflags {
 		// get a list of all policies
-		list, err := client.QingcloudV1().Pgpolicies(ns).List(ctx, metav1.ListOptions{})
+		list, err := client.RadondbV1().Pgpolicies(ns).List(ctx, metav1.ListOptions{})
 		if list != nil && err == nil {
 			policyList = *list
 		}
 	} else {
-		policy, err := client.QingcloudV1().Pgpolicies(ns).Get(ctx, name, metav1.GetOptions{})
+		policy, err := client.RadondbV1().Pgpolicies(ns).Get(ctx, name, metav1.GetOptions{})
 		if policy != nil && err == nil {
 			policyList.Items = []crv1.Pgpolicy{*policy}
 		}
@@ -97,7 +97,7 @@ func DeletePolicy(client pgo.Interface, policyName, ns, pgouser string) msgs.Del
 	resp.Status.Msg = ""
 	resp.Results = make([]string, 0)
 
-	policyList, err := client.QingcloudV1().Pgpolicies(ns).List(ctx, metav1.ListOptions{})
+	policyList, err := client.RadondbV1().Pgpolicies(ns).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		resp.Status.Code = msgs.Error
 		resp.Status.Msg = err.Error()
@@ -113,14 +113,14 @@ func DeletePolicy(client pgo.Interface, policyName, ns, pgouser string) msgs.Del
 			// we can create an event holding the pgouser
 			// that deleted the policy
 			policy.ObjectMeta.Labels[config.LABEL_PGOUSER] = pgouser
-			_, err = client.QingcloudV1().Pgpolicies(ns).Update(ctx, policy, metav1.UpdateOptions{})
+			_, err = client.RadondbV1().Pgpolicies(ns).Update(ctx, policy, metav1.UpdateOptions{})
 			if err != nil {
 				log.Error(err)
 			}
 
 			// ok, now delete the pgpolicy
 			policyFound = true
-			err = client.QingcloudV1().Pgpolicies(ns).Delete(ctx, policy.Spec.Name, metav1.DeleteOptions{})
+			err = client.RadondbV1().Pgpolicies(ns).Delete(ctx, policy.Spec.Name, metav1.DeleteOptions{})
 			if err == nil {
 				msg := "deleted policy " + policy.Spec.Name
 				log.Debug(msg)
@@ -169,7 +169,7 @@ func ApplyPolicy(request *msgs.ApplyPolicyRequest, ns, pgouser string) msgs.Appl
 
 	// get a list of all clusters
 	clusterList, err := apiserver.Clientset.
-		QingcloudV1().Pgclusters(ns).
+		RadondbV1().Pgclusters(ns).
 		List(ctx, metav1.ListOptions{LabelSelector: selector})
 	if err != nil {
 		resp.Status.Code = msgs.Error
@@ -234,7 +234,7 @@ func ApplyPolicy(request *msgs.ApplyPolicyRequest, ns, pgouser string) msgs.Appl
 		log.Debugf("apply policy %s on deployment %s based on selector %s", request.Name, d.ObjectMeta.Name, selector)
 
 		cl, err := apiserver.Clientset.
-			QingcloudV1().Pgclusters(ns).
+			RadondbV1().Pgclusters(ns).
 			Get(ctx, d.ObjectMeta.Labels[config.LABEL_PG_CLUSTER], metav1.GetOptions{})
 		if err != nil {
 			resp.Status.Code = msgs.Error
@@ -259,7 +259,7 @@ func ApplyPolicy(request *msgs.ApplyPolicyRequest, ns, pgouser string) msgs.Appl
 
 		// update the pgcluster crd labels with the new policy
 		log.Debugf("patching cluster %s: %s", cl.Name, patch)
-		_, err = apiserver.Clientset.QingcloudV1().Pgclusters(ns).
+		_, err = apiserver.Clientset.RadondbV1().Pgclusters(ns).
 			Patch(ctx, cl.Name, types.MergePatchType, patch, metav1.PatchOptions{})
 		if err != nil {
 			log.Error(err)

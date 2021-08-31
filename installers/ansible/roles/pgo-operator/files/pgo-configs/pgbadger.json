@@ -1,6 +1,6 @@
 {
     "name": "pgbadger",
-    "image": "{{.CCPImagePrefix}}/qingcloud-pgbadger:{{.CCPImageTag}}",
+    "image": "{{.CCPImagePrefix}}/radondb-pgbadger:{{.CCPImageTag}}",
     "securityContext": {
         "allowPrivilegeEscalation": false,
         "privileged": false,

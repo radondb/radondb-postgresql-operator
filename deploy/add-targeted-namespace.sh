@@ -37,7 +37,7 @@ if [ $? -eq 0 ]; then
 	echo "namespace" $1 "already exists, adding labels"
 	# set the labels so that existing namespace is owned by this installation
 	$PGO_CMD label namespace/$1 pgo-created-by=add-script
-	$PGO_CMD label namespace/$1 vendor=qingcloud
+	$PGO_CMD label namespace/$1 vendor=radondb
 	$PGO_CMD label namespace/$1 pgo-installation-name=$PGO_INSTALLATION_NAME
 else
 	echo "namespace" $1 "is new"

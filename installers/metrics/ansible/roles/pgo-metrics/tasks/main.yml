@@ -49,21 +49,21 @@
   tags:
     - uninstall-metrics
 
-- name: Install Qingcloud PostgreSQL Operator Monitoring
+- name: Install RadonDB PostgreSQL Operator Monitoring
   tags:
     - install-metrics
     - update-metrics
   block:
     - name: Check for pgmonitor
       stat:
-        path: "/opt/qingcloud/pgmonitor"
+        path: "/opt/radondb/pgmonitor"
       register: pgmonitor_dir_embed
 
     - name: Set pgMonitor Directory Fact
       block:
         - name: Embeded Path
           set_fact:
-            pgmonitor_dir: "/opt/qingcloud/pgmonitor"
+            pgmonitor_dir: "/opt/radondb/pgmonitor"
           when: pgmonitor_dir_embed.stat.exists
 
         - name: Downloaded Path
@@ -80,7 +80,7 @@
 
     - name: Download pgmonitor {{ pgmonitor_version }}
       get_url:
-        url: https://github.com/QingcloudData/pgmonitor/archive/{{ pgmonitor_version }}.tar.gz
+        url: https://github.com/radondb/pgmonitor/archive/{{ pgmonitor_version }}.tar.gz
         dest: "{{ metrics_dir }}"
         mode: "0600"
       when: not pgmonitor_dir_embed.stat.exists
@@ -125,9 +125,9 @@
       set_fact: deployments="{{ deployments | default([]) + [ item.name ] }}"
       when: item.deployed
       loop:
-        - { deployed: "{{ alertmanager_install | bool }}", name: "qingcloud-alertmanager" }
-        - { deployed: "{{ grafana_install | bool }}", name: "qingcloud-grafana" }
-        - { deployed: "{{ prometheus_install | bool }}", name: "qingcloud-prometheus" }
+        - { deployed: "{{ alertmanager_install | bool }}", name: "radondb-alertmanager" }
+        - { deployed: "{{ grafana_install | bool }}", name: "radondb-grafana" }
+        - { deployed: "{{ prometheus_install | bool }}", name: "radondb-prometheus" }
 
     - name: Wait for Metrics to Finish Deploying
       command: |

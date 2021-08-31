@@ -1,4 +1,4 @@
-apiVersion: qingcloud.com/v1
+apiVersion: radondb.com/v1
 kind: Pgreplica
 metadata:
   labels:
