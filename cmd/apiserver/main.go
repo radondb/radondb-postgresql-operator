@@ -64,7 +64,7 @@ func main() {
 		log.Info("debug flag set to false")
 	}
 
-	// TLS_NO_VERIFY disables verification of SSL client certificates
+	// `TLS_NO_VERIFY` disables verification of SSL client certificates
 	if noVerify, _ := strconv.ParseBool(os.Getenv("TLS_NO_VERIFY")); noVerify {
 		tlsNoVerify = noVerify
 	}

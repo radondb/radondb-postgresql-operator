@@ -23,6 +23,9 @@ RRRRRRRR     RRRRRRR  aaaaaaaaaa  aaaa  ddddddddd   ddddd   ooooooooooo     nnnn
 |  |  |  |   |  | |  . `  | |  | |_ | |  |     |  |     |  |  |  | |  |  |  | |  |  |  |
 |  `--'  '--.|  | |  |\   | |  |__| | |  `----.|  `----.|  `--'  | |  `--'  | |  '--'  |
  \_____\_____|__| |__| \__|  \______|  \______||_______| \______/   \______/  |_______/ 
+<<<<<<< HEAD
+>>>>>>> 9b911b257caf5e66fd8c192e2855af0e8f81e13d
+=======
 >>>>>>> 9b911b257caf5e66fd8c192e2855af0e8f81e13d
 Thank you deploying a RadonDB PostgreSQL cluster v{{ .Chart.AppVersion }}!
 

@@ -63,7 +63,7 @@ func (c *FakePgpolicies) List(ctx context.Context, opts v1.ListOptions) (result 
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &radondbcomv1.PgpolicyList{ListMeta: obj.(*radondb.comcomv1.PgpolicyList).ListMeta}
+	list := &radondbcomv1.PgpolicyList{ListMeta: obj.(*radondbcomv1.PgpolicyList).ListMeta}
 	for _, item := range obj.(*radondbcomv1.PgpolicyList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
@@ -80,7 +80,7 @@ func (c *FakePgpolicies) Watch(ctx context.Context, opts v1.ListOptions) (watch.
 }
 
 // Create takes the representation of a pgpolicy and creates it.  Returns the server's representation of the pgpolicy, and an error, if there is any.
-func (c *FakePgpolicies) Create(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.CreateOptions) (result *radondb.comcomv1.Pgpolicy, err error) {
+func (c *FakePgpolicies) Create(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.CreateOptions) (result *radondbcomv1.Pgpolicy, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(pgpoliciesResource, c.ns, pgpolicy), &radondbcomv1.Pgpolicy{})
 
@@ -91,7 +91,7 @@ func (c *FakePgpolicies) Create(ctx context.Context, pgpolicy *radondbcomv1.Pgpo
 }
 
 // Update takes the representation of a pgpolicy and updates it. Returns the server's representation of the pgpolicy, and an error, if there is any.
-func (c *FakePgpolicies) Update(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.UpdateOptions) (result *radondb.comcomv1.Pgpolicy, err error) {
+func (c *FakePgpolicies) Update(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.UpdateOptions) (result *radondbcomv1.Pgpolicy, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(pgpoliciesResource, c.ns, pgpolicy), &radondbcomv1.Pgpolicy{})
 
@@ -103,7 +103,7 @@ func (c *FakePgpolicies) Update(ctx context.Context, pgpolicy *radondbcomv1.Pgpo
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakePgpolicies) UpdateStatus(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.UpdateOptions) (*radondb.comcomv1.Pgpolicy, error) {
+func (c *FakePgpolicies) UpdateStatus(ctx context.Context, pgpolicy *radondbcomv1.Pgpolicy, opts v1.UpdateOptions) (*radondbcomv1.Pgpolicy, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(pgpoliciesResource, "status", c.ns, pgpolicy), &radondbcomv1.Pgpolicy{})
 
