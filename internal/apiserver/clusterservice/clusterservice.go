@@ -20,7 +20,7 @@ import (
 	"net/http"
 
 	"github.com/radondb/radondb-postgresql-operator/internal/apiserver"
-	"github.com/radondb/radondb-postgresql-operator/internal/apiserver/namespaceservice"
+	nsl "github.com/radondb/radondb-postgresql-operator/internal/ns"
 	msgs "github.com/radondb/radondb-postgresql-operator/pkg/apiservermsgs"
 	log "github.com/sirupsen/logrus"
 )
@@ -82,11 +82,8 @@ func CreateClusterHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// update namespace when namespace is exist in k8s and not managed by operator
-	para := new(msgs.UpdateNamespaceRequest)
-	para.Args = []string{request.Namespace}
-	para.ClientVersion = msgs.PGO_VERSION
-	namespaceservice.UpdateNamespace(apiserver.Clientset, username, para)
-	_ = json.NewEncoder(w).Encode(resp)
+	nsl.UpdateNamespace(apiserver.Clientset, apiserver.InstallationName, apiserver.PgoNamespace, username, request.Namespace)
+	// _ = json.NewEncoder(w).Encode(resp)
 	ns, err = apiserver.GetNamespace(apiserver.Clientset, username, request.Namespace)
 	if err != nil {
 		resp.Status.Code = msgs.Error
