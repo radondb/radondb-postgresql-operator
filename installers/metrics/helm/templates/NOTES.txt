@@ -1,5 +1,4 @@
 Thank you for installing RadonDB PostgreSQL Operator Monitoring v{{ .Chart.AppVersion }}!
-<<<<<<< HEAD
                                                  dddddddd                                                                          
 RRRRRRRRRRRRRRRRR                                d::::::d                                   DDDDDDDDDDDDD      BBBBBBBBBBBBBBBBB   
 R::::::::::::::::R                               d::::::d                                   D::::::::::::DDD   B::::::::::::::::B  
@@ -17,11 +16,3 @@ RR:::::R     R:::::Ra::::a    a:::::ad::::::ddddd::::::ddo:::::ooooo:::::o  n:::
 R::::::R     R:::::Ra:::::aaaa::::::a d:::::::::::::::::do:::::::::::::::o  n::::n    n::::nD:::::::::::::::DD B:::::::::::::::::B 
 R::::::R     R:::::R a::::::::::aa:::a d:::::::::ddd::::d oo:::::::::::oo   n::::n    n::::nD::::::::::::DDD   B::::::::::::::::B  
 RRRRRRRR     RRRRRRR  aaaaaaaaaa  aaaa  ddddddddd   ddddd   ooooooooooo     nnnnnn    nnnnnnDDDDDDDDDDDDD      BBBBBBBBBBBBBBBBB 
-=======
- ______      __  .__   __.   _______   ______  __        ______    __    __   _______  
- /  __  \    |  | |  \ |  |  /  _____| /      ||  |      /  __  \  |  |  |  | |       \ 
-|  |  |  |   |  | |   \|  | |  |  __  |  ,----'|  |     |  |  |  | |  |  |  | |  .--.  |
-|  |  |  |   |  | |  . `  | |  | |_ | |  |     |  |     |  |  |  | |  |  |  | |  |  |  |
-|  `--'  '--.|  | |  |\   | |  |__| | |  `----.|  `----.|  `--'  | |  `--'  | |  '--'  |
- \_____\_____|__| |__| \__|  \______|  \______||_______| \______/   \______/  |_______/ 
->>>>>>> 9b911b257caf5e66fd8c192e2855af0e8f81e13d

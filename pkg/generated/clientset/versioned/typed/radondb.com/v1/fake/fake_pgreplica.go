@@ -63,7 +63,7 @@ func (c *FakePgreplicas) List(ctx context.Context, opts v1.ListOptions) (result 
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &radondbcomv1.PgreplicaList{ListMeta: obj.(*radondb.comcomv1.PgreplicaList).ListMeta}
+	list := &radondbcomv1.PgreplicaList{ListMeta: obj.(*radondbcomv1.PgreplicaList).ListMeta}
 	for _, item := range obj.(*radondbcomv1.PgreplicaList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
@@ -80,7 +80,7 @@ func (c *FakePgreplicas) Watch(ctx context.Context, opts v1.ListOptions) (watch.
 }
 
 // Create takes the representation of a pgreplica and creates it.  Returns the server's representation of the pgreplica, and an error, if there is any.
-func (c *FakePgreplicas) Create(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.CreateOptions) (result *radondb.comcomv1.Pgreplica, err error) {
+func (c *FakePgreplicas) Create(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.CreateOptions) (result *radondbcomv1.Pgreplica, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(pgreplicasResource, c.ns, pgreplica), &radondbcomv1.Pgreplica{})
 
@@ -91,7 +91,7 @@ func (c *FakePgreplicas) Create(ctx context.Context, pgreplica *radondbcomv1.Pgr
 }
 
 // Update takes the representation of a pgreplica and updates it. Returns the server's representation of the pgreplica, and an error, if there is any.
-func (c *FakePgreplicas) Update(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.UpdateOptions) (result *radondb.comcomv1.Pgreplica, err error) {
+func (c *FakePgreplicas) Update(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.UpdateOptions) (result *radondbcomv1.Pgreplica, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(pgreplicasResource, c.ns, pgreplica), &radondbcomv1.Pgreplica{})
 
@@ -103,7 +103,7 @@ func (c *FakePgreplicas) Update(ctx context.Context, pgreplica *radondbcomv1.Pgr
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakePgreplicas) UpdateStatus(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.UpdateOptions) (*radondb.comcomv1.Pgreplica, error) {
+func (c *FakePgreplicas) UpdateStatus(ctx context.Context, pgreplica *radondbcomv1.Pgreplica, opts v1.UpdateOptions) (*radondbcomv1.Pgreplica, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(pgreplicasResource, "status", c.ns, pgreplica), &radondbcomv1.Pgreplica{})
 

@@ -63,7 +63,7 @@ func (c *FakePgclusters) List(ctx context.Context, opts v1.ListOptions) (result 
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &radondbcomv1.PgclusterList{ListMeta: obj.(*radondb.comcomv1.PgclusterList).ListMeta}
+	list := &radondbcomv1.PgclusterList{ListMeta: obj.(*radondbcomv1.PgclusterList).ListMeta}
 	for _, item := range obj.(*radondbcomv1.PgclusterList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
@@ -80,7 +80,7 @@ func (c *FakePgclusters) Watch(ctx context.Context, opts v1.ListOptions) (watch.
 }
 
 // Create takes the representation of a pgcluster and creates it.  Returns the server's representation of the pgcluster, and an error, if there is any.
-func (c *FakePgclusters) Create(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.CreateOptions) (result *radondb.comcomv1.Pgcluster, err error) {
+func (c *FakePgclusters) Create(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.CreateOptions) (result *radondbcomv1.Pgcluster, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(pgclustersResource, c.ns, pgcluster), &radondbcomv1.Pgcluster{})
 
@@ -91,7 +91,7 @@ func (c *FakePgclusters) Create(ctx context.Context, pgcluster *radondbcomv1.Pgc
 }
 
 // Update takes the representation of a pgcluster and updates it. Returns the server's representation of the pgcluster, and an error, if there is any.
-func (c *FakePgclusters) Update(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.UpdateOptions) (result *radondb.comcomv1.Pgcluster, err error) {
+func (c *FakePgclusters) Update(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.UpdateOptions) (result *radondbcomv1.Pgcluster, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(pgclustersResource, c.ns, pgcluster), &radondbcomv1.Pgcluster{})
 
@@ -103,7 +103,7 @@ func (c *FakePgclusters) Update(ctx context.Context, pgcluster *radondbcomv1.Pgc
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakePgclusters) UpdateStatus(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.UpdateOptions) (*radondb.comcomv1.Pgcluster, error) {
+func (c *FakePgclusters) UpdateStatus(ctx context.Context, pgcluster *radondbcomv1.Pgcluster, opts v1.UpdateOptions) (*radondbcomv1.Pgcluster, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(pgclustersResource, "status", c.ns, pgcluster), &radondbcomv1.Pgcluster{})
 
