@@ -17,7 +17,21 @@ serviceAccount:
     create: true
     # serviceAccount.name: The name of the Service Account to create or use
     name: ""
-
+serviceMonitor:
+  enabled: true
+  ## Additional labels for the serviceMonitor. Useful if you have multiple prometheus operators running to select only specific ServiceMonitors
+  # additionalLabels:
+  #   prometheus: prom-internal
+  interval: 10s
+  scrapeTimeout: 3s
+  # jobLabel:
+  # targetLabels:
+  # podTargetLabels:
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      vendor: radondb
 # =====================
 # Configuration Options
 # More info for these options can be found in the docs
@@ -57,7 +71,7 @@ delete_watched_namespaces: "false"
 disable_auto_failover: "false"
 reconcile_rbac: "true"
 exporterport: "9187"
-metrics: "false"
+metrics: "true"
 namespace: "pgo"
 namespace_mode: "dynamic"
 pgbadgerport: "10000"

@@ -4,3 +4,4 @@ tools
 licenses/*
 !licenses/LICENSE.txt
 .devcontainer
+.vscode/
