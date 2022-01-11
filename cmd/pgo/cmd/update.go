@@ -108,9 +108,9 @@ func init() {
 	UpdateClusterCmd.Flags().BoolVar(&DisableTLSOnly, "disable-tls-only", false, "Remove TLS enforcement for the cluster.")
 	UpdateClusterCmd.Flags().BoolVar(&EnableAutofailFlag, "enable-autofail", false, "Enables autofail capabitilies in the cluster.")
 	UpdateClusterCmd.Flags().StringVar(&MemoryRequest, "memory", "", "Set the amount of RAM to request, e.g. "+
-		"1GiB.")
+		"1Gi.")
 	UpdateClusterCmd.Flags().StringVar(&MemoryLimit, "memory-limit", "", "Set the amount of RAM to limit, e.g. "+
-		"1GiB.")
+		"1Gi.")
 	UpdateClusterCmd.Flags().StringVarP(&Selector, "selector", "s", "", "The selector to use for cluster filtering.")
 	UpdateClusterCmd.Flags().BoolVarP(&DisableStandby, "promote-standby", "", false,
 		"Disables standby mode (if enabled) and promotes the cluster(s) specified.")
@@ -160,7 +160,7 @@ func init() {
 			"\"pgo-config\" ConfigMap (aka \"pgo.yaml\")\n"+
 			"- pvcsize: the size of the PVC capacity, which overrides the value set in the specified storageconfig. "+
 			"Follows the Kubernetes quantity format.\n\n"+
-			"For example, to create a tablespace with the NFS storage configuration with a PVC of size 10GiB:\n\n"+
+			"For example, to create a tablespace with the NFS storage configuration with a PVC of size 10Gi:\n\n"+
 			"--tablespace=name=ts1:storageconfig=nfsstorage:pvcsize=10Gi")
 	UpdateClusterCmd.Flags().StringVar(&CASecret, "server-ca-secret", "", "The name of the secret that contains "+
 		"the certficate authority (CA) to use for enabling the PostgreSQL cluster to accept TLS connections. "+
