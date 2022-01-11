@@ -401,9 +401,9 @@ func init() {
 	createClusterCmd.Flags().StringSliceVar(&UserLabels, "label", []string{}, "Add labels to apply to the PostgreSQL cluster, "+
 		"e.g. \"key=value\", \"prefix/key=value\". Can specify flag multiple times.")
 	createClusterCmd.Flags().StringVar(&MemoryRequest, "memory", "", "Set the amount of RAM to request, e.g. "+
-		"1GiB. Overrides the default server value.")
+		"1Gi. Overrides the default server value.")
 	createClusterCmd.Flags().StringVar(&MemoryLimit, "memory-limit", "", "Set the amount of RAM to limit, e.g. "+
-		"1GiB.")
+		"1Gi.")
 	createClusterCmd.Flags().BoolVarP(&MetricsFlag, "metrics", "", false, "Adds the radondb-postgres-exporter container to the database pod.")
 	createClusterCmd.Flags().StringVar(&ExporterCPURequest, "exporter-cpu", "", "Set the number of millicores to request for CPU "+
 		"for the RadonDB Postgres Exporter sidecar container, e.g. \"100m\" or \"0.1\". Defaults to being unset.")
@@ -539,7 +539,7 @@ func init() {
 			"\"pgo-config\" ConfigMap (aka \"pgo.yaml\")\n"+
 			"- pvcsize: the size of the PVC capacity, which overrides the value set in the specified storageconfig. "+
 			"Follows the Kubernetes quantity format.\n\n"+
-			"For example, to create a tablespace with the NFS storage configuration with a PVC of size 10GiB:\n\n"+
+			"For example, to create a tablespace with the NFS storage configuration with a PVC of size 10Gi:\n\n"+
 			"--tablespace=name=ts1:storageconfig=nfsstorage:pvcsize=10Gi")
 	createClusterCmd.Flags().StringVarP(&Username, "username", "u", "", "The username to use for creating the PostgreSQL user with standard permissions. Defaults to the value in the PostgreSQL Operator configuration.")
 	createClusterCmd.Flags().StringVar(&WALStorageConfig, "wal-storage-config", "",
