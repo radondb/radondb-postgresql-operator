@@ -12,7 +12,7 @@
 #  limitations under the License.
 
 # This script should be run after the operator has been deployed
-VERSION=v2.0
+VERSION=v2.1.0
 PGO_OPERATOR_NAMESPACE="${PGO_OPERATOR_NAMESPACE:-pgo}"
 PGO_USER_ADMIN="${PGO_USER_ADMIN:-pgouser-admin}"
 PGO_CLIENT_VERSION="${PGO_CLIENT_VERSION:-${VERSION}}"
