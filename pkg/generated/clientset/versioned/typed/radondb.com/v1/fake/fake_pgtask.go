@@ -63,7 +63,7 @@ func (c *FakePgtasks) List(ctx context.Context, opts v1.ListOptions) (result *ra
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &radondbcomv1.PgtaskList{ListMeta: obj.(*radondb.comcomv1.PgtaskList).ListMeta}
+	list := &radondbcomv1.PgtaskList{ListMeta: obj.(*radondbcomv1.PgtaskList).ListMeta}
 	for _, item := range obj.(*radondbcomv1.PgtaskList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
@@ -80,7 +80,7 @@ func (c *FakePgtasks) Watch(ctx context.Context, opts v1.ListOptions) (watch.Int
 }
 
 // Create takes the representation of a pgtask and creates it.  Returns the server's representation of the pgtask, and an error, if there is any.
-func (c *FakePgtasks) Create(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.CreateOptions) (result *radondb.comcomv1.Pgtask, err error) {
+func (c *FakePgtasks) Create(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.CreateOptions) (result *radondbcomv1.Pgtask, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(pgtasksResource, c.ns, pgtask), &radondbcomv1.Pgtask{})
 
@@ -91,7 +91,7 @@ func (c *FakePgtasks) Create(ctx context.Context, pgtask *radondbcomv1.Pgtask, o
 }
 
 // Update takes the representation of a pgtask and updates it. Returns the server's representation of the pgtask, and an error, if there is any.
-func (c *FakePgtasks) Update(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.UpdateOptions) (result *radondb.comcomv1.Pgtask, err error) {
+func (c *FakePgtasks) Update(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.UpdateOptions) (result *radondbcomv1.Pgtask, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(pgtasksResource, c.ns, pgtask), &radondbcomv1.Pgtask{})
 
@@ -103,7 +103,7 @@ func (c *FakePgtasks) Update(ctx context.Context, pgtask *radondbcomv1.Pgtask, o
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakePgtasks) UpdateStatus(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.UpdateOptions) (*radondb.comcomv1.Pgtask, error) {
+func (c *FakePgtasks) UpdateStatus(ctx context.Context, pgtask *radondbcomv1.Pgtask, opts v1.UpdateOptions) (*radondbcomv1.Pgtask, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(pgtasksResource, "status", c.ns, pgtask), &radondbcomv1.Pgtask{})
 
