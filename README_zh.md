@@ -11,7 +11,7 @@
 RadonDB PostgreSQL Operator 支持在 [Kubernetes](https://kubernetes.io) 和 [KubeSphere 3.1.x](https://kubesphere.com.cn) 平台部署。
 
 ## 快速入门
-
+- [快速开始]()
 - [在 Kubernetes 上部署 RadonDB PostgreSQL 集群](docs/deploy_radondb_postgresql_operator_on_kubernetes.md)
 - [监控管理](docs/monitor_prometheus.md)
 
