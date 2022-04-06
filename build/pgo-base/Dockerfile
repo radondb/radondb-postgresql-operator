@@ -25,7 +25,10 @@ COPY licenses /licenses
 ENV TZ=Asia/Shanghai
 COPY conf/pip.conf pip.conf
 ENV PIP_CONFIG_FILE pip.conf
-ADD conf/Centos-8.repo /etc/yum.repos.d/
+RUN sed -e "s|^mirrorlist=|#mirrorlist=|g" \
+         -e "s|^#baseurl=http://mirror.centos.org/\$contentdir/\$releasever|baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos-vault/8.5.2111|g" \
+         -i.bak \
+         /etc/yum.repos.d/CentOS-*.repo
 RUN rpm --import https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
 
 RUN if [ "$BASEOS" = "centos7" ]; then \
