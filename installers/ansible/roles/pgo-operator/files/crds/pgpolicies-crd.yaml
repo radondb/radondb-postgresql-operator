@@ -13,11 +13,13 @@ spec:
     plural: pgpolicies
     singular: pgpolicy
   scope: Namespaced
-  version: v1
-  validation:
-    openAPIV3Schema:
-      properties:
-        status:
+  versions:
+  - name: v1
+    schema:
+      validation:
+        openAPIV3Schema:
           properties:
-            state: { type: string }
-            message: { type: string }
+            status:
+              properties:
+                state: { type: string }
+                message: { type: string }
