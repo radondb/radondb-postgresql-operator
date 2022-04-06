@@ -27,7 +27,7 @@ if ! [ -f $EVTDIR/nsqd -a -f $EVTDIR/nsqadmin ]; then
 fi
 
 # Download Postgres Exporter, only required to build the RadonDB Postgres Exporter container
-wget -O $PGOROOT/postgres_exporter.tar.gz https://github.com/wrouesnel/postgres_exporter/releases/download/v${POSTGRES_EXPORTER_VERSION?}/postgres_exporter_v${POSTGRES_EXPORTER_VERSION?}_linux-amd64.tar.gz
+curl -fL -o $PGOROOT/postgres_exporter.tar.gz https://github.com/wrouesnel/postgres_exporter/releases/download/v${POSTGRES_EXPORTER_VERSION?}/postgres_exporter_v${POSTGRES_EXPORTER_VERSION?}_linux-amd64.tar.gz
 
 # pgMonitor Setup
 source $BINDIR/get-pgmonitor.sh
