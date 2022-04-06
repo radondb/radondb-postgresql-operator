@@ -1,5 +1,5 @@
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: pgclusters.radondb.com
@@ -35,7 +35,7 @@ spec:
             state: { type: string }
             message: { type: string }
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: pgpolicies.radondb.com
@@ -58,7 +58,7 @@ spec:
             message: { type: string }
             state: { type: string }
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: pgreplicas.radondb.com
@@ -81,7 +81,7 @@ spec:
             message: { type: string }
             state: { type: string }
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: pgtasks.radondb.com
