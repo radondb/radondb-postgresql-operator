@@ -21,6 +21,25 @@ spec:
       openAPIV3Schema:
         type: object
         properties:
+          spec: 
+            type: object
+            properties:
+              name: { type: string }
+              storagespec:
+                type: object
+                properties:
+                  name: { type: string }
+                  storageclass: { type: string }
+                  accessmode: { type: string }
+                  size: { type: string }
+                  supplementalgroups: { type: string }
+                  matchLabels: { type: string }
+                  storagetype: { type: string }
+              tasktype: { type: string }
+              status: { type: string }
+              parameters:
+                type: object
+                additionalProperties: {type: string}
           status:
             type: object
             properties:

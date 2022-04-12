@@ -132,8 +132,10 @@ spec:
                 CustomConfig: { type: string }
                 userlabels:
                   type: object
-                  properties:
-                    userlabel: { type: string }
+                  additionalProperties:
+                    type: string
+                    pgo-version: { type: string }
+                    workflowid: { type: string }
                 NodeAffinity: { type: object }
                 PodAntiAffinity: { type: object }
                 SyncReplication: { type: boolean }
