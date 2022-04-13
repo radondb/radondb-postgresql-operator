@@ -1,15 +1,24 @@
 {
     "version": "0.2.0",
     "configurations": [
+
+        // {
+        //     "type": ""
+        //     "request": "launch",
+        //     "name": "event",
+        //     "cwd": "${workspaceFolder}",
+        //     "program": "bin/pgo-event/pgo-event.sh",
+        //     "args": []
+        // },
         {
-            "name": "Launch",
+            "name": "Operator",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             // "remotePath": "",
             // "port": 2345,
             "host": "127.0.0.1",
-            "program": "${fileDirname}",
+            "program": "cmd/postgres-operator",
             "env": {
                 "GOPATH":"/go",
                 "DISABLE_TLS":true,
@@ -21,6 +30,53 @@
             },
             "args": [],
             "showLog": true
+        },
+        {
+            "name": "apiserver",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "host": "127.0.0.1",
+            "program": "cmd/apiserver/main.go",
+            "env": {
+                "GOPATH":"/go",
+                "DISABLE_TLS":true,
+                "PGO_OPERATOR_NAMESPACE":"pgo",
+                "PGO_INSTALLATION_NAME":"devtest",
+                "RADONDB_DEBUG":true,
+                "EVENT_ADDR":"localhost:4150",
+                "DISABLE_EVENTING":true
+            },
+            "args": [],
+            "showLog": true
+            
+        },
+        {
+            "name": "scheduler",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "host": "127.0.0.1",
+            "program": "cmd/pgo-scheduler/main.go",
+            "env": {
+                "GOPATH":"/go",
+                "DISABLE_TLS":true,
+                "PGO_OPERATOR_NAMESPACE":"pgo",
+                "PGO_INSTALLATION_NAME":"devtest",
+                "RADONDB_DEBUG":true,
+                "EVENT_ADDR":"localhost:4150",
+                "DISABLE_EVENTING":true
+            },
+            "args": [],
+            "showLog": true
+            
+        } 
+    ],
+    "compounds": [
+        {
+            "name": "pgo",
+            "configurations": ["apiserver","scheduler","Operator"],
+            "preLaunchTask": "event"
         }
     ]
 }

@@ -107,7 +107,7 @@ spec:
                   properties:
                     cpu: { type: string }
                     memory: { type: string }
-                PgBouncer:
+                pgBouncer:
                   type: object
                   properties:
                     replicas: { type: integer }
@@ -124,12 +124,11 @@ spec:
                     size: { type: string }
                     serviceType: { type: string }
                     TLSSecret: { type: string }
-                User: { type: string }
-                PasswordType: { type: string }
-                Database: { type: string }
-                Replicas: { type: string }
-                Status: { type: string }
-                CustomConfig: { type: string }
+                user: { type: string }
+                passwordType: { type: string }
+                replicas: { type: string }
+                status: { type: string }
+                customconfig: { type: string }
                 userlabels:
                   type: object
                   additionalProperties:
@@ -139,22 +138,22 @@ spec:
                 NodeAffinity: { type: object }
                 PodAntiAffinity: { type: object }
                 SyncReplication: { type: boolean }
-                BackrestConfig:
+                backrestConfig:
                   type: array
                   items:
                     type: object
                     properties:
                       additionalProperties: { type: string }
-                BackrestGCSBucket: { type: string }
-                BackrestGCSEndpoint: { type: string }
-                BackrestGCSKeyType: { type: string }
-                BackrestS3Bucket: { type: string }
-                BackrestS3Region: { type: string }
-                BackrestS3Endpoint: { type: string }
-                BackrestS3URIStyle: { type: string }
-                BackrestS3VerifyTLS: { type: string }
-                BackrestRepoPath: { type: string }
-                BackrestStorageTypes:
+                backrestGCSBucket: { type: string }
+                backrestGCSEndpoint: { type: string }
+                backrestGCSKeyType: { type: string }
+                backrestS3Bucket: { type: string }
+                backrestS3Region: { type: string }
+                backrestS3Endpoint: { type: string }
+                backrestS3URIStyle: { type: string }
+                backrestS3VerifyTLS: { type: string }
+                backrestRepoPath: { type: string }
+                backrestStorageTypes:
                   type: array
                   items:
                     type: string
@@ -168,7 +167,7 @@ spec:
                     supplementalgroups: { type: string }
                     matchLabels: { type: string }
                     storagetype: { type: string }
-                TablespaceMounts:
+                tablespaceMounts:
                   type: object
                   properties:
                     name: { type: string }
@@ -178,36 +177,32 @@ spec:
                     supplementalgroups: { type: string }
                     matchLabels: { type: string }
                     storagetype: { type: string }
-                TLS:
+                tls:
                   type: object
                   properties:
                     caSecret: { type: string }
                     replicationTLSSecret: { type: string }
                     tlsSecret: { type: string }
-                TLSOnly: { type: boolean }
-                Standby: { type: boolean }
-                Shutdown: { type: boolean }
-                PGDataSource:
+                tlsOnly: { type: boolean }
+                standby: { type: boolean }
+                shutdown: { type: boolean }
+                pgDataSource:
                   type: object
                   properties:
                     namespace: { type: string }
                     restoreFrom: { type: string }
                     restoreOpts: { type: string }
-                Annotations:
+                annotations:
                   type: object
                   properties:
-                    annotations: { type: string }
-                ServiceType: { type: string }
-                Tolerations:
+                    additionalProperties: {type: string}
+                serviceType: { type: string }
+                tolerations:
                   type: array
                   items:
                     type: object
                     properties:
-                      key: { type: string }
-                      operator: { type: string }
-                      value: { type: string }
-                      effect: { type: string }
-                      tolerationSeconds: { type: integer }
+                      additionalProperties: {type: string}
             status:
               type: object
               properties:
