@@ -469,7 +469,7 @@ func init() {
 	createClusterCmd.Flags().StringVarP(&BackrestS3URIStyle, "pgbackrest-s3-uri-style", "", "", "Specifies whether \"host\" or \"path\" style URIs will be used when connecting to S3.")
 	createClusterCmd.Flags().BoolVarP(&BackrestS3VerifyTLS, "pgbackrest-s3-verify-tls", "", true, "This sets if pgBackRest should verify the TLS certificate when connecting to S3. To disable, use \"--pgbackrest-s3-verify-tls=false\".")
 	createClusterCmd.Flags().StringVar(&BackrestStorageConfig, "pgbackrest-storage-config", "", "The name of the storage config in pgo.yaml to use for the pgBackRest local repository.")
-	createClusterCmd.Flags().StringVarP(&	, "pgbackrest-storage-type", "", "", "The type of storage to use with pgBackRest. Either \"posix\", \"s3\", \"gcs\", \"posix,s3\" or \"posix,gcs\". (default \"posix\")")
+	createClusterCmd.Flags().StringVarP(&BackrestStorageType, "pgbackrest-storage-type", "", "", "The type of storage to use with pgBackRest. Either \"posix\", \"s3\", \"gcs\", \"posix,s3\" or \"posix,gcs\". (default \"posix\")")
 	createClusterCmd.Flags().BoolVarP(&BadgerFlag, "pgbadger", "", false, "Adds the radondb-pgbadger container to the database pod.")
 	createClusterCmd.Flags().BoolVarP(&PgbouncerFlag, "pgbouncer", "", false, "Adds a radondb-pgbouncer deployment to the cluster.")
 	createClusterCmd.Flags().StringVar(&PgBouncerCPURequest, "pgbouncer-cpu", "", "Set the number of millicores to request for CPU "+
