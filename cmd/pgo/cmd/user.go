@@ -18,6 +18,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/radondb/radondb-postgresql-operator/cmd/pgo/api"
@@ -36,6 +37,7 @@ type userTextPadding struct {
 	Expires      int
 	Password     int
 	Username     int
+	Superuser    int
 	Status       int
 }
 
@@ -86,6 +88,7 @@ func createUser(args []string, ns string) {
 		PasswordLength:  PasswordLength,
 		PasswordType:    PasswordType,
 		Username:        username,
+		Superuser:       Superuser,
 		Selector:        Selector,
 	}
 
@@ -159,6 +162,7 @@ func generateUserPadding(results []msgs.UserResponseDetail) userTextPadding {
 		Password:     getMaxLength(userInterface, headingPassword, "Password"),
 		Status:       len(headingStatus) + 1,
 		Username:     getMaxLength(userInterface, headingUsername, "Username"),
+		Superuser:    len(headingSuperuser),
 	}
 }
 
@@ -287,6 +291,7 @@ func printUserTextHeader(padding userTextPadding) {
 	fmt.Printf("%s", util.Rpad(headingExpires, " ", padding.Expires))
 	fmt.Printf("%s", util.Rpad(headingStatus, " ", padding.Status))
 	fmt.Printf("%s", util.Rpad(headingErrorMessage, " ", padding.ErrorMessage))
+	fmt.Printf("%s", util.Rpad(headingSuperuser, " ", padding.Superuser))
 	fmt.Println("")
 
 	// print the layer below the header...which prints out a bunch of "-" that's
@@ -298,6 +303,7 @@ func printUserTextHeader(padding userTextPadding) {
 		strings.Repeat("-", padding.Expires-1),
 		strings.Repeat("-", padding.Status-1),
 		strings.Repeat("-", padding.ErrorMessage-1),
+		strings.Repeat("-", padding.Superuser-1),
 	)
 }
 
@@ -331,6 +337,7 @@ func printUserTextRow(result msgs.UserResponseDetail, padding userTextPadding) {
 	fmt.Printf("%s", util.Rpad(expires, " ", padding.Expires))
 	fmt.Printf("%s", util.Rpad(status, " ", padding.Status))
 	fmt.Printf("%s", util.Rpad(result.ErrorMessage, " ", padding.ErrorMessage))
+	fmt.Printf("%s", util.Rpad(strconv.FormatBool(result.Superuser), " ", padding.ErrorMessage))
 	fmt.Println("")
 }
 

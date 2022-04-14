@@ -47,6 +47,7 @@ const (
 	headingPVCType      = "TYPE"
 	headingUsed         = "USED"
 	headingUsername     = "USERNAME"
+	headingSuperuser    = "SUPERUSER"
 )
 
 // unitSize recommends the unit we will use to size things
