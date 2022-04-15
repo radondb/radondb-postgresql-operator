@@ -225,7 +225,6 @@ func CreateUser(request *msgs.CreateUserRequest, pgouser string) msgs.CreateUser
 		if request.Superuser {
 			sql = sqlCreateRoleSuperuser
 			result.Superuser = true
-			response.Results = append(response.Results, result)
 		} else {
 			sql = sqlCreateRole
 		}

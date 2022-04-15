@@ -76,7 +76,7 @@
         {
             "name": "pgo",
             "configurations": ["apiserver","scheduler","Operator"],
-            "preLaunchTask": "event"
+            // "preLaunchTask": "event"
         }
     ]
 }
