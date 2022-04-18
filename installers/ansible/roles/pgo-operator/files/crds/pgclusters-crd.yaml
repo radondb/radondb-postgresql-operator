@@ -143,7 +143,10 @@ spec:
                   items:
                     type: object
                     properties:
-                      additionalProperties: { type: string }
+                        configMap: 
+                          type:
+                            object
+                          x-kubernetes-preserve-unknown-fields: true
                 backrestGCSBucket: { type: string }
                 backrestGCSEndpoint: { type: string }
                 backrestGCSKeyType: { type: string }

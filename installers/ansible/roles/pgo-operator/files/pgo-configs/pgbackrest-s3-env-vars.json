@@ -33,7 +33,7 @@
   "value": "/sshd/aws-s3-ca.crt"
 },
 {
-  "name": "PGBACKREST_REPO1_HOST_CMD",
+  "name": "",
   "value": "/usr/local/bin/archive-push-s3.sh"
 },
 {
