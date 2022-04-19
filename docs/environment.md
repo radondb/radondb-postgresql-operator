@@ -17,7 +17,7 @@
 
  
 
-\#192.168.137.2
+#192.168.137.2
 
 vi /etc/hostname
 
@@ -35,7 +35,7 @@ EOF
 
  
 
-\#192.168.137.3
+#192.168.137.3
 
 vi /etc/hostname
 
@@ -51,7 +51,7 @@ cat >> /etc/hosts << EOF
 
 EOF
 
-\#192.168.137.4
+#192.168.137.4
 
 vi /etc/hostname
 
@@ -67,19 +67,19 @@ cat >> /etc/hosts << EOF
 
 EOF
 
-\#2、关闭防火墙
+#2、关闭防火墙
 
 systemctl stop firewalld && systemctl disable firewalld
 
-\#3、关闭selinux
+#3、关闭selinux
 
 sed -i 's/enforcing/disabled/' /etc/selinux/config && setenforce 0
 
-\#4、关闭swap
+#4、关闭swap
 
 swapoff -a && sed -ri 's/.*swap.*/#&/' /etc/fstab
 
-\#5、时间同步
+#5、时间同步
 
 yum install ntpdate -y && ntpdate time.windows.com
 
@@ -103,23 +103,23 @@ sysctl --system
 
 yum install -y yum-utils device-mapper-persistent-data lvm2
 
-\# Step 2: 添加软件源信息
+# Step 2: 添加软件源信息
 
 yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
-\# Step 3: 更新并安装Docker-CE
+# Step 3: 更新并安装Docker-CE
 
 yum makecache fast
 
 yum -y install docker-ce
 
-\# Step 4: 开启Docker服务
+# Step 4: 开启Docker服务
 
 systemctl start docker && systemctl enable docker
 
  
 
-\# 可以通过修改daemon配置文件/etc/docker/daemon.json来使用加速器
+# 可以通过修改daemon配置文件/etc/docker/daemon.json来使用加速器
 
 mkdir -p /etc/docker
 
@@ -169,9 +169,9 @@ yum install kubectl-1.20.0 kubelet-1.20.0 kubeadm-1.20.0
 
  
 
-\#初始化集群
+#初始化集群
 
-\#master
+#master
 
 kubeadm init --kubernetes-version=1.20.0  \
 
@@ -195,7 +195,7 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
  
 
-\#其他节点加入集群
+#其他节点加入集群
 
 kubeadm join 192.168.137.2:6443 --token scw8xm.x5y7fck1via4mwc2 \
 
@@ -211,26 +211,26 @@ kubeadm join 192.168.137.2:6443 --token scw8xm.x5y7fck1via4mwc2 \
 
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
-\#发送admin.conf到所有节点，可以在任何一个节点管理集群
+#发送admin.conf到所有节点，可以在任何一个节点管理集群
 
 scp /etc/kubernetes/admin.conf root@node1:/etc/kubernetes/admin.conf
 
 scp /etc/kubernetes/admin.conf root@node2:/etc/kubernetes/admin.conf
 
-\#在node节点上加入环境变量
+#在node节点上加入环境变量
 
 echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> /etc/profile
 
 source /etc/profile
 
-\#执行完成以后可以在任意node节点上管理集群，查看节点是否正常
+#执行完成以后可以在任意node节点上管理集群，查看节点是否正常
 
 kubectl get nodes
 ```
 
  
 
-![img](file:///C:\Users\wzb\AppData\Local\Temp\ksohtml\wpsD203.tmp.jpg) 
+![img](images/wpsD203.tmp.jpg) 
 
  
 
@@ -269,7 +269,7 @@ volumeBindingMode: WaitForFirstConsumer
 
 storageclass.storage.k8s.io/local-storage create
 
-\#设置为默认
+#设置为默认
 
 kubectl patch storageclass fast-disks -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 ```
@@ -283,7 +283,7 @@ kubectl patch storageclass fast-disks -p '{"metadata": {"annotations":{"storagec
 
 kubectl taint nodes master node-role.kubernetes.io/master:PreferNoSchedule
 
-\#去除污点NoSchedule，最后一个"-"代表删除
+#去除污点NoSchedule，最后一个"-"代表删除
 
 kubectl taint nodes master node-role.kubernetes.io/master:NoSchedule-
 ```
@@ -386,7 +386,7 @@ make setup #安装相关依赖，包括exporter和pgmonitor
 make #编译镜像
 ```
 
-![img](file:///C:\Users\wzb\AppData\Local\Temp\ksohtml\wpsD204.tmp.jpg) 
+![img](images/wpsD204.tmp.jpg) 
 
 导出镜像文件
 
@@ -448,9 +448,9 @@ docker load -i radondb-postgres-exporter.tar.gz
 
 ### **安装存储**
 
-\1. 添加新硬盘
+1. 添加新硬盘
 
-\2. 重启虚拟机
+2. 重启虚拟机
 
    查看现有系统的磁盘空间
 
@@ -460,7 +460,7 @@ docker load -i radondb-postgres-exporter.tar.gz
 
    可看到新加的虚拟硬盘，一般名为： Disk /dev/sdb
 
-\3. 给新加的硬盘分区
+3. 给新加的硬盘分区
 
 ```
  fdisk /dev/sdb
@@ -478,7 +478,7 @@ docker load -i radondb-postgres-exporter.tar.gz
  command (m for help):w
 ```
 
-\4. 格式化磁盘分区
+4. 格式化磁盘分区
 
    用 ext4格式对/dev/sdb1进入格式化
 
@@ -486,7 +486,7 @@ docker load -i radondb-postgres-exporter.tar.gz
  mkfs.ext4 /dev/sdb1
 ```
 
-\5. 挂载分区
+5. 挂载分区
 
    创建新的挂载点
 
@@ -508,7 +508,7 @@ docker load -i radondb-postgres-exporter.tar.gz
 
    可以看到新加的硬盘： /dev/sdb1
 
-\6. 开机自动挂载
+6. 开机自动挂载
 
    修改文件
 
@@ -545,7 +545,7 @@ metadata:
 
   vendor: radondb
 
-\---
+---
 
 kind: ClusterRole
 
@@ -561,85 +561,85 @@ metadata:
 
 rules:
 
- \- apiGroups:
+ - apiGroups:
 
-   \- ''
-
-  resources:
-
-   \- namespaces
-
-  verbs:
-
-   \- get
-
-   \- list
-
-   \- create
-
-   \- patch
-
-   \- delete
-
- \- apiGroups:
-
-   \- ''
+   - ''
 
   resources:
 
-   \- pods
+   - namespaces
 
   verbs:
 
-   \- list
+   - get
 
- \- apiGroups:
+   - list
 
-   \- ''
+   - create
+
+   - patch
+
+   - delete
+
+ - apiGroups:
+
+   - ''
 
   resources:
 
-   \- secrets
+   - pods
 
   verbs:
 
-   \- list
+   - list
 
-   \- get
+ - apiGroups:
 
-   \- create
-
-   \- delete
-
-   \- patch
-
- \- apiGroups:
-
-   \- ''
+   - ''
 
   resources:
 
-   \- configmaps
-
-   \- services
-
-   \- persistentvolumeclaims
+   - secrets
 
   verbs:
 
-   \- get
+   - list
 
-   \- create
+   - get
 
-   \- delete
+   - create
 
-   \- list
+   - delete
 
-   \- patch
+   - patch
 
- \- apiGroups:
+ - apiGroups:
 
-   \- ''
+   - ''
+
+  resources:
+
+   - configmaps
+
+   - services
+
+   - persistentvolumeclaims
+
+  verbs:
+
+   - get
+
+   - create
+
+   - delete
+
+   - list
+
+   - patch
+
+ - apiGroups:
+
+   - ''
 
   resources:
 
@@ -647,131 +647,131 @@ rules:
 
   verbs:
 
-   \- get
+   - get
 
-   \- create
+   - create
 
-   \- delete
+   - delete
 
-   \- patch
+   - patch
 
-   \- list
+   - list
 
- \- apiGroups:
+ - apiGroups:
 
-   \- apps
+   - apps
 
-   \- extensions
-
-  resources:
-
-   \- deployments
-
-   \- replicasets
-
-  verbs:
-
-   \- get
-
-   \- list
-
-   \- watch
-
-   \- create
-
-   \- delete
-
- \- apiGroups:
-
-   \- apiextensions.k8s.io
+   - extensions
 
   resources:
 
-   \- customresourcedefinitions
+   - deployments
+
+   - replicasets
 
   verbs:
 
-   \- get
+   - get
 
-   \- create
+   - list
 
-   \- delete
+   - watch
 
- \- apiGroups:
+   - create
 
-   \- rbac.authorization.k8s.io
+   - delete
+
+ - apiGroups:
+
+   - apiextensions.k8s.io
 
   resources:
 
-   \- clusterroles
-
-   \- clusterrolebindings
-
-   \- roles
-
-   \- rolebindings
+   - customresourcedefinitions
 
   verbs:
 
-   \- get
+   - get
 
-   \- create
+   - create
 
-   \- delete
+   - delete
 
-   \- bind
+ - apiGroups:
 
-   \- escalate
-
- \- apiGroups:
-
-   \- rbac.authorization.k8s.io
+   - rbac.authorization.k8s.io
 
   resources:
 
-   \- roles
+   - clusterroles
+
+   - clusterrolebindings
+
+   - roles
+
+   - rolebindings
 
   verbs:
 
-   \- create
+   - get
 
-   \- delete
+   - create
 
- \- apiGroups:
+   - delete
 
-   \- batch
+   - bind
+
+   - escalate
+
+ - apiGroups:
+
+   - rbac.authorization.k8s.io
 
   resources:
 
-   \- jobs
+   - roles
 
   verbs:
 
-   \- delete
+   - create
 
-   \- list
+   - delete
 
- \- apiGroups:
+ - apiGroups:
 
-   \- radondb.com
+   - batch
 
   resources:
 
-   \- pgclusters
-
-   \- pgreplicas
-
-   \- pgpolicies
-
-   \- pgtasks
+   - jobs
 
   verbs:
 
-   \- delete
+   - delete
 
-   \- list
+   - list
 
-\---
+ - apiGroups:
+
+   - radondb.com
+
+  resources:
+
+   - pgclusters
+
+   - pgreplicas
+
+   - pgpolicies
+
+   - pgtasks
+
+  verbs:
+
+   - delete
+
+   - list
+
+---
 
 apiVersion: v1
 
@@ -791,13 +791,13 @@ data:
 
  values.yaml: |-
 
-  \# =====================
+  # =====================
 
-  \# Configuration Options
+  # Configuration Options
 
-  \# More info for these options can be found in the docs
+  # More info for these options can be found in the docs
 
-  \# =====================
+  # =====================
 
   archive_mode: "true"
 
@@ -1035,7 +1035,7 @@ data:
 
   storage9_class: "rook-ceph-block"
 
-\---
+---
 
 apiVersion: rbac.authorization.k8s.io/v1
 
@@ -1059,13 +1059,13 @@ roleRef:
 
 subjects:
 
- \- kind: ServiceAccount
+ - kind: ServiceAccount
 
   name: pgo-deployer-sa
 
   namespace: pgo
 
-\---
+---
 
 apiVersion: batch/v1
 
@@ -1093,7 +1093,7 @@ spec:
 
    labels:
 
-​    vendor: radondb
+     vendor: radondb
 
   spec:
 
@@ -1103,31 +1103,31 @@ spec:
 
    containers:
 
-​    \- name: pgo-deploy
+     - name: pgo-deploy
 
-​     image: docker.io/radondb/pgo-deployer:centos8-4.7.1
+      image: docker.io/radondb/pgo-deployer:centos8-4.7.1
 
-​     imagePullPolicy: IfNotPresent
+      imagePullPolicy: IfNotPresent
 
-​     env:
+      env:
 
-​      \- name: DEPLOY_ACTION
+        - name: DEPLOY_ACTION
 
-​       value: install
+        value: install
 
-​     volumeMounts:
+      volumeMounts:
 
-​      \- name: deployer-conf
+        - name: deployer-conf
 
-​       mountPath: "/conf"
+        mountPath: "/conf"
 
    volumes:
 
-​    \- name: deployer-conf
+     - name: deployer-conf
 
-​     configMap:
+      configMap:
 
-​      name: pgo-deployer-cm
+       name: pgo-deployer-cm
 ```
 
 ### **部署PostgreSQL Operator**
@@ -1144,7 +1144,7 @@ kubectl apply -f postgres-operator.yml
 kubectl get all -n pgo --selector=name=postgres-operator
 ```
 
-![img](file:///C:\Users\wzb\AppData\Local\Temp\ksohtml\wpsD215.tmp.jpg) 
+![img](images/wpsD215.tmp.jpg) 
 
 ## **部署步骤**
 
@@ -1157,13 +1157,13 @@ git clone https://github.com/kubernetes-sigs/sig-storage-local-static-provisione
 
 cd sig-storage-local-static-provisioner 
 
-\# 
+# 
 
 vi helm/provisioner/values.yaml 
 
 classes: 
 
-\- name: fast-disks 
+- name: fast-disks 
 
 hostDir: /data/pgdata 
 
@@ -1173,22 +1173,22 @@ fsType: ext4
 
 116 image: quay.io/external_storage/local-volume-provisioner:v2.4.0 
 
-\# 
+# 
 
 helm install localprovi . -n kube-system 
 
-\#podpv 
+#podpv 
 
 kubectl get po -n kube-system -l app.kubernetes.io/name=provisioner
 ```
 
-![img](file:///C:\Users\wzb\AppData\Local\Temp\ksohtml\wpsD226.tmp.jpg) 
+![img](images/wpsD226.tmp.jpg) 
 
 ```
 kubectl get pv -n pgo |grep ^local
 ```
 
-![img](file:///C:\Users\wzb\AppData\Local\Temp\ksohtml\wpsD227.tmp.jpg) 
+![img](images/wpsD227.tmp.jpg) 
 
 ### **安装 PGO 客户端**
 
@@ -1320,6 +1320,6 @@ PGPASSWORD='yTFeeH1|^DX<Bx4[?:B_/Q;M' psql -h localhost -p 5432 -U testuser rado
 
 kubectl exec -it rp1-65798ccf5c-ftbp9 -n pgo -c database bash
 
-![img](file:///C:\Users\wzb\AppData\Local\Temp\ksohtml\wpsD228.tmp.jpg) 
+![img](images/wpsD228.tmp.jpg) 
 
 **可以看到图中为3节点patroni集群，至此，Postgresql云数据库版本搭建完成。**
