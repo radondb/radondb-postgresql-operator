@@ -28,6 +28,7 @@ import (
 	"github.com/radondb/radondb-postgresql-operator/internal/config"
 	"github.com/radondb/radondb-postgresql-operator/internal/util"
 	crv1 "github.com/radondb/radondb-postgresql-operator/pkg/apis/radondb.com/v1"
+	ini "gopkg.in/ini.v1"
 
 	log "github.com/sirupsen/logrus"
 	apps_v1 "k8s.io/api/apps/v1"
@@ -126,6 +127,21 @@ type PgbackrestS3EnvVarsTemplateFields struct {
 	PgbackrestS3VerifyTLS  string
 }
 
+type PgbackrestConfigFile struct {
+	Stanza PgbackrestS3ConfigFileTemplateFields `ini:"db"`
+}
+type PgbackrestS3ConfigFileTemplateFields struct {
+	PgbackrestRepo1Type       string `ini:"repo1-type"`
+	PgbackrestS3Bucket        string `ini:"repo1-s3-bucket"`
+	PgbackrestS3Endpoint      string `ini:"repo1-s3-endpoint"`
+	PgbackrestS3Region        string `ini:"repo1-s3-region"`
+	PgbackrestS3Key           string `ini:"repo1-s3-key"`
+	PgbackrestS3KeySecret     string `ini:"repo1-s3-key-secret"`
+	PgbackrestS3SecretName    string `ini:"repo1-s3-key"`
+	PgbackrestS3URIStyle      string `ini:"repo1-s3-uri-style"`
+	PgbackrestS3VerifyTLS     string `ini:"repo1-storage-verify-tls"`
+	PgbackrestS3RetentionFull string `ini:"repo1-storage-retention-full"`
+}
 type PgmonitorEnvVarsTemplateFields struct {
 	ExporterSecret string
 }
@@ -1050,7 +1066,6 @@ func GetPgbackrestBootstrapS3EnvVars(pgDataSourceRestoreFrom string,
 	} else {
 		s3EnvVars.PgbackrestS3URIStyle = defaultPGBackRestS3URIStyle
 	}
-
 	verifyTLS := restoreFromSecret.Annotations[config.ANNOTATION_S3_VERIFY_TLS]
 	if verifyTLS != "" {
 		s3EnvVars.PgbackrestS3VerifyTLS = verifyTLS
@@ -1161,4 +1176,18 @@ func writeTablespaceJSON(w *bytes.Buffer, jsonFields interface{}) error {
 	w.Write(json)
 
 	return nil
+}
+
+func GetBackrestStorageTypeByConfigMap(clientset kubernetes.Interface, cluster *crv1.Pgcluster) string {
+	ctx := context.TODO()
+	// clusterName := cluster.Spec.Name
+	namespace := cluster.Namespace
+	configMapName := cluster.Spec.BackrestConfig[0].ConfigMap.Name
+	configMap, _ := clientset.CoreV1().ConfigMaps(namespace).Get(ctx, configMapName, metav1.GetOptions{})
+	log.Debugf("geting  backrest in the pgha configMap for cluster %s", configMapName)
+	configMapData := []byte(configMap.Data["pgbackrest.conf"])
+	cfg, _ := ini.Load(configMapData)
+	p := PgbackrestConfigFile{}
+	cfg.MapTo(&p)
+	return p.Stanza.PgbackrestRepo1Type
 }

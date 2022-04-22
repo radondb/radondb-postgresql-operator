@@ -20,6 +20,7 @@ require (
 	go.opentelemetry.io/otel/exporters/trace/jaeger v0.13.0
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
+	gopkg.in/ini.v1 v1.66.4
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/api v0.21.0
 	k8s.io/apimachinery v0.21.0
