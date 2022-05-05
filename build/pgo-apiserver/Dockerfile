@@ -18,9 +18,7 @@ RUN apt-get -y update && \
 		; \
 	ln -s /usr/lib/postgresql/$PG_MAJOR /usr/pgsql-$PG_MAJOR ;\
 	\
-	rm -rf /var/lib/apt/lists/*; \
-	
-
+	rm -rf /var/lib/apt/lists/*; 
 ADD bin/apiserver /usr/local/bin
 ADD installers/ansible/roles/pgo-operator/files/pgo-configs /default-pgo-config
 ADD conf/postgres-operator/pgo.yaml /default-pgo-config/pgo.yaml
