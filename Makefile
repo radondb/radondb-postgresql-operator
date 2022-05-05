@@ -2,10 +2,10 @@
 # Default values if not already set
 ANSIBLE_VERSION ?= 2.9.*
 PGOROOT ?= $(CURDIR)
-PGO_BASEOS ?= debian:bullseye-slim
+PGO_BASEOS ?= debian
 BASE_IMAGE_OS ?= $(PGO_BASEOS)
 PGO_IMAGE_PREFIX ?= radondb
-PGO_VERSION ?= 4.7.1
+PGO_VERSION ?= 2.1.1
 PGO_IMAGE_TAG ?= $(PGO_BASEOS)-$(PGO_VERSION)
 PGO_PG_VERSION ?= 13
 PGO_PG_FULLVERSION ?= 13.3
@@ -52,7 +52,10 @@ GO_CMD = $(GO_ENV) go
 ifeq ("$(DEBUG_BUILD)", "true")
 	GO_BUILD += -gcflags='all=-N -l'
 endif
-
+ifeq ("$(PGO_BASEOS)", "debian")
+        PACKAGER=apt
+        BASE_IMAGE_OS=bullseye-slim
+endif
 # To build a specific image, run 'make <name>-image' (e.g. 'make pgo-apiserver-image')
 images = pgo-apiserver \
 	pgo-event \
