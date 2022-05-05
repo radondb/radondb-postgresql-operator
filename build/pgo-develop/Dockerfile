@@ -12,8 +12,6 @@ LABEL name="pgo-deployer" \
     summary="RadonDB PostgreSQL Operator - developer" \
     description="RadonDB PostgreSQL Operator - developer"
 
-COPY installers/image/conf/kubernetes.repo /etc/yum.repos.d/kubernetes.repo
-
 
 
 RUN     gpg --keyserver keyserver.ubuntu.com --recv-keys 8B57C5C2836F4BEB FEEA9169307EA071  ;\
