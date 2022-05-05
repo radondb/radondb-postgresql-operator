@@ -37,7 +37,7 @@ DFSET=$(PGO_BASEOS)
 # repository using docker (otherwise the images may not be recognized)
 export BUILDAH_FORMAT ?= docker
 
-DOCKERBASEREGISTRY=registry.access.redhat.com/
+DOCKERBASEREGISTRY=docker.io/
 
 # Allows simplification of IMGBUILDER switching
 ifeq ("$(IMGBUILDER)","docker")
