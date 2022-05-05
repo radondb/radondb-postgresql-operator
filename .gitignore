@@ -7,3 +7,4 @@ licenses/*
 .vscode/
 .devcontainer/
 *.tgz
+cmd/postgres-operator/__debug_bin
