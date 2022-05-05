@@ -149,7 +149,7 @@ data:
     ccp_image_prefix: "docker.io/radondb"
     ccp_image_pull_secret: ""
     ccp_image_pull_secret_manifest: ""
-    ccp_image_tag: "centos8-13.3-4.7.1"
+    ccp_image_tag: "debian-14.2-2.1.1"
     create_rbac: "true"
     radondb_debug: "false"
     db_name: ""
@@ -188,7 +188,7 @@ data:
     pgo_image_prefix: "docker.io/radondb"
     pgo_image_pull_secret: ""
     pgo_image_pull_secret_manifest: ""
-    pgo_image_tag: "centos8-4.7.1"
+    pgo_image_tag: "debian-2.1.1"
     pgo_installation_name: "devtest"
     pgo_noauth_routes: ""
     pgo_operator_namespace: "pgo"
@@ -285,7 +285,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: pgo-deploy
-          image: docker.io/radondb/pgo-deployer:centos8-4.7.1
+          image: docker.io/radondb/pgo-deployer:debian-2.1.1
           imagePullPolicy: IfNotPresent
           env:
             - name: DEPLOY_ACTION

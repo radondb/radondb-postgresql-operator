@@ -28,7 +28,7 @@ spec:
     storagetype: dynamic
   ccpimage: {{ .Values.image | default "radondb-postgres-ha" | quote }}
   ccpimageprefix: {{ .Values.imagePrefix | default "docker.io/radondb" | quote }}
-  ccpimagetag: {{ .Values.imageTag | default "centos8-13.3-4.7.1" | quote }}
+  ccpimagetag: {{ .Values.imageTag | default "debian-14.2-2.1.1" | quote }}
   clustername: {{ .Values.name | quote }}
   database: {{ .Values.name | quote }}
   {{- if .Values.monitoring }}

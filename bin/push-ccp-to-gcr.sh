@@ -16,7 +16,7 @@
 GCR_IMAGE_PREFIX=gcr.io/radondb-dev-test
 
 CCP_IMAGE_PREFIX=radondb
-CCP_IMAGE_TAG=centos8-13.3-4.7.1
+CCP_IMAGE_TAG=debian-14.2-2.1.1
 
 IMAGES=(
 radondb-prometheus
