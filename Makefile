@@ -2,7 +2,7 @@
 # Default values if not already set
 ANSIBLE_VERSION ?= 2.9.*
 PGOROOT ?= $(CURDIR)
-PGO_BASEOS ?= centos8
+PGO_BASEOS ?= debian:bullseye-slim
 BASE_IMAGE_OS ?= $(PGO_BASEOS)
 PGO_IMAGE_PREFIX ?= radondb
 PGO_VERSION ?= 4.7.1
@@ -42,32 +42,6 @@ DOCKERBASEREGISTRY=registry.access.redhat.com/
 # Allows simplification of IMGBUILDER switching
 ifeq ("$(IMGBUILDER)","docker")
         IMGCMDSTEM=docker build
-endif
-
-# Allows consolidation of ubi/rhel/centos Dockerfile sets
-ifeq ("$(PGO_BASEOS)", "rhel7")
-        DFSET=rhel
-endif
-
-ifeq ("$(PGO_BASEOS)", "ubi7")
-        DFSET=rhel
-endif
-
-ifeq ("$(PGO_BASEOS)", "ubi8")
-        DFSET=rhel
-        PACKAGER=microdnf
-        BASE_IMAGE_OS=ubi8-minimal
-endif
-
-ifeq ("$(PGO_BASEOS)", "centos7")
-        DFSET=centos
-        DOCKERBASEREGISTRY=centos:
-endif
-
-ifeq ("$(PGO_BASEOS)", "centos8")
-        DFSET=centos
-        PACKAGER=dnf
-        DOCKERBASEREGISTRY=centos:
 endif
 
 DEBUG_BUILD ?= false
