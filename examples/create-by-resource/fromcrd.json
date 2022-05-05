@@ -10,7 +10,7 @@
       "deployment-name": "fromcrd",
       "name": "fromcrd",
       "pg-cluster": "fromcrd",
-      "pgo-version": "4.7.1",
+      "pgo-version": "2.1.1",
       "pgouser": "pgoadmin"
     },
     "name": "fromcrd",
@@ -60,7 +60,7 @@
     "port": "5432",
     "user": "testuser",
     "userlabels": {
-      "pgo-version": "4.7.1"
+      "pgo-version": "2.1.1"
     }
   }
 }

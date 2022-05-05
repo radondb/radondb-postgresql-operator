@@ -181,7 +181,7 @@ data:
     pgo_client_cert_secret: "pgo.tls"
     pgo_client_container_install: "true"
     pgo_client_install: "true"
-    pgo_client_version: "4.7.1"
+    pgo_client_version: "2.1.1"
     pgo_cluster_admin: "false"
     pgo_disable_eventing: "false"
     pgo_disable_tls: "false"

@@ -28,7 +28,7 @@ default_pgbouncer_memory: ""
 default_exporter_memory: ""
 
 pgo_client_install: "true"
-pgo_client_container_install: "false"
+pgo_client_container_install: "true"
 pgo_cluster_admin: "false"
 pgo_disable_tls: "false"
 pgo_tls_no_verify: "false"

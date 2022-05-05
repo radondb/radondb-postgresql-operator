@@ -133,7 +133,7 @@ PGO 客户端是已编译的 `postgres-operator` 客户端工具，可在与 Kub
    |   --replica-count=3 \  |  PostgeSQL 副本数量。   |
    |   --ccp-image=radondb-postgres-ha \      |   使用的镜像名称。<br>带 `gis` 插件的镜像，例如 `radondb-postgres-gis-ha`。<br> 不带 `gis` 插件的镜像，例如 `radondb-postgres-ha`。  |
    |   --ccp-image-prefix=docker.io/radondb \     |   镜像仓库。  |
-   |   --ccp-image-tag=debian-14.2-2.1.1 \       |   dockerhub 上镜像的标签。目前支持 `debian-14.2-2.1.1` 和 `debian-14.3-4.7.1`。  |
+   |   --ccp-image-tag=debian-14.2-2.1.1 \       |   dockerhub 上镜像的标签。目前支持 `debian-14.2-2.1.1` 和 `debian-14.3-2.1.1`。  |
    |   --pgbackrest-s3-endpoint=s3.pek3b.qingstor.com \ <br> --pgbackrest-s3-key=xxxxx \ <br> --pgbackrest-s3-key-secret=xxxx \ <br> --pgbackrest-s3-bucket=xxxx \ <br> --pgbackrest-s3-region=xxx \ <br> --pgbackrest-s3-verify-tls=false \  |   支持 s3 协议的对象存储设置，主要用于备份。若备份存储选择了 s3 则需要设置这部分参数。  |
    |   --metrics \      |   启用适用于 [Prometheus](https://prometheus.io/) 的指标收集器。  |
    |   --pgbadger \     |   启用 pgbadger。  |

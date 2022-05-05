@@ -10,7 +10,7 @@ metadata:
     deployment-name: hippo
     name: hippo
     pg-cluster: hippo
-    pgo-version: 4.7.1
+    pgo-version: 2.1.1
     pgouser: admin
   name: hippo
   namespace: pgo
@@ -69,4 +69,4 @@ spec:
   port: "5432"
   user: hippo
   userlabels:
-    pgo-version: 4.7.1
+    pgo-version: 2.1.1
