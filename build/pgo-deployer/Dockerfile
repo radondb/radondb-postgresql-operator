@@ -20,7 +20,8 @@ RUN     gpg --keyserver keyserver.ubuntu.com --recv-keys 8B57C5C2836F4BEB FEEA91
         apt-get -y install -y --no-install-recommends \
         kubectl \   
         ansible; \
-        rm -rf /var/lib/apt/lists/*; 
+        rm -rf /var/lib/apt/lists/*; \
+        RUN mkdir -p /opt/cpm/bin
 
 COPY installers/ansible /ansible/postgres-operator
 COPY installers/metrics/ansible /ansible/metrics
