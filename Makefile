@@ -16,14 +16,14 @@ RELTMPDIR=/tmp/release.$(PGO_VERSION)
 RELFILE=/tmp/postgres-operator.$(PGO_VERSION).tar.gz
 
 # Valid values: buildah (default), docker
-IMGBUILDER ?= buildah
+IMGBUILDER ?= docker
 # Determines whether or not rootless builds are enabled
 IMG_ROOTLESS_BUILD ?= false
 # The utility to use when pushing/pulling to and from an image repo (e.g. docker or buildah)
 IMG_PUSHER_PULLER ?= docker
 # Determines whether or not images should be pushed to the local docker daemon when building with
 # a tool other than docker (e.g. when building with buildah)
-IMG_PUSH_TO_DOCKER_DAEMON ?= true
+IMG_PUSH_TO_DOCKER_DAEMON ?= false
 # Defines the sudo command that should be prepended to various build commands when rootless builds are
 # not enabled
 IMGCMDSUDO=

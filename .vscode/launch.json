@@ -15,18 +15,16 @@
             "type": "go",
             "request": "launch",
             "mode": "debug",
-            // "remotePath": "",
-            // "port": 2345,
             "host": "127.0.0.1",
             "program": "cmd/postgres-operator",
             "env": {
                 "GOPATH":"/go",
-                "DISABLE_TLS":true,
+                "DISABLE_TLS":"true",
                 "PGO_OPERATOR_NAMESPACE":"pgo",
                 "PGO_INSTALLATION_NAME":"devtest",
-                "RADONDB_DEBUG":true,
+                "RADONDB_DEBUG":"true",
                 "EVENT_ADDR":"localhost:4150",
-                "DISABLE_EVENTING":true
+                "DISABLE_EVENTING":"true"
             },
             "args": [],
             "showLog": true
@@ -40,12 +38,12 @@
             "program": "cmd/apiserver/main.go",
             "env": {
                 "GOPATH":"/go",
-                "DISABLE_TLS":true,
+                "DISABLE_TLS":"true",
                 "PGO_OPERATOR_NAMESPACE":"pgo",
                 "PGO_INSTALLATION_NAME":"devtest",
-                "RADONDB_DEBUG":true,
+                "RADONDB_DEBUG":"true",
                 "EVENT_ADDR":"localhost:4150",
-                "DISABLE_EVENTING":true
+                "DISABLE_EVENTING":"true"
             },
             "args": [],
             "showLog": true
@@ -60,12 +58,12 @@
             "program": "cmd/pgo-scheduler/main.go",
             "env": {
                 "GOPATH":"/go",
-                "DISABLE_TLS":true,
+                "DISABLE_TLS":"true",
                 "PGO_OPERATOR_NAMESPACE":"pgo",
                 "PGO_INSTALLATION_NAME":"devtest",
-                "RADONDB_DEBUG":true,
+                "RADONDB_DEBUG":"true",
                 "EVENT_ADDR":"localhost:4150",
-                "DISABLE_EVENTING":true
+                "DISABLE_EVENTING":"true"
             },
             "args": [],
             "showLog": true

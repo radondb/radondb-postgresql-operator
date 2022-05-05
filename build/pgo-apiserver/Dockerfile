@@ -12,18 +12,14 @@ LABEL name="pgo-apiserver" \
 	summary="RadonDB PostgreSQL Operator - Apiserver" \
 	description="RadonDB PostgreSQL Operator - Apiserver"
 
-RUN if [ "$BASEOS" = "ubi8" ] ; then \
-	${PACKAGER} -y install \
-	    postgresql${PGVERSION} \
-	    hostname \
-	&& ${PACKAGER} -y clean all ; \
-else \
-	${PACKAGER} -y install \
-	    --setopt=skip_missing_names_on_install=False \
-	    postgresql${PGVERSION} \
-	    hostname \
-	&& ${PACKAGER} -y clean all ; \
-fi
+RUN apt-get -y update && \
+	apt-get -y install -y --no-install-recommends \
+		"postgresql-${PGVERSION}" \
+		; \
+	ln -s /usr/lib/postgresql/$PG_MAJOR /usr/pgsql-$PG_MAJOR ;\
+	\
+	rm -rf /var/lib/apt/lists/*; \
+	
 
 ADD bin/apiserver /usr/local/bin
 ADD installers/ansible/roles/pgo-operator/files/pgo-configs /default-pgo-config
