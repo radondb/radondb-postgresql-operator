@@ -14,7 +14,7 @@
 # limitations under the License.
 
 GCR_IMAGE_PREFIX=docker.io/radondb
-
+PGO_IMAGE_TAG=debian-2.1.1
 IMAGES=(
 pgo-event
 pgo-scheduler
