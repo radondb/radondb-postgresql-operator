@@ -16,7 +16,8 @@ LABEL name="postgres-operator" \
 RUN     apt-get -y update && \
         apt-get -y install -y --no-install-recommends \
         postgresql-${PGVERSION};\
-        rm -rf /var/lib/apt/lists/*; 
+        rm -rf /var/lib/apt/lists/*; \
+        ln -s /usr/lib/postgresql/$PGVERSION /usr/pgsql-$PGVERSION ;
 
 
 ADD bin/postgres-operator /usr/local/bin
