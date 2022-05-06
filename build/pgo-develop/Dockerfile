@@ -19,7 +19,8 @@ RUN     gpg --keyserver keyserver.ubuntu.com --recv-keys 8B57C5C2836F4BEB FEEA91
         echo deb http://mirrors.ustc.edu.cn/kubernetes/apt kubernetes-xenial main >>/etc/apt/sources.list; \
         apt-get -y update && \
         apt-get -y install -y --no-install-recommends \
-        kubectl \   
+        kubectl \  
+        python3-jmespath \   
         ansible; \
         rm -rf /var/lib/apt/lists/*; 
 
