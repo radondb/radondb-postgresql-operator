@@ -137,7 +137,7 @@ spec:
                     workflowid: { type: string }
                 NodeAffinity: { type: object }
                 PodAntiAffinity: { type: object }
-                SyncReplication: { type: boolean }
+                syncReplication: { type: boolean }
                 backrestConfig:
                   type: array
                   items:
