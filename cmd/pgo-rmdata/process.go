@@ -222,6 +222,7 @@ func removeBackupSecrets(request Request) {
 	log.Debugf("removebootStrapSecrets: %s", bootStrapSecretName)
 	if err := request.Clientset.CoreV1().Secrets(request.Namespace).Delete(ctx, bootStrapSecretName, metav1.DeleteOptions{}); err != nil {
 		log.Error(err)
+	}
 }
 
 // removeClusterConfigmaps deletes the configmaps that are created for each
