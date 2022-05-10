@@ -273,6 +273,36 @@ func DeleteBackup(request msgs.DeleteBackrestBackupRequest) msgs.DeleteBackrestB
 	// set up the command
 	cmd := pgBackRestExpireCommand
 	cmd = append(cmd, request.Target)
+	// findout which storage type to use
+	ShowResp := ShowBackrest(request.ClusterName, "", request.Namespace)
+	verifyTLS, _ := strconv.ParseBool(cluster.Spec.BackrestS3VerifyTLS)
+	if ShowResp.Status.Code == msgs.Ok {
+		for _, item := range ShowResp.Items {
+			for _, info := range item.Info {
+				for _, backup := range info.Backups {
+					if backup.Label == request.Target {
+						if item.StorageType == "s3" {
+							cmd = append(cmd, repoTypeFlagS3...)
+							if ! verifyTLS {
+								cmd = append(cmd, noRepoS3VerifyTLS)
+							}
+						} else if item.StorageType == "gcs" {
+							cmd = append(cmd, repoTypeFlagGCS...)
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+	} else {
+		response.Code = msgs.Error
+		response.Msg = err.Error()
+		return response
+	}
 
 	// and execute. if there is an error, return it, otherwise we are done
 	if _, stderr, err := kubeapi.ExecToPodThroughAPI(apiserver.RESTConfig,

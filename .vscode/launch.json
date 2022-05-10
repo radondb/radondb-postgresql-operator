@@ -42,6 +42,7 @@
                 "PGO_OPERATOR_NAMESPACE":"pgo",
                 "PGO_INSTALLATION_NAME":"devtest",
                 "RADONDB_DEBUG":"true",
+                "TLS_NO_VERIFY": "true",
                 "EVENT_ADDR":"localhost:4150",
                 "DISABLE_EVENTING":"true"
             },
