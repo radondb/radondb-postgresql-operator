@@ -2,28 +2,28 @@
 # Default values if not already set
 ANSIBLE_VERSION ?= 2.9.*
 PGOROOT ?= $(CURDIR)
-PGO_BASEOS ?= centos8
+PGO_BASEOS ?= debian
 BASE_IMAGE_OS ?= $(PGO_BASEOS)
 PGO_IMAGE_PREFIX ?= radondb
-PGO_VERSION ?= 4.7.1
+PGO_VERSION ?= 2.1.1
 PGO_IMAGE_TAG ?= $(PGO_BASEOS)-$(PGO_VERSION)
-PGO_PG_VERSION ?= 13
-PGO_PG_FULLVERSION ?= 13.3
+PGO_PG_VERSION ?= 14
+PGO_PG_FULLVERSION ?= 14.2
 PGO_BACKREST_VERSION ?= 2.33
-PACKAGER ?= yum
+PACKAGER ?= apt
 
 RELTMPDIR=/tmp/release.$(PGO_VERSION)
 RELFILE=/tmp/postgres-operator.$(PGO_VERSION).tar.gz
 
 # Valid values: buildah (default), docker
-IMGBUILDER ?= buildah
+IMGBUILDER ?= docker
 # Determines whether or not rootless builds are enabled
 IMG_ROOTLESS_BUILD ?= false
 # The utility to use when pushing/pulling to and from an image repo (e.g. docker or buildah)
 IMG_PUSHER_PULLER ?= docker
 # Determines whether or not images should be pushed to the local docker daemon when building with
 # a tool other than docker (e.g. when building with buildah)
-IMG_PUSH_TO_DOCKER_DAEMON ?= true
+IMG_PUSH_TO_DOCKER_DAEMON ?= false
 # Defines the sudo command that should be prepended to various build commands when rootless builds are
 # not enabled
 IMGCMDSUDO=
@@ -37,37 +37,11 @@ DFSET=$(PGO_BASEOS)
 # repository using docker (otherwise the images may not be recognized)
 export BUILDAH_FORMAT ?= docker
 
-DOCKERBASEREGISTRY=registry.access.redhat.com/
+DOCKERBASEREGISTRY=docker.io/
 
 # Allows simplification of IMGBUILDER switching
 ifeq ("$(IMGBUILDER)","docker")
         IMGCMDSTEM=docker build
-endif
-
-# Allows consolidation of ubi/rhel/centos Dockerfile sets
-ifeq ("$(PGO_BASEOS)", "rhel7")
-        DFSET=rhel
-endif
-
-ifeq ("$(PGO_BASEOS)", "ubi7")
-        DFSET=rhel
-endif
-
-ifeq ("$(PGO_BASEOS)", "ubi8")
-        DFSET=rhel
-        PACKAGER=microdnf
-        BASE_IMAGE_OS=ubi8-minimal
-endif
-
-ifeq ("$(PGO_BASEOS)", "centos7")
-        DFSET=centos
-        DOCKERBASEREGISTRY=centos:
-endif
-
-ifeq ("$(PGO_BASEOS)", "centos8")
-        DFSET=centos
-        PACKAGER=dnf
-        DOCKERBASEREGISTRY=centos:
 endif
 
 DEBUG_BUILD ?= false
@@ -78,7 +52,10 @@ GO_CMD = $(GO_ENV) go
 ifeq ("$(DEBUG_BUILD)", "true")
 	GO_BUILD += -gcflags='all=-N -l'
 endif
-
+ifeq ("$(PGO_BASEOS)", "debian")
+        PACKAGER=apt
+        BASE_IMAGE_OS=bullseye-slim
+endif
 # To build a specific image, run 'make <name>-image' (e.g. 'make pgo-apiserver-image')
 images = pgo-apiserver \
 	pgo-event \

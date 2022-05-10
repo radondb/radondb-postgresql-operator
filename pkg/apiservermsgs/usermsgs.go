@@ -41,6 +41,8 @@ type CreateUserRequest struct {
 	PasswordType string
 	Selector     string
 	Username     string
+	//support create superuser
+	Superuser bool
 }
 
 // CreateUserResponse is the response to a create user request
@@ -132,5 +134,6 @@ type UserResponseDetail struct {
 	ErrorMessage string
 	Password     string
 	Username     string
+	Superuser    bool
 	ValidUntil   string
 }

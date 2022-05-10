@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copyright 2018 - 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
 # limitations under the License.
 
 GCR_IMAGE_PREFIX=docker.io/radondb
-
+PGO_IMAGE_TAG=debian-2.1.1
 IMAGES=(
 pgo-event
 pgo-scheduler

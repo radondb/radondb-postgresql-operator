@@ -1,6 +1,6 @@
 ARG BASE_IMAGE_OS
 ARG DOCKERBASEREGISTRY
-FROM ${DOCKERBASEREGISTRY}${BASE_IMAGE_OS}
+FROM debian:bullseye-slim
 
 ARG BASEOS
 ARG RELVER
@@ -20,57 +20,32 @@ LABEL vendor="RadonDB" \
 	io.openshift.tags="postgresql,postgres,sql,nosql,radondb" \
 	io.k8s.description="Trusted open source PostgreSQL-as-a-Service"
 
-COPY redhat/atomic/help.1 /help.1
-COPY licenses /licenses
+
 ENV TZ=Asia/Shanghai
-COPY conf/pip.conf pip.conf
-ENV PIP_CONFIG_FILE pip.conf
-ADD conf/Centos-8.repo /etc/yum.repos.d/
-RUN rpm --import https://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-Official
 
-RUN if [ "$BASEOS" = "centos7" ]; then \
-    ${PACKAGER} -y update \
-    && ${PACKAGER} -y clean all ; \
-fi
+RUN target=$(uname -m);rm /bin/sh && ln -s /bin/bash /bin/sh && ln -s /usr/lib/${target}-linux-gnu /usr/lib64
 
-RUN if [ "$BASEOS" = "centos8" ]; then \
-    ${PACKAGER} -y update \
-    && ${PACKAGER} -y install \
-        --setopt=skip_missing_names_on_install=False \
-        glibc-langpack-en \
-    && ${PACKAGER} -y clean all \
-    && ${PACKAGER} -qy module disable postgresql ; \
-fi
-
-RUN if [ "$BASEOS" = "rhel7" ] ; then \
-	${PACKAGER} -y --enablerepo=rhel-7-server-ose-3.11-rpms update \
-	&& ${PACKAGER} -y --enablerepo=rhel-7-server-ose-3.11-rpms clean all ; \
-fi
-
-RUN if [ "$BASEOS" = "ubi7" ] ; then \
-        ${PACKAGER} -y --enablerepo=rhel-7-server-ose-3.11-rpms update \
-        && ${PACKAGER} -y --enablerepo=rhel-7-server-ose-3.11-rpms clean all ; \
-fi
-
-RUN if  [ "$BASEOS" = "ubi8" ]; then \
-    ${PACKAGER} -y update \
-    && ${PACKAGER} -y install \
-        glibc-langpack-en \
-        procps-ng \
-        less \
-        vim-minimal \
-    && ${PACKAGER} reinstall tzdata -y \
-    && ${PACKAGER} -y clean all ; \
-fi
-
-# Create module file to disable postgres module, microdnf cannot do this with the current version
-RUN if [ "$BASEOS" = "ubi8" ] ; then \
-        echo "[postgresql]"  >> /etc/dnf/modules.d/postgresql.module \
-        && echo "name=postgresql"  >> /etc/dnf/modules.d/postgresql.module \
-        && echo "stream=10"  >> /etc/dnf/modules.d/postgresql.module \
-        && echo "profiles="  >> /etc/dnf/modules.d/postgresql.module \
-        && echo "state=disabled"  >> /etc/dnf/modules.d/postgresql.module ; \
-fi
-
-# RadonDB PostgreSQL repository
-ADD conf/radondbpg${PGVERSION}.repo /etc/yum.repos.d/
+RUN echo deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free >/etc/apt/sources.list && \
+	echo deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free >>/etc/apt/sources.list && \
+	echo deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free >>/etc/apt/sources.list && \
+	echo deb http://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free >>/etc/apt/sources.list && \
+	apt-get -y update && \
+	apt-get -y install -y --no-install-recommends \
+	ca-certificates \
+	libnss-wrapper \
+	wget \
+	gettext \
+	gnupg \
+	dirmngr \
+	curl ;\
+	groupmod -g 999 tape ;\
+	echo deb [ signed-by=/usr/local/share/keyrings/postgres.gpg.asc ] http://mirrors.tuna.tsinghua.edu.cn/postgresql/repos/apt/ bullseye-pgdg main ${PGVERSION} >/etc/apt/sources.list.d/pgdg.list; \
+	key='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8'; \
+	export GNUPGHOME="$(mktemp -d)"; \
+	mkdir -p /usr/local/share/keyrings/; \
+	gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key"; \
+	gpg --batch --export --armor "$key" > /usr/local/share/keyrings/postgres.gpg.asc; \
+	command -v gpgconf > /dev/null && gpgconf --kill all; \
+	rm -rf "$GNUPGHOME";\
+	apt-get -y update ;\
+	rm -rf /var/lib/apt/lists/*; 

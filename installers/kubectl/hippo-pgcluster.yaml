@@ -8,7 +8,7 @@ metadata:
     deployment-name: hippo
     name: hippo
     pg-cluster: hippo
-    pgo-version: 4.7.1
+    pgo-version: 2.1.1
     pgouser: admin
   name: hippo
   namespace: pgo
@@ -47,10 +47,10 @@ spec:
   backrestS3VerifyTLS: ""
   ccpimage: radondb-postgres-ha
   ccpimageprefix: docker.io/radondb
-  ccpimagetag: centos8-13.3-4.7
+  ccpimagetag: debian-2.1.1
   ccpimage: radondb-postgres-gis-ha
   ccpimageprefix: docker.io/radondb
-  ccpimagetag: centos8-13.3-3.0-4.7.1
+  ccpimagetag: debian-14.2-3.1-2.1.1
   clustername: hippo
   database: hippo
   exporterport: "9187"
@@ -69,4 +69,4 @@ spec:
   tolerations: []
   user: hippo
   userlabels:
-    pgo-version: 4.7.1
+    pgo-version: 2.1.1

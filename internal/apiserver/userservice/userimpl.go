@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -52,7 +53,8 @@ const (
 	// safely use this function, the role name and passsword must be escaped to
 	// avoid SQL injections, which is handled in the SetPostgreSQLPassword
 	// function
-	sqlCreateRole = `CREATE ROLE %s PASSWORD %s LOGIN`
+	sqlCreateRole          = `CREATE ROLE %s PASSWORD %s LOGIN`
+	sqlCreateRoleSuperuser = `CREATE ROLE %s PASSWORD %s SUPERUSER LOGIN`
 	// sqlDisableLoginClause allows a user to disable login to a PostgreSQL
 	// account
 	sqlDisableLoginClause = `NOLOGIN`
@@ -77,7 +79,7 @@ const (
 	sqlFindDatabases = `SELECT datname FROM pg_catalog.pg_database WHERE datallowconn;`
 	// sqlFindUsers returns information about PostgreSQL users that will be in
 	// a format that we need to parse
-	sqlFindUsers = `SELECT rolname, rolvaliduntil
+	sqlFindUsers = `SELECT rolname, rolvaliduntil,rolsuper
 FROM pg_catalog.pg_authid
 WHERE rolcanlogin`
 	// sqlOrderByUsername allows one to order a list from pg_authid by the
@@ -218,8 +220,14 @@ func CreateUser(request *msgs.CreateUserRequest, pgouser string) msgs.CreateUser
 		}
 
 		// build up the SQL clause that will be executed.
-		sql := sqlCreateRole
-
+		//support supperuser create
+		sql := ""
+		if request.Superuser {
+			sql = sqlCreateRoleSuperuser
+			result.Superuser = true
+		} else {
+			sql = sqlCreateRole
+		}
 		// determine if there is a password expiration set. The SQL clause
 		// is already generated and has its injectable input escaped
 		if sqlValidUntil != "" {
@@ -531,7 +539,7 @@ func ShowUser(request *msgs.ShowUserRequest) msgs.ShowUserResponse {
 
 			// if there are not two values, continue on, as this means this is not
 			// the row we are interested in
-			if len(values) != 2 {
+			if len(values) != 3 {
 				continue
 			}
 
@@ -540,12 +548,14 @@ func ShowUser(request *msgs.ShowUserRequest) msgs.ShowUserResponse {
 			if !request.ShowSystemAccounts && util.IsPostgreSQLUserSystemAccount(values[0]) {
 				continue
 			}
-
+			// is superuser or not string to bool
+			isSupper, _ := strconv.ParseBool(values[2])
 			// start building a result
 			result := msgs.UserResponseDetail{
 				ClusterName: cluster.Spec.ClusterName,
 				Username:    values[0],
 				ValidUntil:  values[1],
+				Superuser:   isSupper,
 			}
 
 			// alright, attempt to get the password if it is "managed"...sigh

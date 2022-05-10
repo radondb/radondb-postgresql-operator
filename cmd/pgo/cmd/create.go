@@ -76,6 +76,7 @@ var (
 	WALPVCSize                                                                                   string
 	RestoreFrom                                                                                  string
 	RestoreFromNamespace                                                                         string
+	Superuser                                                                                    bool
 )
 
 // group the annotation requests
@@ -342,7 +343,8 @@ var createUserCmd = &cobra.Command{
     pgo create user --username=someuser --all --managed
     pgo create user --username=someuser  mycluster --managed
     pgo create user --username=someuser -selector=name=mycluster --managed
-    pgo create user --username=user1 --selector=name=mycluster`,
+    pgo create user --username=user1 --selector=name=mycluster
+	pgo create user --username=user1 --selector=name=mycluster --password=mypassword --superuser=true`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if Namespace == "" {
 			Namespace = PGONamespace
@@ -594,6 +596,7 @@ func init() {
 	// "pgo create user" flags
 	createUserCmd.Flags().BoolVar(&AllFlag, "all", false, "Create a user on every cluster.")
 	createUserCmd.Flags().BoolVarP(&ManagedUser, "managed", "", false, "Creates a user with secrets that can be managed by the Operator.")
+	createUserCmd.Flags().BoolVarP(&Superuser, "superuser", "", false, "Creates a user with super privilege.")
 	createUserCmd.Flags().StringVarP(&OutputFormat, "output", "o", "", `The output format. Supported types are: "json"`)
 	createUserCmd.Flags().StringVarP(&Password, "password", "", "", "The password to use for creating a new user which overrides a generated password.")
 	createUserCmd.Flags().IntVarP(&PasswordLength, "password-length", "", 0, "If no password is supplied, sets the length of the automatically generated password. Defaults to the value set on the server.")

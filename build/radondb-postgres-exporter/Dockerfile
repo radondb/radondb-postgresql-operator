@@ -15,34 +15,12 @@ LABEL name="radondb-postgres-exporter" \
 	io.k8s.display-name="RadonDB PostgreSQL Exporter" \
 	io.openshift.tags="postgresql,postgres,monitoring,database,radondb"
 
-RUN if [ "$DFSET" = "centos" ] ; then \
-	${PACKAGER} -y install epel-release \
-    && ${PACKAGER} install -y \
-        --setopt=skip_missing_names_on_install=False \
-        postgresql${PGVERSION} \
-		gettext \
-		nss_wrapper \
-    && ${PACKAGER} -y clean all ; \
-fi
-
-RUN if [ "$BASEOS" = "ubi7" ] ; then \
-        ${PACKAGER} install -y \
-        --setopt=skip_missing_names_on_install=False \
-        postgresql${PGVERSION} \
-                gettext \
-                nss_wrapper \
-    && ${PACKAGER} -y clean all ; \
-fi
-
-RUN if [ "$BASEOS" = "ubi8" ] ; then \
-	${PACKAGER} install -y \
-		findutils \
-		gettext \
-		nss_wrapper \
-		postgresql${PGVERSION} \
-    && ${PACKAGER} -y clean all ; \
-fi
-
+RUN     apt-get -y update && \
+        apt-get -y install -y --no-install-recommends \
+        postgresql-${PGVERSION};\
+        rm -rf /var/lib/apt/lists/*; \
+		ln -s /usr/lib/postgresql/$PGVERSION /usr/pgsql-$PGVERSION ;
+		
 RUN mkdir -p /opt/cpm/bin /opt/cpm/conf
 
 ADD postgres_exporter.tar.gz /opt/cpm/bin

@@ -6,3 +6,6 @@ licenses/*
 .devcontainer
 .vscode/
 .devcontainer/
+*.tgz
+cmd/postgres-operator/__debug_bin
+installers/image/conf/kubernetes.repo

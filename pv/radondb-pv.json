@@ -6,9 +6,9 @@
   },
   "spec": {
     "capacity": {
-        "storage": "1Gi"
+        "storage": "500Gi"
     },
-    "accessModes": [ "ReadWriteOnce", "ReadWriteMany", "ReadOnlyMany" ],
+    "accessModes": [ "ReadWriteOnce" ],
     "hostPath": {
         "path": "/data"
     },

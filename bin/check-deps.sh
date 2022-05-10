@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/usr/bin/env bash -e
 
 # Copyright 2020 - 2021 Crunchy Data Solutions, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,22 +17,12 @@ echo "Ensuring project dependencies..."
 
 if ! command -v go &> /dev/null; then
 	echo 'Cannot find `go`. Perhaps:'
-	echo '  sudo yum install golang'
+	echo '  sudo apt install golang'
 	exit 1
 fi
 if ! sort -VC <<< $'go1.13\n'"$( read -ra array <<< "$(go version)"; echo "${array[2]-}" )"; then
 	echo 'Old version of `go`: «' "$(go version)" '» Perhaps:'
-	echo '  sudo yum update golang'
+	echo '  sudo apt update golang'
 	exit 1
 fi
 
-if ! command -v buildah &> /dev/null; then
-	echo 'Cannot find `buildah`. Perhaps:'
-	echo '  sudo yum install buildah'
-	exit 1
-fi
-if ! sort -VC <<< $'1.14.9\n'"$( read -ra array <<< "$(buildah --version)"; echo "${array[2]-}" )"; then
-	echo 'Old version of `buildah`: «' "$(buildah --version)" '» Perhaps:'
-	echo '  sudo yum update buildah'
-	exit 1
-fi

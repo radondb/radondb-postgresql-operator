@@ -10,7 +10,7 @@
       "deployment-name": "fromcrd",
       "name": "fromcrd",
       "pg-cluster": "fromcrd",
-      "pgo-version": "4.7.1",
+      "pgo-version": "2.1.1",
       "pgouser": "pgoadmin"
     },
     "name": "fromcrd",
@@ -45,7 +45,7 @@
       "supplementalgroups": ""
     },
     "ccpimage": "radondb-postgres-ha",
-    "ccpimagetag": "centos8-13.3-4.7.1",
+    "ccpimagetag": "debian-14.2-2.1.1",
     "clustername": "fromcrd",
     "database": "userdb",
     "exporterport": "9187",
@@ -60,7 +60,7 @@
     "port": "5432",
     "user": "testuser",
     "userlabels": {
-      "pgo-version": "4.7.1"
+      "pgo-version": "2.1.1"
     }
   }
 }

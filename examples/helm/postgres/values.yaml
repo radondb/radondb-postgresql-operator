@@ -10,5 +10,5 @@ password: W4tch0ut4hippo$
 # ha: true
 # imagePrefix: docker.io/radondb
 # image: radondb-postgres-ha
-# imageTag: centos8-13.3-4.7.1
+# imageTag: debian-14.2-2.1.1
 # memory: 1Gi

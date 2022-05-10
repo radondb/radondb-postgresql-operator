@@ -1,5 +1,5 @@
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: pgreplicas.radondb.com
@@ -13,11 +13,67 @@ spec:
     plural: pgreplicas
     singular: pgreplica
   scope: Namespaced
-  version: v1
-  validation:
-    openAPIV3Schema:
-      properties:
-        status:
-          properties:
-            state: { type: string }
-            message: { type: string }
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              
+              name: { type: string }
+              clustername: { type: string }
+              replicastorage:
+                type: object
+                properties:
+                  name: { type: string }
+                  storageclass: { type: string }
+                  accessmode: { type: string }
+                  size: { type: string }
+                  supplementalgroups: { type: string }
+                  matchLabels: { type: string }
+                  storagetype: { type: string }
+              serviceType: { type: string }
+              status: { type: string }
+              userlabels:
+                type: object
+                additionalProperties: {type: string}
+              nodeAffinity:
+                type: object
+                properties:
+                  nodeSelectorTerms:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        matchExpressions:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              key: { type: string }
+                              operator: { type: string }
+                              values:
+                                type: array
+                                items:
+                                  type: string
+              tolerations:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key: { type: string }
+                    operator: { type: string }
+                    value: { type: string }
+                    effect: { type: string }
+                    tolerationSeconds: { type: string }
+
+          status:
+            type: object
+            properties:
+              state: { type: string }
+              message: { type: string }

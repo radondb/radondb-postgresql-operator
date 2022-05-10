@@ -12,35 +12,17 @@ LABEL name="pgo-deployer" \
     summary="RadonDB PostgreSQL Operator - developer" \
     description="RadonDB PostgreSQL Operator - developer"
 
-COPY installers/image/conf/kubernetes.repo /etc/yum.repos.d/kubernetes.repo
-
-RUN if [ "$DFSET" = "centos" ] ; then \
-        ${PACKAGER} install -y epel-release \
-        && ${PACKAGER} -y install \
-                --setopt=skip_missing_names_on_install=False \
-                kubectl \
-                ansible-${ANSIBLE_VERSION} \
-                which \
-                gettext \
-                nss_wrapper \
-        && ${PACKAGER} -y clean all ; \
-fi
-
-RUN if [ "$BASEOS" = "rhel7" ] ; then \
-        rm /etc/yum.repos.d/kubernetes.repo \
-        && ${PACKAGER} install -y https://download.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-        && ${PACKAGER} -y install \
-                --setopt=skip_missing_names_on_install=False \
-                --enablerepo='rhel-7-server-ose-4.4-rpms' \
-                openshift-clients \
-                ansible-${ANSIBLE_VERSION} \
-                which \
-                gettext \
-                nss_wrapper \
-        && ${PACKAGER} -y clean all --enablerepo='rhel-7-server-ose-4.4-rpms' ; \
-fi
 
 
+RUN     gpg --keyserver keyserver.ubuntu.com --recv-keys 8B57C5C2836F4BEB FEEA9169307EA071  ;\
+        gpg --export --armor 8B57C5C2836F4BEB FEEA9169307EA071 | apt-key add - ;\
+        echo deb http://mirrors.ustc.edu.cn/kubernetes/apt kubernetes-xenial main >>/etc/apt/sources.list; \
+        apt-get -y update && \
+        apt-get -y install -y --no-install-recommends \
+        kubectl \  
+        python3-jmespath \   
+        ansible; \
+        rm -rf /var/lib/apt/lists/*; 
 
 RUN mkdir -p /opt/cpm/bin
 

@@ -1,5 +1,4 @@
----
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: pgclusters.radondb.com
@@ -13,23 +12,202 @@ spec:
     plural: pgclusters
     singular: pgcluster
   scope: Namespaced
-  version: v1
-  validation:
-    openAPIV3Schema:
-      properties:
-        spec:
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
           properties:
-            clustername: { type: string }
-            ccpimage: { type: string }
-            ccpimagetag: { type: string }
-            database: { type: string }
-            exporterport: { type: string }
-            name: { type: string }
-            pgbadgerport: { type: string }
-            PrimaryStorage: { type: object }
-            port: { type: string }
-            userlabels: { type: object }
-        status:
-          properties:
-            state: { type: string }
-            message: { type: string }
+            spec:
+              type: object
+              properties:
+                clustername: { type: string }
+                ccpimage: { type: string }
+                ccpimagetag: { type: string }
+                database: { type: string }
+                exporterport: { type: string }
+                name: { type: string }
+                pgbadgerport: { type: string }
+                PrimaryStorage:
+                  type: object
+                  properties:
+                    name: { type: string }
+                    storageclass: { type: string }
+                    accessmode: { type: string }
+                    size: { type: string }
+                    supplementalgroups: { type: string }
+                    matchLabels: { type: string }
+                    storagetype: { type: string }
+                port: { type: string }
+                policies: { type: string }
+                ccpimageprefix: { type: string }
+                pgoimageprefix: { type: string }
+                disableAutofail: { type: boolean }
+                pgBadger: { type: boolean }
+                exporter: { type: boolean }
+                WALStorage:
+                  type: object
+                  properties:
+                    name: { type: string }
+                    storageclass: { type: string }
+                    accessmode: { type: string }
+                    size: { type: string }
+                    supplementalgroups: { type: string }
+                    matchLabels: { type: string }
+                    storagetype: { type: string }
+                ReplicaStorage:
+                  type: object
+                  properties:
+                    name: { type: string }
+                    storageclass: { type: string }
+                    accessmode: { type: string }
+                    size: { type: string }
+                    supplementalgroups: { type: string }
+                    matchLabels: { type: string }
+                    storagetype: { type: string }
+                PGAdminStorage:
+                  type: object
+                  properties:
+                    name: { type: string }
+                    storageclass: { type: string }
+                    accessmode: { type: string }
+                    size: { type: string }
+                    supplementalgroups: { type: string }
+                    matchLabels: { type: string }
+                    storagetype: { type: string }
+                backrestResources:
+                  type: object
+                  properties:
+                    cpu: { type: string }
+                    memory: { type: string }
+                limits:
+                  type: object
+                  properties:
+                    cpu: { type: string }
+                    memory: { type: string }
+                resources:
+                  type: object
+                  properties:
+                    cpu: { type: string }
+                    memory: { type: string }
+                backrestLimits:
+                  type: object
+                  properties:
+                    cpu: { type: string }
+                    memory: { type: string }
+                exporterResources:
+                  type: object
+                  properties:
+                    cpu: { type: string }
+                    memory: { type: string }
+                exporterLimits:
+                  type: object
+                  properties:
+                    cpu: { type: string }
+                    memory: { type: string }
+                pgBouncer:
+                  type: object
+                  properties:
+                    replicas: { type: integer }
+                    resources:
+                      type: object
+                      properties:
+                        cpu: { type: string }
+                        memory: { type: string }
+                    limits:
+                      type: object
+                      properties:
+                        cpu: { type: string }
+                        memory: { type: string }
+                    size: { type: string }
+                    serviceType: { type: string }
+                    TLSSecret: { type: string }
+                user: { type: string }
+                passwordType: { type: string }
+                replicas: { type: string }
+                status: { type: string }
+                customconfig: { type: string }
+                userlabels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                    pgo-version: { type: string }
+                    workflowid: { type: string }
+                NodeAffinity: { type: object }
+                PodAntiAffinity: { type: object }
+                syncReplication: { type: boolean }
+                backrestConfig:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                        configMap: 
+                          type:
+                            object
+                          x-kubernetes-preserve-unknown-fields: true
+                backrestGCSBucket: { type: string }
+                backrestGCSEndpoint: { type: string }
+                backrestGCSKeyType: { type: string }
+                backrestS3Bucket: { type: string }
+                backrestS3Region: { type: string }
+                backrestS3Endpoint: { type: string }
+                backrestS3URIStyle: { type: string }
+                backrestS3VerifyTLS: { type: string }
+                backrestRepoPath: { type: string }
+                backrestStorageTypes:
+                  type: array
+                  items:
+                    type: string
+                BackrestStorage:
+                  type: object
+                  properties:
+                    name: { type: string }
+                    storageclass: { type: string }
+                    accessmode: { type: string }
+                    size: { type: string }
+                    supplementalgroups: { type: string }
+                    matchLabels: { type: string }
+                    storagetype: { type: string }
+                tablespaceMounts:
+                  type: object
+                  properties:
+                    name: { type: string }
+                    storageclass: { type: string }
+                    accessmode: { type: string }
+                    size: { type: string }
+                    supplementalgroups: { type: string }
+                    matchLabels: { type: string }
+                    storagetype: { type: string }
+                tls:
+                  type: object
+                  properties:
+                    caSecret: { type: string }
+                    replicationTLSSecret: { type: string }
+                    tlsSecret: { type: string }
+                tlsOnly: { type: boolean }
+                standby: { type: boolean }
+                shutdown: { type: boolean }
+                pgDataSource:
+                  type: object
+                  properties:
+                    namespace: { type: string }
+                    restoreFrom: { type: string }
+                    restoreOpts: { type: string }
+                annotations:
+                  type: object
+                  properties:
+                    additionalProperties: {type: string}
+                serviceType: { type: string }
+                tolerations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      additionalProperties: {type: string}
+            status:
+              type: object
+              properties:
+                state: { type: string }
+                message: { type: string }
