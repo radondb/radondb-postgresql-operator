@@ -75,6 +75,7 @@ const (
 	LABEL_POD_NAME         = "podname"
 	// #nosec: G101
 	LABEL_BACKREST_REPO_SECRET          = "backrest-repo-config"
+	LABEL_BACKREST_BOOTSTRAP_SECRET     = "bootstrap-backrest-repo-config"
 	LABEL_BACKREST_COMMAND              = "backrest-command"
 	LABEL_BACKREST_RESTORE_FROM_CLUSTER = "backrest-restore-from-cluster"
 	LABEL_BACKREST_RESTORE_OPTS         = "backrest-restore-opts"
