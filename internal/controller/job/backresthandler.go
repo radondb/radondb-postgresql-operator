@@ -33,8 +33,20 @@ import (
 
 // backrestUpdateHandler is responsible for handling updates to backrest jobs
 func (c *Controller) handleBackrestUpdate(job *apiv1.Job) {
+	ctx := context.TODO()
 	// return if job wasn't successful
 	if !isJobSuccessful(job) {
+		if job.Status.Active > 0 {
+			patch, err := kubeapi.NewJSONPatch().Add("spec", "status")(crv1.InProgressStatus).Bytes()
+			if err == nil {
+				log.Debugf("patching task %s: %s", job.Name, patch)
+				_, err = c.Client.RadondbV1().Pgtasks(job.Namespace).
+					Patch(ctx, job.Name, types.JSONPatchType, patch, metav1.PatchOptions{})
+			}
+			if err != nil {
+				log.Errorf("error in patching pgtask %s: %s", job.ObjectMeta.SelfLink, err.Error())
+			}
+		}
 		log.Debugf("jobController onUpdate job %s was unsuccessful and will be ignored",
 			job.Name)
 		return
@@ -60,9 +72,33 @@ func (c *Controller) handleBackrestUpdate(job *apiv1.Job) {
 // handleBackrestRestoreUpdate is responsible for handling updates to backrest backup jobs
 func (c *Controller) handleBackrestBackupUpdate(job *apiv1.Job) error {
 	ctx := context.TODO()
-
 	labels := job.GetObjectMeta().GetLabels()
-
+	// namespace := job.Namespace
+	// clusterName := labels[config.LABEL_PG_CLUSTER]
+	// var backrestRepoPodName string
+	// for _, cont := range job.Spec.Template.Spec.Containers {
+	// 	for _, envVar := range cont.Env {
+	// 		if envVar.Name == "PODNAME" {
+	// 			backrestRepoPodName = envVar.Value
+	// 			log.Debugf("the backrest repo pod for the initial backup of cluster %s is %s",
+	// 				clusterName, backrestRepoPodName)
+	// 		}
+	// 	}
+	// }
+	// backupLabel, err := operator.GetBackupLabel(c.Client, c.Client.Config, namespace, backrestRepoPodName)
+	// if err != nil {
+	// 	log.Debugf("jobController onUpdate getting backuplabel faild %s", job.Name)
+	// }
+	// labels["backupLabel"] = backupLabel
+	// patchJsonPatch := kubeapi.NewJSONPatch()
+	// patchJsonPatch.Add("metadata", "labels", "backupLabel")(backupLabel)
+	// // TODO: add patch for status
+	// // patchJsonPatch.Add("metadata", "labels", "backuptype")("manul")
+	// pacthBytes, _ := patchJsonPatch.Bytes()
+	// _, err = c.Client.RadondbV1().Pgtasks(namespace).Patch(ctx, job.Name, types.JSONPatchType, pacthBytes, metav1.PatchOptions{})
+	// if err != nil {
+	// 	log.Errorf("error in patching pgtask with labels %s: %s", job.ObjectMeta.SelfLink, err.Error())
+	// }
 	log.Debugf("jobController onUpdate backrest job case")
 	log.Debugf("got a backrest job status=%d", job.Status.Succeeded)
 	log.Debugf("update the status to completed here for backrest %s job %s", labels[config.LABEL_PG_CLUSTER], job.Name)

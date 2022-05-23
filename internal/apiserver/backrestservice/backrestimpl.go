@@ -283,7 +283,7 @@ func DeleteBackup(request msgs.DeleteBackrestBackupRequest) msgs.DeleteBackrestB
 					if backup.Label == request.Target {
 						if item.StorageType == "s3" {
 							cmd = append(cmd, repoTypeFlagS3...)
-							if ! verifyTLS {
+							if !verifyTLS {
 								cmd = append(cmd, noRepoS3VerifyTLS)
 							}
 						} else if item.StorageType == "gcs" {

@@ -212,6 +212,7 @@ func init() {
 	UpdateUserCmd.Flags().BoolVar(&RotatePassword, "rotate-password", false, "Rotates the user's password with an automatically generated password. The length of the password is determine by either --password-length or the value set on the server, in that order.")
 	UpdateUserCmd.Flags().StringVarP(&Selector, "selector", "s", "", "The selector to use for cluster filtering.")
 	UpdateUserCmd.Flags().BoolVar(&ShowSystemAccounts, "set-system-account-password", false, "Allows for a system account password to be set.")
+	UpdateUserCmd.Flags().BoolVar(&Superuser, "superuser", false, "Allows for alter a user to be superuser or normal user.")
 }
 
 // UpdateCmd represents the update command
@@ -355,6 +356,8 @@ pgo update user mycluster --username=foobar --disable-login
 
 # Enable the ability for a user to log into the PostgreSQL cluster
 pgo update user mycluster --username=foobar --enable-login
+# Alter a user to superuser role or alter a user to a regular user role
+pgo update user mycluster --username=foobar --superuser
 		`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if Namespace == "" {

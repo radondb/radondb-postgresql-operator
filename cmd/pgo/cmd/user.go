@@ -388,6 +388,7 @@ func updateUser(clusterNames []string, namespace string) {
 		PasswordType:             PasswordType,
 		RotatePassword:           RotatePassword,
 		Selector:                 Selector,
+		Superuser:                Superuser,
 		SetSystemAccountPassword: ShowSystemAccounts,
 		Username:                 strings.TrimSpace(Username),
 	}

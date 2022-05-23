@@ -107,6 +107,8 @@ type UpdateUserRequest struct {
 	Password        string
 	PasswordAgeDays int
 	PasswordLength  int
+	//support create superuser
+	Superuser bool
 	// PasswordType is one of "md5" or "scram-sha-256", defaults to "md5"
 	PasswordType        string
 	PasswordValidAlways bool
