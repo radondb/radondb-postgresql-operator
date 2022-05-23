@@ -16,10 +16,12 @@ package operator
 */
 
 import (
+	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	log "github.com/sirupsen/logrus"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
-
-	"github.com/radondb/radondb-postgresql-operator/internal/kubeapi"
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 )
 
 func addBackRestConfigDirectoryVolume(podSpec *v1.PodSpec, volumeName string, projections []v1.VolumeProjection) {
@@ -87,4 +89,21 @@ func AddBackRestConfigVolumeAndMounts(podSpec *v1.PodSpec, clusterName string, p
 	// - https://issue.k8s.io/93903
 
 	addBackRestConfigDirectoryVolumeAndMounts(podSpec, "pgbackrest-config", combined, "backrest", "database")
+}
+
+//get backup label from repo log
+
+func GetBackupLabel(clientset kubernetes.Interface, restconfig *rest.Config,
+	namespace string, podname string) (string, error) {
+	cmd := []string{`num=$(grep -n 'PROCESS START' /tmp/db-backup.log|awk -F: 'END{print $1}') && sed -n $num',${/.*new backup label =/s/.*new backup label =//p }' /tmp/db-backup.log`}
+	output, stderr, err := kubeapi.ExecToPodThroughAPI(restconfig, clientset, cmd, `database`, podname, namespace, nil)
+	if err != nil {
+		log.Error(err, stderr)
+		return "", err
+	}
+	log.Debug("output=[" + output + "]")
+
+	log.Debug("backrest info ends")
+
+	return output, err
 }

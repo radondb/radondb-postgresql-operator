@@ -58,7 +58,12 @@ const (
 	// sqlDisableLoginClause allows a user to disable login to a PostgreSQL
 	// account
 	sqlDisableLoginClause = `NOLOGIN`
-	// sqlDropOwnedBy drops all the objects owned by a PostgreSQL user in a
+	// sqlAlterRoleSuperUser is SQL that allows for the management of a PostgreSQL
+	// user to be made a superuser. This is really just the clause and effectively
+	sqlAlterRoleSuperUser = `SUPERUSER`
+	// sqlAlterRoleNoSuperUser is SQL that allows for the management of a PostgreSQL
+	// user to be make a non-superuser. This is really just the clause and effectively
+	sqlAlterRoleNoSuperUser = `NOSUPERUSER` // sqlDropOwnedBy drops all the objects owned by a PostgreSQL user in a
 	// specific **database**, not a cluster. As such, this needs to be executed
 	// multiple times when trying to drop a user from a PostgreSQL cluster. The
 	// value must be escaped with SQLQuoteIdentifier
@@ -1159,7 +1164,14 @@ func updateUser(request *msgs.UpdateUserRequest, cluster *crv1.Pgcluster) msgs.U
 		sql = fmt.Sprintf("%s %s", sql,
 			fmt.Sprintf(sqlValidUntilClause, util.SQLQuoteLiteral(result.ValidUntil)))
 	}
-
+	// now determine if we want to set the user to be  superuser  or nomaluser
+	switch request.Superuser {
+	case true:
+		sql = fmt.Sprintf("%s %s", sql, sqlAlterRoleSuperUser)
+		result.Superuser = true
+	case false:
+		sql = fmt.Sprintf("%s %s", sql, sqlAlterRoleNoSuperUser)
+	}
 	// Now, determine if we want to enable or disable the login. Enable takes
 	// precedence over disable
 	// None of these have SQL injectionsas they are fixed constants
