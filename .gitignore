@@ -8,4 +8,6 @@ licenses/*
 .devcontainer/
 *.tgz
 cmd/postgres-operator/__debug_bin
+cmd/apiserver/__debug_bin
+cmd/pgo-scheduler/__debug_bin
 installers/image/conf/kubernetes.repo
