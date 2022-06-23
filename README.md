@@ -6,11 +6,11 @@
 
 ## What is RadonDB PostgreSQL Operator
 
-[RadonDB PostgreSQL Operator](https://github.com/radondb/radondb-postgresql-operator) is an open-source, cloud-native, highly availability cluster solutions based on [PostgreSQL](https://www.postgresql.org/) and [PGO](https://github.com/CrunchyData/postgres-operator/).
+[RadonDB PostgreSQL Operator](https://github.com/radondb/radondb-postgresql-operator) is an open-source, cloud-native, and high-availability cluster solution based on [PostgreSQL](https://www.postgresql.org/) and [PGO](https://github.com/CrunchyData/postgres-operator/).
 
-RadonDB PostgreSQL Operator supports [Kubernetes](https://kubernetes.io) or [KubeSphere 3.1.x](https://kubesphere.com.cn) platforms.
+RadonDB PostgreSQL Operator can be deployed on [Kubernetes](https://kubernetes.io) and [KubeSphere 3.1.x](https://kubesphere.com.cn).
 
-## Quick Start
+## Quick start
 
 - [Deploy RadonDB PostgreSQL on Kubernetes](docs/deploy_radondb_postgresql_operator_on_kubernetes.md)
 - [Monitoring](docs/monitor_prometheus.md)
@@ -19,55 +19,55 @@ RadonDB PostgreSQL Operator supports [Kubernetes](https://kubernetes.io) or [Kub
 
 ![Architecture](docs/images/operator.png)
 
-## Main Features
+## Key features
 
-* PostgreSQL Cluster Management
+🏠 PostgreSQL cluster management
   
-  * Create, Scale, Delete PostgreSQL clusters with smooth cluster management.
-  * Create new clusters from the existing clusters or backups with efficient data cloning.
+  * Create, scale, and delete PostgreSQL clusters.
+  * Create new clusters by cloning the existing clusters or backups.
 
-* High Availability
+👏 High availability
 
-  * Support for automated failover that backed by the distributed consensus based high-availability solution.
-  * Support for standby PostgreSQL clusters that work both within and across multiple Kubernetes clusters.
+  * Support automatic failover based on the distributed and consistent high-availability solution.
+  * Deploy backup PostgreSQL clusters across Kubernetes clusters.
 
-* Connection Pooling
+🎈 Connection pooling
   
-  Advanced connection pooling support using [pgBouncer](https://access.crunchydata.com/documentation/postgres-operator/v5/tutorial/connection-pooling/).
+  The advanced connection pooling supports using the open-source [pgBouncer](https://access.crunchydata.com/documentation/postgres-operator/v5/tutorial/connection-pooling/).
 
-* Advanced Replication
+🎂 Replication
   
-  Support for asynchronous or synchronous replication for workloads that are sensitive to losing transactions.
+  Support asynchronous and synchronous replication of workloads sensitive to loss of transactions.
 
-* Disaster Recovery
+🎯 Disaster recovery
 
-  Support for backups and restores that leverage the open source [pgBackRest](https://www.pgbackrest.org/) utility.
+  Support backup and restore based on the open-source [pgBackRest](https://www.pgbackrest.org/).
 
-* Monitoring
+🔔 Monitoring
 
-  Track the health of the PostgreSQL clusters using the open source [pgMonitor](https://github.com/CrunchyData/pgmonitor) library.
+  Track the health of the PostgreSQL clusters using the open-source [pgMonitor](https://github.com/CrunchyData/pgmonitor) library.
 
-* Backups
+* Backup
 
-  * Backup to local storage. You can also store backups in any object storage system that supports the S3 protocol, such as QingStor.
-  * Support for full, incremental, and differential backups as well as efficient delta restores.，
-  * Support for user-defined backup time.
+  * Supports backup to local storage or the object storage that supports the S3 protocol like QingStor.
+  * Support full, incremental, and differential backups.
+  * Support customizing backup time policies.
 
-## Included Components
+## Included components
 
-RadonDB PostgreSQL Operator include the following components:
+The following components are used by RadonDB PostgreSQL Operator:
 
 * [PostgreSQL](https://www.postgresql.org/)
 * [pgBouncer](http://pgbouncer.github.io/)
 * [pgMonitor](https://github.com/CrunchyData/pgmonitor)
 * [pgBackRest](https://www.pgbackrest.org/)
 
-In addition to the above, the geospatially enhanced PostgreSQL + PostGIS container adds the following components:
+In addition, the following two components are added to the PostgreSQL container:
 
 * [PostGIS](http://postgis.net/)
 * [pgRouting](https://pgrouting.org/)
 
-PostgreSQL Operator Monitoring include the following components:
+ The following components are used for PostgreSQL Operator monitoring:
 
 * [pgMonitor](https://github.com/CrunchyData/pgmonitor)
 * [Prometheus](https://github.com/prometheus/prometheus)
@@ -76,11 +76,11 @@ PostgreSQL Operator Monitoring include the following components:
 
 ## License
 
-RadonDB PostgreSQL is released under the Apache 2.0, see [LICENSE](./LICENSE).
+📖RadonDB PostgreSQL is released under the Apache 2.0, see [LICENSE](./LICENSE).
 
 <p align="center">
 <br/><br/>
-Please submit any RadonDB PostgreSQL bugs, issues, and feature requests to GitHub Issue.
+😊For any RadonDB PostgreSQL bugs, issues, and feature requests, you can create an issue on GitHub.
 <br/>
 </a>
 </p>
