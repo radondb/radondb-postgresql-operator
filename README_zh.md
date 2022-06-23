@@ -6,12 +6,12 @@
 
 ## 什么是 RadonDB PostgreSQL
 
-[RadonDB PostgreSQL](https://github.com/radondb/radondb-postgresql-operator) 是基于 [PostgreSQL](https://www.postgresql.org/) 和 [PGO](https://github.com/CrunchyData/postgres-operator/) 开发的开源、高可用、云原生集群解决方案。
+[RadonDB PostgreSQL](https://github.com/radondb/radondb-postgresql-operator) 是基于 [PostgreSQL](https://www.postgresql.org/) 和 [PGO](https://github.com/CrunchyData/postgres-operator/) 开发的开源、高可用的云原生集群解决方案。
 
 RadonDB PostgreSQL Operator 支持在 [Kubernetes](https://kubernetes.io) 和 [KubeSphere 3.1.x](https://kubesphere.com.cn) 平台部署。
 
 ## 快速入门
-- [快速开始]()
+- [快速开始](docs/Qickstart.md)
 - [在 Kubernetes 上部署 RadonDB PostgreSQL 集群](docs/deploy_radondb_postgresql_operator_on_kubernetes.md)
 - [监控管理](docs/monitor_prometheus.md)
 
@@ -62,12 +62,12 @@ RadonDB PostgreSQL Operator 主要由以下功能组件创建：
 * [pgMonitor](https://github.com/CrunchyData/pgmonitor)
 * [pgBackRest](https://www.pgbackrest.org/)
 
-除此之外，针对地理空间增强的 PostgreSQL + PostGIS 容器，还增加了以下两个组件：
+除此之外，PostgreSQL 容器还增加了以下两个组件：
 
 * [PostGIS](http://postgis.net/)
 * [pgRouting](https://pgrouting.org/)
 
-PostgreSQL Operator Monitoring 使用以下组件:
+PostgreSQL Operator Monitoring 使用以下组件：
 
 * [pgMonitor](https://github.com/CrunchyData/pgmonitor)
 * [Prometheus](https://github.com/prometheus/prometheus)
