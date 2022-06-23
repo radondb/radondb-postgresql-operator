@@ -21,33 +21,33 @@ RadonDB PostgreSQL Operator 支持在 [Kubernetes](https://kubernetes.io) 和 [K
 
 ## 核心功能
 
-* 集群管理
+🏠 集群管理
 
   * 支持创建、扩容及删除 PostgreSQL 集群。
   * 支持从已有集群或集群备份，快速克隆创建集群。
 
-* 高可用
+👏 高可用
 
   * 基于分布式一致的高可用解决方案，支持故障自动转移。
   * 支持跨 Kubernetes 集群部署备用 PostgreSQL 集群。
 
-* 连接池
+🎈 连接池
   
   支持使用开源 [pgBouncer](https://access.crunchydata.com/documentation/postgres-operator/v5/tutorial/connection-pooling/) 组件，最前沿连接池技术。
 
-* 同步/异步复制
+🎂 同步/异步复制
 
   支持工作负载同步/异步复制，确保事务不丢失。
 
-* 灾备
+🎯 灾备
   
   基于开源 [pgBackRest](https://www.pgbackrest.org/) 组件，支持备份与恢复。
 
-* 监控
+🔔 监控
 
   基于开源 [pgMonitor](https://github.com/CrunchyData/pgmonitor) 组件，支持监控集群的运行状态。
 
-* 备份
+🎨 备份
   
   * 支持备份到本地存储或任何支持 S3 协议的对象存储，如 QingStor 对象存储。
   * 支持全量、增量和差异增量备份。
@@ -76,11 +76,11 @@ PostgreSQL Operator Monitoring 使用以下组件：
 
 ## 协议
 
-RadonDB PostgreSQL 基于 Apache 2.0 协议，详见 [LICENSE](./LICENSE)。
+📖RadonDB PostgreSQL 基于 Apache 2.0 协议，详见 [LICENSE](./LICENSE)。
 
 <p align="center">
 <br/><br/>
-如有任何关于 RadonDB PostgreSQL 的问题或建议，请在 GitHub 提交 Issue 反馈。
+😊如有任何关于 RadonDB PostgreSQL 的问题或建议，请在 GitHub 提交 Issue 反馈。
 <br/>
 </a>
 </p>
