@@ -47,7 +47,7 @@ RadonDB PostgreSQL Operator can be deployed on [Kubernetes](https://kubernetes.i
 
   Track the health of the PostgreSQL clusters using the open-source [pgMonitor](https://github.com/CrunchyData/pgmonitor) library.
 
-* Backup
+🎨 Backup
 
   * Support backup to local storage or the object storage that supports the S3 protocol like QingStor.
   * Support full, incremental, and differential backups.
